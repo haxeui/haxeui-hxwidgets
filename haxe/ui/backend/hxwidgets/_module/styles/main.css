@@ -1,0 +1,14 @@
+* {
+    native: true;
+}
+
+.scroll, .hscroll, .vscroll {
+    width: auto;
+    height: auto;
+    background-color: none !important;
+    color: none;
+}
+
+.dialog {
+    padding-top: 10px !important;
+}

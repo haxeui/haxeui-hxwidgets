@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<native>
+    <component id="haxe.ui.components.Button" class="hx.widgets.Button" allowChildren="false">
+        <behaviour id="text" class="haxe.ui.backend.hxwidgets.behaviours.ControlLabel" />
+        <behaviour id="icon" class="haxe.ui.backend.hxwidgets.behaviours.ControlBitmap" />
+        <size class="haxe.ui.backend.hxwidgets.size.BestSize" includePadding="false" />
+    </component>    
+    <component id="haxe.ui.components.Label" class="hx.widgets.StaticText" allowChildren="false">
+        <behaviour id="text" class="haxe.ui.backend.hxwidgets.behaviours.ControlLabel" />
+        <size class="haxe.ui.backend.hxwidgets.size.WindowSize" includePadding="false" />
+    </component>    
+    <component id="haxe.ui.components.CheckBox" class="hx.widgets.CheckBox" allowChildren="false">
+        <behaviour id="text" class="haxe.ui.backend.hxwidgets.behaviours.ControlLabel" />
+        <behaviour id="selected" class="haxe.ui.backend.hxwidgets.behaviours.ControlValue" />
+        <size class="haxe.ui.backend.hxwidgets.size.BestSize" includePadding="false" />
+    </component>    
+    <component id="haxe.ui.components.OptionBox" class="hx.widgets.RadioButton" allowChildren="false">
+        <behaviour id="text" class="haxe.ui.backend.hxwidgets.behaviours.ControlLabel" />
+        <behaviour id="selected" class="haxe.ui.backend.hxwidgets.behaviours.ControlValue" />
+        <size class="haxe.ui.backend.hxwidgets.size.BestSize" includePadding="false" />
+    </component>    
+    <component id="haxe.ui.components.TextField" class="hx.widgets.TextCtrl" allowChildren="false">
+        <behaviour id="text" class="haxe.ui.backend.hxwidgets.behaviours.ControlLabel" />
+        <size class="haxe.ui.backend.hxwidgets.size.BestSize" includePadding="false" />
+    </component>    
+    <component id="haxe.ui.components.HProgress" class="hx.widgets.Gauge" allowChildren="false">
+        <behaviour id="pos" class="haxe.ui.backend.hxwidgets.behaviours.ControlValue" />
+        <behaviour id="indeterminate" class="haxe.ui.backend.hxwidgets.behaviours.ControlPulse" />
+        <size class="haxe.ui.backend.hxwidgets.size.BestSize" includePadding="false" />
+    </component>
+    <component id="haxe.ui.components.VProgress" class="hx.widgets.Gauge" allowChildren="false" style="GaugeStyle.VERTICAL">
+        <behaviour id="pos" class="haxe.ui.backend.hxwidgets.behaviours.ControlValue" />
+        <behaviour id="indeterminate" class="haxe.ui.backend.hxwidgets.behaviours.ControlPulse" />
+        <size class="haxe.ui.backend.hxwidgets.size.BestSize" includePadding="false" />
+    </component>
+    <component id="haxe.ui.components.HSlider" allowChildren="false" class="hx.widgets.Slider">
+        <behaviour id="pos" class="haxe.ui.backend.hxwidgets.behaviours.ControlValue" />
+        <size class="haxe.ui.backend.hxwidgets.size.BestSize" includePadding="false" />
+    </component>
+    <component id="haxe.ui.components.VSlider" class="hx.widgets.Slider" allowChildren="false" style="SliderStyle.VERTICAL">
+        <behaviour id="pos" class="haxe.ui.backend.hxwidgets.behaviours.ControlValue" />
+        <size class="haxe.ui.backend.hxwidgets.size.BestSize" includePadding="false" />
+    </component>
+    <component id="haxe.ui.containers.TabView" class="hx.widgets.Notebook">
+        <size class="haxe.ui.backend.hxwidgets.size.NotebookSize" includePadding="false" />
+    </component>
+    <component id="haxe.ui.containers.ScrollView" class="hx.widgets.ScrolledWindow">
+        <size class="haxe.ui.backend.hxwidgets.size.WindowSize" includePadding="false" />
+    </component>
+    <component id="haxe.ui.components.HScroll" class="hx.widgets.ScrollBar" allowChildren="false" style="ScrollBarStyle.HORIZONTAL">
+        <behaviour id="pos" class="haxe.ui.backend.hxwidgets.behaviours.ControlValue" />
+        <size class="haxe.ui.backend.hxwidgets.size.BestSize" includePadding="false" />
+    </component>
+    <component id="haxe.ui.components.VScroll" class="hx.widgets.ScrollBar" allowChildren="false" style="ScrollBarStyle.VERTICAL">
+        <behaviour id="pos" class="haxe.ui.backend.hxwidgets.behaviours.ControlValue" />
+        <size class="haxe.ui.backend.hxwidgets.size.BestSize" includePadding="false" />
+    </component>
+    <component id="haxe.ui.components.Image" class="hx.widgets.StaticBitmap" allowChildren="false">
+        <behaviour id="resource" class="haxe.ui.backend.hxwidgets.behaviours.ControlBitmap" />
+        <size class="haxe.ui.backend.hxwidgets.size.BestSize" includePadding="false" />
+    </component>
+    <component id="haxe.ui.containers.dialogs.Dialog" class="hx.widgets.Dialog">
+        <size class="haxe.ui.backend.hxwidgets.size.DialogSize" />
+    </component>
+</native>    
