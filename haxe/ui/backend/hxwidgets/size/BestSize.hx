@@ -10,7 +10,7 @@ class BestSize extends DelegateLayoutSize {
         }
         return component.window.bestSize.width;
     }
-    
+
     private override function get_height():Float {
         if (component.window == null) {
             return 0;

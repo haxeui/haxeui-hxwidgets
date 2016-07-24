@@ -15,7 +15,7 @@ class ControlBitmap extends HxWidgetsBehaviour {
         if (_component.window == null) {
             return;
         }
-        
+
         if (value.isNull) {
             return;
         }
@@ -32,7 +32,7 @@ class ControlBitmap extends HxWidgetsBehaviour {
             }
         }
     }
-    
+
     public override function get():Variant {
         /*
         if (_component.window == null) {

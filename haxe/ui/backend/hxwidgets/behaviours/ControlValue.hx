@@ -14,7 +14,7 @@ class ControlValue extends HxWidgetsBehaviour {
         if (_component.window == null) {
             return;
         }
-        
+
         if (Std.is(_component.window, Gauge)) {
             cast(_component.window, Gauge).value = value;
         } else if (Std.is(_component.window, Slider)) {
@@ -27,7 +27,7 @@ class ControlValue extends HxWidgetsBehaviour {
         } else if (Std.is(_component.window, RadioButton)) {
             cast(_component.window, RadioButton).value = value;
         }
-        
+
         /*
         if (_component.window == null) {
             return;
@@ -51,7 +51,7 @@ class ControlValue extends HxWidgetsBehaviour {
         }
         */
     }
-    
+
     public override function get():Variant {
         /*
         if (_component.window == null) {

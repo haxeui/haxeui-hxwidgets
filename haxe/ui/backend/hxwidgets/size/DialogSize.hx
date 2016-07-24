@@ -10,18 +10,18 @@ class DialogSize extends DelegateLayoutSize {
     private override function get_width():Float {
         return component.window.bestSize.width;
     }
-    
+
     private override function get_height():Float {
         return component.window.bestSize.height;
     }
-    
-	private override function get_usableWidthModifier():Float {
+
+    private override function get_usableWidthModifier():Float {
         var m:Int = 6;
-		return m;
-	}
-    
-	private override function get_usableHeightModifier():Float {
+        return m;
+    }
+
+    private override function get_usableHeightModifier():Float {
         var m:Int = SystemSettings.getMetric(SystemMetric.CAPTION_Y);
-		return m;
-	}
+        return m;
+    }
 }

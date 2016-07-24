@@ -19,5 +19,5 @@ class Platform {
         }
         return _name;
     }
-    
+
 }

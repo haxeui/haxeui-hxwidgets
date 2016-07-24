@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <module id="haxeui-hxwidgets">
-	<resources>
-		<resource path="/haxe/ui/backend/hxwidgets/_module/styles" prefix="styles" />
-	</resources>
-	<themes>
-		<global>
-			<style resource="styles/main.css" />
-		</global>
-	</themes>
+    <resources>
+        <resource path="/haxe/ui/backend/hxwidgets/_module/styles" prefix="styles" />
+    </resources>
+    <themes>
+        <global>
+            <style resource="styles/main.css" />
+        </global>
+    </themes>
 </module>

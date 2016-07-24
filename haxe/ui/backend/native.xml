@@ -4,25 +4,25 @@
         <behaviour id="text" class="haxe.ui.backend.hxwidgets.behaviours.ControlLabel" />
         <behaviour id="icon" class="haxe.ui.backend.hxwidgets.behaviours.ControlBitmap" />
         <size class="haxe.ui.backend.hxwidgets.size.BestSize" includePadding="false" />
-    </component>    
+    </component>
     <component id="haxe.ui.components.Label" class="hx.widgets.StaticText" allowChildren="false">
         <behaviour id="text" class="haxe.ui.backend.hxwidgets.behaviours.ControlLabel" />
         <size class="haxe.ui.backend.hxwidgets.size.WindowSize" includePadding="false" />
-    </component>    
+    </component>
     <component id="haxe.ui.components.CheckBox" class="hx.widgets.CheckBox" allowChildren="false">
         <behaviour id="text" class="haxe.ui.backend.hxwidgets.behaviours.ControlLabel" />
         <behaviour id="selected" class="haxe.ui.backend.hxwidgets.behaviours.ControlValue" />
         <size class="haxe.ui.backend.hxwidgets.size.BestSize" includePadding="false" />
-    </component>    
+    </component>
     <component id="haxe.ui.components.OptionBox" class="hx.widgets.RadioButton" allowChildren="false">
         <behaviour id="text" class="haxe.ui.backend.hxwidgets.behaviours.ControlLabel" />
         <behaviour id="selected" class="haxe.ui.backend.hxwidgets.behaviours.ControlValue" />
         <size class="haxe.ui.backend.hxwidgets.size.BestSize" includePadding="false" />
-    </component>    
+    </component>
     <component id="haxe.ui.components.TextField" class="hx.widgets.TextCtrl" allowChildren="false">
         <behaviour id="text" class="haxe.ui.backend.hxwidgets.behaviours.ControlLabel" />
         <size class="haxe.ui.backend.hxwidgets.size.BestSize" includePadding="false" />
-    </component>    
+    </component>
     <component id="haxe.ui.components.HProgress" class="hx.widgets.Gauge" allowChildren="false">
         <behaviour id="pos" class="haxe.ui.backend.hxwidgets.behaviours.ControlValue" />
         <behaviour id="indeterminate" class="haxe.ui.backend.hxwidgets.behaviours.ControlPulse" />
@@ -62,4 +62,4 @@
     <component id="haxe.ui.containers.dialogs.Dialog" class="hx.widgets.Dialog">
         <size class="haxe.ui.backend.hxwidgets.size.DialogSize" />
     </component>
-</native>    
+</native>

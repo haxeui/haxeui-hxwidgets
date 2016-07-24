@@ -7,7 +7,7 @@ import hx.widgets.Timer;
 
 class TimerBase {
     private var _timer:Timer;
-    
+
     public function new(delay:Int, callback:Void->Void) {
         var frame:Frame = Screen.instance.options.frame;
         _timer = new Timer(frame, delay);
@@ -15,7 +15,7 @@ class TimerBase {
            callback();
         });
     }
-    
+
     public function stop() {
         _timer.stop();
     }

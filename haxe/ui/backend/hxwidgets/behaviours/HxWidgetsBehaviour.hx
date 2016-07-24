@@ -8,7 +8,7 @@ class HxWidgetsBehaviour extends Behaviour {
     public override function set(value:Variant) {
         _value = value;
     }
-    
+
     public override function update() {
         set(_value);
     }

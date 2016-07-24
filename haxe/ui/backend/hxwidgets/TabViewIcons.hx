@@ -8,12 +8,12 @@ import hx.widgets.Notebook;
 class TabViewIcons {
     private static var _tabsToImageList:Map<TabView, ImageList> = new Map<TabView, ImageList>();
     private static var _imageListToIcon:Map<ImageList, Array<String>> = new Map<ImageList, Array<String>>();
-    
+
     public static function getImageIndex(tabView:TabView, icon:String):Int {
         if (Toolkit.backendProperties.getPropBool('haxe.ui.hxwidgets.${Platform.name}.notebook.icons.hide', false) == true) {
             return -1;
         }
-        
+
         if (icon == null) {
             return -1;
         }
@@ -23,17 +23,17 @@ class TabViewIcons {
         if (imageList != null) {
             var iconList:Array<String> = _imageListToIcon.get(imageList);
             if (iconList != null) {
-               index = iconList.indexOf(icon); 
+               index = iconList.indexOf(icon);
             }
         }
-        
+
         if (index == -1) {
             index = addImage(tabView, icon);
         }
-        
+
         return index;
     }
-    
+
     public static function addImage(tabView:TabView, icon:String):Int {
         var imageList:ImageList = _tabsToImageList.get(tabView);
         if (imageList == null) {
@@ -42,7 +42,7 @@ class TabViewIcons {
             var notebook:Notebook =  cast tabView.window;
             notebook.imageList = imageList;
         }
-        
+
         var iconList:Array<String> = _imageListToIcon.get(imageList);
         if (iconList == null) {
             iconList = new Array<String>();
@@ -50,7 +50,7 @@ class TabViewIcons {
         }
         imageList.add(Bitmap.fromHaxeResource(icon));
         iconList.push(icon);
-        
+
         return iconList.indexOf(icon);
     }
 }

@@ -7,7 +7,7 @@ class StyleParser {
         if (styleString == null) {
             return 0;
         }
-        
+
         var style:Int = 0;
         var styles:Array<String> = styleString.split(",");
         for (s in styles) {
@@ -16,7 +16,7 @@ class StyleParser {
         }
         return style;
     }
-    
+
     public static function parseStyle(style:String):Int {
         if (style == null || style.length == 0) {
             return 0;
@@ -30,7 +30,7 @@ class StyleParser {
             case "ScrollBarStyle.HORIZONTAL":           return ScrollBarStyle.HORIZONTAL;
             case "ScrollBarStyle.VERTICAL":             return ScrollBarStyle.VERTICAL;
         }
-        
+
         return 0;
     }
 }
