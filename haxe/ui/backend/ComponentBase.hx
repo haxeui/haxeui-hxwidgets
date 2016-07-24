@@ -88,6 +88,7 @@ class ComponentBase {
     //***********************************************************************************************************
     private var _imageDisplay:ImageDisplay;
     public function createImageDisplay():ImageDisplay {
+        // test
         if (_imageDisplay == null) {
             _imageDisplay = new ImageDisplay();
         }
