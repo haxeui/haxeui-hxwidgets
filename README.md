@@ -8,6 +8,10 @@
 <h2>haxeui-hxwidgets</h2>
 `haxeui-hxwidgets` is the `wxWidgets` backend for HaxeUI.
 
+<p align="center">
+	<img src="https://github.com/haxeui/haxeui-hxwidgets/raw/master/screen.png" />
+</p>
+
 <h2>Installation</h2>
  * `haxeui-hxwidgets` has a dependency to <a href="https://github.com/haxeui/haxeui-core">`haxeui-core`</a>, and so that too must be installed.
  * `haxeui-hxwidgets` also has a dependency to <a href="https://github.com/haxeui/hxWidgets">hxWidgets</a> (the `wxWidgets` Haxe externs), please refer to the installation instructions on their <a href="https://github.com/haxeui/hxWidgets">site</a>.
