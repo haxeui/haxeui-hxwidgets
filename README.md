@@ -25,7 +25,7 @@ haxelib dev haxeui-hxwidgets path/to/expanded/source/archive
 ```
 
 <h2>Usage</h2>
-The simplest method to create a new `PixiJS` application that is HaxeUI ready is to use one of the <a href="https://github.com/haxeui/haxeui-templates">haxeui-templates</a>. These templates will allow you to start a new project rapidly with HaxeUI support baked in. 
+The simplest method to create a new `hxWidgets` application that is HaxeUI ready is to use one of the <a href="https://github.com/haxeui/haxeui-templates">haxeui-templates</a>. These templates will allow you to start a new project rapidly with HaxeUI support baked in. 
 
 If however you already have an existing application, then incorporating HaxeUI into that application is straightforward:
 
