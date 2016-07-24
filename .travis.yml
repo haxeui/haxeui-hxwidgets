@@ -1,0 +1,52 @@
+sudo: true
+language: haxe
+
+os:
+  - linux
+
+haxe:
+  - "3.2.1"
+  - development
+
+before_install:
+   # Installing wxWidgets
+  - if [ "${TRAVIS_OS_NAME}" = "linux" ]; then
+      sudo apt-get -qq update;
+      sudo apt-get install -y libwxgtk3.0-dev libwxbase3.0-dev;
+    elif [ "${TRAVIS_OS_NAME}" = "osx" ]; then
+      brew update;
+      brew install wxwidgets;
+    fi
+  
+  # Print wx-config to know more
+  - wx-config --cxxflags
+  - wx-config --libs
+  
+  # We need a git version of hxcpp for now
+  - git clone https://github.com/HaxeFoundation/hxcpp.git --depth=1
+  - haxelib dev hxcpp hxcpp
+  - cd hxcpp/tools/hxcpp
+  - haxe compile.hxml
+  - cd ../build
+  - haxe compile.hxml
+  - cd ../../project
+  - neko build.n clean
+  - if [ "${TRAVIS_OS_NAME}" = "linux" ]; then
+      neko build.n linux-64;
+    elif [ "${TRAVIS_OS_NAME}" = "osx" ]; then
+      neko build.n;
+    fi
+  - cd ../../..
+
+  - git clone https://github.com/haxeui/haxeui-core.git --depth=1
+  - haxelib dev haxeui-core haxeui-core
+
+  - git clone https://github.com/haxeui/hxWidgets.git --depth=1
+  - haxelib dev hxWidgets hxWidgets
+
+install:
+    - haxelib install hscript
+    # - haxelib dev haxeui-openfl $TRAVIS_BUILD_DIR
+
+script:
+    - haxe linux.hxml

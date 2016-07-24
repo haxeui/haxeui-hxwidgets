@@ -1,0 +1,9 @@
+-lib hscript
+-lib haxeui-core
+-lib hxWidgets
+
+-cpp bin
+
+-cp .
+#--no-output 
+--macro haxe.macro.Compiler.include("haxe.ui")
