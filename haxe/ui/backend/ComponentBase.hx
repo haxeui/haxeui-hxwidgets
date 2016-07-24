@@ -14,8 +14,10 @@ import haxe.ui.core.UIEvent;
 import haxe.ui.styles.Style;
 import haxe.ui.util.Rectangle;
 import hx.widgets.Bitmap;
+import hx.widgets.Button;
 import hx.widgets.Defs;
 import hx.widgets.Dialog;
+import hx.widgets.Direction;
 import hx.widgets.Event;
 import hx.widgets.EventType;
 import hx.widgets.Font;
@@ -88,7 +90,6 @@ class ComponentBase {
     //***********************************************************************************************************
     private var _imageDisplay:ImageDisplay;
     public function createImageDisplay():ImageDisplay {
-        // test
         if (_imageDisplay == null) {
             _imageDisplay = new ImageDisplay();
         }
@@ -470,7 +471,6 @@ class ComponentBase {
             window.refresh();
         }
 
-        /*
         if (Std.is(window, Button)) {
             var button:Button = cast window;
             switch (style.iconPosition) {
@@ -484,7 +484,6 @@ class ComponentBase {
                     button.bitmapPosition = Direction.LEFT;
             }
         }
-        */
 
         if (style.fontSize != null || style.fontBold != null || style.fontItalic != null || style.fontUnderline != null) {
             var fontSize:Int = 9;
