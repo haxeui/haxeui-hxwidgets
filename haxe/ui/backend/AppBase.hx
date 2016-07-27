@@ -56,6 +56,7 @@ class AppBase {
         _frame.freeze();
         _frame.resize(frameWidth, frameHeight);
         _frame.move(frameLeft, frameTop);
+
         /*
         _frame.bind(EventType.CLOSE_WINDOW, function(e:Event) {
             _frame.destroy();
@@ -76,6 +77,9 @@ class AppBase {
 
     public function start() {
 
+        if (Toolkit.backendProperties.getPropBool("haxe.ui.hxwidgets.frame.fit", false) == true) {
+            _frame.fit();
+        }
         _frame.thaw();
         _frame.show(true);
         _app.run();
