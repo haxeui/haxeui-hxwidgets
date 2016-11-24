@@ -9,6 +9,10 @@
     color: none;
 }
 
+.button {
+    background-color: none !important;
+}
+
 .dialog {
     padding-top: 10px !important;
 }

@@ -380,6 +380,9 @@ class ComponentBase {
     }
 
     private function handleClipRect(value:Rectangle):Void {
+        if (__parent == null || __parent.window == null || Std.is(__parent.window, ScrolledWindow) == false) {
+            return;
+        }
         var hscrollPos:Int = __parent.window.getScrollPos(Orientation.HORIZONTAL);
         var vscrollPos:Int = __parent.window.getScrollPos(Orientation.VERTICAL);
         var step:Int = 20;
@@ -458,13 +461,11 @@ class ComponentBase {
         }
         */
 
-        /*
         if (style.backgroundColor != null && _hasPaintHandler == false) {
             //trace(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> " + this + " --- " + StringTools.hex(style.backgroundColor));
             window.backgroundColour = convertColor(style.backgroundColor);
             refreshWindow = true;
         }
-        */
 
         if (style.color != null) {
             window.foregroundColour = convertColor(style.color);

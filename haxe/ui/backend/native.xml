@@ -47,6 +47,9 @@
     <component id="haxe.ui.containers.ScrollView" class="hx.widgets.ScrolledWindow">
         <size class="haxe.ui.backend.hxwidgets.size.WindowSize" includePadding="false" />
     </component>
+    <component id="haxe.ui.containers.ListView" class="hx.widgets.ScrolledWindow">
+        <size class="haxe.ui.backend.hxwidgets.size.WindowSize" includePadding="false" />
+    </component>
     <component id="haxe.ui.components.HScroll" class="hx.widgets.ScrollBar" allowChildren="false" style="ScrollBarStyle.HORIZONTAL">
         <behaviour id="pos" class="haxe.ui.backend.hxwidgets.behaviours.ControlValue" />
         <size class="haxe.ui.backend.hxwidgets.size.BestSize" includePadding="false" />

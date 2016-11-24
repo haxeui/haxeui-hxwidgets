@@ -31,6 +31,11 @@ class ScreenBase {
         return frame.clientSize.height;
     }
 
+    public var dpi(get, null):Float;
+    private function get_dpi():Float {
+        return 72;
+    }
+    
     private var __topLevelComponents:Array<Component> = new Array<Component>();
     public function addComponent(component:Component) {
         __topLevelComponents.push(component);
