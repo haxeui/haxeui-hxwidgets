@@ -25,9 +25,11 @@ import hx.widgets.Font;
 import hx.widgets.FontFamily;
 import hx.widgets.FontStyle;
 import hx.widgets.FontWeight;
+import hx.widgets.HitTest;
 import hx.widgets.Notebook;
 import hx.widgets.Orientation;
 import hx.widgets.PlatformInfo;
+import hx.widgets.Point;
 import hx.widgets.ScrollBar;
 import hx.widgets.ScrolledWindow;
 import hx.widgets.Size;
@@ -458,12 +460,12 @@ class ComponentBase {
 
         if (style.backgroundColor != null && _hasPaintHandler == false) {
             //trace(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> " + this + " --- " + StringTools.hex(style.backgroundColor));
-            window.backgroundColour = convertColor(style.backgroundColor);
+            window.backgroundColour = style.backgroundColor;
             refreshWindow = true;
         }
 
         if (style.color != null) {
-            window.foregroundColour = convertColor(style.color);
+            window.foregroundColour = style.color;
             refreshWindow = true;
         }
 
@@ -602,13 +604,21 @@ class ComponentBase {
     private function __onMouseEvent(event:Event) {
         var mouseEvent:hx.widgets.MouseEvent = event.convertTo(hx.widgets.MouseEvent);
         var type:String = EventMapper.WX_TO_HAXEUI.get(event.eventType);
+        var pt:Point = new Point(mouseEvent.x, mouseEvent.y);
+        if (type == MouseEvent.MOUSE_OUT) {
+            if (window.hitTest(pt) == HitTest.WINDOW_INSIDE) {
+                return;
+            }
+        }
+        
         if (type != null) {
             var fn = _eventMap.get(type);
             if (fn != null) {
-                var mouseEvent = new MouseEvent(type);
-                //mouseEvent.screenX = event.pageX;
-                //mouseEvent.screenY = event.pageY;
-                fn(mouseEvent);
+                var newMouseEvent = new MouseEvent(type);
+                pt = window.clientToScreen(pt);
+                newMouseEvent.screenX = pt.x;
+                newMouseEvent.screenY = pt.y;
+                fn(newMouseEvent);
             }
         }
     }
