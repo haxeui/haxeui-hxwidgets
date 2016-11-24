@@ -1,4 +1,5 @@
 package haxe.ui.backend.hxwidgets;
+
 import hx.widgets.EventType;
 
 class EventMapper {

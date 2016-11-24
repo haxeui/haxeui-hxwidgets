@@ -1,5 +1,6 @@
 package haxe.ui.backend;
 
+import haxe.ui.backend.hxwidgets.ConstructorParams;
 import haxe.ui.backend.hxwidgets.EventMapper;
 import haxe.ui.backend.hxwidgets.StyleParser;
 import haxe.ui.backend.hxwidgets.TabViewIcons;
@@ -146,29 +147,23 @@ class ComponentBase {
 
         var className:String = Type.getClassName(Type.getClass(this));
         var nativeComponentClass:String = Toolkit.nativeConfig.query('component[id=${className}].@class', 'hx.widgets.Panel');
+        if (nativeComponentClass == null) {
+            nativeComponentClass = "hx.widgets.Panel";
+        }
+        
         var styleString:String = Toolkit.nativeConfig.query('component[id=${className}].@style');
-
-        var params:Array<Dynamic> = [parent];
-
         var style:Int = StyleParser.parseStyleString(styleString);
-        // TODO: make this more dynamic, make a way to specific the constructor in the native config?
-        if (nativeComponentClass == "hx.widgets.Gauge") {
-            params = [parent, 100, style];
-        } else if (nativeComponentClass == "hx.widgets.Slider") {
-            params = [parent, 0, 0, 100, style];
-        } else if (nativeComponentClass == "hx.widgets.ScrollBar") {
-            params = [parent, style];
-        } else if (nativeComponentClass == "hx.widgets.StaticBitmap") {
+        
+        var params:Array<Dynamic> = ConstructorParams.build(Toolkit.nativeConfig.query('component[id=${className}].@constructor'), style);
+        params.insert(0, parent);
+
+        // special cases
+        if (nativeComponentClass == "hx.widgets.StaticBitmap") {
             var resource:String = cast(this, haxe.ui.components.Image).resource;
             params = [parent, Bitmap.fromHaxeResource(resource)];
         } else if (nativeComponentClass == "hx.widgets.Dialog") {
             var dialog = cast(this, haxe.ui.containers.dialogs.Dialog);
             params = [parent, dialog.dialogOptions.title, DialogStyle.DEFAULT_DIALOG_STYLE | Defs.CENTRE];
-        }
-
-        if (nativeComponentClass == null) {
-            nativeComponentClass = "hx.widgets.Panel";
-            params = [parent];
         }
 
         window = Type.createInstance(Type.resolveClass(nativeComponentClass), params);

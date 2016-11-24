@@ -23,21 +23,21 @@
         <behaviour id="text" class="haxe.ui.backend.hxwidgets.behaviours.ControlLabel" />
         <size class="haxe.ui.backend.hxwidgets.size.BestSize" includePadding="false" />
     </component>
-    <component id="haxe.ui.components.HProgress" class="hx.widgets.Gauge" allowChildren="false">
+    <component id="haxe.ui.components.HProgress" class="hx.widgets.Gauge" constructor="100, $style" allowChildren="false">
         <behaviour id="pos" class="haxe.ui.backend.hxwidgets.behaviours.ControlValue" />
         <behaviour id="indeterminate" class="haxe.ui.backend.hxwidgets.behaviours.ControlPulse" />
         <size class="haxe.ui.backend.hxwidgets.size.BestSize" includePadding="false" />
     </component>
-    <component id="haxe.ui.components.VProgress" class="hx.widgets.Gauge" allowChildren="false" style="GaugeStyle.VERTICAL">
+    <component id="haxe.ui.components.VProgress" class="hx.widgets.Gauge" constructor="100, $style" allowChildren="false" style="GaugeStyle.VERTICAL">
         <behaviour id="pos" class="haxe.ui.backend.hxwidgets.behaviours.ControlValue" />
         <behaviour id="indeterminate" class="haxe.ui.backend.hxwidgets.behaviours.ControlPulse" />
         <size class="haxe.ui.backend.hxwidgets.size.BestSize" includePadding="false" />
     </component>
-    <component id="haxe.ui.components.HSlider" allowChildren="false" class="hx.widgets.Slider">
+    <component id="haxe.ui.components.HSlider" allowChildren="false" class="hx.widgets.Slider" constructor="0, 0, 100, $style">
         <behaviour id="pos" class="haxe.ui.backend.hxwidgets.behaviours.ControlValue" />
         <size class="haxe.ui.backend.hxwidgets.size.BestSize" includePadding="false" />
     </component>
-    <component id="haxe.ui.components.VSlider" class="hx.widgets.Slider" allowChildren="false" style="SliderStyle.VERTICAL">
+    <component id="haxe.ui.components.VSlider" class="hx.widgets.Slider" constructor="0, 0, 100, $style" allowChildren="false" style="SliderStyle.VERTICAL">
         <behaviour id="pos" class="haxe.ui.backend.hxwidgets.behaviours.ControlValue" />
         <size class="haxe.ui.backend.hxwidgets.size.BestSize" includePadding="false" />
     </component>
@@ -50,11 +50,11 @@
     <component id="haxe.ui.containers.ListView" class="hx.widgets.ScrolledWindow">
         <size class="haxe.ui.backend.hxwidgets.size.WindowSize" includePadding="false" />
     </component>
-    <component id="haxe.ui.components.HScroll" class="hx.widgets.ScrollBar" allowChildren="false" style="ScrollBarStyle.HORIZONTAL">
+    <component id="haxe.ui.components.HScroll" class="hx.widgets.ScrollBar" constructor="$style" allowChildren="false" style="ScrollBarStyle.HORIZONTAL">
         <behaviour id="pos" class="haxe.ui.backend.hxwidgets.behaviours.ControlValue" />
         <size class="haxe.ui.backend.hxwidgets.size.BestSize" includePadding="false" />
     </component>
-    <component id="haxe.ui.components.VScroll" class="hx.widgets.ScrollBar" allowChildren="false" style="ScrollBarStyle.VERTICAL">
+    <component id="haxe.ui.components.VScroll" class="hx.widgets.ScrollBar" constructor="$style" allowChildren="false" style="ScrollBarStyle.VERTICAL">
         <behaviour id="pos" class="haxe.ui.backend.hxwidgets.behaviours.ControlValue" />
         <size class="haxe.ui.backend.hxwidgets.size.BestSize" includePadding="false" />
     </component>
