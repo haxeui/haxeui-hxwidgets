@@ -30,6 +30,7 @@ import hx.widgets.Notebook;
 import hx.widgets.Orientation;
 import hx.widgets.PlatformInfo;
 import hx.widgets.Point;
+import hx.widgets.RadioButton;
 import hx.widgets.ScrollBar;
 import hx.widgets.ScrolledWindow;
 import hx.widgets.Size;
@@ -574,7 +575,10 @@ class ComponentBase {
             case UIEvent.CHANGE:
                 if (Std.is(window, Notebook)) {
                     _eventMap.set(type, listener);
-                    window.bind(EventType.NOTEBOOK_PAGE_CHANGED, __onTabsChanged);
+                    window.bind(EventType.NOTEBOOK_PAGE_CHANGED, __onChangeEvent);
+                } else if (Std.is(window, RadioButton)) {
+                    _eventMap.set(type, listener);
+                    window.bind(EventType.RADIOBUTTON, __onChangeEvent);
                 }
         }
     }
@@ -593,7 +597,7 @@ class ComponentBase {
         }
     }
 
-    private function __onTabsChanged(event:Event) {
+    private function __onChangeEvent(event:Event) {
         var fn = _eventMap.get(UIEvent.CHANGE);
         if (fn != null) {
             var uiEvent:UIEvent = new UIEvent(UIEvent.CHANGE);
