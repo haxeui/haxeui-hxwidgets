@@ -16,6 +16,7 @@ import haxe.ui.styles.Style;
 import haxe.ui.util.Rectangle;
 import hx.widgets.Bitmap;
 import hx.widgets.Button;
+import hx.widgets.CheckBox;
 import hx.widgets.Defs;
 import hx.widgets.Dialog;
 import hx.widgets.Direction;
@@ -579,6 +580,9 @@ class ComponentBase {
                 } else if (Std.is(window, RadioButton)) {
                     _eventMap.set(type, listener);
                     window.bind(EventType.RADIOBUTTON, __onChangeEvent);
+                } else if (Std.is(window, CheckBox)) {
+                    _eventMap.set(type, listener);
+                    window.bind(EventType.CHECKBOX, __onChangeEvent);
                 }
         }
     }
