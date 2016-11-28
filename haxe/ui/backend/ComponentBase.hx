@@ -476,6 +476,7 @@ class ComponentBase {
         }
 
         if (Std.is(window, Button)) {
+            trace(">>>>>>>>>>>>>>>> " + style.iconPosition);
             var button:Button = cast window;
             switch (style.iconPosition) {
                 case "right":
@@ -598,6 +599,18 @@ class ComponentBase {
                 | MouseEvent.MOUSE_DOWN | MouseEvent.MOUSE_UP | MouseEvent.CLICK:
                 _eventMap.remove(type);
                 window.unbind(EventMapper.HAXEUI_TO_WX.get(type), __onMouseEvent);
+
+            case UIEvent.CHANGE:
+                if (Std.is(window, Notebook)) {
+                    _eventMap.remove(type);
+                    window.unbind(EventType.NOTEBOOK_PAGE_CHANGED, __onChangeEvent);
+                } else if (Std.is(window, RadioButton)) {
+                    _eventMap.remove(type);
+                    window.unbind(EventType.RADIOBUTTON, __onChangeEvent);
+                } else if (Std.is(window, CheckBox)) {
+                    _eventMap.remove(type);
+                    window.unbind(EventType.CHECKBOX, __onChangeEvent);
+                }
         }
     }
 
