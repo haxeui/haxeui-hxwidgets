@@ -26,8 +26,8 @@ class AppBase {
         _app.init();
 
         var platform:PlatformInfo = new PlatformInfo();
-        //var style:Int = WindowStyle.NO_FULL_REPAINT_ON_RESIZE | WindowStyle.CLIP_CHILDREN | FrameStyle.DEFAULT_FRAME_STYLE;
-        var style:Int = WindowStyle.CLIP_CHILDREN | FrameStyle.MINIMIZE_BOX |  FrameStyle.CAPTION | FrameStyle.CLOSE_BOX;
+        var style:Int = WindowStyle.NO_FULL_REPAINT_ON_RESIZE | WindowStyle.CLIP_CHILDREN | FrameStyle.DEFAULT_FRAME_STYLE;
+        //var style:Int = WindowStyle.CLIP_CHILDREN | FrameStyle.MINIMIZE_BOX |  FrameStyle.CAPTION | FrameStyle.CLOSE_BOX;
         _frame = new Frame(null, Toolkit.backendProperties.getProp("haxe.ui.hxwidgets.frame.title", ""), style);
         if (platform.isWindows) {
             //frame.backgroundColour = 0xFFFFFF;
