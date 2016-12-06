@@ -352,7 +352,7 @@ class ComponentBase {
             l.label = cast(this, Component).text;
             l.wrap(Std.int(width));
         } else {
-            window.resize(Std.int(width), Std.int(height));
+            //window.resize(w, h);
         }
     }
 
@@ -416,22 +416,28 @@ class ComponentBase {
         window.thaw();
     }
 
-    private var _repositionEndNeeded:Bool = false;
+    private var _repositionUnlockCount:Int = 0;
     public function handlePreReposition():Void {
         if (window == null) {
             return;
         }
-        _repositionEndNeeded = window.beginRepositioningChildren();
+        return;
+        if (window.beginRepositioningChildren() == true) {
+            _repositionUnlockCount++;
+        }
     }
 
     public function handlePostReposition():Void {
         if (window == null) {
             return;
         }
-
-        if (_repositionEndNeeded == true) {
+        return;
+        if (_repositionUnlockCount > 0) {
             window.endRepositioningChildren();
-            _repositionEndNeeded = false;
+            _repositionUnlockCount--;
+        }
+        if (_repositionUnlockCount < 0) {
+            _repositionUnlockCount = 0;
         }
     }
 
@@ -476,7 +482,6 @@ class ComponentBase {
         }
 
         if (Std.is(window, Button)) {
-            trace(">>>>>>>>>>>>>>>> " + style.iconPosition);
             var button:Button = cast window;
             switch (style.iconPosition) {
                 case "right":
