@@ -1,4 +1,3 @@
-sudo: true
 language: haxe
 
 os:
@@ -8,6 +7,19 @@ haxe:
   - "3.2.1"
   - development
 
+env:
+  - HXCPP=haxelib
+  - HXCPP=dev
+
+matrix:
+  exclude:
+  - haxe: "3.2.1"
+    env: HXCPP=dev
+  - haxe: development
+    env: HXCPP=haxelib
+
+sudo: false
+
 addons:
   apt:
     packages:
@@ -15,34 +27,38 @@ addons:
     - libgtk2.0-dev
 
 before_install:
-   # Installing wxWidgets
+  # Build wxWidgets for linux (because webview is only in ubuntu 16.04+), brew it for osx
   - if [ "${TRAVIS_OS_NAME}" = "linux" ]; then
-      sudo apt-get -qq update;
-      sudo apt-get install -y libwxgtk3.0-dev libwxbase3.0-dev;
-    elif [ "${TRAVIS_OS_NAME}" = "osx" ]; then
+      wget https://github.com/wxWidgets/wxWidgets/releases/download/v3.0.2/wxWidgets-3.0.2.tar.bz2;
+      tar xjf wxWidgets-3.0.2.tar.bz2;
+      cd wxWidgets-3.0.2;
+      ./configure > log.txt || log.txt;
+      make;
+      export PATH=$(pwd):$PATH;
+    else
       brew update;
       brew install wxwidgets;
     fi
-  
   # Print wx-config to know more
   - wx-config --cxxflags
   - wx-config --libs
-  
-  # We need a git version of hxcpp for now
-  - git clone https://github.com/HaxeFoundation/hxcpp.git --depth=1
-  - haxelib dev hxcpp hxcpp
-  - cd hxcpp/tools/hxcpp
-  - haxe compile.hxml
-  - cd ../build
-  - haxe compile.hxml
-  - cd ../../project
-  - neko build.n clean
-  - if [ "${TRAVIS_OS_NAME}" = "linux" ]; then
-      neko build.n linux-64;
-    elif [ "${TRAVIS_OS_NAME}" = "osx" ]; then
-      neko build.n;
+  # Haxe part
+  - if [ "${HXCPP}" = "haxelib" ]; then
+      haxelib install hxcpp;
+    else
+      git clone https://github.com/HaxeFoundation/hxcpp.git --depth=1;
+      haxelib dev hxcpp hxcpp;
+      cd hxcpp/tools/hxcpp;
+      haxe compile.hxml;
+      cd ../build;
+      haxe compile.hxml;
+      cd ../../project;
+      if [ "${TRAVIS_OS_NAME}" = "linux" ]; then
+        neko build.n linux-m64;
+      else
+        neko build.n;
+      fi;
     fi
-  - cd ../../..
 
   - git clone https://github.com/haxeui/haxeui-core.git --depth=1
   - haxelib dev haxeui-core haxeui-core
