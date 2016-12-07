@@ -8,6 +8,12 @@ haxe:
   - "3.2.1"
   - development
 
+addons:
+  apt:
+    packages:
+    - libwebkitgtk-dev
+    - libgtk2.0-dev
+
 before_install:
    # Installing wxWidgets
   - if [ "${TRAVIS_OS_NAME}" = "linux" ]; then
