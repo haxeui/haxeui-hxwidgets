@@ -17,6 +17,7 @@ import haxe.ui.util.Rectangle;
 import hx.widgets.Bitmap;
 import hx.widgets.Button;
 import hx.widgets.CheckBox;
+import hx.widgets.Choice;
 import hx.widgets.Defs;
 import hx.widgets.Dialog;
 import hx.widgets.Direction;
@@ -558,6 +559,28 @@ class ComponentBase {
         return (c & 0x000000ff) << 16 | (c & 0x0000FF00) | (c & 0x00FF0000) >> 16;
     }
 
+    private var __props:Map<String, Dynamic>;
+    private function get(name:String):Dynamic {
+        if (__props == null) {
+            return null;
+        }
+        return __props.get(name);
+    }
+    
+    private function set(name:String, value:Dynamic) {
+        if (__props == null) {
+            __props = new Map<String, Dynamic>();
+        }
+        __props.set(name, value);
+    }
+    
+    private function has(name:String):Bool {
+        if (__props == null) {
+            return false;
+        }
+        return __props.exists(name);
+    }
+    
     //***********************************************************************************************************
     // Events
     //***********************************************************************************************************
@@ -589,6 +612,9 @@ class ComponentBase {
                 } else if (Std.is(window, CheckBox)) {
                     _eventMap.set(type, listener);
                     window.bind(EventType.CHECKBOX, __onChangeEvent);
+                } else if (Std.is(window, Choice)) {
+                    _eventMap.set(type, listener);
+                    window.bind(EventType.CHOICE, __onChangeEvent);
                 }
         }
     }
@@ -615,6 +641,9 @@ class ComponentBase {
                 } else if (Std.is(window, CheckBox)) {
                     _eventMap.remove(type);
                     window.unbind(EventType.CHECKBOX, __onChangeEvent);
+                } else if (Std.is(window, Choice)) {
+                    _eventMap.remove(type);
+                    window.unbind(EventType.CHOICE, __onChangeEvent);
                 }
         }
     }

@@ -67,6 +67,7 @@
     </component>
     <component id="haxe.ui.components.DropDown" class="hx.widgets.Choice">
         <behaviour id="dataSource" class="haxe.ui.backend.hxwidgets.behaviours.ChoiceDataSource" />
+        <behaviour id="selectedItem" class="haxe.ui.backend.hxwidgets.behaviours.ChoiceSelectedItem" />
         <size class="haxe.ui.backend.hxwidgets.size.BestSize" includePadding="false" />
     </component>
 </native>

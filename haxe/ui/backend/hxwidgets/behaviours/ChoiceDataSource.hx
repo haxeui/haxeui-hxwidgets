@@ -4,6 +4,7 @@ import haxe.ui.data.DataSource;
 import haxe.ui.util.Variant;
 import hx.widgets.Choice;
 
+@:access(haxe.ui.backend.ComponentBase)
 class ChoiceDataSource extends HxWidgetsBehaviour {
     public override function set(value:Variant) {
         super.set(value);
@@ -25,5 +26,7 @@ class ChoiceDataSource extends HxWidgetsBehaviour {
                 choice.append(item.value);
             }
         }
+        
+        _component.set("dataSource", ds);
     }
 }
