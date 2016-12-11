@@ -118,4 +118,14 @@ class TextDisplayBase {
     private function set_fontSize(value:Null<Float>):Null<Float> {
         return value;
     }
+
+    private var _textAlign:String;
+    public var textAlign(get, set):String;
+    private function get_textAlign():String {
+        return _textAlign;
+    }
+    private function set_textAlign(value:String):String {
+        _textAlign = value;
+        return value;
+    }
 }

@@ -1,5 +1,9 @@
 package haxe.ui.backend;
 
+import hx.widgets.styles.ButtonStyle;
+import hx.widgets.styles.TextCtrlStyle;
+import hx.widgets.TextCtrl;
+import hx.widgets.styles.StaticTextStyle;
 import haxe.ui.backend.hxwidgets.ConstructorParams;
 import haxe.ui.backend.hxwidgets.EventMapper;
 import haxe.ui.backend.hxwidgets.RadioButtonGroups;
@@ -357,15 +361,14 @@ class ComponentBase {
 
         var w:Int = Std.int(width);
         var h:Int = Std.int(height);
-        window.resize(w, h);
 
         if (Std.is(window, StaticText)) {
             var l:StaticText = cast this.window;
             l.label = cast(this, Component).text;
-            l.wrap(Std.int(width));
-        } else {
-            //window.resize(w, h);
+            l.wrap(w);
         }
+
+        window.resize(w, h);
     }
 
     private var _fake:String = null;
@@ -501,7 +504,42 @@ class ComponentBase {
                 default:
                     button.bitmapPosition = Direction.LEFT;
             }
+
+            if (style.textAlign != null) {
+                var alignStyle:Int = switch(style.textAlign) {
+                    case "left": ButtonStyle.LEFT;
+                    case "right": ButtonStyle.RIGHT;
+                    default: 0;
+                }
+                window.windowStyle = (window.windowStyle & ~(ButtonStyle.LEFT | ButtonStyle.RIGHT))   //Remove old align
+                                    | alignStyle;
+            }
+
             refreshWindow = true;
+        } else if (Std.is(window, StaticText)) {
+            if (style.textAlign != null) {
+                var alignStyle:Int = switch(style.textAlign) {
+                    case "center": StaticTextStyle.ALIGN_CENTRE_HORIZONTAL;
+                    case "right": StaticTextStyle.ALIGN_RIGHT;
+                    default: StaticTextStyle.ALIGN_LEFT;
+                }
+                window.windowStyle = (window.windowStyle & ~(StaticTextStyle.ALIGN_LEFT | StaticTextStyle.ALIGN_RIGHT | StaticTextStyle.ALIGN_CENTRE_HORIZONTAL))   //Remove old align
+                                    | alignStyle;
+
+                refreshWindow = true;
+            }
+        } else if(Std.is(window, TextCtrl)) {
+            if (style.textAlign != null) {
+                var alignStyle:Int = switch(style.textAlign) {
+                    case "center": TextCtrlStyle.CENTRE;
+                    case "right": TextCtrlStyle.RIGHT;
+                    default: TextCtrlStyle.LEFT;
+                }
+                window.windowStyle = (window.windowStyle & ~(TextCtrlStyle.LEFT | TextCtrlStyle.RIGHT | TextCtrlStyle.CENTRE))   //Remove old align
+                                    | alignStyle;
+
+                refreshWindow = true;
+            }
         }
 
         if (refreshWindow == true) {
