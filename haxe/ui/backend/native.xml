@@ -14,7 +14,7 @@
         <behaviour id="selected" class="haxe.ui.backend.hxwidgets.behaviours.ControlValue" />
         <size class="haxe.ui.backend.hxwidgets.size.BestSize" includePadding="false" />
     </component>
-    <component id="haxe.ui.components.OptionBox" class="hx.widgets.RadioButton" allowChildren="false">
+    <component id="haxe.ui.components.OptionBox" class="hx.widgets.RadioButton" constructor="null, $style" allowChildren="false">
         <behaviour id="text" class="haxe.ui.backend.hxwidgets.behaviours.ControlLabel" />
         <behaviour id="selected" class="haxe.ui.backend.hxwidgets.behaviours.ControlValue" />
         <size class="haxe.ui.backend.hxwidgets.size.BestSize" includePadding="false" />

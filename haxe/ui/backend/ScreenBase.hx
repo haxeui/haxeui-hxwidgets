@@ -168,7 +168,7 @@ class ScreenBase {
                */
            }
         });
-
+        
         _hasListener = true;
     }
 

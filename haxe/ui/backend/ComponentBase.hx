@@ -2,8 +2,10 @@ package haxe.ui.backend;
 
 import haxe.ui.backend.hxwidgets.ConstructorParams;
 import haxe.ui.backend.hxwidgets.EventMapper;
+import haxe.ui.backend.hxwidgets.RadioButtonGroups;
 import haxe.ui.backend.hxwidgets.StyleParser;
 import haxe.ui.backend.hxwidgets.TabViewIcons;
+import haxe.ui.components.OptionBox;
 import haxe.ui.containers.Box;
 import haxe.ui.containers.TabView;
 import haxe.ui.core.Component;
@@ -39,6 +41,7 @@ import hx.widgets.Size;
 import hx.widgets.StaticText;
 import hx.widgets.Window;
 import hx.widgets.styles.DialogStyle;
+import hx.widgets.styles.RadioButtonStyle;
 
 class ComponentBase {
     private var _eventMap:Map<String, UIEvent->Void>;
@@ -158,6 +161,14 @@ class ComponentBase {
         
         var styleString:String = Toolkit.nativeConfig.query('component[id=${className}].@style');
         var style:Int = StyleParser.parseStyleString(styleString);
+        
+        if (Std.is(this, OptionBox)) {
+            var optionBox:OptionBox = cast(this, OptionBox);
+            if (RadioButtonGroups.exists(optionBox.groupName) == false) {
+                style |= RadioButtonStyle.GROUP;
+            }
+            RadioButtonGroups.add(optionBox.groupName, optionBox);
+        }
         
         var params:Array<Dynamic> = ConstructorParams.build(Toolkit.nativeConfig.query('component[id=${className}].@constructor'), style);
         params.insert(0, parent);
@@ -478,10 +489,6 @@ class ComponentBase {
             refreshWindow = true;
         }
 
-        if (refreshWindow == true) {
-            window.refresh();
-        }
-
         if (Std.is(window, Button)) {
             var button:Button = cast window;
             switch (style.iconPosition) {
@@ -494,6 +501,11 @@ class ComponentBase {
                 default:
                     button.bitmapPosition = Direction.LEFT;
             }
+            refreshWindow = true;
+        }
+
+        if (refreshWindow == true) {
+            window.refresh();
         }
 
         if (style.fontSize != null || style.fontBold != null || style.fontItalic != null || style.fontUnderline != null) {

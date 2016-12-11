@@ -12,6 +12,8 @@ class ConstructorParams {
             constructorParam = StringTools.trim(constructorParam);
             if (constructorParam == "$style") {
                 params.push(style);
+            } else if (constructorParam == "null") {
+                params.push(null);
             } else if (constructorParam == "true" || constructorParam == "false") {
                 params.push(constructorParam == "true");
             } else if (Std.parseInt(constructorParam) != null) {
