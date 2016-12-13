@@ -162,10 +162,10 @@ class ComponentBase {
         if (nativeComponentClass == null) {
             nativeComponentClass = "hx.widgets.Panel";
         }
-        
+
         var styleString:String = Toolkit.nativeConfig.query('component[id=${className}].@style');
         var style:Int = StyleParser.parseStyleString(styleString);
-        
+
         if (Std.is(this, OptionBox)) {
             var optionBox:OptionBox = cast(this, OptionBox);
             if (RadioButtonGroups.exists(optionBox.groupName) == false) {
@@ -173,7 +173,7 @@ class ComponentBase {
             }
             RadioButtonGroups.add(optionBox.groupName, optionBox);
         }
-        
+
         var params:Array<Dynamic> = ConstructorParams.build(Toolkit.nativeConfig.query('component[id=${className}].@constructor'), style);
         params.insert(0, parent);
 
@@ -457,9 +457,9 @@ class ComponentBase {
     }
 
     private function handleSetComponentIndex(child:Component, index:Int) {
-        
+
     }
-    
+
     //***********************************************************************************************************
     // Redraw callbacks
     //***********************************************************************************************************
@@ -616,21 +616,21 @@ class ComponentBase {
         }
         return __props.get(name);
     }
-    
+
     private function set(name:String, value:Dynamic) {
         if (__props == null) {
             __props = new Map<String, Dynamic>();
         }
         __props.set(name, value);
     }
-    
+
     private function has(name:String):Bool {
         if (__props == null) {
             return false;
         }
         return __props.exists(name);
     }
-    
+
     //***********************************************************************************************************
     // Events
     //***********************************************************************************************************
@@ -715,7 +715,7 @@ class ComponentBase {
                 return;
             }
         }
-        
+
         if (type != null) {
             var fn = _eventMap.get(type);
             if (fn != null) {

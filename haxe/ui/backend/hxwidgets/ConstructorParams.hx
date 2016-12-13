@@ -5,7 +5,7 @@ class ConstructorParams {
         if (constructorSignature == null) {
             return [];
         }
-        
+
         var constructorParams:Array<String> = constructorSignature.split(",");
         var params:Array<Dynamic> = [];
         for (constructorParam in constructorParams) {
@@ -22,7 +22,7 @@ class ConstructorParams {
                 params.push(constructorParam);
             }
         }
-        
+
         return params;
     }
 }

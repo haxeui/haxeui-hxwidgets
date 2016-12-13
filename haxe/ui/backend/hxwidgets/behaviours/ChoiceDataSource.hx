@@ -11,7 +11,7 @@ class ChoiceDataSource extends HxWidgetsBehaviour {
         if (_component.window == null) {
             return;
         }
-        
+
         if (value.isNull) {
             return;
         }
@@ -19,16 +19,16 @@ class ChoiceDataSource extends HxWidgetsBehaviour {
         var ds:DataSource<Dynamic> = value;
         var choice:Choice = cast(_component.window, Choice);
         choice.clear();
-        
+
         for (n in 0...ds.size) {
             var item = ds.get(n);
             if (item.value != null) {
                 choice.append(item.value);
             }
         }
-        
+
         choice.selectedString = _component.text;
-        
+
         _component.set("dataSource", ds);
     }
 }

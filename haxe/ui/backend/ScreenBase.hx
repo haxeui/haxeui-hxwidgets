@@ -35,7 +35,7 @@ class ScreenBase {
     private function get_dpi():Float {
         return 72;
     }
-    
+
     private var __topLevelComponents:Array<Component> = new Array<Component>();
     public function addComponent(component:Component) {
         __topLevelComponents.push(component);
@@ -168,14 +168,14 @@ class ScreenBase {
                */
            }
         });
-        
+
         _hasListener = true;
     }
 
     private function handleSetComponentIndex(child:Component, index:Int) {
-        
+
     }
-    
+
     //***********************************************************************************************************
     // Events
     //***********************************************************************************************************
