@@ -29,6 +29,9 @@ class StyleParser {
             case "SliderStyle.HORIZONTAL":              return SliderStyle.HORIZONTAL;
             case "ScrollBarStyle.HORIZONTAL":           return ScrollBarStyle.HORIZONTAL;
             case "ScrollBarStyle.VERTICAL":             return ScrollBarStyle.VERTICAL;
+            case "TextCtrlStyle.MULTILINE":             return TextCtrlStyle.MULTILINE;
+            default:
+                trace('WARNING: hxWidgets style "${style}" not recognised');
         }
 
         return 0;

@@ -18,7 +18,7 @@ class ControlLabel extends HxWidgetsBehaviour {
 
         var ctrl:Control = cast _component.window;
         if (value.isNull == false) {
-            ctrl.label = value;
+            ctrl.label = normalizeText(value);
             _component.invalidateLayout();
         }
 
@@ -86,5 +86,10 @@ class ControlLabel extends HxWidgetsBehaviour {
 
         var ctrl:Control = cast _component.window;
         return ctrl.label;
+    }
+    
+    private function normalizeText(s:String) {
+        s = StringTools.replace(s, "\\n", "\r\n");
+        return s;
     }
 }
