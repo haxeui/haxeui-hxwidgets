@@ -87,7 +87,7 @@ class ControlLabel extends HxWidgetsBehaviour {
         var ctrl:Control = cast _component.window;
         return ctrl.label;
     }
-    
+
     private function normalizeText(s:String) {
         s = StringTools.replace(s, "\\n", "\r\n");
         return s;
