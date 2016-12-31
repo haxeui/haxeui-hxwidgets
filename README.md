@@ -4,8 +4,6 @@
 
 [![Build Status](https://travis-ci.org/haxeui/haxeui-hxwidgets.svg?branch=master)](https://travis-ci.org/haxeui/haxeui-hxwidgets)
 [![Support this project on Patreon](https://dl.dropboxusercontent.com/u/26678671/patreon_button.png)](https://www.patreon.com/haxeui)
-[![Code Climate](https://codeclimate.com/github/haxeui/hxWidgets/badges/gpa.svg)](https://codeclimate.com/github/haxeui/hxWidgets)
-[![Issue Count](https://codeclimate.com/github/haxeui/hxWidgets/badges/issue_count.svg)](https://codeclimate.com/github/haxeui/hxWidgets)
 
 <h2>haxeui-hxwidgets</h2>
 `haxeui-hxwidgets` is the `wxWidgets` backend for HaxeUI.
