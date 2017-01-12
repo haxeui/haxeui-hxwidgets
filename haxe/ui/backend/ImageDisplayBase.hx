@@ -1,4 +1,5 @@
 package haxe.ui.backend;
+import haxe.ui.util.Rectangle;
 import haxe.ui.assets.ImageInfo;
 
 class ImageDisplayBase {
@@ -73,5 +74,24 @@ class ImageDisplayBase {
     }
 
     public function dispose() {
+    }
+
+    public var imageClipRect(get, set):Rectangle;
+
+    private var _imageClipRect:Rectangle;
+    public function get_imageClipRect():Rectangle {
+        return _imageClipRect;
+    }
+    private function set_imageClipRect(value:Rectangle):Rectangle {
+        _imageClipRect = value;
+
+        //TODO
+        if(value == null) {
+
+        } else {
+
+        }
+
+        return value;
     }
 }
