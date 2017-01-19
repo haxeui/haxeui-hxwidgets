@@ -22,6 +22,7 @@
     <component id="haxe.ui.components.TextField" class="hx.widgets.TextCtrl" allowChildren="false">
         <behaviour id="text" class="haxe.ui.backend.hxwidgets.behaviours.ControlLabel" />
         <behaviour id="password" class="haxe.ui.backend.hxwidgets.behaviours.TextCtrlPassword" />
+        <behaviour id="placeholder" class="haxe.ui.backend.hxwidgets.behaviours.TextCtrlPlaceholder" />
         <size class="haxe.ui.backend.hxwidgets.size.BestSize" includePadding="false" />
     </component>
     <component id="haxe.ui.components.TextArea" class="hx.widgets.TextCtrl" constructor="null, $style" allowChildren="false" style="TextCtrlStyle.MULTILINE">
