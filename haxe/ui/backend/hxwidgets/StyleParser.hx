@@ -30,6 +30,7 @@ class StyleParser {
             case "ScrollBarStyle.HORIZONTAL":           return ScrollBarStyle.HORIZONTAL;
             case "ScrollBarStyle.VERTICAL":             return ScrollBarStyle.VERTICAL;
             case "TextCtrlStyle.MULTILINE":             return TextCtrlStyle.MULTILINE;
+            case "TextCtrlStyle.HSCROLL":               return TextCtrlStyle.HSCROLL;
             default:
                 trace('WARNING: hxWidgets style "${style}" not recognised');
         }
