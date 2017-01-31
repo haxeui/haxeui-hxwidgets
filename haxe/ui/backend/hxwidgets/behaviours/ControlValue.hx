@@ -60,6 +60,8 @@ class ControlValue extends HxWidgetsBehaviour {
         */
         if (Std.is(_component.window, RadioButton)) {
             return cast(_component.window, RadioButton).value;
+        } else if (Std.is(_component.window, Slider)) {
+            return cast(_component.window, Slider).value;
         }
         return null;
     }

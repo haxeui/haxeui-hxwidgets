@@ -30,7 +30,7 @@
         <behaviour id="disabled" class="haxe.ui.backend.hxwidgets.behaviours.ControlDisable" />
         <size class="haxe.ui.backend.hxwidgets.size.BestSize" includePadding="false" />
     </component>
-    <component id="haxe.ui.components.TextArea" class="hx.widgets.TextCtrl" constructor="null, $style" allowChildren="false" style="TextCtrlStyle.MULTILINE">
+    <component id="haxe.ui.components.TextArea" class="hx.widgets.TextCtrl" constructor="null, $style" allowChildren="false" style="TextCtrlStyle.MULTILINE, TextCtrlStyle.HSCROLL">
         <behaviour id="text" class="haxe.ui.backend.hxwidgets.behaviours.ControlLabel" />
         <behaviour id="disabled" class="haxe.ui.backend.hxwidgets.behaviours.ControlDisable" />
         <size class="haxe.ui.backend.hxwidgets.size.BestSize" includePadding="false" />
@@ -49,11 +49,15 @@
     </component>
     <component id="haxe.ui.components.HSlider" allowChildren="false" class="hx.widgets.Slider" constructor="0, 0, 100, $style">
         <behaviour id="pos" class="haxe.ui.backend.hxwidgets.behaviours.ControlValue" />
+        <behaviour id="min" class="haxe.ui.backend.hxwidgets.behaviours.ControlMin" />
+        <behaviour id="max" class="haxe.ui.backend.hxwidgets.behaviours.ControlMax" />
         <behaviour id="disabled" class="haxe.ui.backend.hxwidgets.behaviours.ControlDisable" />
         <size class="haxe.ui.backend.hxwidgets.size.BestSize" includePadding="false" />
     </component>
     <component id="haxe.ui.components.VSlider" class="hx.widgets.Slider" constructor="0, 0, 100, $style" allowChildren="false" style="SliderStyle.VERTICAL">
         <behaviour id="pos" class="haxe.ui.backend.hxwidgets.behaviours.ControlValue" />
+        <behaviour id="min" class="haxe.ui.backend.hxwidgets.behaviours.ControlMin" />
+        <behaviour id="max" class="haxe.ui.backend.hxwidgets.behaviours.ControlMax" />
         <behaviour id="disabled" class="haxe.ui.backend.hxwidgets.behaviours.ControlDisable" />
         <size class="haxe.ui.backend.hxwidgets.size.BestSize" includePadding="false" />
     </component>
@@ -88,7 +92,7 @@
         <behaviour id="disabled" class="haxe.ui.backend.hxwidgets.behaviours.ControlDisable" />
         <size class="haxe.ui.backend.hxwidgets.size.DialogSize" />
     </component>
-    <component id="haxe.ui.components.DropDown" class="hx.widgets.Choice">
+    <component id="haxe.ui.components.DropDown" class="hx.widgets.Choice" allowChildren="false">
         <behaviour id="dataSource" class="haxe.ui.backend.hxwidgets.behaviours.ChoiceDataSource" />
         <behaviour id="selectedItem" class="haxe.ui.backend.hxwidgets.behaviours.ChoiceSelectedItem" />
         <behaviour id="disabled" class="haxe.ui.backend.hxwidgets.behaviours.ControlDisable" />
