@@ -1,5 +1,8 @@
 package haxe.ui.backend;
 
+import haxe.ui.core.Screen;
+import hx.widgets.Gauge;
+import hx.widgets.Slider;
 import hx.widgets.styles.ButtonStyle;
 import hx.widgets.styles.TextCtrlStyle;
 import hx.widgets.TextCtrl;
@@ -670,6 +673,9 @@ class ComponentBase {
                 } else if (Std.is(window, Choice)) {
                     _eventMap.set(type, listener);
                     window.bind(EventType.CHOICE, __onChangeEvent);
+                } else if (Std.is(window, Slider)) {
+                    _eventMap.set(type, listener);
+                    window.bind(EventType.SLIDER, __onChangeEvent);
                 }
         }
     }
@@ -699,6 +705,9 @@ class ComponentBase {
                 } else if (Std.is(window, Choice)) {
                     _eventMap.remove(type);
                     window.unbind(EventType.CHOICE, __onChangeEvent);
+                } else if (Std.is(window, Slider)) {
+                    _eventMap.remove(type);
+                    window.unbind(EventType.SLIDER, __onChangeEvent);
                 }
         }
     }
