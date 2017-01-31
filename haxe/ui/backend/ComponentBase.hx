@@ -225,6 +225,11 @@ class ComponentBase {
             __eventsToMap = null;
         }
 
+        if (Std.is(window, Button) || Std.is(window, StaticText)) {
+            window.bind(EventType.ERASE_BACKGROUND, function(e) {
+
+            });
+        }        
     }
 
     private var _paintStyle:Style = null;
