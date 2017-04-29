@@ -22,45 +22,6 @@ class ControlLabel extends HxWidgetsBehaviour {
             _component.invalidateLayout();
         }
 
-        /*
-        if (Std.is(_component, haxe.ui.components.Button)) {
-            if (cast(_component, haxe.ui.components.Button).icon != null) {
-                var b:Button = cast _component.window;
-                b.bitmap = Bitmap.fromHaxeResource(cast(_component, haxe.ui.components.Button).icon);
-            }
-        }
-        */
-
-        /*
-
-        var invalidate:Bool = false;
-
-        var ctrl:Control = cast _component.window;
-        if (value.isNull == false) {
-            ctrl.label = value;
-            invalidate = true;
-            _component.invalidate(InvalidationFlags.LAYOUT);
-        }
-
-        if (Std.is(_component, haxe.ui.components.Button)) {
-            if (cast(_component, haxe.ui.components.Button).icon != null) {
-                var b:Button = cast _component.window;
-                b.setBitmap(Bitmap.fromHaxeResource(cast(_component, haxe.ui.components.Button).icon));
-            }
-        }
-
-        if (Std.is(_component, haxe.ui.components.Label)) {
-            var l:StaticText = cast _component.window;
-            //l.freeze();
-            //_component.lock();
-            l.wrap(Std.int(_component.width));
-            _component.invalidate(InvalidationFlags.LAYOUT);
-            //l.thaw();
-            //_component.unlock();
-            invalidate = true;
-        }
-        */
-
         if (Std.is(_component, haxe.ui.components.Label)) {
             var l:StaticText = cast _component.window;
             l.wrap(Std.int(_component.componentWidth));
@@ -69,12 +30,6 @@ class ControlLabel extends HxWidgetsBehaviour {
     }
 
     public override function get():Variant {
-        /*
-        if (_component.window == null) {
-            return null;
-        }
-        var ctrl:Control = cast _component.window;
-        */
         if (_component.window == null) {
             return null;
         }
