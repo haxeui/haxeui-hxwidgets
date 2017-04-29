@@ -1,4 +1,5 @@
 package haxe.ui.backend;
+import haxe.ui.styles.Style;
 
 class TextDisplayBase {
     public function new() {
@@ -86,46 +87,7 @@ class TextDisplayBase {
         return _textHeight;
     }
 
-    private var _color:Int;
-    public var color(get, set):Int;
-    private function get_color():Int {
-        return _color;
-    }
-    private function set_color(value:Int):Int {
-        if (_color == value) {
-            return value;
-        }
-
-        _color = value;
-
-        return value;
-    }
-
-    private var _fontName:String;
-    public var fontName(get, set):String;
-    private function get_fontName():String {
-        return _fontName;
-    }
-    private function set_fontName(value:String):String {
-        return value;
-    }
-
-    private var _fontSize:Float;
-    public var fontSize(get, set):Null<Float>;
-    private function get_fontSize():Null<Float> {
-        return _fontSize;
-    }
-    private function set_fontSize(value:Null<Float>):Null<Float> {
-        return value;
-    }
-
-    private var _textAlign:String;
-    public var textAlign(get, set):String;
-    private function get_textAlign():String {
-        return _textAlign;
-    }
-    private function set_textAlign(value:String):String {
-        _textAlign = value;
-        return value;
+    public function applyStyle(style:Style) {
+        
     }
 }
