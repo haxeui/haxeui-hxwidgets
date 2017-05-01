@@ -12,6 +12,7 @@ notifications:
     on_start: never     # options: [always|never|change] default: always
 
 haxe:
+  - "3.4.0"
   - "3.4.2"
   - development
 
@@ -21,6 +22,8 @@ env:
 
 matrix:
   exclude:
+  - haxe: "3.4.0"
+    env: HXCPP=dev
   - haxe: "3.4.2"
     env: HXCPP=dev
   - haxe: development
