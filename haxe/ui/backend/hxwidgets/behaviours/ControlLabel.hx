@@ -18,7 +18,12 @@ class ControlLabel extends HxWidgetsBehaviour {
 
         var ctrl:Control = cast _component.window;
         if (value.isNull == false) {
-            ctrl.label = normalizeText(value);
+            if (Std.is(_component.window, TextCtrl)) {
+                var textctrl:TextCtrl = cast _component.window;
+                textctrl.value = normalizeText(value);
+            } else {
+                ctrl.label = normalizeText(value);
+            }
             _component.invalidateLayout();
         }
 
