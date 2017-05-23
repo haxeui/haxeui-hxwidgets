@@ -55,7 +55,7 @@ class ControlWrap extends HxWidgetsBehaviour {
 
         if (Std.is(_component.window, TextCtrl)) {
             var textctrl:TextCtrl = cast _component.window;
-            return !(textctrl.windowStyle & TextCtrlStyle.DONTWRAP > 0);
+            return !((textctrl.windowStyle & TextCtrlStyle.DONTWRAP) > 0);
         }
 
         return null;
