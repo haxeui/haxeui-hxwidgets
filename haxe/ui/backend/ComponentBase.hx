@@ -204,35 +204,7 @@ class ComponentBase {
             }
         }
 
-        if (Std.is(window, ScrollBar)) {
-            var scrollbar:ScrollBar = cast window;
-            scrollbar.setScrollbar(0, 5, 100, 5);
-        }
-
-        if (Std.is(__parent, haxe.ui.containers.TabView)) {
-            var n:Notebook = cast __parent.window;
-            var pageTitle:String = cast(this, Component).text;
-            var pageIcon:String = cast(this, Box).icon;
-            var iconIndex:Int = TabViewIcons.getImageIndex(cast __parent, pageIcon);
-            n.addPage(window, pageTitle, iconIndex);
-        }
-
-        if (Std.parseInt(cast(this, Component).id) != null) {
-            window.id = Std.parseInt(cast(this, Component).id);
-        }
-
-        if (__eventsToMap != null) {
-            for (type in __eventsToMap.keys()) {
-                mapEvent(type, __eventsToMap.get(type));
-            }
-            __eventsToMap = null;
-        }
-
-        if (Std.is(window, Button) || Std.is(window, StaticText)) {
-            window.bind(EventType.ERASE_BACKGROUND, function(e) {
-
-            });
-        }
+        setupWindow();
     }
 
     private function replaceWindow(replacement:Window) {
@@ -245,6 +217,10 @@ class ComponentBase {
         window.destroy();
         window = replacement;
 
+        setupWindow();
+    }
+
+    private function setupWindow() {
         var platform:PlatformInfo = new PlatformInfo();
         if (Std.is(window, Notebook)) {
             if (platform.isWindows) {
