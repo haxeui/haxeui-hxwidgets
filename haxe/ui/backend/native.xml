@@ -33,6 +33,8 @@
     <component id="haxe.ui.components.TextArea" class="hx.widgets.TextCtrl" constructor="null, $style" allowChildren="false" style="TextCtrlStyle.MULTILINE, TextCtrlStyle.HSCROLL">
         <behaviour id="text" class="haxe.ui.backend.hxwidgets.behaviours.ControlLabel" />
         <behaviour id="disabled" class="haxe.ui.backend.hxwidgets.behaviours.ControlDisable" />
+        <behaviour id="wrap" class="haxe.ui.backend.hxwidgets.behaviours.ControlWrap" />
+        <behaviour id="readOnly" class="haxe.ui.backend.hxwidgets.behaviours.ControlReadOnly" />
         <size class="haxe.ui.backend.hxwidgets.size.BestSize" includePadding="false" />
     </component>
     <component id="haxe.ui.components.HProgress" class="hx.widgets.Gauge" constructor="100, $style" allowChildren="false">

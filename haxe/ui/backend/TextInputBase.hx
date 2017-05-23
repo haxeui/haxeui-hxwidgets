@@ -10,4 +10,5 @@ class TextInputBase extends TextDisplayBase {
     public var multiline:Bool;
     public var password:Bool;
     public var wordWrap:Bool;
+    public var readOnly:Bool;
 }
