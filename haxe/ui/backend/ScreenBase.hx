@@ -148,6 +148,13 @@ class ScreenBase {
         return  options.frame;
     }
 
+    private inline function get_title():String {
+        return frame.title;
+    }
+    private inline function set_title(t:String):String {
+        return frame.title = t;
+    }
+
     private var _hasListener:Bool = false;
     private function addResizeListener() {
         if (_hasListener == true || frame == null) {
