@@ -148,6 +148,7 @@ class ScreenBase {
         return  options.frame;
     }
 
+    public var title(get, set):String;
     private inline function get_title():String {
         return frame.title;
     }
