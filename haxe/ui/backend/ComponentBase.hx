@@ -204,6 +204,33 @@ class ComponentBase {
             }
         }
 
+        setupWindow();
+    }
+
+    private function replaceWindow(replacement:Window) {
+        if (replacement == null) {
+            return;
+        }
+        __children = [];
+
+        cast(this, Component).invalidateStyle(false);
+        window.destroy();
+        window = replacement;
+
+        setupWindow();
+    }
+
+    private function setupWindow() {
+        var platform:PlatformInfo = new PlatformInfo();
+        if (Std.is(window, Notebook)) {
+            if (platform.isWindows) {
+                var n:Notebook = cast window;
+                n.padding = new hx.widgets.Size(6, 6);
+                //n.backgroundColour = 0xF0F0F0;
+                //n.refresh();
+            }
+        }
+
         if (Std.is(window, ScrollBar)) {
             var scrollbar:ScrollBar = cast window;
             scrollbar.setScrollbar(0, 5, 100, 5);
@@ -232,7 +259,7 @@ class ComponentBase {
             window.bind(EventType.ERASE_BACKGROUND, function(e) {
 
             });
-        }        
+        }
     }
 
     private var _paintStyle:Style = null;
