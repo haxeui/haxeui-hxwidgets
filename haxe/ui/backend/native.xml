@@ -63,6 +63,7 @@
     </component>
     <component id="haxe.ui.containers.TabView" class="hx.widgets.Notebook">
         <behaviour id="disabled" class="haxe.ui.backend.hxwidgets.behaviours.ControlDisable" />
+        <behaviour id="removeAllTabs" class="haxe.ui.backend.hxwidgets.behaviours.NotebookRemoveAllTabs" />
         <size class="haxe.ui.backend.hxwidgets.size.NotebookSize" includePadding="false" />
     </component>
     <component id="haxe.ui.containers.ScrollView" class="hx.widgets.ScrolledWindow">
