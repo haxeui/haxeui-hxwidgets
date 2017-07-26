@@ -164,11 +164,11 @@ class ComponentBase {
         cast(this, Component).invalidateStyle();
 
         var className:String = Type.getClassName(Type.getClass(this));
-        var nativeComponentClass:String = Toolkit.nativeConfig.query('component[id=${className}].@class', 'hx.widgets.Panel', this);
+        var nativeComponentClass:String = Toolkit.nativeConfig.query('component[id=${className}].@class', 'haxe.ui.backend.hxwidgets.custom.TransparentPanel', this);
         if (nativeComponentClass == null) {
-            nativeComponentClass = "hx.widgets.Panel";
+            nativeComponentClass = "haxe.ui.backend.hxwidgets.custom.TransparentPanel";
         }
-        if (nativeComponentClass == "hx.widgets.Panel" && className == "haxe.ui.containers.ListView") {
+        if (nativeComponentClass == "haxe.ui.backend.hxwidgets.custom.TransparentPanel" && className == "haxe.ui.containers.ListView") {
             nativeComponentClass = "hx.widgets.ScrolledWindow";
         }
 
@@ -187,7 +187,7 @@ class ComponentBase {
         params.insert(0, parent);
 
         // special cases
-        if (nativeComponentClass == "hx.widgets.StaticBitmap") {
+        if (nativeComponentClass == "hx.widgets.StaticBitmap" || nativeComponentClass == "haxe.ui.backend.hxwidgets.custom.TransparentStaticBitmap") {
             var resource:String = cast(this, haxe.ui.components.Image).resource;
             if (resource != null) {
                 params = [parent, Bitmap.fromHaxeResource(resource)];
@@ -643,7 +643,14 @@ class ComponentBase {
         }
 
         switch (type) {
-            case MouseEvent.MOUSE_MOVE | MouseEvent.MOUSE_DOWN | MouseEvent.MOUSE_UP | MouseEvent.CLICK:
+            case MouseEvent.CLICK:
+                if (_eventMap.exists(type) == false) {
+                    _eventMap.set(type, listener);
+                    window.bind(EventType.LEFT_DOWN, __onMouseDown);
+                    window.bind(EventType.LEFT_UP, __onMouseUp);
+                }
+                
+            case MouseEvent.MOUSE_MOVE | MouseEvent.MOUSE_DOWN | MouseEvent.MOUSE_UP:
                 if (_eventMap.exists(type) == false) {
                     _eventMap.set(type, listener);
                     window.bind(EventMapper.HAXEUI_TO_WX.get(type), __onMouseEvent);
@@ -684,7 +691,12 @@ class ComponentBase {
         }
 
         switch (type) {
-            case MouseEvent.MOUSE_MOVE | MouseEvent.MOUSE_DOWN | MouseEvent.MOUSE_UP | MouseEvent.CLICK:
+            case MouseEvent.CLICK:
+                _eventMap.remove(type);
+                window.unbind(EventType.LEFT_DOWN, __onMouseDown);
+                window.unbind(EventType.LEFT_UP, __onMouseUp);
+            
+            case MouseEvent.MOUSE_MOVE | MouseEvent.MOUSE_DOWN | MouseEvent.MOUSE_UP:
                 _eventMap.remove(type);
                 window.unbind(EventMapper.HAXEUI_TO_WX.get(type), __onMouseEvent);
 
@@ -742,6 +754,27 @@ class ComponentBase {
                 fn(newMouseEvent);
             }
         }
+    }
+    
+    private var _mouseDownFlag:Bool = false;
+    private function __onMouseDown(event:Event) {
+        _mouseDownFlag = true;
+    }
+    
+    private function __onMouseUp(event:Event) {
+        if (_mouseDownFlag == true) {
+            var fn = _eventMap.get(MouseEvent.CLICK);
+            if (fn != null) {
+                var mouseEvent:hx.widgets.MouseEvent = event.convertTo(hx.widgets.MouseEvent);
+                var newMouseEvent = new MouseEvent(MouseEvent.CLICK);
+                var pt:Point = new Point(mouseEvent.x, mouseEvent.y);
+                pt = window.clientToScreen(pt);
+                newMouseEvent.screenX = pt.x;
+                newMouseEvent.screenY = pt.y;
+                fn(newMouseEvent);
+            }
+        }
+        _mouseDownFlag = false;
     }
     
     private function __onMouseOut(event:Event) {
