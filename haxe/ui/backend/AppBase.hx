@@ -1,5 +1,6 @@
 package haxe.ui.backend;
 
+import haxe.ui.util.Timer;
 import hx.widgets.App;
 import hx.widgets.Event;
 import hx.widgets.EventType;
@@ -77,12 +78,17 @@ class AppBase {
     }
 
     public function start() {
-
         if (Toolkit.backendProperties.getPropBool("haxe.ui.hxwidgets.frame.fit", false) == true) {
-            _frame.fit();
+            var timer = null;
+            timer = new Timer(0, function() {
+                timer.stop();
+                _frame.fit();
+                _frame.show(true);
+            });
+        } else {
+            _frame.show(true);
         }
         _frame.thaw();
-        _frame.show(true);
         _app.run();
 
         _app.exit();
