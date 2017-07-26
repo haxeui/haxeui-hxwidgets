@@ -6,7 +6,7 @@
         <behaviour id="disabled" class="haxe.ui.backend.hxwidgets.behaviours.ControlDisable" />
         <size class="haxe.ui.backend.hxwidgets.size.BestSize" includePadding="false" />
     </component>
-    <component id="haxe.ui.components.Label" class="hx.widgets.StaticText" allowChildren="false">
+    <component id="haxe.ui.components.Label" class="haxe.ui.backend.hxwidgets.custom.TransparentStaticText" allowChildren="false">
         <behaviour id="text" class="haxe.ui.backend.hxwidgets.behaviours.ControlLabel" />
         <behaviour id="disabled" class="haxe.ui.backend.hxwidgets.behaviours.ControlDisable" />
         <size class="haxe.ui.backend.hxwidgets.size.BestSize" includePadding="false" />
@@ -84,7 +84,7 @@
         <behaviour id="disabled" class="haxe.ui.backend.hxwidgets.behaviours.ControlDisable" />
         <size class="haxe.ui.backend.hxwidgets.size.BestSize" includePadding="false" />
     </component>
-    <component id="haxe.ui.components.Image" class="hx.widgets.StaticBitmap" allowChildren="false">
+    <component id="haxe.ui.components.Image" class="haxe.ui.backend.hxwidgets.custom.TransparentStaticBitmap" allowChildren="false">
         <behaviour id="resource" class="haxe.ui.backend.hxwidgets.behaviours.ControlBitmap" />
         <behaviour id="disabled" class="haxe.ui.backend.hxwidgets.behaviours.ControlDisable" />
         <size class="haxe.ui.backend.hxwidgets.size.BestSize" includePadding="false" />
