@@ -26,12 +26,6 @@ class ControlLabel extends HxWidgetsBehaviour {
             }
             _component.invalidateLayout();
         }
-
-        if (Std.is(_component, haxe.ui.components.Label)) {
-            var l:StaticText = cast _component.window;
-            l.wrap(Std.int(_component.componentWidth));
-            _component.invalidateLayout();
-        }
     }
 
     public override function get():Variant {
