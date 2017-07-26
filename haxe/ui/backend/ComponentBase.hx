@@ -126,7 +126,6 @@ class ComponentBase {
 
     public function removeImageDisplay():Void {
         if (_imageDisplay != null) {
-            _imageDisplay.dispose();
             _imageDisplay = null;
         }
     }
@@ -162,7 +161,7 @@ class ComponentBase {
             parent = Toolkit.screen.frame;
         }
 
-        cast(this, Component).invalidateStyle(false);
+        cast(this, Component).invalidateStyle();
 
         var className:String = Type.getClassName(Type.getClass(this));
         var nativeComponentClass:String = Toolkit.nativeConfig.query('component[id=${className}].@class', 'hx.widgets.Panel', this);

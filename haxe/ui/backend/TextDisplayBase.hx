@@ -1,10 +1,45 @@
 package haxe.ui.backend;
+
 import haxe.ui.styles.Style;
 
 class TextDisplayBase {
+    private var _text:String;
+    private var _textStyle:Style;
+    
+    private var _left:Float;
+    private var _top:Float;
+    private var _width:Float;
+    private var _height:Float;
+    private var _textWidth:Float;
+    private var _textHeight:Float;
+    
+    private var _multiline:Bool;
+    private var _wordWrap:Bool;
+    
     public function new() {
     }
 
+    private function validateData() {
+        
+    }
+    
+    private function validateStyle():Bool {
+        return false;
+    }
+    
+    private function validatePosition() {
+        
+    }
+    
+    private function validateDisplay() {
+        
+    }
+    
+    private function measureText() {
+        
+    }
+    
+    /*
     private var _text:String;
     public var text(get, set):String;
     private function get_text():String {
@@ -90,4 +125,5 @@ class TextDisplayBase {
     public function applyStyle(style:Style) {
         
     }
+    */
 }
