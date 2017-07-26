@@ -1,5 +1,8 @@
 package haxe.ui.backend;
 
+import haxe.ui.backend.hxwidgets.behaviours.ListViewDataSource;
+import haxe.ui.backend.hxwidgets.custom.SimpleListView;
+import haxe.ui.containers.ListView;
 import haxe.ui.core.Screen;
 import hx.widgets.Gauge;
 import hx.widgets.Slider;
@@ -57,6 +60,7 @@ class ComponentBase {
         _eventMap = new Map<String, UIEvent->Void>();
     }
 
+    @:access(haxe.ui.containers.ListView)
     public function createDelegate(native:Bool) {
     }
 
@@ -161,12 +165,15 @@ class ComponentBase {
         cast(this, Component).invalidateStyle(false);
 
         var className:String = Type.getClassName(Type.getClass(this));
-        var nativeComponentClass:String = Toolkit.nativeConfig.query('component[id=${className}].@class', 'hx.widgets.Panel');
+        var nativeComponentClass:String = Toolkit.nativeConfig.query('component[id=${className}].@class', 'hx.widgets.Panel', this);
         if (nativeComponentClass == null) {
             nativeComponentClass = "hx.widgets.Panel";
         }
+        if (nativeComponentClass == "hx.widgets.Panel" && className == "haxe.ui.containers.ListView") {
+            nativeComponentClass = "hx.widgets.ScrolledWindow";
+        }
 
-        var styleString:String = Toolkit.nativeConfig.query('component[id=${className}].@style');
+        var styleString:String = Toolkit.nativeConfig.query('component[id=${className}].@style', null, this);
         var style:Int = StyleParser.parseStyleString(styleString);
 
         if (Std.is(this, OptionBox)) {
@@ -177,18 +184,34 @@ class ComponentBase {
             RadioButtonGroups.add(optionBox.groupName, optionBox);
         }
 
-        var params:Array<Dynamic> = ConstructorParams.build(Toolkit.nativeConfig.query('component[id=${className}].@constructor'), style);
+        var params:Array<Dynamic> = ConstructorParams.build(Toolkit.nativeConfig.query('component[id=${className}].@constructor', null, this), style);
         params.insert(0, parent);
 
         // special cases
         if (nativeComponentClass == "hx.widgets.StaticBitmap") {
             var resource:String = cast(this, haxe.ui.components.Image).resource;
-            params = [parent, Bitmap.fromHaxeResource(resource)];
+            if (resource != null) {
+                params = [parent, Bitmap.fromHaxeResource(resource)];
+            } else {
+                params = [parent, Bitmap.fromHaxeResource("styles/FF00FF-0.png")];
+            }
         } else if (nativeComponentClass == "hx.widgets.Dialog") {
             var dialog = cast(this, haxe.ui.containers.dialogs.Dialog);
             params = [parent, dialog.dialogOptions.title, DialogStyle.DEFAULT_DIALOG_STYLE | Defs.CENTRE];
         }
-
+        
+/*
+        if (className == "haxe.ui.containers.ListView") {
+            var listView:ListView = cast(this, ListView);
+            listView.syncUI();
+            if (Type.getClassName(Type.getClass(listView._itemRenderer)) != "haxe.ui.core.BasicItemRenderer") {
+                trace("Custom");
+                nativeComponentClass = "hx.widgets.ScrolledWindow";
+            } else {
+                trace("Basic");
+            }
+        }
+  */      
         window = Type.createInstance(Type.resolveClass(nativeComponentClass), params);
         if (window == null) {
             throw "Could not create window: " + nativeComponentClass;
@@ -213,7 +236,7 @@ class ComponentBase {
             var n:Notebook = cast __parent.window;
             var pageTitle:String = cast(this, Component).text;
             var pageIcon:String = cast(this, Box).icon;
-            var iconIndex:Int = TabViewIcons.getImageIndex(cast __parent, pageIcon);
+            var iconIndex:Int = TabViewIcons.get(cast __parent, pageIcon);
             n.addPage(window, pageTitle, iconIndex);
         }
 
@@ -232,7 +255,19 @@ class ComponentBase {
             window.bind(EventType.ERASE_BACKGROUND, function(e) {
 
             });
-        }        
+        }
+        
+        if (__parent != null) {
+            if (__parent._eventMap.exists(MouseEvent.MOUSE_OVER) || __parent._eventMap.exists(MouseEvent.MOUSE_OUT)) {
+                if (__parent._eventMap.exists(MouseEvent.MOUSE_OVER)) {
+                    _eventMap.set(MouseEvent.MOUSE_OVER, null);
+                }
+                if (__parent._eventMap.exists(MouseEvent.MOUSE_OUT)) {
+                    _eventMap.set(MouseEvent.MOUSE_OUT, null);
+                }
+                window.bind(EventMapper.HAXEUI_TO_WX.get(MouseEvent.MOUSE_MOVE), function(e) { });
+            }
+        }
     }
 
     private var _paintStyle:Style = null;
@@ -561,56 +596,12 @@ class ComponentBase {
             var fontWeight:FontWeight = FontWeight.NORMAL;
             var fontUnderline:Bool = false;
             if (style.fontSize != null) {
-                fontSize = Std.int(style.fontSize) - 4;
+                //fontSize = Std.int(style.fontSize) - 4;
             }
 
             var font:Font = new Font(fontSize, fontFamily, fontStyle, fontWeight, fontUnderline);
-            window.font = font;
+            //window.font = font;
         }
-
-        /*
-        if (style.hidden != null) {
-            if (style.hidden == true) {
-                window.show(false);
-            } else {
-                window.show(true);
-            }
-        }
-        */
-
-
-
-
-
-
-
-
-
-        /*
-        if (style.backgroundColor != null) {
-            window.backgroundColour = style.backgroundColor;
-            window.refresh();
-        }
-
-        if (style.color != null) {
-            window.foregroundColour = style.color;
-            window.refresh();
-        }
-
-        if (style.fontSize != null || style.fontBold != null || style.fontItalic != null || style.fontUnderline != null) {
-            var fontSize:Int = 9;
-            var fontFamily:FontFamily = FontFamily.DEFAULT;
-            var fontStyle:FontStyle = FontStyle.NORMAL;
-            var fontWeight:FontWeight = FontWeight.NORMAL;
-            var fontUnderline:Bool = false;
-            if (style.fontSize != null) {
-                fontSize = Std.int(style.fontSize) - 4;
-            }
-
-            var font:Font = new Font(fontSize, fontFamily, fontStyle, fontWeight, fontUnderline);
-            window.setFont(font);
-        }
-        */
     }
 
     private static inline function convertColor(c:Int) {
@@ -653,13 +644,20 @@ class ComponentBase {
         }
 
         switch (type) {
-            case MouseEvent.MOUSE_MOVE | MouseEvent.MOUSE_OVER | MouseEvent.MOUSE_OUT
-                | MouseEvent.MOUSE_DOWN | MouseEvent.MOUSE_UP | MouseEvent.CLICK:
+            case MouseEvent.MOUSE_MOVE | MouseEvent.MOUSE_DOWN | MouseEvent.MOUSE_UP | MouseEvent.CLICK:
                 if (_eventMap.exists(type) == false) {
                     _eventMap.set(type, listener);
                     window.bind(EventMapper.HAXEUI_TO_WX.get(type), __onMouseEvent);
                 }
 
+            case MouseEvent.MOUSE_OVER | MouseEvent.MOUSE_OUT:
+                if (_eventMap.exists(type) == false) {
+                    _eventMap.set(type, listener);
+                    window.bind(EventMapper.HAXEUI_TO_WX.get(MouseEvent.MOUSE_MOVE), __onMouseMove);
+                    window.bind(EventMapper.HAXEUI_TO_WX.get(MouseEvent.MOUSE_OUT), __onMouseOut);
+                }
+                
+                
             case UIEvent.CHANGE:
                 if (Std.is(window, Notebook)) {
                     _eventMap.set(type, listener);
@@ -679,7 +677,7 @@ class ComponentBase {
                 }
         }
     }
-
+    
     private function unmapEvent(type:String, listener:UIEvent->Void) {
         if (window == null && __eventsToMap != null) {
             __eventsToMap.remove(type);
@@ -687,11 +685,13 @@ class ComponentBase {
         }
 
         switch (type) {
-            case MouseEvent.MOUSE_MOVE | MouseEvent.MOUSE_OVER | MouseEvent.MOUSE_OUT
-                | MouseEvent.MOUSE_DOWN | MouseEvent.MOUSE_UP | MouseEvent.CLICK:
+            case MouseEvent.MOUSE_MOVE | MouseEvent.MOUSE_DOWN | MouseEvent.MOUSE_UP | MouseEvent.CLICK:
                 _eventMap.remove(type);
                 window.unbind(EventMapper.HAXEUI_TO_WX.get(type), __onMouseEvent);
 
+            case MouseEvent.MOUSE_OVER | MouseEvent.MOUSE_OUT:
+                
+                
             case UIEvent.CHANGE:
                 if (Std.is(window, Notebook)) {
                     _eventMap.remove(type);
@@ -720,20 +720,62 @@ class ComponentBase {
         }
     }
 
-    private function __onMouseEvent(event:Event) {
-        var mouseEvent:hx.widgets.MouseEvent = event.convertTo(hx.widgets.MouseEvent);
-        var type:String = EventMapper.WX_TO_HAXEUI.get(event.eventType);
-        var pt:Point = new Point(mouseEvent.x, mouseEvent.y);
-        if (type == MouseEvent.MOUSE_OUT) {
-            if (window.hitTest(pt) == HitTest.WINDOW_INSIDE) {
-                return;
+    private static var _inComponents:Array<ComponentBase> = [];
+    private var _mouseOverFlag:Bool = false;
+    private function __onMouseMove(event:Event) {
+        if (_mouseOverFlag == false) {
+            _mouseOverFlag = true;
+            
+            var mouseEvent:hx.widgets.MouseEvent = event.convertTo(hx.widgets.MouseEvent);
+            for (c in _inComponents) {
+                handleMouseOut(c, mouseEvent);
+            }
+            
+            _inComponents.push(this);
+            
+            var fn = _eventMap.get(MouseEvent.MOUSE_OVER);
+            if (fn != null) {
+                var newMouseEvent = new MouseEvent(MouseEvent.MOUSE_OVER);
+                var pt:Point = new Point(mouseEvent.x, mouseEvent.y);
+                pt = window.clientToScreen(pt);
+                newMouseEvent.screenX = pt.x;
+                newMouseEvent.screenY = pt.y;
+                fn(newMouseEvent);
             }
         }
-
+    }
+    
+    private function __onMouseOut(event:Event) {
+        var mouseEvent:hx.widgets.MouseEvent = event.convertTo(hx.widgets.MouseEvent);
+        var pt:Point = new Point(mouseEvent.x, mouseEvent.y);
+        if ("" + window.hitTest(pt) != "enum(10)" && _mouseOverFlag == true) {
+            handleMouseOut(this, mouseEvent);
+        }
+    }
+    
+    private function handleMouseOut(c:ComponentBase, mouseEvent:hx.widgets.MouseEvent) {
+        c._mouseOverFlag = false;
+        _inComponents.remove(this);
+        
+        var fn = c._eventMap.get(MouseEvent.MOUSE_OUT);
+        if (fn != null) {
+            var newMouseEvent = new MouseEvent(MouseEvent.MOUSE_OUT);
+            var pt:Point = new Point(mouseEvent.x, mouseEvent.y);
+            pt = c.window.clientToScreen(pt);
+            newMouseEvent.screenX = pt.x;
+            newMouseEvent.screenY = pt.y;
+            fn(newMouseEvent);
+        }
+    }
+    
+    private function __onMouseEvent(event:Event) {
+        var type:String = EventMapper.WX_TO_HAXEUI.get(event.eventType);
         if (type != null) {
             var fn = _eventMap.get(type);
             if (fn != null) {
+                var mouseEvent:hx.widgets.MouseEvent = event.convertTo(hx.widgets.MouseEvent);
                 var newMouseEvent = new MouseEvent(type);
+                var pt:Point = new Point(mouseEvent.x, mouseEvent.y);
                 pt = window.clientToScreen(pt);
                 newMouseEvent.screenX = pt.x;
                 newMouseEvent.screenY = pt.y;
