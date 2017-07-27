@@ -213,8 +213,6 @@ class ComponentBase {
         }
   */      
         window = Type.createInstance(Type.resolveClass(nativeComponentClass), params);
-        trace(">>>>>>>>>>>>>> CAN? " + window.canSetTransparent);
-        window.transparent = 0;
         if (window == null) {
             throw "Could not create window: " + nativeComponentClass;
         }
@@ -252,9 +250,9 @@ class ComponentBase {
             __eventsToMap = null;
         }
 
-        if (Std.is(window, Button) || Std.is(window, StaticText)) {
+        if (Std.is(window, Button) || Std.is(window, StaticText) || Std.is(window, haxe.ui.backend.hxwidgets.custom.TransparentStaticBitmap)) {
             window.bind(EventType.ERASE_BACKGROUND, function(e) {
-
+trace("erase");
             });
         }
         
