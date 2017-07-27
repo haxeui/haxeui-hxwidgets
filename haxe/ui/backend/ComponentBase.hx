@@ -250,9 +250,9 @@ class ComponentBase {
             __eventsToMap = null;
         }
 
-        if (Std.is(window, Button) || Std.is(window, StaticText) || Std.is(window, haxe.ui.backend.hxwidgets.custom.TransparentStaticBitmap)) {
+        if (Std.is(window, Button) || Std.is(window, StaticText)) {
             window.bind(EventType.ERASE_BACKGROUND, function(e) {
-trace("erase");
+
             });
         }
         
@@ -526,6 +526,11 @@ trace("erase");
         if (style.backgroundColor != null && _hasPaintHandler == false) {
             //trace(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> " + this + " --- " + StringTools.hex(style.backgroundColor));
             window.backgroundColour = style.backgroundColor;
+            if (Platform.isLinux && __children != null) { // wxPanels are opaque and you cant make them transparent on linux! :(
+                for (c in __children) {
+                    c.window.backgroundColour = style.backgroundColor;
+                }
+            }
             refreshWindow = true;
         }
 
