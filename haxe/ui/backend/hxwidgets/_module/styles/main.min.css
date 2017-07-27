@@ -1,4 +1,4 @@
 *{native:true;}
-.scroll,.hscroll,.vscroll{width:auto;height:auto;background-color:none!important;color:none;}
+.scroll,.hscroll,.vscroll,.slider,.hslider,.vslider{width:auto;height:auto;background-color:none!important;color:none;}
 .button{background-color:none!important;}
 .dialog{padding-top:10px!important;}
