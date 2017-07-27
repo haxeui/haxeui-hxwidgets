@@ -213,6 +213,8 @@ class ComponentBase {
         }
   */      
         window = Type.createInstance(Type.resolveClass(nativeComponentClass), params);
+        trace(">>>>>>>>>>>>>> CAN? " + window.canSetTransparent);
+        window.transparent = 0;
         if (window == null) {
             throw "Could not create window: " + nativeComponentClass;
         }
