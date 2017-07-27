@@ -84,9 +84,11 @@ class AppBase {
                 timer.stop();
                 _frame.fit();
                 _frame.show(true);
+                _frame.center();
             });
         } else {
             _frame.show(true);
+            _frame.center();
         }
         _frame.thaw();
         _app.run();
