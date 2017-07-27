@@ -15,4 +15,8 @@ class ControlMin extends HxWidgetsBehaviour {
             cast(_component.window, Slider).min = value;
         }
     }
+    
+    public override function get():Variant {
+        return cast(_component.window, Slider).min;
+    }
 }

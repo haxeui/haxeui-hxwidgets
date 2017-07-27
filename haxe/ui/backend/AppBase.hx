@@ -19,7 +19,7 @@ class AppBase {
     private var _onEnd:Void->Void;
 
     public function new() {
-        //SystemOptions.setOption("msw.window.no-clip-children", 1);
+        SystemOptions.setOption("msw.window.no-clip-children", 1);
     }
 
     private function build() {
