@@ -20,4 +20,22 @@ class Platform {
         return _name;
     }
 
+    //////////////////////////////////////////////////////////////////////////////////////////////////////////
+    // Util functions
+    //////////////////////////////////////////////////////////////////////////////////////////////////////////
+    public static var isWindows(get, null):Bool;
+    private static function get_isWindows():Bool {
+        return (name == "windows");
+    }
+
+    public static var isMac(get, null):Bool;
+    private static function get_isMac():Bool {
+        return (name == "mac");
+    }
+
+    public static var isLinux(get, null):Bool;
+    private static function get_isLinux():Bool {
+        return (name == "linux");
+    }
+    
 }
