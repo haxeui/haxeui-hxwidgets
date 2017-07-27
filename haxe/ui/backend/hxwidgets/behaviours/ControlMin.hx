@@ -12,6 +12,15 @@ class ControlMin extends HxWidgetsBehaviour {
         }
 
         if (Std.is(_component.window, Slider)) {
+            var slider:haxe.ui.components.Slider = cast(_component, haxe.ui.components.Slider);
+            var wxSlider:Slider = cast(_component.window, Slider);
+            trace(">>>>>>>>>>>>>>>> min: " + value + " max: " + wxSlider.max);
+            if (value > wxSlider.max) {
+                wxSlider.max = value;
+                trace("CACHE!");
+            }
+            
+            
             cast(_component.window, Slider).min = value;
         }
     }
