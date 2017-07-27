@@ -1,5 +1,6 @@
 package haxe.ui.backend;
 
+import haxe.ui.backend.hxwidgets.Platform;
 import haxe.ui.backend.hxwidgets.behaviours.ListViewDataSource;
 import haxe.ui.backend.hxwidgets.custom.SimpleListView;
 import haxe.ui.containers.ListView;
@@ -216,13 +217,12 @@ class ComponentBase {
             throw "Could not create window: " + nativeComponentClass;
         }
 
-        var platform:PlatformInfo = new PlatformInfo();
         if (Std.is(window, Notebook)) {
-            if (platform.isWindows) {
-                var n:Notebook = cast window;
+            var n:Notebook = cast window;
+            if (Platform.isWindows) {
                 n.padding = new hx.widgets.Size(6, 6);
-                //n.backgroundColour = 0xF0F0F0;
-                //n.refresh();
+            } else if (Platform.isMac) {
+                n.allowIcons = false;
             }
         }
 
@@ -780,7 +780,7 @@ class ComponentBase {
     private function __onMouseOut(event:Event) {
         var mouseEvent:hx.widgets.MouseEvent = event.convertTo(hx.widgets.MouseEvent);
         var pt:Point = new Point(mouseEvent.x, mouseEvent.y);
-        if ("" + window.hitTest(pt) != "enum(10)" && _mouseOverFlag == true) {
+        if (window.hitTest(pt) != HitTest.WINDOW_INSIDE && _mouseOverFlag == true) {
             handleMouseOut(this, mouseEvent);
         }
     }
