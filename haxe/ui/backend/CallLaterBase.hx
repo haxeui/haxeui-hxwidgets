@@ -1,16 +1,20 @@
 package haxe.ui.backend;
 
-import haxe.ui.util.Timer;
+import haxe.ui.core.Screen;
+import hx.widgets.EventType;
+import hx.widgets.ThreadEvent;
 
 class CallLaterBase {
-    private var _timer:Timer = null;
+    private var _fn:Void->Void;
+    
     public function new(fn:Void->Void) {
-        _timer = new Timer(0, function() {
-            if (_timer != null) {
-                _timer.stop();
-                _timer = null;
-                fn();
-            }
-        });
+        _fn = fn;
+        Screen.instance.frame.bind(EventType.THREAD, onThreadEvent);
+        Screen.instance.frame.queueEvent(new ThreadEvent());
+    }
+    
+    private function onThreadEvent(e) {
+        Screen.instance.frame.unbind(EventType.THREAD, onThreadEvent);
+        _fn();
     }
 }
