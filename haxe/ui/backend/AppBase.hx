@@ -77,17 +77,13 @@ class AppBase {
         };
     }
 
-    private var _timer = null;
+    private var _timer:Timer = null;
     public function start() {
         if (Toolkit.backendProperties.getPropBool("haxe.ui.hxwidgets.frame.fit", false) == true) {
-            _timer = new Timer(0, function() {
-                if (_timer != null) {
-                    _timer.stop();
-                    _timer = null;
-                    _frame.fit();
-                    _frame.show(true);
-                    _frame.center();
-                }
+            Toolkit.callLater(function() {
+                _frame.fit();
+                _frame.show(true);
+                _frame.center();
             });
         } else {
             _frame.show(true);
