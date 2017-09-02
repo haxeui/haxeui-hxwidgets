@@ -423,9 +423,9 @@ class ComponentBase {
 
     private function handleRemoveComponent(child:Component, dispose:Bool = true):Component {
         __children.remove(child);
-        if (window != null) {
-            window.destroy();
-            window = null;
+        if (child.window != null) {
+            child.window.destroy();
+            child.window = null;
         }
         return child;
     }
