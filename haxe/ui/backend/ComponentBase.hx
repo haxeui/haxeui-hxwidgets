@@ -600,11 +600,11 @@ class ComponentBase {
             var fontWeight:FontWeight = FontWeight.NORMAL;
             var fontUnderline:Bool = false;
             if (style.fontSize != null) {
-                //fontSize = Std.int(style.fontSize) - 4;
+                fontSize = Std.int(style.fontSize) - 4;
             }
 
             var font:Font = new Font(fontSize, fontFamily, fontStyle, fontWeight, fontUnderline);
-            //window.font = font;
+            window.font = font;
         }
     }
 
