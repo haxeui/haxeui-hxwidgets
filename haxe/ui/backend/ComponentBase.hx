@@ -462,7 +462,7 @@ class ComponentBase {
             return;
         }
 
-        window.freeze();
+        //window.freeze();
     }
 
     public function unlock(recusive:Bool = false) {
@@ -470,7 +470,7 @@ class ComponentBase {
             return;
         }
 
-        window.thaw();
+        //window.thaw();
     }
 
     private var _repositionUnlockCount:Int = 0;
@@ -812,10 +812,8 @@ class ComponentBase {
             if (fn != null) {
                 var mouseEvent:hx.widgets.MouseEvent = event.convertTo(hx.widgets.MouseEvent);
                 var newMouseEvent = new MouseEvent(type);
-                var pt:Point = new Point(mouseEvent.x, mouseEvent.y);
-                pt = window.clientToScreen(pt);
-                newMouseEvent.screenX = pt.x;
-                newMouseEvent.screenY = pt.y;
+                newMouseEvent.screenX = Std.int(cast(this, Component).screenLeft) + mouseEvent.x;
+                newMouseEvent.screenY = Std.int(cast(this, Component).screenTop) + mouseEvent.y;
                 fn(newMouseEvent);
             }
         }
