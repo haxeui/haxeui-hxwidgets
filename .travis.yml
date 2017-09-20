@@ -75,7 +75,7 @@ before_install:
       fi;
     fi
 
-  - git clone https://github.com/haxeui/haxeui-core.git --depth=1
+  - git clone --branch $TRAVIS_BRANCH https://github.com/haxeui/haxeui-core.git --depth=1
   - haxelib dev haxeui-core haxeui-core
 
   - git clone https://github.com/haxeui/hxWidgets.git --depth=1
