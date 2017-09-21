@@ -219,9 +219,7 @@ class ComponentBase {
 
         if (Std.is(window, Notebook)) {
             var n:Notebook = cast window;
-            if (Platform.isWindows) {
-                n.padding = new hx.widgets.Size(6, 6);
-            } else if (Platform.isMac) {
+            if (Platform.isMac) {
                 n.allowIcons = false;
             }
         }
