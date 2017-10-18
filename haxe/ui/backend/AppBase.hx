@@ -82,8 +82,8 @@ class AppBase {
         if (Toolkit.backendProperties.getPropBool("haxe.ui.hxwidgets.frame.fit", false) == true) {
             Toolkit.callLater(function() {
                 _frame.fit();
-                _frame.show(true);
                 _frame.center();
+                _frame.show(true);
             });
         } else {
             _frame.show(true);
