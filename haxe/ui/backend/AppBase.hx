@@ -59,14 +59,12 @@ class AppBase {
         _frame.resize(frameWidth, frameHeight);
         _frame.move(frameLeft, frameTop);
 
-        /*
         _frame.bind(EventType.CLOSE_WINDOW, function(e:Event) {
             _frame.destroy();
             if (onEnd != null) {
                 onEnd();
             }
         }); //Safe window-closing
-        */
 
         onReady();
     }
