@@ -200,18 +200,6 @@ class ComponentBase {
             params = [parent, dialog.dialogOptions.title, DialogStyle.DEFAULT_DIALOG_STYLE | Defs.CENTRE];
         }
         
-/*
-        if (className == "haxe.ui.containers.ListView") {
-            var listView:ListView = cast(this, ListView);
-            listView.syncUI();
-            if (Type.getClassName(Type.getClass(listView._itemRenderer)) != "haxe.ui.core.BasicItemRenderer") {
-                trace("Custom");
-                nativeComponentClass = "hx.widgets.ScrolledWindow";
-            } else {
-                trace("Basic");
-            }
-        }
-  */      
         window = Type.createInstance(Type.resolveClass(nativeComponentClass), params);
         if (window == null) {
             throw "Could not create window: " + nativeComponentClass;
@@ -267,129 +255,6 @@ class ComponentBase {
         }
     }
 
-    private var _paintStyle:Style = null;
-    private var _hasPaintHandler:Bool = false;
-    private function onPaintEvent(e:Event) {
-        var x:Float = 0;
-        var y:Float = 0;
-        var w:Float = window.clientSize.width;
-        var h:Float = window.clientSize.height;
-
-        var borderSize:Float = 1;
-
-        /*
-        var dc:PaintDC = new PaintDC(window);
-        dc.clear();
-        var gc:GraphicsContext = GraphicsContext.fromWindowDC(dc);
-        gc.setInterpolationQuality(InterpolationQuality.NONE);
-
-        // border size
-        if (_paintStyle.borderLeftSize != null
-            && _paintStyle.borderLeftSize == _paintStyle.borderRightSize
-            && _paintStyle.borderLeftSize == _paintStyle.borderBottomSize
-            && _paintStyle.borderLeftSize == _paintStyle.borderTopSize) { // full border
-            borderSize = _paintStyle.borderLeftSize;
-        }
-
-        // border colour
-        if (_paintStyle.borderLeftColor != null
-            && _paintStyle.borderLeftColor == _paintStyle.borderRightColor
-            && _paintStyle.borderLeftColor == _paintStyle.borderBottomColor
-            && _paintStyle.borderLeftColor == _paintStyle.borderTopColor) {
-            gc.setPen(new Pen(convertColor(_paintStyle.borderLeftColor), Std.int(borderSize)));
-        }
-
-        // background colour
-        if (_paintStyle.backgroundColor != null) {
-            gc.setBrush(new Brush(convertColor(_paintStyle.backgroundColor)));
-        }
-
-        var borderRadius:Float = 0;
-        if (_paintStyle.borderRadius != null) {
-            borderRadius = _paintStyle.borderRadius;
-        }
-
-
-        if (borderSize > 1) {
-            x += Math.ffloor(borderSize / 2);
-            y += Math.ffloor(borderSize / 2);
-            w -= borderSize;
-            h -= borderSize;
-        } else if (borderSize != 0) {
-            w--;
-            h--;
-        }
-        gc.drawRoundedRectangle(x, y, w, h, borderRadius);
-
-        //return;
-
-        if (_paintStyle.backgroundImage != null) {
-            trace(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> " + _paintStyle.backgroundImage);
-            var bmp:Bitmap = Bitmap.fromHaxeResource(_paintStyle.backgroundImage);
-            if (bmp != null) {
-                var imageRect:Rectangle = new Rectangle(0, 0, bmp.getWidth(), bmp.getHeight());
-                if (_paintStyle.backgroundImageClipTop != null
-                    && _paintStyle.backgroundImageClipLeft != null
-                    && _paintStyle.backgroundImageClipBottom != null
-                    && _paintStyle.backgroundImageClipRight != null) {
-                        imageRect = new Rectangle(_paintStyle.backgroundImageClipLeft,
-                                                  _paintStyle.backgroundImageClipTop,
-                                                  _paintStyle.backgroundImageClipRight - _paintStyle.backgroundImageClipLeft,
-                                                  _paintStyle.backgroundImageClipBottom - _paintStyle.backgroundImageClipTop);
-                }
-
-                var slice:Rectangle = null;
-                if (_paintStyle.backgroundImageSliceTop != null
-                    && _paintStyle.backgroundImageSliceLeft != null
-                    && _paintStyle.backgroundImageSliceBottom != null
-                    && _paintStyle.backgroundImageSliceRight != null) {
-                    slice = new Rectangle(_paintStyle.backgroundImageSliceLeft,
-                                          _paintStyle.backgroundImageSliceTop,
-                                          _paintStyle.backgroundImageSliceRight - _paintStyle.backgroundImageSliceLeft,
-                                          _paintStyle.backgroundImageSliceBottom - _paintStyle.backgroundImageSliceTop);
-                }
-
-                if (slice == null) {
-                    gc.drawBitmap(bmp, x, y, w, h);
-                } else {
-                    var rects:Slice9Rects = Slice9.buildRects(w + 1, h + 1, imageRect.width, imageRect.height, slice);
-                    var srcRects:Array<Rectangle> = rects.src;
-                    var dstRects:Array<Rectangle> = rects.dst;
-
-                    for (i in 0...srcRects.length) {
-                        var srcRect = new Rectangle(srcRects[i].left + imageRect.left,
-                                                    srcRects[i].top + imageRect.top,
-                                                    srcRects[i].width,
-                                                    srcRects[i].height);
-                        var dstRect = dstRects[i];
-                        var sub:Bitmap = bmp.getSubBitmap(new Rect(Std.int(srcRect.left), Std.int(srcRect.top), Std.int(srcRect.width), Std.int(srcRect.height)));
-                        if (i == 3 || i == 4 || i == 5) {
-                            gc.drawBitmap(sub, dstRect.left, dstRect.top, dstRect.width, dstRect.height + 2);
-                        } else {
-                            gc.drawBitmap(sub, dstRect.left, dstRect.top, dstRect.width, dstRect.height);
-                        }
-                    }
-                }
-            }
-        }
-        */
-    }
-
-    private function addPaintHandler222() {
-        return;
-        if (_hasPaintHandler == true) {
-            return;
-        }
-
-        window.bind(EventType.PAINT, onPaintEvent);
-        /*
-        window.bind(EventType.ERASE_BACKGROUND, function(e) {
-
-        });
-        */
-        _hasPaintHandler = true;
-    }
-
     private function handleSize(width:Null<Float>, height:Null<Float>, style:Style) {
         if (width == null || height == null || width <= 0 || height <= 0) {
             return;
@@ -405,7 +270,6 @@ class ComponentBase {
         window.resize(w, h);
     }
 
-    private var _fake:String = null;
     private function handleAddComponent(child:Component):Component {
         cast(child, ComponentBase).__parent = cast this;
         __children.push(child);
@@ -498,25 +362,13 @@ class ComponentBase {
     // Redraw callbacks
     //***********************************************************************************************************
     private function applyStyle(style:Style) {
-        //return;
         if (window == null) {
             return;
         }
 
         var refreshWindow:Bool = false;
 
-        /*
-        if (_hasPaintHandler == true) {
-            _paintStyle = style;
-            window.refresh();
-            //window.update();
-            return;
-            refreshWindow = true;
-        }
-        */
-
-        if (style.backgroundColor != null && _hasPaintHandler == false) {
-            //trace(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> " + this + " --- " + StringTools.hex(style.backgroundColor));
+        if (style.backgroundColor != null) {
             window.backgroundColour = style.backgroundColor;
             if (Platform.isLinux && __children != null) { // wxPanels are opaque and you cant make them transparent on linux! :(
                 for (c in __children) {
