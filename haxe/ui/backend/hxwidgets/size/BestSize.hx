@@ -17,7 +17,7 @@ class BestSize extends DelegateLayoutSize {
             return 0;
         }
         
-        if (Std.is(component.window, StaticText) && component.autoWidth == false) {
+        if (Std.is(component.window, StaticText) && component.autoWidth == false && component.width > 0) {
             var l:StaticText = cast component.window;
             l.wrap(Std.int(component.width));
         }
