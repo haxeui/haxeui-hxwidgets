@@ -402,12 +402,6 @@ class ComponentBase {
         var w:Int = Std.int(width);
         var h:Int = Std.int(height);
 
-        if (Std.is(window, StaticText)) {
-            var l:StaticText = cast this.window;
-            l.label = cast(this, Component).text;
-            l.wrap(w);
-        }
-
         window.resize(w, h);
     }
 
