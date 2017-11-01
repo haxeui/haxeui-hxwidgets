@@ -1,8 +1,12 @@
 package haxe.ui.backend;
 
+import haxe.ui.assets.FontInfo;
+import haxe.ui.core.Component;
 import haxe.ui.styles.Style;
 
 class TextDisplayBase {
+    public var parentComponent:Component;
+    
     private var _text:String;
     private var _textStyle:Style;
     
@@ -15,6 +19,8 @@ class TextDisplayBase {
     
     private var _multiline:Bool;
     private var _wordWrap:Bool;
+    
+    private var _fontInfo:FontInfo;
     
     public function new() {
     }
