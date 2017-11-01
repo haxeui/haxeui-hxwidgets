@@ -1,5 +1,6 @@
 package haxe.ui.backend;
 
+import haxe.ui.Preloader.PreloadItem;
 import haxe.ui.util.Timer;
 import hx.widgets.App;
 import hx.widgets.Event;
@@ -91,5 +92,9 @@ class AppBase {
         if (_onEnd != null) {
             _onEnd();
         }
+    }
+    
+    private function buildPreloadList():Array<PreloadItem> {
+        return [];
     }
 }
