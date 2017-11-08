@@ -1,0 +1,14 @@
+{
+    "name": "haxeui-hxwidgets",
+    "url": "https://github.com/haxeui/haxeui-hxwidgets",
+    "license": "MIT",
+    "tags": ["ui", "gui", "hxwidgets", "wxwidgets", "wx", "native"],
+    "description": "The wxWidgets backend of the HaxeUI framework",
+    "version": "0.0.1",
+    "releasenote": "Initial release",
+    "contributors": ["haxeui", "ianharrigan", "aW4KeNiNG", "ibilon"],
+    "dependencies": {
+        "haxeui-core": "",
+        "hxWidgets": ""
+    }
+}
