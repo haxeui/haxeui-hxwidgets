@@ -1,5 +1,7 @@
 package haxe.ui.backend;
 
+import haxe.ui.Preloader.PreloadItem;
+import haxe.ui.util.Timer;
 import hx.widgets.App;
 import hx.widgets.Event;
 import hx.widgets.EventType;
@@ -18,7 +20,7 @@ class AppBase {
     private var _onEnd:Void->Void;
 
     public function new() {
-        //SystemOptions.setOption("msw.window.no-clip-children", 1);
+        SystemOptions.setOption("msw.window.no-clip-children", 1);
     }
 
     private function build() {
@@ -58,14 +60,9 @@ class AppBase {
         _frame.resize(frameWidth, frameHeight);
         _frame.move(frameLeft, frameTop);
 
-        /*
         _frame.bind(EventType.CLOSE_WINDOW, function(e:Event) {
             _frame.destroy();
-            if (onEnd != null) {
-                onEnd();
-            }
-        }); //Safe window-closing
-        */
+        });
 
         onReady();
     }
@@ -76,18 +73,28 @@ class AppBase {
         };
     }
 
+    private var _timer:Timer = null;
     public function start() {
-
         if (Toolkit.backendProperties.getPropBool("haxe.ui.hxwidgets.frame.fit", false) == true) {
-            _frame.fit();
+            Toolkit.callLater(function() {
+                _frame.fit();
+                _frame.center();
+                _frame.show(true);
+            });
+        } else {
+            _frame.show(true);
+            _frame.center();
         }
         _frame.thaw();
-        _frame.show(true);
         _app.run();
 
         _app.exit();
         if (_onEnd != null) {
             _onEnd();
         }
+    }
+    
+    private function buildPreloadList():Array<PreloadItem> {
+        return [];
     }
 }

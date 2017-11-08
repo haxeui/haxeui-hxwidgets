@@ -15,4 +15,8 @@ class ControlMax extends HxWidgetsBehaviour {
             cast(_component.window, Slider).max = value;
         }
     }
+    
+    public override function get():Variant {
+        return cast(_component.window, Slider).max;
+    }
 }

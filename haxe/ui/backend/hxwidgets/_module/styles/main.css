@@ -2,7 +2,7 @@
     native: true;
 }
 
-.scroll, .hscroll, .vscroll {
+.scroll, .hscroll, .vscroll, .slider, .hslider, .vslider {
     width: auto;
     height: auto;
     background-color: none !important;
@@ -11,7 +11,6 @@
 
 .button {
     background-color: none !important;
-    font-name: none;
 }
 
 .dialog {
