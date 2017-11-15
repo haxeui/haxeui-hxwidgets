@@ -29,6 +29,9 @@ class ControlBitmap extends HxWidgetsBehaviour {
             if (Resource.getBytes(value) != null) {
                 var bmp:StaticBitmap = cast _component.window;
                 bmp.bitmap = Bitmap.fromHaxeResource(value);
+                if (bmp.parent != null) {
+                    bmp.parent.refresh(); // if bitmap has resized, get rid of any left of artifacts from parent (wx thang!)
+                }
                 _component.invalidateLayout();
             }
         }
