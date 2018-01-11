@@ -1,6 +1,5 @@
 package haxe.ui.backend.hxwidgets.behaviours;
 
-import haxe.ui.backend.hxwidgets.custom.SimpleListView;
 import haxe.ui.data.DataSource;
 import haxe.ui.util.Variant;
 import hx.widgets.ListItem;

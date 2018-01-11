@@ -74,6 +74,7 @@
     <component id="haxe.ui.containers.ListView" class="haxe.ui.backend.hxwidgets.custom.SimpleListView" allowChildren="false" condition="this._itemRenderer=='BasicItemRenderer' || this._itemRenderer==null">
         <behaviour id="disabled" class="haxe.ui.backend.hxwidgets.behaviours.ControlDisable" />
         <behaviour id="dataSource" class="haxe.ui.backend.hxwidgets.behaviours.ListViewDataSource" />
+        <behaviour id="selectedIndex" class="haxe.ui.backend.hxwidgets.behaviours.ListViewSelectedIndex" />
         <size class="haxe.ui.backend.hxwidgets.size.WindowSize" includePadding="false" />
     </component>
     <component id="haxe.ui.components.HScroll" class="hx.widgets.ScrollBar" constructor="$style" allowChildren="false" style="ScrollBarStyle.HORIZONTAL">

@@ -531,6 +531,9 @@ class ComponentBase {
                 } else if (Std.is(window, Slider)) {
                     _eventMap.set(type, listener);
                     window.bind(EventType.SLIDER, __onChangeEvent);
+                } else if (Std.is(window, SimpleListView)) {
+                    _eventMap.set(type, listener);
+                    window.bind(EventType.LIST_ITEM_SELECTED, __onChangeEvent);
                 }
         }
     }
@@ -570,6 +573,9 @@ class ComponentBase {
                 } else if (Std.is(window, Slider)) {
                     _eventMap.remove(type);
                     window.unbind(EventType.SLIDER, __onChangeEvent);
+                } else if (Std.is(window, SimpleListView)) {
+                    _eventMap.remove(type);
+                    window.unbind(EventType.LIST_ITEM_SELECTED, __onChangeEvent);
                 }
         }
     }
