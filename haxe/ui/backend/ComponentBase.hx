@@ -92,7 +92,7 @@ class ComponentBase {
     public function createTextInput(text:String = null):TextInput {
         if (_textInput == null) {
             _textInput = new TextInput();
-            _textDisplay.parentComponent = cast this;
+            _textInput.parentComponent = cast this;
         }
         if (text != null) {
             _textInput.text = text;

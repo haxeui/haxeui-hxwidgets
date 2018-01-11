@@ -1,9 +1,9 @@
 package haxe.ui.backend;
 
+import haxe.ui.core.TextInput.TextInputData;
+
 class TextInputBase extends TextDisplayBase {
-    private var _password:Bool;
-    private var _hscrollPos:Float;
-    private var _vscrollPos:Float;
+    private var _inputData:TextInputData = new TextInputData();
     
     public function new() {
         super();

@@ -16,3 +16,8 @@
 .dialog {
     padding-top: 10px !important;
 }
+
+.textfield, .textarea {
+    width: auto !important;
+    height: auto !important;
+}

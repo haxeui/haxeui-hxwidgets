@@ -1,7 +1,6 @@
 package haxe.ui.backend.hxwidgets.size;
 
 import haxe.ui.layouts.DelegateLayout.DelegateLayoutSize;
-import hx.widgets.Dialog;
 import hx.widgets.StaticText;
 
 class BestSize extends DelegateLayoutSize {
