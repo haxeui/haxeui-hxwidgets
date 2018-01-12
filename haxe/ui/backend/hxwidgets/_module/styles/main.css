@@ -20,4 +20,5 @@
 .textfield, .textarea {
     width: auto !important;
     height: auto !important;
+    color: black !important;
 }
