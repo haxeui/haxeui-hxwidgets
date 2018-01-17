@@ -1,8 +1,8 @@
 package haxe.ui.backend.hxwidgets.behaviours;
+
 import haxe.ui.util.Variant;
 import hx.widgets.ListView;
 
-@:access(haxe.ui.backend.ComponentBase)
 class ListViewSelectedIndex extends HxWidgetsBehaviour {
     public override function get():Variant {
         if (_component.window == null) {
