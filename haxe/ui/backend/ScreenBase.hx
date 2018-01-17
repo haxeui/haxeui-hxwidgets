@@ -19,7 +19,7 @@ class ScreenBase {
     }
 
     public var focus:Component;
-    public var options(default, default):Dynamic;
+    public var options(default, default):ToolkitOptions;
 
     public var width(get, null):Float;
     public function get_width():Float {
