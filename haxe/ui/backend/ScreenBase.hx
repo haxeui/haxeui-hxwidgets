@@ -126,18 +126,7 @@ class ScreenBase {
         if (c.percentHeight > 0) {
             cy = (this.height * c.percentHeight) / 100;
         }
-
-//        c.lock();
-        /*
-        var start = Sys.time();
-        c.takeInvalidationSnapshot();
-        */
         c.resizeComponent(cx, cy);
-        /*
-        trace(this + " > " + (Sys.time() - start) + "s");
-        c.printInvalidationSnapshot();
-        */
-//        c.unlock();
     }
 
     public var frame(get, null):Frame;
