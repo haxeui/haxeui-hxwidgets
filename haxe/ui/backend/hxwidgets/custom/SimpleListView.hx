@@ -9,12 +9,12 @@ import hx.widgets.styles.ListCtrlStyle;
 class SimpleListView extends ListView {
     public function new(parent:Window, style:Int = 0, id:Int = -1) {
         super(parent, ListCtrlStyle.REPORT | ListCtrlStyle.NO_HEADER | ListCtrlStyle.SINGLE_SEL | style, id);
-        appendColumn("Temp");
+        appendColumn("");
         bind(EventType.SIZE, onResized);
     }
     
     private function onResized(event:Event) {
-        setColumnWidth(0, this.clientSize.width);
+        setColumnWidth(0, this.clientSize.width - 2);
     }
     
     public var selectedIndex(get, null):Int;
