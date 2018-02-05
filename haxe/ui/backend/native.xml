@@ -33,6 +33,7 @@
     <component id="haxe.ui.components.TextArea" class="hx.widgets.TextCtrl" constructor="null, $style" allowChildren="false" style="TextCtrlStyle.MULTILINE, TextCtrlStyle.HSCROLL">
         <behaviour id="text" class="haxe.ui.backend.hxwidgets.behaviours.ControlLabel" />
         <behaviour id="disabled" class="haxe.ui.backend.hxwidgets.behaviours.ControlDisable" />
+        <behaviour id="wrap" class="haxe.ui.backend.hxwidgets.behaviours.TextCtrlWordWrap" />
         <size class="haxe.ui.backend.hxwidgets.size.BestSize" includePadding="false" />
     </component>
     <component id="haxe.ui.components.HProgress" class="hx.widgets.Gauge" constructor="100, $style" allowChildren="false">
@@ -63,7 +64,9 @@
     </component>
     <component id="haxe.ui.containers.TabView" class="hx.widgets.Notebook">
         <behaviour id="disabled" class="haxe.ui.backend.hxwidgets.behaviours.ControlDisable" />
-        <behaviour id="removeAllTabs" class="haxe.ui.backend.hxwidgets.behaviours.NotebookRemoveAllTabs" />
+        <behaviour id="removeAllPages" class="haxe.ui.backend.hxwidgets.behaviours.NotebookRemoveAllPages" />
+        <behaviour id="removePage" class="haxe.ui.backend.hxwidgets.behaviours.NotebookRemovePage" />
+        <behaviour id="pageCount" class="haxe.ui.backend.hxwidgets.behaviours.NotebookPageCount" />
         <size class="haxe.ui.backend.hxwidgets.size.NotebookSize" includePadding="false" />
     </component>
     <component id="haxe.ui.containers.ScrollView" class="hx.widgets.ScrolledWindow">
@@ -73,6 +76,7 @@
     <component id="haxe.ui.containers.ListView" class="haxe.ui.backend.hxwidgets.custom.SimpleListView" allowChildren="false" condition="this._itemRenderer=='BasicItemRenderer' || this._itemRenderer==null">
         <behaviour id="disabled" class="haxe.ui.backend.hxwidgets.behaviours.ControlDisable" />
         <behaviour id="dataSource" class="haxe.ui.backend.hxwidgets.behaviours.ListViewDataSource" />
+        <behaviour id="selectedIndex" class="haxe.ui.backend.hxwidgets.behaviours.ListViewSelectedIndex" />
         <size class="haxe.ui.backend.hxwidgets.size.WindowSize" includePadding="false" />
     </component>
     <component id="haxe.ui.components.HScroll" class="hx.widgets.ScrollBar" constructor="$style" allowChildren="false" style="ScrollBarStyle.HORIZONTAL">

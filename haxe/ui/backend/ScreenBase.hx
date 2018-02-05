@@ -19,7 +19,7 @@ class ScreenBase {
     }
 
     public var focus:Component;
-    public var options(default, default):Dynamic;
+    public var options(default, default):ToolkitOptions;
 
     public var width(get, null):Float;
     public function get_width():Float {
@@ -126,18 +126,7 @@ class ScreenBase {
         if (c.percentHeight > 0) {
             cy = (this.height * c.percentHeight) / 100;
         }
-
-//        c.lock();
-        /*
-        var start = Sys.time();
-        c.takeInvalidationSnapshot();
-        */
         c.resizeComponent(cx, cy);
-        /*
-        trace(this + " > " + (Sys.time() - start) + "s");
-        c.printInvalidationSnapshot();
-        */
-//        c.unlock();
     }
 
     public var frame(get, null):Frame;

@@ -1,8 +1,6 @@
 package haxe.ui.backend.hxwidgets.size;
 
-import haxe.ui.backend.hxwidgets.custom.TransparentStaticText;
 import haxe.ui.layouts.DelegateLayout.DelegateLayoutSize;
-import hx.widgets.Dialog;
 import hx.widgets.HardBreakWrapper;
 import hx.widgets.StaticText;
 

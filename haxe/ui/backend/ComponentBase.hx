@@ -53,6 +53,7 @@ import hx.widgets.StaticText;
 import hx.widgets.Window;
 import hx.widgets.styles.DialogStyle;
 import hx.widgets.styles.RadioButtonStyle;
+import hx.widgets.styles.WindowStyle;
 
 class ComponentBase {
     private var _eventMap:Map<String, UIEvent->Void>;
@@ -92,7 +93,7 @@ class ComponentBase {
     public function createTextInput(text:String = null):TextInput {
         if (_textInput == null) {
             _textInput = new TextInput();
-            _textDisplay.parentComponent = cast this;
+            _textInput.parentComponent = cast this;
         }
         if (text != null) {
             _textInput.text = text;
@@ -211,6 +212,8 @@ class ComponentBase {
             var n:Notebook = cast window;
             if (Platform.isMac) {
                 n.allowIcons = false;
+            } else if (Platform.isWindows) {
+                n.padding = new hx.widgets.Size(5,5);
             }
         }
 
@@ -225,6 +228,8 @@ class ComponentBase {
             var pageIcon:String = cast(this, Box).icon;
             var iconIndex:Int = TabViewIcons.get(cast __parent, pageIcon);
             n.addPage(window, pageTitle, iconIndex);
+            n.layout();
+            n.refresh();
         }
 
         if (Std.parseInt(cast(this, Component).id) != null) {
@@ -278,15 +283,26 @@ class ComponentBase {
         return child;
     }
 
+    private function handleAddComponentAt(child:Component, index:Int):Component {
+        cast(child, ComponentBase).__parent = cast this;
+        __children.insert(index, child);
+        return child;
+    }
+    
     private function handleRemoveComponent(child:Component, dispose:Bool = true):Component {
         __children.remove(child);
-        if (child.window != null) {
+        if (child.window != null && dispose == true) {
             child.window.destroy();
             child.window = null;
         }
         return child;
     }
 
+    private function handleRemoveComponentAt(index:Int, dispose:Bool = true):Component {
+        var child = cast(this, Component)._children[index];
+        return handleRemoveComponent(child, dispose);
+    }
+    
     private function handleVisibility(show:Bool) {
         if (window != null) {
             window.show(show);
@@ -306,13 +322,15 @@ class ComponentBase {
         }
     }
 
-
     private function handlePosition(left:Null<Float>, top:Null<Float>, style:Style):Void {
         if (window == null) {
             return;
         }
 
-        window.move(Std.int(left), Std.int(top));
+        
+        if (__parent != null && Std.is(__parent.window, Notebook) == false) {
+            window.move(Std.int(left), Std.int(top));
+        }
     }
 
     public function lock(recusive:Bool = false) {
@@ -435,6 +453,10 @@ class ComponentBase {
             }
         }
 
+        if (style.borderLeftSize != null && style.borderLeftSize > 0) {
+            window.windowStyle |= WindowStyle.BORDER_STATIC;
+        }
+        
         if (refreshWindow == true) {
             window.refresh();
         }
@@ -531,6 +553,9 @@ class ComponentBase {
                 } else if (Std.is(window, Slider)) {
                     _eventMap.set(type, listener);
                     window.bind(EventType.SLIDER, __onChangeEvent);
+                } else if (Std.is(window, SimpleListView)) {
+                    _eventMap.set(type, listener);
+                    window.bind(EventType.LIST_ITEM_SELECTED, __onChangeEvent);
                 }
         }
     }
@@ -570,6 +595,9 @@ class ComponentBase {
                 } else if (Std.is(window, Slider)) {
                     _eventMap.remove(type);
                     window.unbind(EventType.SLIDER, __onChangeEvent);
+                } else if (Std.is(window, SimpleListView)) {
+                    _eventMap.remove(type);
+                    window.unbind(EventType.LIST_ITEM_SELECTED, __onChangeEvent);
                 }
         }
     }
