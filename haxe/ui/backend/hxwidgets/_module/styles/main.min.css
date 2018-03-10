@@ -1,5 +1,6 @@
 *{native:true;}
 .scroll,.hscroll,.vscroll,.slider,.hslider,.vslider{width:auto;height:auto;background-color:none!important;color:none;}
+.horizontal-progress2,.vertical-progress2{width:auto;height:auto;background-color:none!important;color:none;}
 .button{background-color:none!important;}
 .dialog{padding-top:10px!important;}
-.textfield{width:auto!important;height:auto!important;}
+.textfield,.textarea{width:auto!important;height:auto!important;color:black!important;}

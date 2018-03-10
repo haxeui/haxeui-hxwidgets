@@ -260,6 +260,8 @@ class ComponentBase {
                 window.bind(EventMapper.HAXEUI_TO_WX.get(MouseEvent.MOUSE_MOVE), function(e) { });
             }
         }
+        
+        cast(this, Component).behaviours.update();
     }
 
     private function handleSize(width:Null<Float>, height:Null<Float>, style:Style) {

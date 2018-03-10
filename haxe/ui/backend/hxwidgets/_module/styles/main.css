@@ -9,6 +9,13 @@
     color: none;
 }
 
+.horizontal-progress2, .vertical-progress2 {
+    width: auto;
+    height: auto;
+    background-color: none !important;
+    color: none;
+}
+
 .button {
     background-color: none !important;
 }

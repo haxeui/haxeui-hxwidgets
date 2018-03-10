@@ -104,4 +104,35 @@
         <behaviour id="disabled" class="haxe.ui.backend.hxwidgets.behaviours.ControlDisable" />
         <size class="haxe.ui.backend.hxwidgets.size.BestSize" includePadding="false" />
     </component>
+    
+    
+    
+    <component id="haxe.ui.components.HorizontalProgress2" class="hx.widgets.Gauge" constructor="100, $style" allowChildren="false">
+        <behaviour id="end" class="haxe.ui.backend.hxwidgets.behaviours.ControlValue" />
+        <behaviour id="indeterminate" class="haxe.ui.backend.hxwidgets.behaviours.ControlPulse" />
+        <behaviour id="disabled" class="haxe.ui.backend.hxwidgets.behaviours.ControlDisable" />
+        <size class="haxe.ui.backend.hxwidgets.size.BestSize" includePadding="false" />
+    </component>
+    <component id="haxe.ui.components.VerticalProgress2" class="hx.widgets.Gauge" constructor="100, $style" allowChildren="false" style="GaugeStyle.VERTICAL">
+        <behaviour id="end" class="haxe.ui.backend.hxwidgets.behaviours.ControlValue" />
+        <behaviour id="indeterminate" class="haxe.ui.backend.hxwidgets.behaviours.ControlPulse" />
+        <behaviour id="disabled" class="haxe.ui.backend.hxwidgets.behaviours.ControlDisable" />
+        <size class="haxe.ui.backend.hxwidgets.size.BestSize" includePadding="false" />
+    </component>
+    
+    <component id="haxe.ui.components.HorizontalSlider2" allowChildren="false" class="hx.widgets.Slider" constructor="0, 0, 100, $style">
+        <behaviour id="pos" class="haxe.ui.backend.hxwidgets.behaviours.ControlValue" />
+        <behaviour id="min" class="haxe.ui.backen d.hxwidgets.behaviours.ControlMin" />
+        <behaviour id="max" class="haxe.ui.backend.hxwidgets.behaviours.ControlMax" />
+        <behaviour id="disabled" class="haxe.ui.backend.hxwidgets.behaviours.ControlDisable" />
+        <size class="haxe.ui.backend.hxwidgets.size.BestSize" includePadding="false" />
+    </component>
+    <component id="haxe.ui.components.VerticalSlider2" class="hx.widgets.Slider" constructor="0, 0, 100, $style" allowChildren="false" style="SliderStyle.VERTICAL">
+        <behaviour id="pos" class="haxe.ui.backend.hxwidgets.behaviours.ControlValue" />
+        <behaviour id="min" class="haxe.ui.backend.hxwidgets.behaviours.ControlMin" />
+        <behaviour id="max" class="haxe.ui.backend.hxwidgets.behaviours.ControlMax" />
+        <behaviour id="disabled" class="haxe.ui.backend.hxwidgets.behaviours.ControlDisable" />
+        <size class="haxe.ui.backend.hxwidgets.size.BestSize" includePadding="false" />
+    </component>
+    
 </native>
