@@ -9,10 +9,10 @@
     color: none;
 }
 
-.horizontal-progress2, .vertical-progress2 {
+.progress, .slider {
     width: auto;
     height: auto;
-    background-color: none !important;
+    background-color: none;
     color: none;
 }
 
