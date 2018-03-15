@@ -5,7 +5,7 @@
 .scroll, .hscroll, .vscroll, .slider, .hslider, .vslider {
     width: auto;
     height: auto;
-    background-color: none !important;
+    background-color: none;
     color: none;
 }
 
@@ -17,15 +17,15 @@
 }
 
 .button {
-    background-color: none !important;
+    background-color: none;
 }
 
 .dialog {
-    padding-top: 10px !important;
+    padding-top: 10px;
 }
 
 .textfield, .textarea {
-    width: auto !important;
-    height: auto !important;
-    color: black !important;
+    width: auto;
+    height: auto;
+    color: black;
 }

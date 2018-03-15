@@ -16,7 +16,6 @@ class ControlValue extends HxWidgetsBehaviour {
         if (_component.window == null) {
             return;
         }
-
         
         if (Std.is(_component.window, Gauge)) {
             cast(_component.window, Gauge).value = value;
