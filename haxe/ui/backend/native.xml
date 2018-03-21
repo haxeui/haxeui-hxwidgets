@@ -95,18 +95,18 @@
     </component>
     
     <component id="haxe.ui.components.HorizontalSlider" allowChildren="false" class="hx.widgets.Slider" constructor="0, 0, 100, $style">
-        <behaviour id="end" class="haxe.ui.backend.hxwidgets.behaviours.ControlValue" autoDispatch="haxe.ui.core.UIEvent.CHANGE" />
+        <behaviour id="end" class="haxe.ui.backend.hxwidgets.behaviours.ControlValue" />
         <behaviour id="start" class="haxe.ui.backend.hxwidgets.behaviours.ControlValue" />
-        <behaviour id="pos" class="haxe.ui.backend.hxwidgets.behaviours.ControlValue" />
-        <behaviour id="min" class="haxe.ui.backen d.hxwidgets.behaviours.ControlMin" />
+        <behaviour id="pos" class="haxe.ui.backend.hxwidgets.behaviours.ControlValue" autoDispatch="haxe.ui.core.UIEvent.CHANGE" />
+        <behaviour id="min" class="haxe.ui.backend.hxwidgets.behaviours.ControlMin" />
         <behaviour id="max" class="haxe.ui.backend.hxwidgets.behaviours.ControlMax" />
         <behaviour id="disabled" class="haxe.ui.backend.hxwidgets.behaviours.ControlDisable" />
         <size class="haxe.ui.backend.hxwidgets.size.BestSize" includePadding="false" />
     </component>
     <component id="haxe.ui.components.VerticalSlider" class="hx.widgets.Slider" constructor="0, 0, 100, $style" allowChildren="false" style="SliderStyle.VERTICAL">
-        <behaviour id="end" class="haxe.ui.backend.hxwidgets.behaviours.ControlValue" autoDispatch="haxe.ui.core.UIEvent.CHANGE" />
+        <behaviour id="end" class="haxe.ui.backend.hxwidgets.behaviours.ControlValue" />
         <behaviour id="start" class="haxe.ui.backend.hxwidgets.behaviours.ControlValue" />
-        <behaviour id="pos" class="haxe.ui.backend.hxwidgets.behaviours.ControlValue" />
+        <behaviour id="pos" class="haxe.ui.backend.hxwidgets.behaviours.ControlValue" autoDispatch="haxe.ui.core.UIEvent.CHANGE" />
         <behaviour id="min" class="haxe.ui.backend.hxwidgets.behaviours.ControlMin" />
         <behaviour id="max" class="haxe.ui.backend.hxwidgets.behaviours.ControlMax" />
         <behaviour id="disabled" class="haxe.ui.backend.hxwidgets.behaviours.ControlDisable" />
