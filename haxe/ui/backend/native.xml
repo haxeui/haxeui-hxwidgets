@@ -6,11 +6,6 @@
         <behaviour id="disabled" class="haxe.ui.backend.hxwidgets.behaviours.ControlDisable" />
         <size class="haxe.ui.backend.hxwidgets.size.BestSize" includePadding="false" />
     </component>
-    <component id="haxe.ui.components.Label" class="haxe.ui.backend.hxwidgets.custom.TransparentStaticText" allowChildren="false">
-        <behaviour id="text" class="haxe.ui.backend.hxwidgets.behaviours.ControlLabel" />
-        <behaviour id="disabled" class="haxe.ui.backend.hxwidgets.behaviours.ControlDisable" />
-        <size class="haxe.ui.backend.hxwidgets.size.BestSize" includePadding="false" />
-    </component>
     <component id="haxe.ui.components.CheckBox" class="hx.widgets.CheckBox" allowChildren="false">
         <behaviour id="text" class="haxe.ui.backend.hxwidgets.behaviours.ControlLabel" />
         <behaviour id="selected" class="haxe.ui.backend.hxwidgets.behaviours.ControlValue" />
@@ -80,6 +75,12 @@
     </component>
     
     
+    
+    <component id="haxe.ui.components.Label" class="haxe.ui.backend.hxwidgets.custom.TransparentStaticText" allowChildren="false">
+        <behaviour id="text" class="haxe.ui.backend.hxwidgets.behaviours.ControlLabel" />
+        <behaviour id="disabled" class="haxe.ui.backend.hxwidgets.behaviours.ControlDisable" />
+        <size class="haxe.ui.backend.hxwidgets.size.BestSize" includePadding="false" />
+    </component>
     
     <component id="haxe.ui.components.HorizontalProgress" class="hx.widgets.Gauge" constructor="100, $style" allowChildren="false">
         <behaviour id="end" class="haxe.ui.backend.hxwidgets.behaviours.ControlValue" autoDispatch="haxe.ui.core.UIEvent.CHANGE" />
