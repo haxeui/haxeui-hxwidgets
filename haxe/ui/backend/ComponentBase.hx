@@ -192,12 +192,15 @@ class ComponentBase {
 
         // special cases
         if (nativeComponentClass == "hx.widgets.StaticBitmap" || nativeComponentClass == "haxe.ui.backend.hxwidgets.custom.TransparentStaticBitmap") {
-            var resource:String = cast(this, haxe.ui.components.Image).resource;
+            /*
+            var resource:String = cast(this, haxe.ui.components.Image2).resource;
             if (resource != null) {
                 params = [parent, Bitmap.fromHaxeResource(resource)];
             } else {
                 params = [parent, Bitmap.fromHaxeResource("styles/FF00FF-0.png")];
             }
+            */
+            params = [parent, Bitmap.fromHaxeResource("styles/FF00FF-0.png")];
         } else if (nativeComponentClass == "hx.widgets.Dialog") {
             var dialog = cast(this, haxe.ui.containers.dialogs.Dialog);
             params = [parent, dialog.dialogOptions.title, DialogStyle.DEFAULT_DIALOG_STYLE | Defs.CENTRE];
@@ -261,7 +264,7 @@ class ComponentBase {
             }
         }
         
-        cast(this, Component).behaviours.update();
+        //cast(this, Component).behaviours.update();
     }
 
     private function handleSize(width:Null<Float>, height:Null<Float>, style:Style) {

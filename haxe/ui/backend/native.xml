@@ -81,7 +81,11 @@
         <behaviour id="disabled" class="haxe.ui.backend.hxwidgets.behaviours.ControlDisable" />
         <size class="haxe.ui.backend.hxwidgets.size.BestSize" includePadding="false" />
     </component>
-    
+    <component id="haxe.ui.components.Image2" class="haxe.ui.backend.hxwidgets.custom.TransparentStaticBitmap" allowChildren="false">
+        <behaviour id="resource" class="haxe.ui.backend.hxwidgets.behaviours.ControlBitmap" />
+        <behaviour id="disabled" class="haxe.ui.backend.hxwidgets.behaviours.ControlDisable" />
+        <size class="haxe.ui.backend.hxwidgets.size.BestSize" includePadding="false" />
+    </component>
     <component id="haxe.ui.components.HorizontalProgress" class="hx.widgets.Gauge" constructor="100, $style" allowChildren="false">
         <behaviour id="end" class="haxe.ui.backend.hxwidgets.behaviours.ControlValue" autoDispatch="haxe.ui.core.UIEvent.CHANGE" />
         <behaviour id="indeterminate" class="haxe.ui.backend.hxwidgets.behaviours.ControlPulse" />

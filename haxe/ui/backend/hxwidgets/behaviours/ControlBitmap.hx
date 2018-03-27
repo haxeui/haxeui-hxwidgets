@@ -1,6 +1,9 @@
 package haxe.ui.backend.hxwidgets.behaviours;
 
+import haxe.Http;
+import haxe.io.Bytes;
 import haxe.ui.util.Variant;
+import haxe.ui.util.ImageLoader;
 import hx.widgets.Bitmap;
 import hx.widgets.Button;
 import hx.widgets.Control;
@@ -26,24 +29,21 @@ class ControlBitmap extends HxWidgetsBehaviour {
                 button.bitmap = Bitmap.fromHaxeResource(value);
             }
         } else if (Std.is(_component.window, StaticBitmap)) {
-            if (Resource.getBytes(value) != null) {
-                var bmp:StaticBitmap = cast _component.window;
-                bmp.bitmap = Bitmap.fromHaxeResource(value);
-                if (bmp.parent != null) {
-                    bmp.parent.refresh(); // if bitmap has resized, get rid of any left of artifacts from parent (wx thang!)
+            var imageLoader:ImageLoader = new ImageLoader(value);
+            imageLoader.load(function(imageInfo) {
+                if (imageInfo != null) {
+                    var bmp:StaticBitmap = cast _component.window;
+                    bmp.bitmap = imageInfo.data;
+                    if (bmp.parent != null) {
+                        bmp.parent.refresh(); // if bitmap has resized, get rid of any left of artifacts from parent (wx thang!)
+                    }
+                    _component.invalidateLayout();
                 }
-                _component.invalidateLayout();
-            }
+            });
         }
     }
 
     public override function get():Variant {
-        /*
-        if (_component.window == null) {
-            return null;
-        }
-        var ctrl:Control = cast _component.window;
-        */
-        return null;
+        return _value;
     }
 }
