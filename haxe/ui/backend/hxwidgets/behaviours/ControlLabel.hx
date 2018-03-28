@@ -1,5 +1,6 @@
 package haxe.ui.backend.hxwidgets.behaviours;
 
+import haxe.ui.core.DataBehaviour;
 import haxe.ui.util.Variant;
 import hx.widgets.Bitmap;
 import hx.widgets.Control;
@@ -7,6 +8,19 @@ import hx.widgets.Button;
 import hx.widgets.StaticText;
 import hx.widgets.TextCtrl;
 
+class ControlLabel extends DataBehaviour {
+    public override function validateData() {
+        var ctrl:Control = cast _component.window;
+        ctrl.label = normalizeText(_value);
+    }
+    
+    private function normalizeText(s:String) {
+        s = StringTools.replace(s, "\\n", "\r\n");
+        return s;
+    }
+}
+
+/*
 @:keep
 @:access(haxe.ui.core.Component)
 class ControlLabel extends HxWidgetsBehaviour {
@@ -50,3 +64,4 @@ class ControlLabel extends HxWidgetsBehaviour {
         return s;
     }
 }
+*/
