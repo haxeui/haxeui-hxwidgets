@@ -8,10 +8,16 @@ import hx.widgets.Button;
 import hx.widgets.StaticText;
 import hx.widgets.TextCtrl;
 
+@:access(haxe.ui.core.Component)
 class ControlLabel extends DataBehaviour {
     public override function validateData() {
         var ctrl:Control = cast _component.window;
-        ctrl.label = normalizeText(_value);
+        if (_value != null) {
+            _component.set("originalLabel", _value.toString()); // for wrapping, see: haxe.ui.backend.hxwidgets.size.BestSize
+            ctrl.label = normalizeText(_value);
+        } else {
+            _component.set("originalLabel", null);
+        }
     }
     
     private function normalizeText(s:String) {
