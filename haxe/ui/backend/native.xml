@@ -1,11 +1,5 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <native>
-    <component id="haxe.ui.components.Button" class="hx.widgets.Button" allowChildren="false">
-        <behaviour id="text" class="haxe.ui.backend.hxwidgets.behaviours.ControlLabel" />
-        <behaviour id="icon" class="haxe.ui.backend.hxwidgets.behaviours.ControlBitmap" />
-        <behaviour id="disabled" class="haxe.ui.backend.hxwidgets.behaviours.ControlDisable" />
-        <size class="haxe.ui.backend.hxwidgets.size.BestSize" includePadding="false" />
-    </component>
     <component id="haxe.ui.components.CheckBox" class="hx.widgets.CheckBox" allowChildren="false">
         <behaviour id="text" class="haxe.ui.backend.hxwidgets.behaviours.ControlLabel" />
         <behaviour id="selected" class="haxe.ui.backend.hxwidgets.behaviours.ControlValue" />
@@ -86,7 +80,7 @@
         <behaviour id="disabled" class="haxe.ui.backend.hxwidgets.behaviours.ControlDisable" />
         <size class="haxe.ui.backend.hxwidgets.size.BestSize" includePadding="false" />
     </component>
-    <component id="haxe.ui.components.Button2" class="hx.widgets.Button" allowChildren="false">
+    <component id="haxe.ui.components.Button" class="hx.widgets.Button" allowChildren="false">
         <behaviour id="text" class="haxe.ui.backend.hxwidgets.behaviours.ControlLabel" />
         <behaviour id="icon" class="haxe.ui.backend.hxwidgets.behaviours.ControlBitmap" />
         <behaviour id="disabled" class="haxe.ui.backend.hxwidgets.behaviours.ControlDisable" />
