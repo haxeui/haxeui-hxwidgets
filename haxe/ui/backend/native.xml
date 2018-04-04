@@ -1,17 +1,5 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <native>
-    <component id="haxe.ui.components.CheckBox" class="hx.widgets.CheckBox" allowChildren="false">
-        <behaviour id="text" class="haxe.ui.backend.hxwidgets.behaviours.ControlLabel" />
-        <behaviour id="selected" class="haxe.ui.backend.hxwidgets.behaviours.ControlValue" />
-        <behaviour id="disabled" class="haxe.ui.backend.hxwidgets.behaviours.ControlDisable" />
-        <size class="haxe.ui.backend.hxwidgets.size.BestSize" includePadding="false" />
-    </component>
-    <component id="haxe.ui.components.OptionBox" class="hx.widgets.RadioButton" constructor="null, $style" allowChildren="false">
-        <behaviour id="text" class="haxe.ui.backend.hxwidgets.behaviours.ControlLabel" />
-        <behaviour id="selected" class="haxe.ui.backend.hxwidgets.behaviours.ControlValue" />
-        <behaviour id="disabled" class="haxe.ui.backend.hxwidgets.behaviours.ControlDisable" />
-        <size class="haxe.ui.backend.hxwidgets.size.BestSize" includePadding="false" />
-    </component>
     <component id="haxe.ui.components.TextField" class="hx.widgets.TextCtrl" allowChildren="false">
         <behaviour id="text" class="haxe.ui.backend.hxwidgets.behaviours.ControlLabel" />
         <behaviour id="password" class="haxe.ui.backend.hxwidgets.behaviours.TextCtrlPassword" />
@@ -86,13 +74,13 @@
         <behaviour id="disabled" class="haxe.ui.backend.hxwidgets.behaviours.ControlDisable" />
         <size class="haxe.ui.backend.hxwidgets.size.BestSize" includePadding="false" />
     </component>
-    <component id="haxe.ui.components.CheckBox2" class="hx.widgets.CheckBox" allowChildren="false">
+    <component id="haxe.ui.components.CheckBox" class="hx.widgets.CheckBox" allowChildren="false">
         <behaviour id="text" class="haxe.ui.backend.hxwidgets.behaviours.ControlLabel" />
         <behaviour id="selected" class="haxe.ui.backend.hxwidgets.behaviours.ControlValue" />
         <behaviour id="disabled" class="haxe.ui.backend.hxwidgets.behaviours.ControlDisable" />
         <size class="haxe.ui.backend.hxwidgets.size.BestSize" includePadding="false" />
     </component>
-    <component id="haxe.ui.components.OptionBox2" class="hx.widgets.RadioButton" constructor="null, $style" allowChildren="false">
+    <component id="haxe.ui.components.OptionBox" class="hx.widgets.RadioButton" constructor="null, $style" allowChildren="false">
         <behaviour id="text" class="haxe.ui.backend.hxwidgets.behaviours.ControlLabel" />
         <behaviour id="selected" class="haxe.ui.backend.hxwidgets.behaviours.ControlValue" />
         <behaviour id="disabled" class="haxe.ui.backend.hxwidgets.behaviours.ControlDisable" />
