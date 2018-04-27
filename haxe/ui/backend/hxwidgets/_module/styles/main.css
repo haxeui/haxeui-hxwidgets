@@ -24,7 +24,15 @@
     padding-top: 10px;
 }
 
-.textfield, .textarea {
+.textfield {
+    width: auto;
+    height: auto;
+    border: none;
+    background-color: none;
+    color: none;
+}
+
+.textarea {
     width: auto;
     height: auto;
     color: black;

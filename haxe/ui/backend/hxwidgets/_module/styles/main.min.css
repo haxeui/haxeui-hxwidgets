@@ -3,4 +3,5 @@
 .progress,.slider{width:auto;height:auto;background-color:none;color:none;}
 .button{background-color:none;}
 .dialog{padding-top:10px;}
-.textfield,.textarea{width:auto;height:auto;color:black;}
+.textfield{width:auto;height:auto;border:none;background-color:none;color:none;}
+.textarea{width:auto;height:auto;color:black;}
