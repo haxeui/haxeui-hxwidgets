@@ -10,6 +10,19 @@ import hx.widgets.TextCtrl;
 
 @:access(haxe.ui.core.Component)
 class ControlLabel extends DataBehaviour {
+    public override function get():Variant {
+        if (_component.window == null) {
+            return null;
+        }
+        var ctrl:Control = cast _component.window;
+        var label = ctrl.label;
+        if (Std.is(_component.window, TextCtrl)) {
+            label = cast(_component.window, TextCtrl).value;
+        }
+        
+        return label;
+    }
+    
     public override function validateData() {
         var ctrl:Control = cast _component.window;
         if (_value != null) {

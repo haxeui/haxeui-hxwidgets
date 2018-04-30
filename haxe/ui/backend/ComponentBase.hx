@@ -561,6 +561,9 @@ class ComponentBase {
                 } else if (Std.is(window, SimpleListView)) {
                     _eventMap.set(type, listener);
                     window.bind(EventType.LIST_ITEM_SELECTED, __onChangeEvent);
+                } else if (Std.is(window, TextCtrl)) {
+                    _eventMap.set(type, listener);
+                    window.bind(EventType.TEXT, __onChangeEvent);
                 }
         }
     }
@@ -603,6 +606,9 @@ class ComponentBase {
                 } else if (Std.is(window, SimpleListView)) {
                     _eventMap.remove(type);
                     window.unbind(EventType.LIST_ITEM_SELECTED, __onChangeEvent);
+                } else if (Std.is(window, TextCtrl)) {
+                    _eventMap.remove(type);
+                    window.unbind(EventType.TEXT, __onChangeEvent);
                 }
         }
     }
