@@ -24,7 +24,7 @@ class ControlLabel extends HxWidgetsBehaviour {
             } else {
                 ctrl.label = normalizeText(value);
             }
-            _component.invalidateLayout();
+            _component.invalidateComponentLayout();
         }
     }
 

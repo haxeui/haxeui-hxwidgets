@@ -29,7 +29,7 @@ class ControlBitmap extends HxWidgetsBehaviour {
             if (Resource.getBytes(value) != null) {
                 var bmp:StaticBitmap = cast _component.window;
                 bmp.bitmap = Bitmap.fromHaxeResource(value);
-                _component.invalidateLayout();
+                _component.invalidateComponentLayout();
             }
         }
     }
