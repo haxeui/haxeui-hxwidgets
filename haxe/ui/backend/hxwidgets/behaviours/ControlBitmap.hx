@@ -19,7 +19,7 @@ class ControlBitmap extends DataBehaviour {
                     if (bmp.parent != null) {
                         bmp.parent.refresh(); // if bitmap has resized, get rid of any left of artifacts from parent (wx thang!)
                     }
-                    _component.invalidateLayout();
+                    _component.invalidateComponentLayout();
                 }
             }
         });

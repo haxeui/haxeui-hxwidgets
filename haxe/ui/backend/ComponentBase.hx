@@ -165,7 +165,7 @@ class ComponentBase {
             parent = Toolkit.screen.frame;
         }
 
-        cast(this, Component).invalidateStyle();
+        cast(this, Component).invalidateComponentStyle();
 
         var className:String = Type.getClassName(Type.getClass(this));
         var nativeComponentClass:String = Toolkit.nativeConfig.query('component[id=${className}].@class', 'haxe.ui.backend.hxwidgets.custom.TransparentPanel', this);

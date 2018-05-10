@@ -34,7 +34,7 @@ class TextCtrlWordWrap extends HxWidgetsBehaviour {
         newControl.size = oldControl.size;
         oldControl.destroy();
         _component.window = newControl;
-        _component.invalidateStyle();
+        _component.invalidateComponentStyle();
         
         for (k in eventMap.keys()) { // remap any events on current window
             _component.mapEvent(k, eventMap.get(k));
