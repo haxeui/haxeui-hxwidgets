@@ -67,6 +67,11 @@
         <behaviour id="disabled" class="haxe.ui.backend.hxwidgets.behaviours.ControlDisable" />
         <size class="haxe.ui.backend.hxwidgets.size.BestSize" includePadding="false" />
     </component>
+    <component id="haxe.ui.components.Switch2" class="hx.widgets.ToggleButton" allowChildren="false">
+        <behaviour id="text" class="haxe.ui.backend.hxwidgets.behaviours.ControlLabel" />
+        <behaviour id="disabled" class="haxe.ui.backend.hxwidgets.behaviours.ControlDisable" />
+        <size class="haxe.ui.backend.hxwidgets.size.BestSize" includePadding="false" />
+    </component>
     <component id="haxe.ui.components.CheckBox" class="hx.widgets.CheckBox" allowChildren="false">
         <behaviour id="text" class="haxe.ui.backend.hxwidgets.behaviours.ControlLabel" />
         <behaviour id="selected" class="haxe.ui.backend.hxwidgets.behaviours.ControlValue" />

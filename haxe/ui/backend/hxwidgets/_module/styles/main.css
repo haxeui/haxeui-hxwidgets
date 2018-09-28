@@ -32,7 +32,7 @@
     color: none;
 }
 
-.textarea {
+.textarea, .switch2 {
     width: auto;
     height: auto;
     color: black;

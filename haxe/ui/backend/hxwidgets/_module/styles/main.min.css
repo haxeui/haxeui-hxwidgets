@@ -4,4 +4,4 @@
 .button{background-color:none;}
 .dialog{padding-top:10px;}
 .textfield{width:auto;height:auto;border:none;background-color:none;color:none;}
-.textarea{width:auto;height:auto;color:black;}
+.textarea,.switch2{width:auto;height:auto;color:black;}
