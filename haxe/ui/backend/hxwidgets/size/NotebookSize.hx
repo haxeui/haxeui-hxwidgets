@@ -6,11 +6,11 @@ import hx.widgets.Notebook;
 @:keep
 class NotebookSize extends DelegateLayoutSize {
     private override function get_width():Float {
-        return component.window.size.width;
+        return component.window.bestSize.width;
     }
 
     private override function get_height():Float {
-        return component.window.size.height;
+        return component.window.bestSize.height;
     }
 
     private override function get_usableWidthModifier():Float {

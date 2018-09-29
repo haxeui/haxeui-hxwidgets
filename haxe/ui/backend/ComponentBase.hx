@@ -18,7 +18,7 @@ import haxe.ui.backend.hxwidgets.StyleParser;
 import haxe.ui.backend.hxwidgets.TabViewIcons;
 import haxe.ui.components.OptionBox;
 import haxe.ui.containers.Box;
-import haxe.ui.containers.TabView;
+import haxe.ui.containers.TabView2;
 import haxe.ui.core.Component;
 import haxe.ui.core.ImageDisplay;
 import haxe.ui.core.MouseEvent;
@@ -216,7 +216,7 @@ class ComponentBase {
             if (Platform.isMac) {
                 n.allowIcons = false;
             } else if (Platform.isWindows) {
-                n.padding = new hx.widgets.Size(5,5);
+                n.padding = new hx.widgets.Size(15, 3);
             }
         }
 
@@ -225,8 +225,9 @@ class ComponentBase {
             scrollbar.setScrollbar(0, 5, 100, 5);
         }
 
-        if (Std.is(__parent, haxe.ui.containers.TabView)) {
+        if (Std.is(__parent, haxe.ui.containers.TabView2)) {
             var n:Notebook = cast __parent.window;
+            cast(this, Component).addClass("tab-page");
             var pageTitle:String = cast(this, Component).text;
             var pageIcon:String = cast(this, Box).icon;
             var iconIndex:Int = TabViewIcons.get(cast __parent, pageIcon);

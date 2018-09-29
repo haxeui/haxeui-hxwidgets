@@ -32,8 +32,22 @@
     color: none;
 }
 
-.textarea, .switch2 {
+.switch2 {
+    width: auto;
+    height: auto;
+}
+
+.textarea {
     width: auto;
     height: auto;
     color: black;
+}
+
+.tabview2 {
+    width: auto;
+    height: auto;
+}
+
+.tabview2 .tab-page {
+    padding: 5px;
 }
