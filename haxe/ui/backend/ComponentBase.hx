@@ -281,6 +281,7 @@ class ComponentBase {
         var h:Int = Std.int(height);
 
         window.resize(w, h);
+        handleClipRect(null);
     }
 
     private function handleAddComponent(child:Component):Component {

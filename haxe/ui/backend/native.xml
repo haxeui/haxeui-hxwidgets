@@ -132,5 +132,8 @@
         <behaviour id="pageCount" class="haxe.ui.backend.hxwidgets.behaviours.NotebookPageCount" />
         <size class="haxe.ui.backend.hxwidgets.size.NotebookSize" includePadding="false" />
     </component>
-    
+    <component id="haxe.ui.containers.ScrollView2" class="hx.widgets.ScrolledWindow">
+        <behaviour id="disabled" class="haxe.ui.backend.hxwidgets.behaviours.ControlDisable" />
+        <size class="haxe.ui.backend.hxwidgets.size.WindowSize" includePadding="false" />
+    </component>
 </native>
