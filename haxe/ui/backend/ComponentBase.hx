@@ -465,7 +465,8 @@ class ComponentBase {
         }
 
         if (style.borderLeftSize != null && style.borderLeftSize > 0) {
-            window.windowStyle |= WindowStyle.BORDER_STATIC;
+            //window.windowStyle |= WindowStyle.BORDER_SIMPLE;
+            window.windowStyle |= WindowStyle.BORDER_THEME;
         }
         
         if (refreshWindow == true) {
