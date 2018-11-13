@@ -35,6 +35,7 @@
     </component>
     <component id="haxe.ui.components.Image" class="haxe.ui.backend.hxwidgets.custom.TransparentStaticBitmap" allowChildren="false">
         <behaviour id="resource" class="haxe.ui.backend.hxwidgets.behaviours.ControlBitmap" />
+        <behaviour id="value" class="haxe.ui.backend.hxwidgets.behaviours.ControlBitmap" />
         <behaviour id="disabled" class="haxe.ui.backend.hxwidgets.behaviours.ControlDisable" />
         <size class="haxe.ui.backend.hxwidgets.size.BestSize" includePadding="false" />
     </component>
@@ -59,16 +60,19 @@
     </component>
     <component id="haxe.ui.components.Label" class="haxe.ui.backend.hxwidgets.custom.TransparentStaticText" allowChildren="false">
         <behaviour id="text" class="haxe.ui.backend.hxwidgets.behaviours.ControlLabel" />
+        <behaviour id="value" class="haxe.ui.backend.hxwidgets.behaviours.ControlLabel" />
         <behaviour id="disabled" class="haxe.ui.backend.hxwidgets.behaviours.ControlDisable" />
         <size class="haxe.ui.backend.hxwidgets.size.BestSize" includePadding="false" />
     </component>
     <component id="haxe.ui.components.Image" class="haxe.ui.backend.hxwidgets.custom.TransparentStaticBitmap" allowChildren="false">
         <behaviour id="resource" class="haxe.ui.backend.hxwidgets.behaviours.ControlBitmap" />
+        <behaviour id="value" class="haxe.ui.backend.hxwidgets.behaviours.ControlBitmap" />
         <behaviour id="disabled" class="haxe.ui.backend.hxwidgets.behaviours.ControlDisable" />
         <size class="haxe.ui.backend.hxwidgets.size.BestSize" includePadding="false" />
     </component>
     <component id="haxe.ui.components.Button" class="hx.widgets.Button" allowChildren="false">
         <behaviour id="text" class="haxe.ui.backend.hxwidgets.behaviours.ControlLabel" />
+        <behaviour id="value" class="haxe.ui.backend.hxwidgets.behaviours.ControlLabel" />
         <behaviour id="icon" class="haxe.ui.backend.hxwidgets.behaviours.ControlBitmap" />
         <behaviour id="disabled" class="haxe.ui.backend.hxwidgets.behaviours.ControlDisable" />
         <size class="haxe.ui.backend.hxwidgets.size.BestSize" includePadding="false" />
@@ -81,17 +85,20 @@
     <component id="haxe.ui.components.CheckBox" class="hx.widgets.CheckBox" allowChildren="false">
         <behaviour id="text" class="haxe.ui.backend.hxwidgets.behaviours.ControlLabel" />
         <behaviour id="selected" class="haxe.ui.backend.hxwidgets.behaviours.ControlValue" />
+        <behaviour id="value" class="haxe.ui.backend.hxwidgets.behaviours.ControlValue" />
         <behaviour id="disabled" class="haxe.ui.backend.hxwidgets.behaviours.ControlDisable" />
         <size class="haxe.ui.backend.hxwidgets.size.BestSize" includePadding="false" />
     </component>
     <component id="haxe.ui.components.OptionBox" class="hx.widgets.RadioButton" constructor="null, $style" allowChildren="false">
         <behaviour id="text" class="haxe.ui.backend.hxwidgets.behaviours.ControlLabel" />
         <behaviour id="selected" class="haxe.ui.backend.hxwidgets.behaviours.ControlValue" />
+        <behaviour id="value" class="haxe.ui.backend.hxwidgets.behaviours.ControlValue" />
         <behaviour id="disabled" class="haxe.ui.backend.hxwidgets.behaviours.ControlDisable" />
         <size class="haxe.ui.backend.hxwidgets.size.BestSize" includePadding="false" />
     </component>
     <component id="haxe.ui.components.TextField" class="hx.widgets.TextCtrl" allowChildren="false">
         <behaviour id="text" class="haxe.ui.backend.hxwidgets.behaviours.ControlLabel" autoDispatch="haxe.ui.core.UIEvent.CHANGE" />
+        <behaviour id="value" class="haxe.ui.backend.hxwidgets.behaviours.ControlLabel" autoDispatch="haxe.ui.core.UIEvent.CHANGE" />
         <behaviour id="password" class="haxe.ui.backend.hxwidgets.behaviours.TextCtrlPassword" />
         <behaviour id="placeholder" class="haxe.ui.backend.hxwidgets.behaviours.TextCtrlPlaceholder" />
         <behaviour id="icon" class="haxe.ui.core.DefaultBehaviour" />
@@ -102,12 +109,14 @@
     </component>
     <component id="haxe.ui.components.HorizontalProgress" class="hx.widgets.Gauge" constructor="100, $style" allowChildren="false">
         <behaviour id="end" class="haxe.ui.backend.hxwidgets.behaviours.ControlValue" autoDispatch="haxe.ui.core.UIEvent.CHANGE" />
+        <behaviour id="value" class="haxe.ui.backend.hxwidgets.behaviours.ControlValue" autoDispatch="haxe.ui.core.UIEvent.CHANGE" />
         <behaviour id="indeterminate" class="haxe.ui.backend.hxwidgets.behaviours.ControlPulse" />
         <behaviour id="disabled" class="haxe.ui.backend.hxwidgets.behaviours.ControlDisable" />
         <size class="haxe.ui.backend.hxwidgets.size.BestSize" includePadding="false" />
     </component>
     <component id="haxe.ui.components.VerticalProgress" class="hx.widgets.Gauge" constructor="100, $style" allowChildren="false" style="GaugeStyle.VERTICAL">
         <behaviour id="end" class="haxe.ui.backend.hxwidgets.behaviours.ControlValue" autoDispatch="haxe.ui.core.UIEvent.CHANGE" />
+        <behaviour id="value" class="haxe.ui.backend.hxwidgets.behaviours.ControlValue" autoDispatch="haxe.ui.core.UIEvent.CHANGE" />
         <behaviour id="indeterminate" class="haxe.ui.backend.hxwidgets.behaviours.ControlPulse" />
         <behaviour id="disabled" class="haxe.ui.backend.hxwidgets.behaviours.ControlDisable" />
         <size class="haxe.ui.backend.hxwidgets.size.BestSize" includePadding="false" />
@@ -117,6 +126,7 @@
         <behaviour id="end" class="haxe.ui.backend.hxwidgets.behaviours.ControlValue" />
         <behaviour id="start" class="haxe.ui.backend.hxwidgets.behaviours.ControlValue" />
         <behaviour id="pos" class="haxe.ui.backend.hxwidgets.behaviours.ControlValue" autoDispatch="haxe.ui.core.UIEvent.CHANGE" />
+        <behaviour id="value" class="haxe.ui.backend.hxwidgets.behaviours.ControlValue" autoDispatch="haxe.ui.core.UIEvent.CHANGE" />
         <behaviour id="min" class="haxe.ui.backend.hxwidgets.behaviours.ControlMin" />
         <behaviour id="max" class="haxe.ui.backend.hxwidgets.behaviours.ControlMax" />
         <behaviour id="disabled" class="haxe.ui.backend.hxwidgets.behaviours.ControlDisable" />
@@ -126,6 +136,7 @@
         <behaviour id="end" class="haxe.ui.backend.hxwidgets.behaviours.ControlValue" />
         <behaviour id="start" class="haxe.ui.backend.hxwidgets.behaviours.ControlValue" />
         <behaviour id="pos" class="haxe.ui.backend.hxwidgets.behaviours.ControlValue" autoDispatch="haxe.ui.core.UIEvent.CHANGE" />
+        <behaviour id="value" class="haxe.ui.backend.hxwidgets.behaviours.ControlValue" autoDispatch="haxe.ui.core.UIEvent.CHANGE" />
         <behaviour id="min" class="haxe.ui.backend.hxwidgets.behaviours.ControlMin" />
         <behaviour id="max" class="haxe.ui.backend.hxwidgets.behaviours.ControlMax" />
         <behaviour id="disabled" class="haxe.ui.backend.hxwidgets.behaviours.ControlDisable" />
@@ -142,10 +153,12 @@
         <behaviour id="disabled" class="haxe.ui.backend.hxwidgets.behaviours.ControlDisable" />
         <size class="haxe.ui.backend.hxwidgets.size.WindowSize" includePadding="false" />
     </component>
+    <!--
     <component id="haxe.ui.containers.ListView2" class="haxe.ui.backend.hxwidgets.custom.SimpleListView" allowChildren="false" condition="this._itemRenderer=='BasicItemRenderer' || this._itemRenderer==null">
         <behaviour id="disabled" class="haxe.ui.backend.hxwidgets.behaviours.ControlDisable" />
         <behaviour id="dataSource" class="haxe.ui.backend.hxwidgets.behaviours.ListViewDataSource" />
         <behaviour id="selectedIndex" class="haxe.ui.backend.hxwidgets.behaviours.ListViewSelectedIndex" />
         <size class="haxe.ui.backend.hxwidgets.size.WindowSize" includePadding="false" />
     </component>
+        -->
 </native>

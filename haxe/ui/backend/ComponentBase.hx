@@ -176,7 +176,7 @@ class ComponentBase {
         if (nativeComponentClass == null) {
             nativeComponentClass = "haxe.ui.backend.hxwidgets.custom.TransparentPanel";
         }
-        if (nativeComponentClass == "haxe.ui.backend.hxwidgets.custom.TransparentPanel" && className == "haxe.ui.containers.ListView") {
+        if (nativeComponentClass == "haxe.ui.backend.hxwidgets.custom.TransparentPanel" && className == "haxe.ui.containers.ListView2") {
             nativeComponentClass = "hx.widgets.ScrolledWindow";
         }
 
