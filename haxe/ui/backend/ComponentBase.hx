@@ -4,6 +4,7 @@ import haxe.ui.backend.hxwidgets.Platform;
 import haxe.ui.backend.hxwidgets.behaviours.ListViewDataSource;
 import haxe.ui.backend.hxwidgets.custom.SimpleListView;
 import haxe.ui.containers.ListView;
+import haxe.ui.containers.dialogs.Dialog2;
 import haxe.ui.core.Screen;
 import hx.widgets.Gauge;
 import hx.widgets.Slider;
@@ -32,7 +33,6 @@ import hx.widgets.Button;
 import hx.widgets.CheckBox;
 import hx.widgets.Choice;
 import hx.widgets.Defs;
-import hx.widgets.Dialog;
 import hx.widgets.Direction;
 import hx.widgets.Event;
 import hx.widgets.EventType;
@@ -160,6 +160,7 @@ class ComponentBase {
         }
     }
 
+    @:access(haxe.ui.core.Component)
     private function createWindow(parent:Window = null) {
         if (parent == null) {
             parent = Toolkit.screen.frame;
@@ -168,6 +169,9 @@ class ComponentBase {
         cast(this, Component).invalidateComponentStyle();
 
         var className:String = Type.getClassName(Type.getClass(this));
+        if (Std.is(this, Dialog2)) { // you can extend from Dialog, which means native entry wont match, lets change that
+            className = Type.getClassName(Dialog2);
+        }
         var nativeComponentClass:String = Toolkit.nativeConfig.query('component[id=${className}].@class', 'haxe.ui.backend.hxwidgets.custom.TransparentPanel', this);
         if (nativeComponentClass == null) {
             nativeComponentClass = "haxe.ui.backend.hxwidgets.custom.TransparentPanel";
@@ -202,8 +206,8 @@ class ComponentBase {
             */
             params = [parent, Bitmap.fromHaxeResource("styles/FF00FF-0.png")];
         } else if (nativeComponentClass == "hx.widgets.Dialog") {
-            var dialog = cast(this, haxe.ui.containers.dialogs.Dialog);
-            params = [parent, dialog.dialogOptions.title, DialogStyle.DEFAULT_DIALOG_STYLE | Defs.CENTRE];
+            var dialog = cast(this, haxe.ui.containers.dialogs.Dialog2);
+            params = [parent, dialog.title, DialogStyle.DEFAULT_DIALOG_STYLE | Defs.CENTRE];
         }
         
         window = Type.createInstance(Type.resolveClass(nativeComponentClass), params);
@@ -483,7 +487,7 @@ class ComponentBase {
         }
     }
 
-    private static inline function convertColor(c:Int) {
+    public static inline function convertColor(c:Int) {
         return (c & 0x000000ff) << 16 | (c & 0x0000FF00) | (c & 0x00FF0000) >> 16;
     }
 

@@ -8,10 +8,16 @@ import hx.widgets.SystemSettings;
 @:keep
 class DialogSize extends DelegateLayoutSize {
     private override function get_width():Float {
+        if (component.window == null) {
+            return 0;
+        }
         return component.window.bestSize.width;
     }
 
     private override function get_height():Float {
+        if (component.window == null) {
+            return 0;
+        }
         return component.window.bestSize.height;
     }
 

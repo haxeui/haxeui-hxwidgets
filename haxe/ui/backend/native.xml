@@ -38,10 +38,12 @@
         <behaviour id="disabled" class="haxe.ui.backend.hxwidgets.behaviours.ControlDisable" />
         <size class="haxe.ui.backend.hxwidgets.size.BestSize" includePadding="false" />
     </component>
+    <!--
     <component id="haxe.ui.containers.dialogs.Dialog" class="hx.widgets.Dialog">
         <behaviour id="disabled" class="haxe.ui.backend.hxwidgets.behaviours.ControlDisable" />
         <size class="haxe.ui.backend.hxwidgets.size.DialogSize" />
     </component>
+        -->
     <component id="haxe.ui.components.DropDown" class="hx.widgets.Choice" allowChildren="false">
         <behaviour id="dataSource" class="haxe.ui.backend.hxwidgets.behaviours.ChoiceDataSource" />
         <behaviour id="selectedItem" class="haxe.ui.backend.hxwidgets.behaviours.ChoiceSelectedItem" />
@@ -51,6 +53,10 @@
     
     
     
+    <component id="haxe.ui.containers.dialogs.Dialog2" class="hx.widgets.Dialog">
+        <behaviour id="disabled" class="haxe.ui.backend.hxwidgets.behaviours.ControlDisable" />
+        <size class="haxe.ui.backend.hxwidgets.size.DialogSize" />
+    </component>
     <component id="haxe.ui.components.Label" class="haxe.ui.backend.hxwidgets.custom.TransparentStaticText" allowChildren="false">
         <behaviour id="text" class="haxe.ui.backend.hxwidgets.behaviours.ControlLabel" />
         <behaviour id="disabled" class="haxe.ui.backend.hxwidgets.behaviours.ControlDisable" />
@@ -134,6 +140,12 @@
     </component>
     <component id="haxe.ui.containers.ScrollView2" class="hx.widgets.ScrolledWindow">
         <behaviour id="disabled" class="haxe.ui.backend.hxwidgets.behaviours.ControlDisable" />
+        <size class="haxe.ui.backend.hxwidgets.size.WindowSize" includePadding="false" />
+    </component>
+    <component id="haxe.ui.containers.ListView2" class="haxe.ui.backend.hxwidgets.custom.SimpleListView" allowChildren="false" condition="this._itemRenderer=='BasicItemRenderer' || this._itemRenderer==null">
+        <behaviour id="disabled" class="haxe.ui.backend.hxwidgets.behaviours.ControlDisable" />
+        <behaviour id="dataSource" class="haxe.ui.backend.hxwidgets.behaviours.ListViewDataSource" />
+        <behaviour id="selectedIndex" class="haxe.ui.backend.hxwidgets.behaviours.ListViewSelectedIndex" />
         <size class="haxe.ui.backend.hxwidgets.size.WindowSize" includePadding="false" />
     </component>
 </native>

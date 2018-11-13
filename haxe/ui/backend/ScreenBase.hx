@@ -1,6 +1,5 @@
 package haxe.ui.backend;
 
-import haxe.ui.containers.dialogs.Dialog;
 import haxe.ui.containers.dialogs.DialogButton;
 import haxe.ui.containers.dialogs.DialogOptions;
 import haxe.ui.core.Component;
@@ -51,6 +50,7 @@ class ScreenBase {
     //***********************************************************************************************************
     // Dialogs
     //***********************************************************************************************************
+    /*
     @:access(haxe.ui.core.Screen)
     public function messageDialog(message:String, title:String = null, options:Dynamic = null, callback:DialogButton->Void = null):Dialog {
         var dialogOptions:DialogOptions = Screen.createDialogOptions(options);
@@ -85,14 +85,18 @@ class ScreenBase {
         messageDialog.showModal();
         return new Dialog();
     }
+    */
 
+    /*
     @:access(haxe.ui.core.Screen)
     public function showDialog(content:Component, options:Dynamic = null, callback:DialogButton->Void = null):Dialog {
         var dialogOptions:DialogOptions = Screen.createDialogOptions(options);
+        */
         /*
         var dialog = new hx.widgets.Dialog(frame, "bob");
         dialog.showModal();
         */
+        /*
         trace("HERE!");
         var t:Dialog = new Dialog();
         t.callback = callback;
@@ -108,12 +112,15 @@ class ScreenBase {
 
         return new Dialog();
     }
+    */
 
+    /*
     public function hideDialog(dialog:Dialog):Bool {
         var dlg:hx.widgets.Dialog = cast(dialog.window, hx.widgets.Dialog);
         dlg.endModal(0);
         return true;
     }
+    */
 
     private function resizeComponent(c:Component) {
         //c.lock();
