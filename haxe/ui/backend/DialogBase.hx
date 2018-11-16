@@ -110,6 +110,14 @@ class DialogBase extends Component {
         if (modal) {
             var standardId = buttonToStandardId(button);
             dialog.endModal(standardId);
+        } else {
+            dialog.hide();
+            if (this.button == null) {
+                this.button = DialogButton2.CANCEL;
+            }
+            var event = new DialogEvent(DialogEvent.DIALOG_CLOSED);
+            event.button = this.button;
+            dispatch(event);
         }
     }
 
