@@ -6,7 +6,13 @@ import haxe.ui.backend.hxwidgets.custom.SimpleListView;
 import haxe.ui.containers.ListView;
 import haxe.ui.containers.dialogs.Dialog2;
 import haxe.ui.core.Screen;
+import hx.widgets.EvtHandler;
 import hx.widgets.Gauge;
+import hx.widgets.ItemKind;
+import hx.widgets.Menu;
+import hx.widgets.MenuBar;
+import hx.widgets.MenuItem;
+import hx.widgets.Object;
 import hx.widgets.Slider;
 import hx.widgets.styles.ButtonStyle;
 import hx.widgets.styles.TextCtrlStyle;
@@ -143,16 +149,28 @@ class ComponentBase {
     public function handleCreate(native:Bool) {
     }
 
-    public var window:Window = null;
+    public var object:Object = null;
+    public var window(get, set):Window;
+    private function get_window():Window {
+        if (!Std.is(object, Window)) {
+            return null;
+        }
+        return cast(object, Window);
+    }
+    private function set_window(value:Window):Window {
+        object = value;
+        return value;
+    }
+    
     public function handleReady() {
-        if (window != null) {
+        if (object != null) {
             return;
         }
 
         if (__parent == null) {
             createWindow();
         } else {
-            createWindow(__parent.window);
+            createWindow(__parent.object);
         }
 
         for (c in __children) {
@@ -161,7 +179,7 @@ class ComponentBase {
     }
 
     @:access(haxe.ui.core.Component)
-    private function createWindow(parent:Window = null) {
+    private function createWindow(parent:Object = null) {
         if (parent == null) {
             parent = Toolkit.screen.frame;
         }
@@ -172,6 +190,7 @@ class ComponentBase {
         if (Std.is(this, Dialog2)) { // you can extend from Dialog, which means native entry wont match, lets change that
             className = Type.getClassName(Dialog2);
         }
+
         var nativeComponentClass:String = Toolkit.nativeConfig.query('component[id=${className}].@class', 'haxe.ui.backend.hxwidgets.custom.TransparentPanel', this);
         if (nativeComponentClass == null) {
             nativeComponentClass = "haxe.ui.backend.hxwidgets.custom.TransparentPanel";
@@ -208,10 +227,35 @@ class ComponentBase {
         } else if (nativeComponentClass == "hx.widgets.Dialog") {
             var dialog = cast(this, haxe.ui.containers.dialogs.Dialog2);
             params = [parent, dialog.title, DialogStyle.DEFAULT_DIALOG_STYLE | Defs.CENTRE];
+        } else if (nativeComponentClass == "hx.widgets.MenuBar") {
+            window = new MenuBar(style);
+            cast(this, Component).includeInLayout = false;
+            Screen.instance.frame.menuBar = cast(window, MenuBar);
+        } else if (nativeComponentClass == "hx.widgets.Menu") {
+            var menu = new Menu(null, style);
+            object = menu;
+            if (Std.is(parent, MenuBar)) {
+                cast(parent, MenuBar).append(menu, cast(this, Component).text);
+            } else if (Std.is(parent, Menu)) {
+                cast(parent, Menu).appendSubMenu(menu, cast(this, Component).text);
+            }
+        } else if (nativeComponentClass == "hx.widgets.MenuItem") {
+            switch (className) {
+                case "haxe.ui.containers.menus.MenuItem":
+                    object = cast(parent, Menu).append(1001, cast(this, Component).text);
+                case "haxe.ui.containers.menus.MenuCheckBox":
+                    object = cast(parent, Menu).appendCheckItem(Std.random(2000)+1, cast(this, Component).text);
+                case "haxe.ui.containers.menus.MenuOptionBox":
+                    object = cast(parent, Menu).appendRadioItem(Std.random(3000)+1, cast(this, Component).text);
+                case "haxe.ui.containers.menus.MenuSeparator":
+                    object = cast(parent, Menu).appendSeparator();
+            }
         }
         
-        window = Type.createInstance(Type.resolveClass(nativeComponentClass), params);
-        if (window == null) {
+        if (object == null) { // window may have been create with various special cases (menus for example)
+            window = Type.createInstance(Type.resolveClass(nativeComponentClass), params);
+        }
+        if (object == null) {
             throw "Could not create window: " + nativeComponentClass;
         }
 
