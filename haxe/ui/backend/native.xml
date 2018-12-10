@@ -152,6 +152,33 @@
     <component id="haxe.ui.containers.ScrollView2" class="hx.widgets.ScrolledWindow">
         <behaviour id="disabled" class="haxe.ui.backend.hxwidgets.behaviours.ControlDisable" />
         <size class="haxe.ui.backend.hxwidgets.size.WindowSize" includePadding="false" />
+        <builder class="haxe.ui.backend.hxwidgets.builders.ScrollViewBuilder" />
+    </component>
+    
+    
+    <component id="haxe.ui.containers.menus.MenuBar" class="hx.widgets.MenuBar">
+        <behaviour id="disabled" class="haxe.ui.backend.hxwidgets.behaviours.ControlDisable" />
+        <size class="haxe.ui.backend.hxwidgets.size.ZeroSize" includePadding="false" />
+    </component>
+    <component id="haxe.ui.containers.menus.Menu" class="hx.widgets.Menu">
+        <behaviour id="disabled" class="haxe.ui.backend.hxwidgets.behaviours.ControlDisable" />
+        <size class="haxe.ui.backend.hxwidgets.size.ZeroSize" includePadding="false" />
+    </component>
+    <component id="haxe.ui.containers.menus.MenuItem" class="hx.widgets.MenuItem" allowChildren="false">
+        <behaviour id="disabled" class="haxe.ui.backend.hxwidgets.behaviours.ControlDisable" />
+        <size class="haxe.ui.backend.hxwidgets.size.ZeroSize" includePadding="false" />
+    </component>
+    <component id="haxe.ui.containers.menus.MenuCheckBox" class="hx.widgets.MenuItem" allowChildren="false">
+        <behaviour id="disabled" class="haxe.ui.backend.hxwidgets.behaviours.ControlDisable" />
+        <size class="haxe.ui.backend.hxwidgets.size.ZeroSize" includePadding="false" />
+    </component>
+    <component id="haxe.ui.containers.menus.MenuOptionBox" class="hx.widgets.MenuItem" allowChildren="false">
+        <behaviour id="disabled" class="haxe.ui.backend.hxwidgets.behaviours.ControlDisable" />
+        <size class="haxe.ui.backend.hxwidgets.size.ZeroSize" includePadding="false" />
+    </component>
+    <component id="haxe.ui.containers.menus.MenuSeparator" class="hx.widgets.MenuItem" allowChildren="false">
+        <behaviour id="disabled" class="haxe.ui.backend.hxwidgets.behaviours.ControlDisable" />
+        <size class="haxe.ui.backend.hxwidgets.size.ZeroSize" includePadding="false" />
     </component>
     <!--
     <component id="haxe.ui.containers.ListView2" class="haxe.ui.backend.hxwidgets.custom.SimpleListView" allowChildren="false" condition="this._itemRenderer=='BasicItemRenderer' || this._itemRenderer==null">
