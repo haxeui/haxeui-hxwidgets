@@ -47,9 +47,10 @@
         -->
     <component id="haxe.ui.components.DropDown" class="hx.widgets.Choice" allowChildren="false">
         <behaviour id="dataSource" class="haxe.ui.backend.hxwidgets.behaviours.ChoiceDataSource" />
-        <behaviour id="selectedItem" class="haxe.ui.backend.hxwidgets.behaviours.ChoiceSelectedItem" />
+        <behaviour id="selectedIndex" class="haxe.ui.backend.hxwidgets.behaviours.ChoiceSelectedIndex" />
         <behaviour id="disabled" class="haxe.ui.backend.hxwidgets.behaviours.ControlDisable" />
         <size class="haxe.ui.backend.hxwidgets.size.BestSize" includePadding="false" />
+        <handler class="haxe.ui.backend.hxwidgets.handlers.ChoiceHandler" />
     </component>
     
     
@@ -107,6 +108,18 @@
         <behaviour id="disabled" class="haxe.ui.backend.hxwidgets.behaviours.ControlDisable" />
         <size class="haxe.ui.backend.hxwidgets.size.BestSize" includePadding="false" />
     </component>
+    <component id="haxe.ui.components.HorizontalRange" class="hx.widgets.Gauge" constructor="100, $style" allowChildren="false">
+        <behaviour id="end" class="haxe.ui.backend.hxwidgets.behaviours.ControlValue" autoDispatch="haxe.ui.core.UIEvent.CHANGE" />
+        <behaviour id="value" class="haxe.ui.backend.hxwidgets.behaviours.ControlValue" autoDispatch="haxe.ui.core.UIEvent.CHANGE" />
+        <behaviour id="disabled" class="haxe.ui.backend.hxwidgets.behaviours.ControlDisable" />
+        <size class="haxe.ui.backend.hxwidgets.size.BestSize" includePadding="false" />
+    </component>
+    <component id="haxe.ui.components.VerticalRange" class="hx.widgets.Gauge" constructor="100, $style" allowChildren="false" style="GaugeStyle.VERTICAL">
+        <behaviour id="end" class="haxe.ui.backend.hxwidgets.behaviours.ControlValue" autoDispatch="haxe.ui.core.UIEvent.CHANGE" />
+        <behaviour id="value" class="haxe.ui.backend.hxwidgets.behaviours.ControlValue" autoDispatch="haxe.ui.core.UIEvent.CHANGE" />
+        <behaviour id="disabled" class="haxe.ui.backend.hxwidgets.behaviours.ControlDisable" />
+        <size class="haxe.ui.backend.hxwidgets.size.BestSize" includePadding="false" />
+    </component>
     <component id="haxe.ui.components.HorizontalProgress" class="hx.widgets.Gauge" constructor="100, $style" allowChildren="false">
         <behaviour id="end" class="haxe.ui.backend.hxwidgets.behaviours.ControlValue" autoDispatch="haxe.ui.core.UIEvent.CHANGE" />
         <behaviour id="value" class="haxe.ui.backend.hxwidgets.behaviours.ControlValue" autoDispatch="haxe.ui.core.UIEvent.CHANGE" />
@@ -153,6 +166,12 @@
         <behaviour id="disabled" class="haxe.ui.backend.hxwidgets.behaviours.ControlDisable" />
         <size class="haxe.ui.backend.hxwidgets.size.WindowSize" includePadding="false" />
         <builder class="haxe.ui.backend.hxwidgets.builders.ScrollViewBuilder" />
+    </component>
+    <component id="haxe.ui.components.NumberStepper" class="hx.widgets.SpinCtrl" allowChildren="false">
+        <behaviour id="disabled" class="haxe.ui.backend.hxwidgets.behaviours.ControlDisable" />
+        <behaviour id="step" class="haxe.ui.core.DefaultBehaviour" />
+        <behaviour id="pos" class="haxe.ui.core.DefaultBehaviour" />
+        <size class="haxe.ui.backend.hxwidgets.size.BestSize" includePadding="false" />
     </component>
     
     

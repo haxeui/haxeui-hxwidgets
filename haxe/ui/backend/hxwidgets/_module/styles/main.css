@@ -9,11 +9,28 @@
     color: none;
 }
 
-.progress, .slider {
+.range, .progress, .slider {
     width: auto;
     height: auto;
     background-color: none;
     color: none;
+    border: none;
+}
+
+.horizontal-range, .horizontal-progress {
+    width: 100px;
+}
+
+.vertical-range, .vertical-progress {
+    height: 100px;
+}
+
+.numberstepper {
+    width: 70px;
+    height: 20px;
+    background-color: none;
+    color: none;
+    border: none;
 }
 
 .button {

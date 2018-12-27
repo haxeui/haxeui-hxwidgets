@@ -8,7 +8,7 @@ class ListViewIcons {
     
     public static function get(listView:ListView, icon:String, large:Bool = false):Int {
         return _map.getImageIndex(listView, icon, function(imageList) {
-            var window:hx.widgets.ListView =  cast listView.window;
+            var window:hx.widgets.ListView = cast listView.window;
             if (large == true) {
                 window.largeImageList = imageList;
             } else {

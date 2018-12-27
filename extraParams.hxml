@@ -4,3 +4,4 @@
 --macro include("haxe.ui.backend.hxwidgets.behaviours")
 --macro include("haxe.ui.backend.hxwidgets.size")
 --macro include("haxe.ui.backend.hxwidgets.builders")
+--macro include("haxe.ui.backend.hxwidgets.handlers")

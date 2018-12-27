@@ -3,6 +3,7 @@ package haxe.ui.backend;
 import haxe.ui.backend.hxwidgets.Platform;
 import haxe.ui.backend.hxwidgets.behaviours.ListViewDataSource;
 import haxe.ui.backend.hxwidgets.custom.SimpleListView;
+import haxe.ui.backend.hxwidgets.handlers.NativeHandler;
 import haxe.ui.containers.ListView;
 import haxe.ui.containers.dialogs.Dialog2;
 import haxe.ui.core.Screen;
@@ -179,6 +180,7 @@ class ComponentBase {
     }
 
     @:access(haxe.ui.core.Component)
+    private var __handler:NativeHandler = null;
     private function createWindow(parent:Object = null) {
         if (parent == null) {
             parent = Toolkit.screen.frame;
@@ -264,7 +266,7 @@ class ComponentBase {
             if (Platform.isMac) {
                 n.allowIcons = false;
             } else if (Platform.isWindows) {
-                n.padding = new hx.widgets.Size(15, 3);
+                //n.padding = new hx.widgets.Size(15, 3);
             }
         }
 
@@ -311,6 +313,12 @@ class ComponentBase {
                 }
                 window.bind(EventMapper.HAXEUI_TO_WX.get(MouseEvent.MOUSE_MOVE), function(e) { });
             }
+        }
+        
+        var nativeHandlerClass:String = Toolkit.nativeConfig.query('component[id=${className}].handler.@class', null, this);
+        if (nativeHandlerClass != null) {
+            __handler = Type.createInstance(Type.resolveClass(nativeHandlerClass), [this]);
+            __handler.link();
         }
         
         //cast(this, Component).behaviours.update();
