@@ -204,10 +204,10 @@ class ComponentBase {
 
         if (Std.is(this, OptionBox)) {
             var optionBox:OptionBox = cast(this, OptionBox);
-            if (RadioButtonGroups.exists(optionBox.group) == false) {
+            if (RadioButtonGroups.exists(optionBox.componentGroup) == false) {
                 style |= RadioButtonStyle.GROUP;
             }
-            RadioButtonGroups.add(optionBox.group, optionBox);
+            RadioButtonGroups.add(optionBox.componentGroup, optionBox);
         }
 
         var params:Array<Dynamic> = ConstructorParams.build(Toolkit.nativeConfig.query('component[id=${className}].@constructor', null, this), style);
