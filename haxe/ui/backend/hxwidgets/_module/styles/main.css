@@ -49,7 +49,7 @@
     color: none;
 }
 
-.switch2 {
+.switch {
     width: auto;
     height: auto;
 }
@@ -60,12 +60,12 @@
     color: black;
 }
 
-.tabview2 {
+.tabview {
     width: auto;
     height: auto;
 }
 
-.tabview2 .tab-page {
+.tabview .tab-page {
     padding: 5px;
 }
 

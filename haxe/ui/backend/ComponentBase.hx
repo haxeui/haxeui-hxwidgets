@@ -26,7 +26,7 @@ import haxe.ui.backend.hxwidgets.StyleParser;
 import haxe.ui.backend.hxwidgets.TabViewIcons;
 import haxe.ui.components.OptionBox;
 import haxe.ui.containers.Box;
-import haxe.ui.containers.TabView2;
+import haxe.ui.containers.TabView;
 import haxe.ui.core.Component;
 import haxe.ui.core.ImageDisplay;
 import haxe.ui.core.MouseEvent;
@@ -275,7 +275,7 @@ class ComponentBase {
             scrollbar.setScrollbar(0, 5, 100, 5);
         }
 
-        if (Std.is(__parent, haxe.ui.containers.TabView2)) {
+        if (Std.is(__parent, haxe.ui.containers.TabView)) {
             var n:Notebook = cast __parent.window;
             cast(this, Component).addClass("tab-page");
             var pageTitle:String = cast(this, Component).text;

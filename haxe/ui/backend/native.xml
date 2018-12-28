@@ -6,13 +6,6 @@
         <behaviour id="wrap" class="haxe.ui.backend.hxwidgets.behaviours.TextCtrlWordWrap" />
         <size class="haxe.ui.backend.hxwidgets.size.BestSize" includePadding="false" />
     </component>
-    <component id="haxe.ui.containers.TabView" class="hx.widgets.Notebook">
-        <behaviour id="disabled" class="haxe.ui.backend.hxwidgets.behaviours.ControlDisable" />
-        <behaviour id="removeAllPages" class="haxe.ui.backend.hxwidgets.behaviours.NotebookRemoveAllPages" />
-        <behaviour id="removePage" class="haxe.ui.backend.hxwidgets.behaviours.NotebookRemovePage" />
-        <behaviour id="pageCount" class="haxe.ui.backend.hxwidgets.behaviours.NotebookPageCount" />
-        <size class="haxe.ui.backend.hxwidgets.size.NotebookSize" includePadding="false" />
-    </component>
     <component id="haxe.ui.containers.ScrollView" class="hx.widgets.ScrolledWindow">
         <behaviour id="disabled" class="haxe.ui.backend.hxwidgets.behaviours.ControlDisable" />
         <size class="haxe.ui.backend.hxwidgets.size.WindowSize" includePadding="false" />
@@ -78,7 +71,7 @@
         <behaviour id="disabled" class="haxe.ui.backend.hxwidgets.behaviours.ControlDisable" />
         <size class="haxe.ui.backend.hxwidgets.size.BestSize" includePadding="false" />
     </component>
-    <component id="haxe.ui.components.Switch2" class="hx.widgets.ToggleButton" allowChildren="false">
+    <component id="haxe.ui.components.Switch" class="hx.widgets.ToggleButton" allowChildren="false">
         <behaviour id="text" class="haxe.ui.backend.hxwidgets.behaviours.ControlLabel" />
         <behaviour id="disabled" class="haxe.ui.backend.hxwidgets.behaviours.ControlDisable" />
         <size class="haxe.ui.backend.hxwidgets.size.BestSize" includePadding="false" />
@@ -155,7 +148,7 @@
         <behaviour id="disabled" class="haxe.ui.backend.hxwidgets.behaviours.ControlDisable" />
         <size class="haxe.ui.backend.hxwidgets.size.BestSize" includePadding="false" />
     </component>
-    <component id="haxe.ui.containers.TabView2" class="hx.widgets.Notebook">
+    <component id="haxe.ui.containers.TabView" class="hx.widgets.Notebook">
         <behaviour id="disabled" class="haxe.ui.backend.hxwidgets.behaviours.ControlDisable" />
         <behaviour id="removeAllPages" class="haxe.ui.backend.hxwidgets.behaviours.NotebookRemoveAllPages" />
         <behaviour id="removePage" class="haxe.ui.backend.hxwidgets.behaviours.NotebookRemovePage" />
