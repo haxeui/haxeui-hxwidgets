@@ -2,19 +2,11 @@
     native: true;
 }
 
-.scroll, .hscroll, .vscroll, .slider, .hslider, .vslider {
+.scroll, .range, .progress, .slider {
     width: auto;
     height: auto;
     background-color: none;
     color: none;
-}
-
-.range, .progress, .slider {
-    width: auto;
-    height: auto;
-    background-color: none;
-    color: none;
-    border: none;
 }
 
 .horizontal-range, .horizontal-progress {
