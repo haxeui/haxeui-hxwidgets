@@ -7,7 +7,7 @@ import haxe.ui.containers.VBox;
 import haxe.ui.containers.dialogs.Dialog2.DialogButton2;
 import haxe.ui.containers.dialogs.Dialog2.DialogEvent;
 import haxe.ui.core.Component;
-import haxe.ui.core.MouseEvent;
+import haxe.ui.events.MouseEvent;
 import hx.widgets.Defs;
 import hx.widgets.Dialog;
 import hx.widgets.StandardId;

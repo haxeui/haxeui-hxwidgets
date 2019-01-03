@@ -1,6 +1,6 @@
 package haxe.ui.backend.hxwidgets.behaviours;
 
-import haxe.ui.core.UIEvent;
+import haxe.ui.events.UIEvent;
 import haxe.ui.util.Variant;
 import hx.widgets.TextCtrl;
 import hx.widgets.styles.TextCtrlStyle;

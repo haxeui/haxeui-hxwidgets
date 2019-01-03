@@ -4,7 +4,7 @@ import haxe.ui.containers.dialogs.DialogButton;
 import haxe.ui.containers.dialogs.DialogOptions;
 import haxe.ui.core.Component;
 import haxe.ui.core.Screen;
-import haxe.ui.core.UIEvent;
+import haxe.ui.events.UIEvent;
 import hx.widgets.Defs;
 import hx.widgets.EventType;
 import hx.widgets.Frame;

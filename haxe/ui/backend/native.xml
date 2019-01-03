@@ -87,8 +87,8 @@
         <size class="haxe.ui.backend.hxwidgets.size.BestSize" includePadding="false" />
     </component>
     <component id="haxe.ui.components.TextField" class="hx.widgets.TextCtrl" allowChildren="false">
-        <behaviour id="text" class="haxe.ui.backend.hxwidgets.behaviours.ControlLabel" autoDispatch="haxe.ui.core.UIEvent.CHANGE" />
-        <behaviour id="value" class="haxe.ui.backend.hxwidgets.behaviours.ControlLabel" autoDispatch="haxe.ui.core.UIEvent.CHANGE" />
+        <behaviour id="text" class="haxe.ui.backend.hxwidgets.behaviours.ControlLabel" autoDispatch="haxe.ui.events.UIEvent.CHANGE" />
+        <behaviour id="value" class="haxe.ui.backend.hxwidgets.behaviours.ControlLabel" autoDispatch="haxe.ui.events.UIEvent.CHANGE" />
         <behaviour id="password" class="haxe.ui.backend.hxwidgets.behaviours.TextCtrlPassword" />
         <behaviour id="placeholder" class="haxe.ui.backend.hxwidgets.behaviours.TextCtrlPlaceholder" />
         <behaviour id="icon" class="haxe.ui.behaviours.DefaultBehaviour" />
@@ -98,27 +98,27 @@
         <size class="haxe.ui.backend.hxwidgets.size.BestSize" includePadding="false" />
     </component>
     <component id="haxe.ui.components.HorizontalRange" class="hx.widgets.Gauge" constructor="100, $style" allowChildren="false">
-        <behaviour id="end" class="haxe.ui.backend.hxwidgets.behaviours.ControlValue" autoDispatch="haxe.ui.core.UIEvent.CHANGE" />
-        <behaviour id="value" class="haxe.ui.backend.hxwidgets.behaviours.ControlValue" autoDispatch="haxe.ui.core.UIEvent.CHANGE" />
+        <behaviour id="end" class="haxe.ui.backend.hxwidgets.behaviours.ControlValue" autoDispatch="haxe.ui.events.UIEvent.CHANGE" />
+        <behaviour id="value" class="haxe.ui.backend.hxwidgets.behaviours.ControlValue" autoDispatch="haxe.ui.events.UIEvent.CHANGE" />
         <behaviour id="disabled" class="haxe.ui.backend.hxwidgets.behaviours.ControlDisable" />
         <size class="haxe.ui.backend.hxwidgets.size.BestSize" includePadding="false" />
     </component>
     <component id="haxe.ui.components.VerticalRange" class="hx.widgets.Gauge" constructor="100, $style" allowChildren="false" style="GaugeStyle.VERTICAL">
-        <behaviour id="end" class="haxe.ui.backend.hxwidgets.behaviours.ControlValue" autoDispatch="haxe.ui.core.UIEvent.CHANGE" />
-        <behaviour id="value" class="haxe.ui.backend.hxwidgets.behaviours.ControlValue" autoDispatch="haxe.ui.core.UIEvent.CHANGE" />
+        <behaviour id="end" class="haxe.ui.backend.hxwidgets.behaviours.ControlValue" autoDispatch="haxe.ui.events.UIEvent.CHANGE" />
+        <behaviour id="value" class="haxe.ui.backend.hxwidgets.behaviours.ControlValue" autoDispatch="haxe.ui.events.UIEvent.CHANGE" />
         <behaviour id="disabled" class="haxe.ui.backend.hxwidgets.behaviours.ControlDisable" />
         <size class="haxe.ui.backend.hxwidgets.size.BestSize" includePadding="false" />
     </component>
     <component id="haxe.ui.components.HorizontalProgress" class="hx.widgets.Gauge" constructor="100, $style" allowChildren="false">
-        <behaviour id="end" class="haxe.ui.backend.hxwidgets.behaviours.ControlValue" autoDispatch="haxe.ui.core.UIEvent.CHANGE" />
-        <behaviour id="value" class="haxe.ui.backend.hxwidgets.behaviours.ControlValue" autoDispatch="haxe.ui.core.UIEvent.CHANGE" />
+        <behaviour id="end" class="haxe.ui.backend.hxwidgets.behaviours.ControlValue" autoDispatch="haxe.ui.events.UIEvent.CHANGE" />
+        <behaviour id="value" class="haxe.ui.backend.hxwidgets.behaviours.ControlValue" autoDispatch="haxe.ui.events.UIEvent.CHANGE" />
         <behaviour id="indeterminate" class="haxe.ui.backend.hxwidgets.behaviours.ControlPulse" />
         <behaviour id="disabled" class="haxe.ui.backend.hxwidgets.behaviours.ControlDisable" />
         <size class="haxe.ui.backend.hxwidgets.size.BestSize" includePadding="false" />
     </component>
     <component id="haxe.ui.components.VerticalProgress" class="hx.widgets.Gauge" constructor="100, $style" allowChildren="false" style="GaugeStyle.VERTICAL">
-        <behaviour id="end" class="haxe.ui.backend.hxwidgets.behaviours.ControlValue" autoDispatch="haxe.ui.core.UIEvent.CHANGE" />
-        <behaviour id="value" class="haxe.ui.backend.hxwidgets.behaviours.ControlValue" autoDispatch="haxe.ui.core.UIEvent.CHANGE" />
+        <behaviour id="end" class="haxe.ui.backend.hxwidgets.behaviours.ControlValue" autoDispatch="haxe.ui.events.UIEvent.CHANGE" />
+        <behaviour id="value" class="haxe.ui.backend.hxwidgets.behaviours.ControlValue" autoDispatch="haxe.ui.events.UIEvent.CHANGE" />
         <behaviour id="indeterminate" class="haxe.ui.backend.hxwidgets.behaviours.ControlPulse" />
         <behaviour id="disabled" class="haxe.ui.backend.hxwidgets.behaviours.ControlDisable" />
         <size class="haxe.ui.backend.hxwidgets.size.BestSize" includePadding="false" />
@@ -127,8 +127,8 @@
     <component id="haxe.ui.components.HorizontalSlider" allowChildren="false" class="hx.widgets.Slider" constructor="0, 0, 100, $style">
         <behaviour id="end" class="haxe.ui.backend.hxwidgets.behaviours.ControlValue" />
         <behaviour id="start" class="haxe.ui.backend.hxwidgets.behaviours.ControlValue" />
-        <behaviour id="pos" class="haxe.ui.backend.hxwidgets.behaviours.ControlValue" autoDispatch="haxe.ui.core.UIEvent.CHANGE" />
-        <behaviour id="value" class="haxe.ui.backend.hxwidgets.behaviours.ControlValue" autoDispatch="haxe.ui.core.UIEvent.CHANGE" />
+        <behaviour id="pos" class="haxe.ui.backend.hxwidgets.behaviours.ControlValue" autoDispatch="haxe.ui.events.UIEvent.CHANGE" />
+        <behaviour id="value" class="haxe.ui.backend.hxwidgets.behaviours.ControlValue" autoDispatch="haxe.ui.events.UIEvent.CHANGE" />
         <behaviour id="min" class="haxe.ui.backend.hxwidgets.behaviours.ControlMin" />
         <behaviour id="max" class="haxe.ui.backend.hxwidgets.behaviours.ControlMax" />
         <behaviour id="disabled" class="haxe.ui.backend.hxwidgets.behaviours.ControlDisable" />
@@ -137,8 +137,8 @@
     <component id="haxe.ui.components.VerticalSlider" class="hx.widgets.Slider" constructor="0, 0, 100, $style" allowChildren="false" style="SliderStyle.VERTICAL">
         <behaviour id="end" class="haxe.ui.backend.hxwidgets.behaviours.ControlValue" />
         <behaviour id="start" class="haxe.ui.backend.hxwidgets.behaviours.ControlValue" />
-        <behaviour id="pos" class="haxe.ui.backend.hxwidgets.behaviours.ControlValue" autoDispatch="haxe.ui.core.UIEvent.CHANGE" />
-        <behaviour id="value" class="haxe.ui.backend.hxwidgets.behaviours.ControlValue" autoDispatch="haxe.ui.core.UIEvent.CHANGE" />
+        <behaviour id="pos" class="haxe.ui.backend.hxwidgets.behaviours.ControlValue" autoDispatch="haxe.ui.events.UIEvent.CHANGE" />
+        <behaviour id="value" class="haxe.ui.backend.hxwidgets.behaviours.ControlValue" autoDispatch="haxe.ui.events.UIEvent.CHANGE" />
         <behaviour id="min" class="haxe.ui.backend.hxwidgets.behaviours.ControlMin" />
         <behaviour id="max" class="haxe.ui.backend.hxwidgets.behaviours.ControlMax" />
         <behaviour id="disabled" class="haxe.ui.backend.hxwidgets.behaviours.ControlDisable" />
