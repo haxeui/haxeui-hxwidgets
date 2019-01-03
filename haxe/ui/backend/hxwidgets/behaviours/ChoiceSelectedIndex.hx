@@ -1,6 +1,6 @@
 package haxe.ui.backend.hxwidgets.behaviours;
 
-import haxe.ui.core.DataBehaviour;
+import haxe.ui.behaviours.DataBehaviour;
 import hx.widgets.Choice;
 
 class ChoiceSelectedIndex extends DataBehaviour {

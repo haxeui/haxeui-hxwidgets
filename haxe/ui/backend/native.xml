@@ -91,9 +91,9 @@
         <behaviour id="value" class="haxe.ui.backend.hxwidgets.behaviours.ControlLabel" autoDispatch="haxe.ui.core.UIEvent.CHANGE" />
         <behaviour id="password" class="haxe.ui.backend.hxwidgets.behaviours.TextCtrlPassword" />
         <behaviour id="placeholder" class="haxe.ui.backend.hxwidgets.behaviours.TextCtrlPlaceholder" />
-        <behaviour id="icon" class="haxe.ui.core.DefaultBehaviour" />
-        <behaviour id="restrictChars" class="haxe.ui.core.DefaultBehaviour" />
-        <behaviour id="maxChars" class="haxe.ui.core.DefaultBehaviour" />
+        <behaviour id="icon" class="haxe.ui.behaviours.DefaultBehaviour" />
+        <behaviour id="restrictChars" class="haxe.ui.behaviours.DefaultBehaviour" />
+        <behaviour id="maxChars" class="haxe.ui.behaviours.DefaultBehaviour" />
         <behaviour id="disabled" class="haxe.ui.backend.hxwidgets.behaviours.ControlDisable" />
         <size class="haxe.ui.backend.hxwidgets.size.BestSize" includePadding="false" />
     </component>
@@ -158,8 +158,8 @@
     </component>
     <component id="haxe.ui.components.NumberStepper" class="hx.widgets.SpinCtrl" allowChildren="false">
         <behaviour id="disabled" class="haxe.ui.backend.hxwidgets.behaviours.ControlDisable" />
-        <behaviour id="step" class="haxe.ui.core.DefaultBehaviour" />
-        <behaviour id="pos" class="haxe.ui.core.DefaultBehaviour" />
+        <behaviour id="step" class="haxe.ui.behaviours.DefaultBehaviour" />
+        <behaviour id="pos" class="haxe.ui.behaviours.DefaultBehaviour" />
         <size class="haxe.ui.backend.hxwidgets.size.BestSize" includePadding="false" />
     </component>
     

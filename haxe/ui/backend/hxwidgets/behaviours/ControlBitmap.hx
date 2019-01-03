@@ -1,6 +1,6 @@
 package haxe.ui.backend.hxwidgets.behaviours;
 
-import haxe.ui.core.DataBehaviour;
+import haxe.ui.behaviours.DataBehaviour;
 import haxe.ui.util.ImageLoader;
 import hx.widgets.Button;
 import hx.widgets.StaticBitmap;
