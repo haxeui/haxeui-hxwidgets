@@ -1,7 +1,7 @@
 package haxe.ui.backend;
 
 import haxe.ui.core.Component;
-import haxe.ui.util.Rectangle;
+import haxe.ui.geom.Rectangle;
 import haxe.ui.assets.ImageInfo;
 
 class ImageDisplayBase {
