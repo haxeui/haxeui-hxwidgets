@@ -70,7 +70,9 @@
     <component id="haxe.ui.components.Switch" class="hx.widgets.ToggleButton" allowChildren="false">
         <behaviour id="text" class="haxe.ui.backend.hxwidgets.behaviours.ControlLabel" />
         <behaviour id="disabled" class="haxe.ui.backend.hxwidgets.behaviours.ControlDisable" />
+        <behaviour id="selected" class="haxe.ui.backend.hxwidgets.behaviours.ControlValue" autoDispatch="haxe.ui.events.UIEvent.CHANGE" />
         <size class="haxe.ui.backend.hxwidgets.size.BestSize" includePadding="false" />
+        <handler class="haxe.ui.backend.hxwidgets.handlers.ReflectionHandler" event="EventType.TOGGLEBUTTON" sourceProp="value" targetProp="selected" />
     </component>
     <component id="haxe.ui.components.CheckBox" class="hx.widgets.CheckBox" allowChildren="false">
         <behaviour id="text" class="haxe.ui.backend.hxwidgets.behaviours.ControlLabel" />
@@ -133,6 +135,7 @@
         <behaviour id="max" class="haxe.ui.backend.hxwidgets.behaviours.ControlMax" />
         <behaviour id="disabled" class="haxe.ui.backend.hxwidgets.behaviours.ControlDisable" />
         <size class="haxe.ui.backend.hxwidgets.size.BestSize" includePadding="false" />
+        <handler class="haxe.ui.backend.hxwidgets.handlers.ReflectionHandler" event="EventType.SLIDER" sourceProp="value" targetProp="pos" />
     </component>
     <component id="haxe.ui.components.VerticalSlider" class="hx.widgets.Slider" constructor="0, 0, 100, $style" allowChildren="false" style="SliderStyle.VERTICAL">
         <behaviour id="end" class="haxe.ui.backend.hxwidgets.behaviours.ControlValue" />

@@ -6,7 +6,7 @@ import hx.widgets.EventType;
 import hx.widgets.Frame;
 import hx.widgets.Timer;
 
-class TimerBase {
+class TimerImpl {
     private var _timer:Timer;
 
     public function new(delay:Int, callback:Void->Void) {

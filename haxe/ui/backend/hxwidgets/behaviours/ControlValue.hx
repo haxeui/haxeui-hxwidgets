@@ -8,6 +8,7 @@ import hx.widgets.Gauge;
 import hx.widgets.RadioButton;
 import hx.widgets.ScrollBar;
 import hx.widgets.Slider;
+import hx.widgets.ToggleButton;
 
 @:keep
 class ControlValue extends DataBehaviour {
@@ -23,6 +24,8 @@ class ControlValue extends DataBehaviour {
             cast(_component.window, CheckBox).value = _value;
         } else if (Std.is(_component.window, RadioButton)) {
             cast(_component.window, RadioButton).value = _value;
+        } else if (Std.is(_component.window, ToggleButton)) {
+            cast(_component.window, ToggleButton).value = _value;
         }
     }
     
@@ -36,6 +39,8 @@ class ControlValue extends DataBehaviour {
             v = cast(_component.window, CheckBox).value;
         } else if (Std.is(_component.window, RadioButton)) {
             v = cast(_component.window, RadioButton).value;
+        } else if (Std.is(_component.window, ToggleButton)) {
+            v = cast(_component.window, ToggleButton).value;
         }
         return v;
     }

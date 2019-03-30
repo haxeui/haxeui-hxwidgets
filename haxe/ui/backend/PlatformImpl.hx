@@ -1,11 +1,11 @@
 package haxe.ui.backend;
 
+import haxe.ui.core.Platform;
 import hx.widgets.SystemMetric;
 import hx.widgets.SystemSettings;
-import haxe.ui.core.Platform;
 
-class PlatformBase {
-    public function getMetric(id:String):Float {
+class PlatformImpl extends PlatformBase {
+    public override function getMetric(id:String):Float {
         switch (id) {
             case Platform.METRIC_VSCROLL_WIDTH:
                 return SystemSettings.getMetric(SystemMetric.VSCROLL_X);

@@ -8,7 +8,6 @@ import haxe.ui.containers.dialogs.Dialog2.DialogButton2;
 import haxe.ui.containers.dialogs.Dialog2.DialogEvent;
 import haxe.ui.core.Component;
 import haxe.ui.events.MouseEvent;
-import hx.widgets.Defs;
 import hx.widgets.Dialog;
 import hx.widgets.StandardId;
 import hx.widgets.SystemColour;
@@ -149,14 +148,14 @@ class DialogBase extends Component {
         if (dialogFooter == null) {
             var line = new Box();
             line.percentWidth = 100;
-            line.backgroundColor = ComponentBase.convertColor(SystemSettings.getColour(SystemColour.COLOUR_APPWORKSPACE));
+            line.backgroundColor = ComponentImpl.convertColor(SystemSettings.getColour(SystemColour.COLOUR_APPWORKSPACE));
             line.height = 1;
             dialogContent.addComponent(line);
             
             dialogFooterContainer = new Box();
             dialogFooterContainer.percentWidth = 100;
             dialogFooterContainer.addClass("dialog-footer-container");
-            dialogFooterContainer.backgroundColor = ComponentBase.convertColor(SystemSettings.getColour(SystemColour.COLOUR_FRAMEBK));
+            dialogFooterContainer.backgroundColor = ComponentImpl.convertColor(SystemSettings.getColour(SystemColour.COLOUR_FRAMEBK));
             dialogContent.addComponent(dialogFooterContainer);
 
             dialogFooter = new HBox();

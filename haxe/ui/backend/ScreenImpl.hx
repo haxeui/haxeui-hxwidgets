@@ -1,48 +1,32 @@
 package haxe.ui.backend;
 
 import haxe.ui.containers.dialogs.DialogButton;
-import haxe.ui.containers.dialogs.DialogOptions;
 import haxe.ui.core.Component;
-import haxe.ui.core.Screen;
 import haxe.ui.events.UIEvent;
-import hx.widgets.Defs;
 import hx.widgets.EventType;
 import hx.widgets.Frame;
-import hx.widgets.MessageDialog;
-import hx.widgets.styles.DialogStyle;
-import hx.widgets.styles.MessageDialogStyle;
 
 @:keep
-class ScreenBase {
+class ScreenImpl extends ScreenBase {
     public function new() {
     }
 
-    public var focus:Component;
-    public var options(default, default):ToolkitOptions;
-
-    public var width(get, null):Float;
-    public function get_width():Float {
+    public override function get_width():Float {
         return frame.clientSize.width;
     }
-
-    public var height(get, null):Float;
-    public function get_height() {
-        return frame.clientSize.height;
+    
+    public override function get_height():Float {
+        return return frame.clientSize.height;
     }
-
-    public var dpi(get, null):Float;
-    private function get_dpi():Float {
-        return 72;
-    }
-
+    
     private var __topLevelComponents:Array<Component> = new Array<Component>();
-    public function addComponent(component:Component) {
+    public override function addComponent(component:Component) {
         __topLevelComponents.push(component);
         addResizeListener();
         resizeComponent(component);
     }
 
-    public function removeComponent(component:Component) {
+    public override function removeComponent(component:Component) {
         __topLevelComponents.remove(component);
         component.window.destroy();
     }
@@ -122,7 +106,7 @@ class ScreenBase {
     }
     */
 
-    private function resizeComponent(c:Component) {
+    private override function resizeComponent(c:Component) {
         //c.lock();
         var cx:Null<Float> = null;
         var cy:Null<Float> = null;
@@ -144,11 +128,10 @@ class ScreenBase {
         return  options.frame;
     }
 
-    public var title(get, set):String;
-    private inline function get_title():String {
+    private override function get_title():String {
         return frame.title;
     }
-    private inline function set_title(t:String):String {
+    private override function set_title(t:String):String {
         return frame.title = t;
     }
 
@@ -176,20 +159,20 @@ class ScreenBase {
         _hasListener = true;
     }
 
-    private function handleSetComponentIndex(child:Component, index:Int) {
+    private override function handleSetComponentIndex(child:Component, index:Int) {
 
     }
 
     //***********************************************************************************************************
     // Events
     //***********************************************************************************************************
-    private function supportsEvent(type:String):Bool {
+    private override function supportsEvent(type:String):Bool {
         return false;
     }
 
-    private function mapEvent(type:String, listener:UIEvent->Void) {
+    private override function mapEvent(type:String, listener:UIEvent->Void) {
     }
 
-    private function unmapEvent(type:String, listener:UIEvent->Void) {
+    private override function unmapEvent(type:String, listener:UIEvent->Void) {
     }
 }

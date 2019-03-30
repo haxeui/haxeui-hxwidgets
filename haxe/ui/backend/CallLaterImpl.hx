@@ -5,7 +5,7 @@ import haxe.ui.util.Timer;
 import hx.widgets.EventType;
 import hx.widgets.ThreadEvent;
 
-class CallLaterBase {
+class CallLaterImpl {
     private var _fn:Void->Void;
     
     public function new(fn:Void->Void) {

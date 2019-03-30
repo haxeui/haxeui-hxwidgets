@@ -4,7 +4,7 @@ import hx.widgets.ImageList;
 import hx.widgets.Notebook;
 import hx.widgets.Window;
 
-class IconMap<T:ComponentBase> {
+class IconMap<T:ComponentImpl> {
     private var _objectsToImageList:Map<T, ImageList> = new Map<T, ImageList>();
     private var _imageListToIcon:Map<ImageList, Array<String>> = new Map<ImageList, Array<String>>();
     

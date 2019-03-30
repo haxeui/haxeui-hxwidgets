@@ -1,12 +1,10 @@
 package haxe.ui.backend;
 
-import haxe.ui.Preloader.PreloadItem;
 import haxe.ui.util.Timer;
 import hx.widgets.App;
 import hx.widgets.Event;
 import hx.widgets.EventType;
 import hx.widgets.Frame;
-import hx.widgets.OperatingSystemId;
 import hx.widgets.PlatformInfo;
 import hx.widgets.SystemMetric;
 import hx.widgets.SystemOptions;
@@ -14,7 +12,7 @@ import hx.widgets.SystemSettings;
 import hx.widgets.styles.WindowStyle;
 import wx.widgets.styles.FrameStyle;
 
-class AppBase {
+class AppImpl extends AppBase {
     private var _app:App;
     private var _frame:Frame;
     private var _onEnd:Void->Void;
@@ -23,7 +21,7 @@ class AppBase {
         SystemOptions.setOption("msw.window.no-clip-children", 1);
     }
 
-    private function build() {
+    private override function build() {
         _app = new App();
         _app.init();
 
@@ -37,7 +35,7 @@ class AppBase {
         }
     }
 
-    private function init(onReady:Void->Void, onEnd:Void->Void = null) {
+    private override function init(onReady:Void->Void, onEnd:Void->Void = null) {
         _onEnd = onEnd;
         var frameWidth:Int = Toolkit.backendProperties.getPropInt("haxe.ui.hxwidgets.frame.width", 800);
         var frameHeight:Int = Toolkit.backendProperties.getPropInt("haxe.ui.hxwidgets.frame.height", 600);
@@ -67,14 +65,14 @@ class AppBase {
         onReady();
     }
 
-    private function getToolkitInit():Dynamic {
+    private override function getToolkitInit():ToolkitOptions {
         return {
             frame: _frame
         };
     }
 
     private var _timer:Timer = null;
-    public function start() {
+    public override function start() {
         if (Toolkit.backendProperties.getPropBool("haxe.ui.hxwidgets.frame.fit", false) == true) {
             Toolkit.callLater(function() {
                 _frame.fit();
@@ -92,9 +90,5 @@ class AppBase {
         if (_onEnd != null) {
             _onEnd();
         }
-    }
-    
-    private function buildPreloadList():Array<PreloadItem> {
-        return [];
     }
 }

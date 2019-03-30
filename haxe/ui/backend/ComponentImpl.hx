@@ -10,14 +10,10 @@ import haxe.ui.backend.hxwidgets.custom.SimpleListView;
 import haxe.ui.backend.hxwidgets.handlers.NativeHandler;
 import haxe.ui.components.OptionBox;
 import haxe.ui.containers.Box;
-import haxe.ui.containers.ListView;
 import haxe.ui.containers.TabView;
 import haxe.ui.containers.dialogs.Dialog2;
 import haxe.ui.core.Component;
-import haxe.ui.core.ImageDisplay;
 import haxe.ui.core.Screen;
-import haxe.ui.core.TextDisplay;
-import haxe.ui.core.TextInput;
 import haxe.ui.events.MouseEvent;
 import haxe.ui.events.UIEvent;
 import haxe.ui.geom.Rectangle;
@@ -55,93 +51,19 @@ import hx.widgets.styles.StaticTextStyle;
 import hx.widgets.styles.TextCtrlStyle;
 import hx.widgets.styles.WindowStyle;
 
-class ComponentBase {
+class ComponentImpl extends ComponentBase {
     private var _eventMap:Map<String, UIEvent->Void>;
 
     public function new() {
+        super();
         _eventMap = new Map<String, UIEvent->Void>();
-    }
-
-    @:access(haxe.ui.containers.ListView)
-    public function createDelegate(native:Bool) {
-    }
-
-    //***********************************************************************************************************
-    // Text related
-    //***********************************************************************************************************
-    private var _textDisplay:TextDisplay;
-    public function createTextDisplay(text:String = null):TextDisplay {
-        if (_textDisplay == null) {
-            _textDisplay = new TextDisplay();
-            _textDisplay.parentComponent = cast this;
-        }
-        if (text != null) {
-            _textDisplay.text = text;
-        }
-        return _textDisplay;
-    }
-
-    public function getTextDisplay():TextDisplay {
-        return createTextDisplay();
-    }
-
-    public function hasTextDisplay():Bool {
-        return (_textDisplay != null);
-    }
-
-    private var _textInput:TextInput;
-    public function createTextInput(text:String = null):TextInput {
-        if (_textInput == null) {
-            _textInput = new TextInput();
-            _textInput.parentComponent = cast this;
-        }
-        if (text != null) {
-            _textInput.text = text;
-        }
-        return _textInput;
-    }
-
-    public function getTextInput():TextInput {
-        return createTextInput();
-    }
-
-    public function hasTextInput():Bool {
-        return (_textInput != null);
-    }
-
-    //***********************************************************************************************************
-    // Image related
-    //***********************************************************************************************************
-    private var _imageDisplay:ImageDisplay;
-    public function createImageDisplay():ImageDisplay {
-        if (_imageDisplay == null) {
-            _imageDisplay = new ImageDisplay();
-        }
-        return _imageDisplay;
-    }
-
-    public function getImageDisplay():ImageDisplay {
-        return createImageDisplay();
-    }
-
-    public function hasImageDisplay():Bool {
-        return (_imageDisplay != null);
-    }
-
-    public function removeImageDisplay():Void {
-        if (_imageDisplay != null) {
-            _imageDisplay = null;
-        }
     }
 
     //***********************************************************************************************************
     // Display tree
     //***********************************************************************************************************
     public var __parent:Component;
-    private var __children:Array<ComponentBase> = new Array<ComponentBase>();
-
-    public function handleCreate(native:Bool) {
-    }
+    private var __children:Array<ComponentImpl> = new Array<ComponentImpl>();
 
     public var object:Object = null;
     public var window(get, set):Window;
@@ -156,7 +78,7 @@ class ComponentBase {
         return value;
     }
     
-    public function handleReady() {
+    public override function handleReady() {
         if (object != null) {
             return;
         }
@@ -313,11 +235,9 @@ class ComponentBase {
             __handler = Type.createInstance(Type.resolveClass(nativeHandlerClass), [this]);
             __handler.link();
         }
-        
-        //cast(this, Component).behaviours.update();
     }
 
-    private function handleSize(width:Null<Float>, height:Null<Float>, style:Style) {
+    private override function handleSize(width:Null<Float>, height:Null<Float>, style:Style) {
         if (width == null || height == null || width <= 0 || height <= 0) {
             return;
         }
@@ -333,19 +253,19 @@ class ComponentBase {
         handleClipRect(null);
     }
 
-    private function handleAddComponent(child:Component):Component {
-        cast(child, ComponentBase).__parent = cast this;
+    private override function handleAddComponent(child:Component):Component {
+        cast(child, ComponentImpl).__parent = cast this;
         __children.push(child);
         return child;
     }
 
-    private function handleAddComponentAt(child:Component, index:Int):Component {
-        cast(child, ComponentBase).__parent = cast this;
+    private override function handleAddComponentAt(child:Component, index:Int):Component {
+        cast(child, ComponentImpl).__parent = cast this;
         __children.insert(index, child);
         return child;
     }
     
-    private function handleRemoveComponent(child:Component, dispose:Bool = true):Component {
+    private override function handleRemoveComponent(child:Component, dispose:Bool = true):Component {
         __children.remove(child);
         if (child.window != null && dispose == true) {
             child.window.destroy();
@@ -354,18 +274,18 @@ class ComponentBase {
         return child;
     }
 
-    private function handleRemoveComponentAt(index:Int, dispose:Bool = true):Component {
+    private override function handleRemoveComponentAt(index:Int, dispose:Bool = true):Component {
         var child = cast(this, Component)._children[index];
         return handleRemoveComponent(child, dispose);
     }
     
-    private function handleVisibility(show:Bool) {
+    private override function handleVisibility(show:Bool) {
         if (window != null) {
             window.show(show);
         }
     }
 
-    private function handleClipRect(value:Rectangle):Void {
+    private override function handleClipRect(value:Rectangle):Void {
         if (__parent == null || __parent.window == null || Std.is(__parent.window, ScrolledWindow) == false) {
             return;
         }
@@ -378,7 +298,7 @@ class ComponentBase {
         }
     }
 
-    private function handlePosition(left:Null<Float>, top:Null<Float>, style:Style):Void {
+    private override function handlePosition(left:Null<Float>, top:Null<Float>, style:Style):Void {
         if (window == null) {
             return;
         }
@@ -406,7 +326,7 @@ class ComponentBase {
     }
 
     private var _repositionUnlockCount:Int = 0;
-    public function handlePreReposition():Void {
+    public override function handlePreReposition():Void {
         if (window == null) {
             return;
         }
@@ -416,7 +336,7 @@ class ComponentBase {
         }
     }
 
-    public function handlePostReposition():Void {
+    public override function handlePostReposition():Void {
         if (window == null) {
             return;
         }
@@ -430,14 +350,14 @@ class ComponentBase {
         }
     }
 
-    private function handleSetComponentIndex(child:Component, index:Int) {
+    private override function handleSetComponentIndex(child:Component, index:Int) {
 
     }
 
     //***********************************************************************************************************
     // Redraw callbacks
     //***********************************************************************************************************
-    private function applyStyle(style:Style) {
+    private override function applyStyle(style:Style) {
         if (window == null) {
             return;
         }
@@ -563,7 +483,7 @@ class ComponentBase {
     // Events
     //***********************************************************************************************************
     private var __eventsToMap:Map<String, UIEvent->Void>;
-    private function mapEvent(type:String, listener:UIEvent->Void) {
+    private override function mapEvent(type:String, listener:UIEvent->Void) {
         if (window == null) {
             if (__eventsToMap == null) {
                 __eventsToMap = new Map<String, UIEvent->Void>();
@@ -620,7 +540,7 @@ class ComponentBase {
         }
     }
     
-    private function unmapEvent(type:String, listener:UIEvent->Void) {
+    private override function unmapEvent(type:String, listener:UIEvent->Void) {
         if (window == null && __eventsToMap != null) {
             __eventsToMap.remove(type);
             return;
@@ -673,7 +593,7 @@ class ComponentBase {
         }
     }
 
-    private static var _inComponents:Array<ComponentBase> = [];
+    private static var _inComponents:Array<ComponentImpl> = [];
     private var _mouseOverFlag:Bool = false;
     private function __onMouseMove(event:Event) {
         if (_mouseOverFlag == false) {
@@ -727,7 +647,7 @@ class ComponentBase {
         }
     }
     
-    private function handleMouseOut(c:ComponentBase, mouseEvent:hx.widgets.MouseEvent) {
+    private function handleMouseOut(c:ComponentImpl, mouseEvent:hx.widgets.MouseEvent) {
         c._mouseOverFlag = false;
         _inComponents.remove(this);
         

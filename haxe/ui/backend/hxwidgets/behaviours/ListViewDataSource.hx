@@ -5,7 +5,7 @@ import haxe.ui.util.Variant;
 import hx.widgets.ListItem;
 import hx.widgets.ListView;
 
-@:access(haxe.ui.backend.ComponentBase)
+@:access(haxe.ui.backend.ComponentImpl)
 class ListViewDataSource extends HxWidgetsBehaviour {
     public override function set(value:Variant) {
         super.set(value);
