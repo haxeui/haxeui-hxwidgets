@@ -171,7 +171,7 @@ class DialogBase extends Component {
         if (dialogFooter == null) {
             var line = new Box();
             line.percentWidth = 100;
-            line.backgroundColor = ComponentImpl.convertColor(SystemSettings.getColour(SystemColour.COLOUR_APPWORKSPACE));
+            line.backgroundColor = ComponentImpl.convertColor(SystemSettings.getColour(SystemColour.COLOUR_3DLIGHT));
             line.height = 1;
             dialogContentContainer.addComponent(line);
             
