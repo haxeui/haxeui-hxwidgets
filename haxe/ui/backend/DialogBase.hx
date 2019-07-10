@@ -4,8 +4,8 @@ import haxe.ui.components.Button;
 import haxe.ui.containers.Box;
 import haxe.ui.containers.HBox;
 import haxe.ui.containers.VBox;
-import haxe.ui.containers.dialogs.Dialog2.DialogButton2;
-import haxe.ui.containers.dialogs.Dialog2.DialogEvent;
+import haxe.ui.containers.dialogs.Dialog.DialogButton;
+import haxe.ui.containers.dialogs.Dialog.DialogEvent;
 import haxe.ui.core.Component;
 import haxe.ui.events.MouseEvent;
 import hx.widgets.Dialog;
@@ -16,11 +16,12 @@ import hx.widgets.SystemSettings;
 
 class DialogBase extends Component {
     public var modal:Bool = true;
-    public var buttons:DialogButton2 = null;
+    public var buttons:DialogButton = null;
     public var draggable:Bool = false;
     public var centerDialog:Bool = true;
-    public var button:DialogButton2 = null;
+    public var button:DialogButton = null;
 
+    public var dialogContentContainer:VBox;
     public var dialogContent:VBox;
     public var dialogFooterContainer:Box;
     public var dialogFooter:Box;
@@ -28,9 +29,14 @@ class DialogBase extends Component {
     public function new() {
         super();
 
+        dialogContentContainer = new VBox();
+        dialogContentContainer.addClass("dialog-container");
+        
         dialogContent = new VBox();
-        dialogContent.addClass("hxwidgets-dialog-content");
-        addComponent(dialogContent);
+        dialogContent.addClass("dialog-content");
+        dialogContentContainer.addComponent(dialogContent);
+        
+        addComponent(dialogContentContainer);
     }
 
     public override function show() {
@@ -45,8 +51,21 @@ class DialogBase extends Component {
         }
         
         this.ready();
-        this.width = this.childComponents[0].width + 6;
-        this.height = this.childComponents[0].height + SystemSettings.getMetric(SystemMetric.CAPTION_Y) + 6;
+        
+        if (autoWidth == true) {
+            width = dialogContentContainer.width + 6;
+        } else {
+            dialogContentContainer.width = this.width - 6;
+            dialogContent.width = null;
+            dialogContent.percentWidth = 100;
+        }
+        if (autoHeight == true) {
+            height = dialogContentContainer.height + SystemSettings.getMetric(SystemMetric.CAPTION_Y) + 6;
+        } else {
+            dialogContentContainer.height = this.height - (SystemSettings.getMetric(SystemMetric.CAPTION_Y) + 6);
+            dialogContent.height = null;
+            dialogContent.percentHeight = 100;
+        }
         var dialog = cast(this.window, Dialog);
         
         if (centerDialog) {
@@ -65,41 +84,41 @@ class DialogBase extends Component {
         }
     }
 
-    private function buttonToStandardId(button:DialogButton2):Int {
+    private function buttonToStandardId(button:DialogButton):Int {
         switch(button) {
-            case DialogButton2.SAVE:
+            case DialogButton.SAVE:
                 return StandardId.SAVE;
-            case DialogButton2.YES:
+            case DialogButton.YES:
                 return StandardId.YES;
-            case DialogButton2.NO:
+            case DialogButton.NO:
                 return StandardId.NO;
-            case DialogButton2.CLOSE:
+            case DialogButton.CLOSE:
                 return StandardId.CLOSE;
-            case DialogButton2.OK:
+            case DialogButton.OK:
                 return StandardId.OK;
-            case DialogButton2.CANCEL:
+            case DialogButton.CANCEL:
                 return StandardId.CANCEL;
-            case DialogButton2.APPLY:
+            case DialogButton.APPLY:
                 return StandardId.APPLY;
         }
         return StandardId.NONE;
     }
     
-    private static function standardIdToButton(id:Int):DialogButton2 {
+    private static function standardIdToButton(id:Int):DialogButton {
         if (id == StandardId.SAVE) {
-            return DialogButton2.SAVE;
+            return DialogButton.SAVE;
         } else if (id == StandardId.YES) {
-            return DialogButton2.YES;
+            return DialogButton.YES;
         } else if (id == StandardId.NO) {
-            return DialogButton2.NO;
+            return DialogButton.NO;
         } else if (id == StandardId.CLOSE) {
-            return DialogButton2.CLOSE;
+            return DialogButton.CLOSE;
         } else if (id == StandardId.OK) {
-            return DialogButton2.OK;
+            return DialogButton.OK;
         } else if (id == StandardId.CANCEL) {
-            return DialogButton2.CANCEL;
+            return DialogButton.CANCEL;
         } else if (id == StandardId.APPLY) {
-            return DialogButton2.APPLY;
+            return DialogButton.APPLY;
         }
         return null;
     }
@@ -112,7 +131,7 @@ class DialogBase extends Component {
         } else {
             dialog.hide();
             if (this.button == null) {
-                this.button = DialogButton2.CANCEL;
+                this.button = DialogButton.CANCEL;
             }
             var event = new DialogEvent(DialogEvent.DIALOG_CLOSED);
             event.button = this.button;
@@ -120,7 +139,7 @@ class DialogBase extends Component {
         }
     }
 
-    public function hideDialog(button:DialogButton2) {
+    public function hideDialog(button:DialogButton) {
         this.button = button;
         hide();
     }
@@ -136,7 +155,7 @@ class DialogBase extends Component {
     }
 
     public override function addComponent(child:Component):Component {
-        if (child == dialogContent) {
+        if (child == dialogContentContainer) {
             return super.addComponent(child);
         }
         child.addClass("dialog-content");
@@ -144,19 +163,23 @@ class DialogBase extends Component {
         return child;
     }
 
+    private function createButtons() {
+        
+    }
+    
     private function createFooter() {
         if (dialogFooter == null) {
             var line = new Box();
             line.percentWidth = 100;
             line.backgroundColor = ComponentImpl.convertColor(SystemSettings.getColour(SystemColour.COLOUR_APPWORKSPACE));
             line.height = 1;
-            dialogContent.addComponent(line);
+            dialogContentContainer.addComponent(line);
             
             dialogFooterContainer = new Box();
             dialogFooterContainer.percentWidth = 100;
             dialogFooterContainer.addClass("dialog-footer-container");
             dialogFooterContainer.backgroundColor = ComponentImpl.convertColor(SystemSettings.getColour(SystemColour.COLOUR_FRAMEBK));
-            dialogContent.addComponent(dialogFooterContainer);
+            dialogContentContainer.addComponent(dialogFooterContainer);
 
             dialogFooter = new HBox();
             dialogFooter.horizontalAlign = "right";

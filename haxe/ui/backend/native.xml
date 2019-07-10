@@ -28,12 +28,6 @@
         <behaviour id="disabled" class="haxe.ui.backend.hxwidgets.behaviours.ControlDisable" />
         <size class="haxe.ui.backend.hxwidgets.size.BestSize" includePadding="false" />
     </component>
-    <!--
-    <component id="haxe.ui.containers.dialogs.Dialog" class="hx.widgets.Dialog">
-        <behaviour id="disabled" class="haxe.ui.backend.hxwidgets.behaviours.ControlDisable" />
-        <size class="haxe.ui.backend.hxwidgets.size.DialogSize" />
-    </component>
-        -->
     <component id="haxe.ui.components.DropDown" class="hx.widgets.Choice" allowChildren="false">
         <behaviour id="dataSource" class="haxe.ui.backend.hxwidgets.behaviours.ChoiceDataSource" />
         <behaviour id="selectedIndex" class="haxe.ui.backend.hxwidgets.behaviours.ChoiceSelectedIndex" />
@@ -44,7 +38,7 @@
     
     
     
-    <component id="haxe.ui.containers.dialogs.Dialog2" class="hx.widgets.Dialog">
+    <component id="haxe.ui.containers.dialogs.Dialog" class="hx.widgets.Dialog">
         <behaviour id="disabled" class="haxe.ui.backend.hxwidgets.behaviours.ControlDisable" />
         <size class="haxe.ui.backend.hxwidgets.size.DialogSize" />
     </component>

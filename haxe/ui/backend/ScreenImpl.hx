@@ -1,6 +1,5 @@
 package haxe.ui.backend;
 
-import haxe.ui.containers.dialogs.DialogButton;
 import haxe.ui.core.Component;
 import haxe.ui.events.UIEvent;
 import hx.widgets.EventType;
@@ -30,81 +29,6 @@ class ScreenImpl extends ScreenBase {
         __topLevelComponents.remove(component);
         component.window.destroy();
     }
-
-    //***********************************************************************************************************
-    // Dialogs
-    //***********************************************************************************************************
-    /*
-    @:access(haxe.ui.core.Screen)
-    public function messageDialog(message:String, title:String = null, options:Dynamic = null, callback:DialogButton->Void = null):Dialog {
-        var dialogOptions:DialogOptions = Screen.createDialogOptions(options);
-        var dialogStyle = 0;
-        for (b in dialogOptions.buttons) {
-            if (b.id == '${DialogButton.OK}') {
-                dialogStyle |= Defs.OK;
-            } else if (b.id  == '${DialogButton.CANCEL}') {
-                dialogStyle |= Defs.CANCEL;
-            } else if (b.id  == '${DialogButton.CLOSE}') {
-                dialogStyle |= Defs.CLOSE;
-            } else if (b.id  == '${DialogButton.CONFIRM}') {
-                dialogStyle |= Defs.OK;
-            } else if (b.id  == '${DialogButton.YES}') {
-                dialogStyle |= Defs.YES;
-            } else if (b.id  == '${DialogButton.NO}') {
-                dialogStyle |= Defs.NO;
-            }
-        }
-
-        if (dialogOptions.icon == DialogOptions.ICON_ERROR) {
-            dialogStyle |= MessageDialogStyle.ICON_ERROR;
-        } else if (dialogOptions.icon == DialogOptions.ICON_INFO) {
-            dialogStyle |= MessageDialogStyle.ICON_INFORMATION;
-        } else if (dialogOptions.icon == DialogOptions.ICON_WARNING) {
-            dialogStyle |= MessageDialogStyle.ICON_WARNING;
-        } else if (dialogOptions.icon == DialogOptions.ICON_QUESTION) {
-            dialogStyle |= MessageDialogStyle.ICON_QUESTION;
-        }
-
-        var messageDialog:MessageDialog = new MessageDialog(frame, message, title, dialogStyle | Defs.CENTRE);
-        messageDialog.showModal();
-        return new Dialog();
-    }
-    */
-
-    /*
-    @:access(haxe.ui.core.Screen)
-    public function showDialog(content:Component, options:Dynamic = null, callback:DialogButton->Void = null):Dialog {
-        var dialogOptions:DialogOptions = Screen.createDialogOptions(options);
-        */
-        /*
-        var dialog = new hx.widgets.Dialog(frame, "bob");
-        dialog.showModal();
-        */
-        /*
-        trace("HERE!");
-        var t:Dialog = new Dialog();
-        t.callback = callback;
-        t.dialogOptions = dialogOptions;
-        t.addComponent(content);
-        Screen.instance.addComponent(t);
-        var dlg:hx.widgets.Dialog = cast(t.window, hx.widgets.Dialog);
-        dlg.centerOnParent();
-        //dlg.resize(400, 400);
-        //dlg.fit();
-        dlg.showModal();
-        trace(t.window);
-
-        return new Dialog();
-    }
-    */
-
-    /*
-    public function hideDialog(dialog:Dialog):Bool {
-        var dlg:hx.widgets.Dialog = cast(dialog.window, hx.widgets.Dialog);
-        dlg.endModal(0);
-        return true;
-    }
-    */
 
     private override function resizeComponent(c:Component) {
         //c.lock();

@@ -71,7 +71,6 @@ class AppImpl extends AppBase {
         };
     }
 
-    private var _timer:Timer = null;
     public override function start() {
         if (Toolkit.backendProperties.getPropBool("haxe.ui.hxwidgets.frame.fit", false) == true) {
             Toolkit.callLater(function() {

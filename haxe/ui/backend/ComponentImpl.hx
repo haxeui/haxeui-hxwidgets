@@ -11,7 +11,7 @@ import haxe.ui.backend.hxwidgets.handlers.NativeHandler;
 import haxe.ui.components.OptionBox;
 import haxe.ui.containers.Box;
 import haxe.ui.containers.TabView;
-import haxe.ui.containers.dialogs.Dialog2;
+import haxe.ui.containers.dialogs.Dialog;
 import haxe.ui.core.Component;
 import haxe.ui.core.Screen;
 import haxe.ui.events.MouseEvent;
@@ -104,8 +104,8 @@ class ComponentImpl extends ComponentBase {
         cast(this, Component).invalidateComponentStyle();
 
         var className:String = Type.getClassName(Type.getClass(this));
-        if (Std.is(this, Dialog2)) { // you can extend from Dialog, which means native entry wont match, lets change that
-            className = Type.getClassName(Dialog2);
+        if (Std.is(this, Dialog)) { // you can extend from Dialog, which means native entry wont match, lets change that
+            className = Type.getClassName(Dialog);
         }
 
         var nativeComponentClass:String = Toolkit.nativeConfig.query('component[id=${className}].@class', 'haxe.ui.backend.hxwidgets.custom.TransparentPanel', this);
@@ -142,7 +142,7 @@ class ComponentImpl extends ComponentBase {
             */
             params = [parent, Bitmap.fromHaxeResource("styles/FF00FF-0.png")];
         } else if (nativeComponentClass == "hx.widgets.Dialog") {
-            var dialog = cast(this, haxe.ui.containers.dialogs.Dialog2);
+            var dialog = cast(this, haxe.ui.containers.dialogs.Dialog);
             params = [parent, dialog.title, DialogStyle.DEFAULT_DIALOG_STYLE | Defs.CENTRE];
         } else if (nativeComponentClass == "hx.widgets.MenuBar") {
             window = new MenuBar(style);
