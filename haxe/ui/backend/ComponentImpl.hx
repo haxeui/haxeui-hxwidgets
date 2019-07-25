@@ -2,28 +2,20 @@ package haxe.ui.backend;
 
 import haxe.ui.backend.hxwidgets.ConstructorParams;
 import haxe.ui.backend.hxwidgets.EventMapper;
+import haxe.ui.backend.hxwidgets.EventTypeParser;
 import haxe.ui.backend.hxwidgets.Platform;
-import haxe.ui.backend.hxwidgets.RadioButtonGroups;
 import haxe.ui.backend.hxwidgets.StyleParser;
 import haxe.ui.backend.hxwidgets.TabViewIcons;
-import haxe.ui.backend.hxwidgets.custom.SimpleListView;
+import haxe.ui.backend.hxwidgets.creators.Creator;
 import haxe.ui.backend.hxwidgets.handlers.NativeHandler;
-import haxe.ui.components.OptionBox;
 import haxe.ui.containers.Box;
 import haxe.ui.containers.TabView;
 import haxe.ui.containers.dialogs.Dialog;
 import haxe.ui.core.Component;
-import haxe.ui.core.Screen;
 import haxe.ui.events.MouseEvent;
 import haxe.ui.events.UIEvent;
 import haxe.ui.geom.Rectangle;
 import haxe.ui.styles.Style;
-import hx.widgets.Bitmap;
-import hx.widgets.Button;
-import hx.widgets.CheckBox;
-import hx.widgets.Choice;
-import hx.widgets.Defs;
-import hx.widgets.Direction;
 import hx.widgets.Event;
 import hx.widgets.EventType;
 import hx.widgets.Font;
@@ -31,24 +23,13 @@ import hx.widgets.FontFamily;
 import hx.widgets.FontStyle;
 import hx.widgets.FontWeight;
 import hx.widgets.HitTest;
-import hx.widgets.Menu;
-import hx.widgets.MenuBar;
 import hx.widgets.Notebook;
 import hx.widgets.Object;
 import hx.widgets.Orientation;
 import hx.widgets.Point;
-import hx.widgets.RadioButton;
 import hx.widgets.ScrollBar;
 import hx.widgets.ScrolledWindow;
-import hx.widgets.Slider;
-import hx.widgets.StaticText;
-import hx.widgets.TextCtrl;
 import hx.widgets.Window;
-import hx.widgets.styles.ButtonStyle;
-import hx.widgets.styles.DialogStyle;
-import hx.widgets.styles.RadioButtonStyle;
-import hx.widgets.styles.StaticTextStyle;
-import hx.widgets.styles.TextCtrlStyle;
 import hx.widgets.styles.WindowStyle;
 
 class ComponentImpl extends ComponentBase {
@@ -101,7 +82,7 @@ class ComponentImpl extends ComponentBase {
             parent = Toolkit.screen.frame;
         }
 
-        cast(this, Component).invalidateComponentStyle();
+        invalidateComponentStyle();
 
         var className:String = Type.getClassName(Type.getClass(this));
         if (Std.is(this, Dialog)) { // you can extend from Dialog, which means native entry wont match, lets change that
@@ -112,61 +93,32 @@ class ComponentImpl extends ComponentBase {
         if (nativeComponentClass == null) {
             nativeComponentClass = "haxe.ui.backend.hxwidgets.custom.TransparentPanel";
         }
-        if (nativeComponentClass == "haxe.ui.backend.hxwidgets.custom.TransparentPanel" && className == "haxe.ui.containers.ListView2") {
+        if (nativeComponentClass == "haxe.ui.backend.hxwidgets.custom.TransparentPanel" && className == "haxe.ui.containers.ListView") {
             nativeComponentClass = "hx.widgets.ScrolledWindow";
         }
 
+        var creatorClass:String = Toolkit.nativeConfig.query('component[id=${className}].@creator', null, this);
+        if (creatorClass == null) {
+            creatorClass = Toolkit.nativeConfig.query('component[class=${nativeComponentClass}].@creator', null, this);
+        }
+        var creator:Creator = null;
+        if (creatorClass != null) {
+            creator = Type.createInstance(Type.resolveClass(creatorClass), [this]);
+        }
+        
+        
         var styleString:String = Toolkit.nativeConfig.query('component[id=${className}].@style', null, this);
         var style:Int = StyleParser.parseStyleString(styleString);
-
-        if (Std.is(this, OptionBox)) {
-            var optionBox:OptionBox = cast(this, OptionBox);
-            if (RadioButtonGroups.exists(optionBox.componentGroup) == false) {
-                style |= RadioButtonStyle.GROUP;
-            }
-            RadioButtonGroups.add(optionBox.componentGroup, optionBox);
+        if (creator != null) {
+            style = creator.createStyle(style);
         }
 
         var params:Array<Dynamic> = ConstructorParams.build(Toolkit.nativeConfig.query('component[id=${className}].@constructor', null, this), style);
         params.insert(0, parent);
 
-        // special cases
-        if (nativeComponentClass == "hx.widgets.StaticBitmap" || nativeComponentClass == "haxe.ui.backend.hxwidgets.custom.TransparentStaticBitmap") {
-            /*
-            var resource:String = cast(this, haxe.ui.components.Image2).resource;
-            if (resource != null) {
-                params = [parent, Bitmap.fromHaxeResource(resource)];
-            } else {
-                params = [parent, Bitmap.fromHaxeResource("styles/FF00FF-0.png")];
-            }
-            */
-            params = [parent, Bitmap.fromHaxeResource("styles/FF00FF-0.png")];
-        } else if (nativeComponentClass == "hx.widgets.Dialog") {
-            var dialog = cast(this, haxe.ui.containers.dialogs.Dialog);
-            params = [parent, dialog.title, DialogStyle.DEFAULT_DIALOG_STYLE | Defs.CENTRE];
-        } else if (nativeComponentClass == "hx.widgets.MenuBar") {
-            window = new MenuBar(style);
-            cast(this, Component).includeInLayout = false;
-            Screen.instance.frame.menuBar = cast(window, MenuBar);
-        } else if (nativeComponentClass == "hx.widgets.Menu") {
-            var menu = new Menu(null, style);
-            object = menu;
-            if (Std.is(parent, MenuBar)) {
-                cast(parent, MenuBar).append(menu, cast(this, Component).text);
-            } else if (Std.is(parent, Menu)) {
-                cast(parent, Menu).appendSubMenu(menu, cast(this, Component).text);
-            }
-        } else if (nativeComponentClass == "hx.widgets.MenuItem") {
-            switch (className) {
-                case "haxe.ui.containers.menus.MenuItem":
-                    object = cast(parent, Menu).append(1001, cast(this, Component).text);
-                case "haxe.ui.containers.menus.MenuCheckBox":
-                    object = cast(parent, Menu).appendCheckItem(Std.random(2000)+1, cast(this, Component).text);
-                case "haxe.ui.containers.menus.MenuOptionBox":
-                    object = cast(parent, Menu).appendRadioItem(Std.random(3000)+1, cast(this, Component).text);
-                case "haxe.ui.containers.menus.MenuSeparator":
-                    object = cast(parent, Menu).appendSeparator();
-            }
+        if (creator != null) {
+            params = creator.createConstructorParams(params);
+            object = creator.createWindow(parent, style);
         }
         
         if (object == null) { // window may have been create with various special cases (menus for example)
@@ -212,11 +164,13 @@ class ComponentImpl extends ComponentBase {
             __eventsToMap = null;
         }
 
+        /*
         if (Std.is(window, Button) || Std.is(window, StaticText)) {
             window.bind(EventType.ERASE_BACKGROUND, function(e) {
 
             });
         }
+        */
         
         if (__parent != null) {
             if (__parent._eventMap.exists(MouseEvent.MOUSE_OVER) || __parent._eventMap.exists(MouseEvent.MOUSE_OUT)) {
@@ -379,56 +333,10 @@ class ComponentImpl extends ComponentBase {
             refreshWindow = true;
         }
 
-        if (Std.is(window, Button)) {
-            var button:Button = cast window;
-            switch (style.iconPosition) {
-                case "right":
-                    button.bitmapPosition = Direction.RIGHT;
-                case "top":
-                    button.bitmapPosition = Direction.TOP;
-                case "bottom":
-                    button.bitmapPosition = Direction.BOTTOM;
-                default:
-                    button.bitmapPosition = Direction.LEFT;
-            }
-
-            if (style.textAlign != null) {
-                var alignStyle:Int = switch(style.textAlign) {
-                    case "left": ButtonStyle.LEFT;
-                    case "right": ButtonStyle.RIGHT;
-                    default: 0;
-                }
-                window.windowStyle = (window.windowStyle & ~(ButtonStyle.LEFT | ButtonStyle.RIGHT))   //Remove old align
-                                    | alignStyle;
-            }
-
-            refreshWindow = true;
-        } else if (Std.is(window, StaticText)) {
-            if (style.textAlign != null) {
-                var alignStyle:Int = switch(style.textAlign) {
-                    case "center": StaticTextStyle.ALIGN_CENTRE_HORIZONTAL;
-                    case "right": StaticTextStyle.ALIGN_RIGHT;
-                    default: StaticTextStyle.ALIGN_LEFT;
-                }
-                window.windowStyle = (window.windowStyle & ~(StaticTextStyle.ALIGN_LEFT | StaticTextStyle.ALIGN_RIGHT | StaticTextStyle.ALIGN_CENTRE_HORIZONTAL))   //Remove old align
-                                    | alignStyle;
-
-                refreshWindow = true;
-            }
-        } else if(Std.is(window, TextCtrl)) {
-            if (style.textAlign != null) {
-                var alignStyle:Int = switch(style.textAlign) {
-                    case "center": TextCtrlStyle.CENTRE;
-                    case "right": TextCtrlStyle.RIGHT;
-                    default: TextCtrlStyle.LEFT;
-                }
-                window.windowStyle = (window.windowStyle & ~(TextCtrlStyle.LEFT | TextCtrlStyle.RIGHT | TextCtrlStyle.CENTRE))   //Remove old align
-                                    | alignStyle;
-
-                refreshWindow = true;
-            }
+        if (__handler != null) {
+            refreshWindow = __handler.applyStyle(style);
         }
-
+        
         if (style.borderLeftSize != null && style.borderLeftSize > 0) {
             //window.windowStyle |= WindowStyle.BORDER_SIMPLE;
             window.windowStyle |= WindowStyle.BORDER_THEME;
@@ -451,10 +359,6 @@ class ComponentImpl extends ComponentBase {
             var font:Font = new Font(fontSize, fontFamily, fontStyle, fontWeight, fontUnderline);
             window.font = font;
         }
-    }
-
-    public static inline function convertColor(c:Int) {
-        return (c & 0x000000ff) << 16 | (c & 0x0000FF00) | (c & 0x00FF0000) >> 16;
     }
 
     private var __props:Map<String, Dynamic>;
@@ -514,28 +418,15 @@ class ComponentImpl extends ComponentBase {
                 }
                 
                 
-            case UIEvent.CHANGE:
-                if (Std.is(window, Notebook)) {
-                    _eventMap.set(type, listener);
-                    window.bind(EventType.NOTEBOOK_PAGE_CHANGED, __onChangeEvent);
-                } else if (Std.is(window, RadioButton)) {
-                    _eventMap.set(type, listener);
-                    window.bind(EventType.RADIOBUTTON, __onChangeEvent);
-                } else if (Std.is(window, CheckBox)) {
-                    _eventMap.set(type, listener);
-                    window.bind(EventType.CHECKBOX, __onChangeEvent);
-                } else if (Std.is(window, Choice)) {
-                    _eventMap.set(type, listener);
-                    window.bind(EventType.CHOICE, __onChangeEvent);
-                } else if (Std.is(window, Slider)) {
-                    _eventMap.set(type, listener);
-                    window.bind(EventType.SLIDER, __onChangeEvent);
-                } else if (Std.is(window, SimpleListView)) {
-                    _eventMap.set(type, listener);
-                    window.bind(EventType.LIST_ITEM_SELECTED, __onChangeEvent);
-                } else if (Std.is(window, TextCtrl)) {
-                    _eventMap.set(type, listener);
-                    window.bind(EventType.TEXT, __onChangeEvent);
+            default:
+                var className:String = Type.getClassName(Type.getClass(this));
+                var native:String = Toolkit.nativeConfig.query('component[id=${className}].event[id=${type}].@native', null, this);
+                if (native != null) {
+                    var eventType = EventTypeParser.fromString(native);
+                    if (eventType != 0 && _eventMap.exists(type) == false) {
+                        _eventMap.set(type, listener);
+                        window.bind(eventType, __onEvent);
+                    }
                 }
         }
     }
@@ -559,37 +450,29 @@ class ComponentImpl extends ComponentBase {
             case MouseEvent.MOUSE_OVER | MouseEvent.MOUSE_OUT:
                 
                 
-            case UIEvent.CHANGE:
-                if (Std.is(window, Notebook)) {
-                    _eventMap.remove(type);
-                    window.unbind(EventType.NOTEBOOK_PAGE_CHANGED, __onChangeEvent);
-                } else if (Std.is(window, RadioButton)) {
-                    _eventMap.remove(type);
-                    window.unbind(EventType.RADIOBUTTON, __onChangeEvent);
-                } else if (Std.is(window, CheckBox)) {
-                    _eventMap.remove(type);
-                    window.unbind(EventType.CHECKBOX, __onChangeEvent);
-                } else if (Std.is(window, Choice)) {
-                    _eventMap.remove(type);
-                    window.unbind(EventType.CHOICE, __onChangeEvent);
-                } else if (Std.is(window, Slider)) {
-                    _eventMap.remove(type);
-                    window.unbind(EventType.SLIDER, __onChangeEvent);
-                } else if (Std.is(window, SimpleListView)) {
-                    _eventMap.remove(type);
-                    window.unbind(EventType.LIST_ITEM_SELECTED, __onChangeEvent);
-                } else if (Std.is(window, TextCtrl)) {
-                    _eventMap.remove(type);
-                    window.unbind(EventType.TEXT, __onChangeEvent);
+            default:
+                var className:String = Type.getClassName(Type.getClass(this));
+                var native:String = Toolkit.nativeConfig.query('component[id=${className}].event[id=${type}].@native', null, this);
+                if (native != null) {
+                    var eventType = EventTypeParser.fromString(native);
+                    if (eventType != 0) {
+                        _eventMap.remove(type);
+                        window.unbind(eventType, __onEvent);
+                    }
                 }
         }
     }
 
-    private function __onChangeEvent(event:Event) {
-        var fn = _eventMap.get(UIEvent.CHANGE);
-        if (fn != null) {
-            var uiEvent:UIEvent = new UIEvent(UIEvent.CHANGE);
-            fn(uiEvent);
+    private function __onEvent(event:Event) {
+        var className:String = Type.getClassName(Type.getClass(this));
+        var nativeString = EventTypeParser.toString(event.eventType);
+        var type = Toolkit.nativeConfig.query('component[id=${className}].event[native=${nativeString}].@id', null, this);
+        if (type != null) {
+            var fn = _eventMap.get(type);
+            if (fn != null) {
+                var uiEvent:UIEvent = new UIEvent(type);
+                fn(uiEvent);
+            }
         }
     }
 
@@ -674,5 +557,26 @@ class ComponentImpl extends ComponentBase {
                 fn(newMouseEvent);
             }
         }
+    }
+ 
+    //***********************************************************************************************************
+    // Helpers
+    //***********************************************************************************************************
+    
+    public static inline function convertColor(c:Int) {
+        return (c & 0x000000ff) << 16 | (c & 0x0000FF00) | (c & 0x00FF0000) >> 16;
+    }
+
+    public static inline function hash(s:String):Int {
+        var hash:Int = 0;
+        
+        if (s != null && s.length > 0) {
+            for (i in 0...s.length) {
+                hash = 31 * hash + s.charCodeAt(i);
+            }
+        }
+        
+        return hash;
+        
     }
 }

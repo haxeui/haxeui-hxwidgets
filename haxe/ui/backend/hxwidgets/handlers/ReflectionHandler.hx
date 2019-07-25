@@ -16,7 +16,7 @@ class ReflectionHandler extends NativeHandler {
         _event = Toolkit.nativeConfig.query('component[id=${className}].handler.@event', null, component);
         _sourceProp = Toolkit.nativeConfig.query('component[id=${className}].handler.@sourceProp', null, component);
         _targetProp = Toolkit.nativeConfig.query('component[id=${className}].handler.@targetProp', null, component);
-        _eventId = EventTypeParser.parseEvent(_event);
+        _eventId = EventTypeParser.fromString(_event);
     }
     
     public override function link() {

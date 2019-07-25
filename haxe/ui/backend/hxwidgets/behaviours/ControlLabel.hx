@@ -14,7 +14,7 @@ class ControlLabel extends DataBehaviour {
         if (_component.window == null) {
             return null;
         }
-        var ctrl:Control = cast _component.window;
+        var ctrl:Control = cast(_component.window, Control);
         var label = ctrl.label;
         if (Std.is(_component.window, TextCtrl)) {
             label = cast(_component.window, TextCtrl).value;
@@ -24,7 +24,7 @@ class ControlLabel extends DataBehaviour {
     }
     
     public override function validateData() {
-        var ctrl:Control = cast _component.window;
+        var ctrl:Control = cast(_component.window, Control);
         if (_value != null) {
             _component.set("originalLabel", _value.toString()); // for wrapping, see: haxe.ui.backend.hxwidgets.size.BestSize
             ctrl.label = normalizeText(_value);

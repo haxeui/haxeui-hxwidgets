@@ -18,6 +18,7 @@ class AssetsImpl extends AssetsBase {
     public override function imageFromBytes(bytes:Bytes, callback:ImageInfo->Void) {
         if (bytes == null) {
             callback(null);
+            return;
         }
         
         var bmp = Bitmap.fromHaxeBytes(bytes);
