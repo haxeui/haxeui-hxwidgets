@@ -164,7 +164,7 @@
     <component id="haxe.ui.components.NumberStepper" class="hx.widgets.SpinCtrl" allowChildren="false">
         <behaviour id="disabled" class="haxe.ui.backend.hxwidgets.behaviours.ControlDisable" />
         <behaviour id="step" class="haxe.ui.behaviours.DefaultBehaviour" />
-        <behaviour id="pos" class="haxe.ui.behaviours.DefaultBehaviour" />
+        <behaviour id="pos" class="haxe.ui.backend.hxwidgets.behaviours.ControlValue" />
         <size class="haxe.ui.backend.hxwidgets.size.BestSize" includePadding="false" />
     </component>
     

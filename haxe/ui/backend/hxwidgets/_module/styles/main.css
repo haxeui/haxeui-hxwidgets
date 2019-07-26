@@ -19,8 +19,8 @@
 }
 
 .numberstepper {
-    width: 70px;
-    height: 20px;
+    width: auto;
+    height: auto;
     background-color: none;
     color: none;
     border: none;
