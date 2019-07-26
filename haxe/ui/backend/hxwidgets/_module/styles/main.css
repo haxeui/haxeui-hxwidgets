@@ -29,10 +29,6 @@
     border: none;
 }
 
-.button {
-    background-color: none;
-}
-
 .textfield {
     width: auto;
     height: auto;
@@ -65,7 +61,14 @@
     padding: 5px;
 }
 
-.dialog-container, .dialog-content {
-    background-color: none;
+.dialog, .dialog .tabview {
+    background-color: platform-color(window);
 }
 
+.dialog-footer-line {
+    background-color: platform-color(3d-light);
+}
+
+.dialog-footer-container {
+    background-color: platform-color(frame-bk);
+}
