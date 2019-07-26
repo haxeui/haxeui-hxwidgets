@@ -133,7 +133,7 @@ class ComponentImpl extends ComponentBase {
             if (Platform.isMac) {
                 n.allowIcons = false;
             } else if (Platform.isWindows) {
-                //n.padding = new hx.widgets.Size(15, 3);
+                n.padding = new hx.widgets.Size(8, 5);
             }
         }
 
@@ -448,7 +448,6 @@ class ComponentImpl extends ComponentBase {
                 window.unbind(EventMapper.HAXEUI_TO_WX.get(type), __onMouseEvent);
 
             case MouseEvent.MOUSE_OVER | MouseEvent.MOUSE_OUT:
-                
                 
             default:
                 var className:String = Type.getClassName(Type.getClass(this));

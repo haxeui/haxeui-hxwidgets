@@ -1,11 +1,5 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <native>
-    <component id="haxe.ui.components.TextArea" class="hx.widgets.TextCtrl" constructor="null, $style" allowChildren="false" style="TextCtrlStyle.MULTILINE, TextCtrlStyle.HSCROLL">
-        <behaviour id="text" class="haxe.ui.backend.hxwidgets.behaviours.ControlLabel" />
-        <behaviour id="disabled" class="haxe.ui.backend.hxwidgets.behaviours.ControlDisable" />
-        <behaviour id="wrap" class="haxe.ui.backend.hxwidgets.behaviours.TextCtrlWordWrap" />
-        <size class="haxe.ui.backend.hxwidgets.size.BestSize" includePadding="false" />
-    </component>
     <component id="haxe.ui.containers.ListView" class="haxe.ui.backend.hxwidgets.custom.SimpleListView" allowChildren="false" condition="this._itemRenderer=='BasicItemRenderer' || this._itemRenderer==null">
         <behaviour id="disabled" class="haxe.ui.backend.hxwidgets.behaviours.ControlDisable" />
         <behaviour id="dataSource" class="haxe.ui.backend.hxwidgets.behaviours.ListViewDataSource" />
@@ -83,14 +77,23 @@
         <event id="change" native="EventType.RADIOBUTTON" />
     </component>
     <component id="haxe.ui.components.TextField" class="hx.widgets.TextCtrl" allowChildren="false">
-        <behaviour id="text" class="haxe.ui.backend.hxwidgets.behaviours.ControlLabel" autoDispatch="haxe.ui.events.UIEvent.CHANGE" />
-        <behaviour id="value" class="haxe.ui.backend.hxwidgets.behaviours.ControlLabel" autoDispatch="haxe.ui.events.UIEvent.CHANGE" />
+        <behaviour id="text" class="haxe.ui.backend.hxwidgets.behaviours.ControlValue" autoDispatch="haxe.ui.events.UIEvent.CHANGE" />
+        <behaviour id="value" class="haxe.ui.backend.hxwidgets.behaviours.ControlValue" autoDispatch="haxe.ui.events.UIEvent.CHANGE" />
         <behaviour id="password" class="haxe.ui.backend.hxwidgets.behaviours.TextCtrlPassword" />
         <behaviour id="placeholder" class="haxe.ui.backend.hxwidgets.behaviours.TextCtrlPlaceholder" />
         <behaviour id="icon" class="haxe.ui.behaviours.DefaultBehaviour" />
         <behaviour id="restrictChars" class="haxe.ui.behaviours.DefaultBehaviour" />
         <behaviour id="maxChars" class="haxe.ui.behaviours.DefaultBehaviour" />
         <behaviour id="disabled" class="haxe.ui.backend.hxwidgets.behaviours.ControlDisable" />
+        <size class="haxe.ui.backend.hxwidgets.size.BestSize" includePadding="false" />
+        <event id="change" native="EventType.TEXT" />
+        <handler class="haxe.ui.backend.hxwidgets.handlers.TextCtrlHandler" />
+    </component>
+    <component id="haxe.ui.components.TextArea" class="hx.widgets.TextCtrl" constructor="null, $style" allowChildren="false" style="TextCtrlStyle.MULTILINE, TextCtrlStyle.HSCROLL">
+        <behaviour id="text" class="haxe.ui.backend.hxwidgets.behaviours.ControlValue" autoDispatch="haxe.ui.events.UIEvent.CHANGE" />
+        <behaviour id="value" class="haxe.ui.backend.hxwidgets.behaviours.ControlValue" autoDispatch="haxe.ui.events.UIEvent.CHANGE" />
+        <behaviour id="disabled" class="haxe.ui.backend.hxwidgets.behaviours.ControlDisable" />
+        <behaviour id="wrap" class="haxe.ui.backend.hxwidgets.behaviours.TextCtrlWordWrap" />
         <size class="haxe.ui.backend.hxwidgets.size.BestSize" includePadding="false" />
         <event id="change" native="EventType.TEXT" />
         <handler class="haxe.ui.backend.hxwidgets.handlers.TextCtrlHandler" />

@@ -8,6 +8,7 @@ import hx.widgets.Gauge;
 import hx.widgets.RadioButton;
 import hx.widgets.ScrollBar;
 import hx.widgets.Slider;
+import hx.widgets.TextCtrl;
 import hx.widgets.ToggleButton;
 
 @:keep
@@ -26,6 +27,8 @@ class ControlValue extends DataBehaviour {
             cast(_component.window, RadioButton).value = _value;
         } else if (Std.is(_component.window, ToggleButton)) {
             cast(_component.window, ToggleButton).value = _value;
+        } else if (Std.is(_component.window, TextCtrl)) {
+            cast(_component.window, TextCtrl).value = normalizeText(_value);
         }
     }
     
@@ -41,7 +44,14 @@ class ControlValue extends DataBehaviour {
             v = cast(_component.window, RadioButton).value;
         } else if (Std.is(_component.window, ToggleButton)) {
             v = cast(_component.window, ToggleButton).value;
+        } else if (Std.is(_component.window, TextCtrl)) {
+            v = cast(_component.window, TextCtrl).value;
         }
         return v;
+    }
+    
+    private inline function normalizeText(s:String) {
+        s = StringTools.replace(s, "\\n", "\r\n");
+        return s;
     }
 }
