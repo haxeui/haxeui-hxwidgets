@@ -322,7 +322,9 @@ class ComponentImpl extends ComponentBase {
             window.backgroundColour = style.backgroundColor;
             if (Platform.isLinux && __children != null) { // wxPanels are opaque and you cant make them transparent on linux! :(
                 for (c in __children) {
-                    c.window.backgroundColour = style.backgroundColor;
+                    if (c.window != null) {
+                        c.window.backgroundColour = style.backgroundColor;
+                    }
                 }
             }
             refreshWindow = true;
@@ -337,7 +339,7 @@ class ComponentImpl extends ComponentBase {
             refreshWindow = __handler.applyStyle(style);
         }
         
-        if (style.borderLeftSize != null && style.borderLeftSize > 0) {
+        if (style.borderLeftSize != null && style.borderLeftSize > 0 && Platform.isWindows) {
             //window.windowStyle |= WindowStyle.BORDER_SIMPLE;
             window.windowStyle |= WindowStyle.BORDER_THEME;
         }
