@@ -319,11 +319,12 @@ class ComponentImpl extends ComponentBase {
         var refreshWindow:Bool = false;
 
         if (style.backgroundColor != null) {
-            window.backgroundColour = style.backgroundColor;
+            //window.backgroundColour = style.backgroundColor;
+window.backgroundColour = 0xFF0000;
             if (Platform.isLinux && __children != null) { // wxPanels are opaque and you cant make them transparent on linux! :(
                 for (c in __children) {
                     if (c.window != null) {
-                        c.window.backgroundColour = style.backgroundColor;
+                        //c.window.backgroundColour = style.backgroundColor;
                     }
                 }
             }

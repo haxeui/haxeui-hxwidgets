@@ -27,7 +27,7 @@ class DialogSize extends DelegateLayoutSize {
     }
 
     private override function get_usableHeightModifier():Float {
-        var m:Int = SystemSettings.getMetric(SystemMetric.CAPTION_Y);
+        var m:Int = SystemSettings.getMetric(SystemMetric.CAPTION_Y, Toolkit.screen.frame);
         return m;
     }
 }

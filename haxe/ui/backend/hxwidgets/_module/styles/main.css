@@ -1,5 +1,8 @@
 * {
     native: true;
+    background-color: none;
+    color: none;
+    border: none;
 }
 
 .scroll, .range, .progress, .slider {
@@ -60,5 +63,9 @@
 
 .dialog-footer-container {
     padding: 5px;
+}
+
+.dialog-container, .dialog-content {
+    background-color: none;
 }
 

@@ -59,10 +59,11 @@ class DialogBase extends Component {
             dialogContent.width = null;
             dialogContent.percentWidth = 100;
         }
+
         if (autoHeight == true) {
-            height = dialogContentContainer.height + SystemSettings.getMetric(SystemMetric.CAPTION_Y) + 6;
+            height = dialogContentContainer.height + SystemSettings.getMetric(SystemMetric.CAPTION_Y, Toolkit.screen.frame) + 6;
         } else {
-            dialogContentContainer.height = this.height - (SystemSettings.getMetric(SystemMetric.CAPTION_Y) + 6);
+            dialogContentContainer.height = this.height - SystemSettings.getMetric(SystemMetric.CAPTION_Y, Toolkit.screen.frame) + 6;
             dialogContent.height = null;
             dialogContent.percentHeight = 100;
         }
