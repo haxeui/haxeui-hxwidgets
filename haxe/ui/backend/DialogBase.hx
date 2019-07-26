@@ -1,5 +1,6 @@
 package haxe.ui.backend;
 
+import haxe.ui.backend.hxwidgets.Platform;
 import haxe.ui.components.Button;
 import haxe.ui.containers.Box;
 import haxe.ui.containers.HBox;
@@ -52,18 +53,23 @@ class DialogBase extends Component {
         
         this.ready();
         
+        var m = 0;
+        if (Platform.isWindows) {
+            m = 6;
+        }
+        
         if (autoWidth == true) {
-            width = dialogContentContainer.width + 6;
+            width = dialogContentContainer.width + m;
         } else {
-            dialogContentContainer.width = this.width - 6;
+            dialogContentContainer.width = this.width - m;
             dialogContent.width = null;
             dialogContent.percentWidth = 100;
         }
 
         if (autoHeight == true) {
-            height = dialogContentContainer.height + SystemSettings.getMetric(SystemMetric.CAPTION_Y, Toolkit.screen.frame) + 6;
+            height = dialogContentContainer.height + SystemSettings.getMetric(SystemMetric.CAPTION_Y, Toolkit.screen.frame) + m;
         } else {
-            dialogContentContainer.height = this.height - SystemSettings.getMetric(SystemMetric.CAPTION_Y, Toolkit.screen.frame) + 6;
+            dialogContentContainer.height = this.height - SystemSettings.getMetric(SystemMetric.CAPTION_Y, Toolkit.screen.frame) + m;
             dialogContent.height = null;
             dialogContent.percentHeight = 100;
         }
