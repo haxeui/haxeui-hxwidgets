@@ -9,9 +9,13 @@ import haxe.ui.containers.dialogs.Dialog.DialogButton;
 import haxe.ui.containers.dialogs.Dialog.DialogEvent;
 import haxe.ui.core.Component;
 import haxe.ui.events.MouseEvent;
+import hx.widgets.BoxSizer;
 import hx.widgets.Dialog;
+import hx.widgets.Direction;
+import hx.widgets.Orientation;
 import hx.widgets.StandardId;
-import hx.widgets.SystemColour;
+import hx.widgets.StdDialogButtonSizer;
+import hx.widgets.Stretch;
 import hx.widgets.SystemMetric;
 import hx.widgets.SystemSettings;
 
@@ -24,8 +28,8 @@ class DialogBase extends Component {
 
     public var dialogContentContainer:VBox;
     public var dialogContent:VBox;
-    public var dialogFooterContainer:Box;
-    public var dialogFooter:Box;
+    public var customDialogFooterContainer:Box;
+    public var customDialogFooter:Box;
 
     public function new() {
         super();
@@ -53,13 +57,35 @@ class DialogBase extends Component {
         
         this.ready();
         
+        var dialog = cast(this.window, Dialog);
+        
+        var hm = 0;
+        if (hasClass("custom-dialog-footer") == false && _buttonSizer == null) {
+            createFooter();
+            for (c in _footerComponents) {
+                c.createWindow(dialog);
+                c.ready();
+                _buttonSizer.addButton(cast c.window);
+                _buttonSizer.add(c.window);
+                if (c.window.size.height > hm) {
+                    hm = c.window.size.height;
+                }
+            }
+            
+            dialog.sizer.add(dialogContentContainer.window, 1, Stretch.EXPAND | Direction.ALL, 0);
+            dialog.sizer.addSizer(_buttonSizer, 0, Stretch.GROW | Direction.ALL, 5);
+            if (hm > 0) {
+                hm += 5;
+            }
+        }
+        
         var m = 0;
         if (Platform.isWindows) {
             m = 6;
         }
         
         if (autoWidth == true) {
-            width = dialogContentContainer.width + m;
+            width = dialogContentContainer.width - m;
         } else {
             dialogContentContainer.width = this.width - m;
             dialogContent.width = null;
@@ -67,13 +93,12 @@ class DialogBase extends Component {
         }
 
         if (autoHeight == true) {
-            height = dialogContentContainer.height + SystemSettings.getMetric(SystemMetric.CAPTION_Y, Toolkit.screen.frame) + m;
+            height = dialogContentContainer.height + SystemSettings.getMetric(SystemMetric.CAPTION_Y, Toolkit.screen.frame) + m + hm;
         } else {
-            dialogContentContainer.height = this.height - SystemSettings.getMetric(SystemMetric.CAPTION_Y, Toolkit.screen.frame) + m;
+            dialogContentContainer.height = this.height - SystemSettings.getMetric(SystemMetric.CAPTION_Y, Toolkit.screen.frame) - (m + hm);
             dialogContent.height = null;
             dialogContent.percentHeight = 100;
         }
-        var dialog = cast(this.window, Dialog);
         
         if (centerDialog) {
             dialog.centerOnParent();
@@ -174,28 +199,41 @@ class DialogBase extends Component {
         
     }
     
+    private var _buttonSizer:StdDialogButtonSizer = null;
     private function createFooter() {
-        if (dialogFooter == null) {
-            var line = new Box();
-            line.percentWidth = 100;
-            line.addClass("dialog-footer-line");
-            line.height = 1;
-            dialogContentContainer.addComponent(line);
-            
-            dialogFooterContainer = new Box();
-            dialogFooterContainer.percentWidth = 100;
-            dialogFooterContainer.addClass("dialog-footer-container");
-            dialogContentContainer.addComponent(dialogFooterContainer);
+        if (hasClass("custom-dialog-footer")) {
+            if (customDialogFooter == null) {
+                var line = new Box();
+                line.percentWidth = 100;
+                line.addClass("dialog-footer-line");
+                line.height = 1;
+                dialogContentContainer.addComponent(line);
+                
+                customDialogFooterContainer = new Box();
+                customDialogFooterContainer.percentWidth = 100;
+                customDialogFooterContainer.addClass("dialog-footer-container");
+                dialogContentContainer.addComponent(customDialogFooterContainer);
 
-            dialogFooter = new HBox();
-            dialogFooter.horizontalAlign = "right";
-            dialogFooterContainer.addComponent(dialogFooter);
+                customDialogFooter = new HBox();
+                customDialogFooter.horizontalAlign = "right";
+                customDialogFooterContainer.addComponent(customDialogFooter);
+            }
+        } else {
+            if (_buttonSizer == null && isReady == true) {
+                var dialog:Dialog = cast(this.window, Dialog);
+                _buttonSizer = dialog.createStdDialogButtonSizer(0);
+                dialog.sizer = new BoxSizer(Orientation.VERTICAL);
+            }
         }
     }
 
+    private var _footerComponents:Array<Component> = [];
     public function addFooterComponent(c:Component) {
         createFooter();
-        dialogFooter.addComponent(c);
+        if (hasClass("custom-dialog-footer")) {
+            customDialogFooter.addComponent(c);
+        }
+        _footerComponents.push(c);
     }
     
     private function onFooterButtonClick(event:MouseEvent) {

@@ -61,14 +61,14 @@
     padding: 5px;
 }
 
-.dialog, .dialog .tabview {
+.custom-dialog-footer, .custom-dialog-footer .tabview {
     background-color: platform-color(window);
 }
 
-.dialog-footer-line {
+.custom-dialog-footer .dialog-footer-line {
     background-color: platform-color(3d-light);
 }
 
-.dialog-footer-container {
+.custom-dialog-footer .dialog-footer-container {
     background-color: platform-color(frame-bk);
 }

@@ -78,6 +78,9 @@ class ComponentImpl extends ComponentBase {
     @:access(haxe.ui.core.Component)
     private var __handler:NativeHandler = null;
     private function createWindow(parent:Object = null) {
+        if (window != null) {
+            return;
+        }
         if (parent == null) {
             parent = Toolkit.screen.frame;
         }
