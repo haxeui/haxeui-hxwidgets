@@ -1,12 +1,12 @@
 package haxe.ui.backend.hxwidgets.behaviours;
 
 import haxe.ui.backend.hxwidgets.behaviours.HxWidgetsBehaviour;
-import haxe.ui.core.UIEvent;
+import haxe.ui.events.UIEvent;
 import haxe.ui.util.Variant;
 import hx.widgets.TextCtrl;
 import hx.widgets.styles.TextCtrlStyle;
 
-@:access(haxe.ui.backend.ComponentBase)
+@:access(haxe.ui.backend.ComponentImpl)
 class TextCtrlWordWrap extends HxWidgetsBehaviour {
     public override function set(value:Variant) {
         super.set(value);

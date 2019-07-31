@@ -5,12 +5,14 @@ import hx.widgets.Notebook;
 
 @:keep
 class NotebookRemovePage extends HxWidgetsBehaviour {
-    public override function run(param:Variant = null) {
+    public override function run(param:Variant = null):Variant {
         if (_component.window == null) {
-            return;
+            return null;
         }
         
         var notebook:Notebook = cast(_component.window, Notebook);
         notebook.deletePage(param);
+        
+        return null;
     } 
 }

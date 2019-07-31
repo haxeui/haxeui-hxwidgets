@@ -1,24 +1,74 @@
 * {
     native: true;
+    background-color: none;
+    color: none;
+    border: none;
 }
 
-.scroll, .hscroll, .vscroll, .slider, .hslider, .vslider {
+.scroll, .range, .progress, .slider {
     width: auto;
     height: auto;
-    background-color: none !important;
+    background-color: none;
+    color: none;
+    border: none;
+}
+
+.horizontal-range, .horizontal-progress {
+    width: 100px;
+}
+
+.vertical-range, .vertical-progress {
+    height: 100px;
+}
+
+.numberstepper {
+    width: auto;
+    height: auto;
+    background-color: none;
+    color: none;
+    border: none;
+}
+
+.textfield {
+    width: auto;
+    height: auto;
+    border: none;
+    background-color: none;
     color: none;
 }
 
-.button {
-    background-color: none !important;
+.switch {
+    width: auto;
+    height: auto;
 }
 
-.dialog {
-    padding-top: 10px !important;
+.textarea {
+    width: auto;
+    height: auto;
+    color: black;
 }
 
-.textfield, .textarea {
-    width: auto !important;
-    height: auto !important;
-    color: black !important;
+.tabview {
+    width: auto;
+    height: auto;
+}
+
+.tabview .tab-page {
+    padding: 5px;
+}
+
+.dialog-footer-container {
+    padding: 5px;
+}
+
+.custom-dialog-footer, .custom-dialog-footer .tabview {
+    background-color: platform-color(window);
+}
+
+.custom-dialog-footer .dialog-footer-line {
+    background-color: platform-color(3d-light);
+}
+
+.custom-dialog-footer .dialog-footer-container {
+    background-color: platform-color(frame-bk);
 }
