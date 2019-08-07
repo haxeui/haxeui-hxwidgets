@@ -15,7 +15,7 @@ class DataComponentSelectedItem extends DataBehaviour {
         var selectedItem = null;
         if (Std.is(_component, DropDown)) {
             var dropDown = cast(_component, DropDown);
-            if (dropDown.selectedIndex > 0) {
+            if (dropDown.selectedIndex > -1) {
                 selectedItem = ds.get(dropDown.selectedIndex);
             }
         }
