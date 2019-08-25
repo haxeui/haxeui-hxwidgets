@@ -1,7 +1,11 @@
 package haxe.ui.backend;
 
+import haxe.ui.backend.hxwidgets.MenuItemHelper;
+import haxe.ui.containers.menus.Menu.MenuEvent;
+import haxe.ui.containers.menus.MenuBar;
 import haxe.ui.core.Component;
 import haxe.ui.events.UIEvent;
+import hx.widgets.Event;
 import hx.widgets.EventType;
 import hx.widgets.Frame;
 
@@ -68,15 +72,6 @@ class ScreenImpl extends ScreenBase {
         frame.bind(EventType.SIZE, function(e) {
            for (c in __topLevelComponents) {
                resizeComponent(c);
-               /*
-               trace("YYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYY");
-               trace("YYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYY");
-               trace("YYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYY");
-               trace("YYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYY");
-               trace("YYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYY");
-               trace("YYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYY");
-               c.resizeComponent(500, null);
-               */
            }
         });
 
@@ -87,6 +82,27 @@ class ScreenImpl extends ScreenBase {
 
     }
 
+    private var _menuBar:MenuBar;
+    private var _nativeMenuBar:hx.widgets.MenuBar;
+    private function linkMenuBar(menuBar:MenuBar, nativeMenuBar:hx.widgets.MenuBar) {
+        _menuBar = menuBar;
+        _nativeMenuBar = nativeMenuBar;
+        frame.menuBar = nativeMenuBar;
+        frame.bind(EventType.MENU, onMenu);
+    }
+    
+    private function onMenu(e:Event) {
+        if (_menuBar == null) {
+            return;
+        }
+        var menuItem = MenuItemHelper.get(e.id);
+        if (menuItem != null) {
+            var event = new MenuEvent(MenuEvent.MENU_SELECTED);
+            event.menuItem = menuItem;
+            _menuBar.dispatch(event);
+        }
+    }
+    
     //***********************************************************************************************************
     // Events
     //***********************************************************************************************************

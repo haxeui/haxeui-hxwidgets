@@ -8,14 +8,14 @@ import haxe.ui.containers.menus.MenuOptionBox;
 import haxe.ui.containers.menus.MenuSeparator;
 
 class MenuItemCreator extends Creator {
+    private static var _menuId:Int = 1;
     public override function createWindow(parent:Object = null, style:Int = 0):Object {
         var menu = cast(parent, Menu);
         var menuItem = null;
         
-        var id = 0;
-        if (_component.id != null) {
-            id = ComponentImpl.hash(_component.id);
-        }
+        var id = _menuId;
+        _menuId++;
+        MenuItemHelper.set(id, cast(_component, MenuItem));
         
         if (Std.is(_component, MenuItem)) {
             menuItem = menu.append(id, _component.text);

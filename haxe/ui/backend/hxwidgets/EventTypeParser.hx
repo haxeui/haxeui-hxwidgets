@@ -17,6 +17,7 @@ class EventTypeParser {
             case "EventType.CHOICE":                return EventType.CHOICE;
             case "EventType.LIST_ITEM_SELECTED":    return EventType.LIST_ITEM_SELECTED;
             case "EventType.TEXT":                  return EventType.TEXT;
+            case "EventType.MENU":                  return EventType.MENU;
             default:
                 trace('WARNING: hxWidgets event "${event}" not recognised');
         }
@@ -43,6 +44,8 @@ class EventTypeParser {
             return "EventType.LIST_ITEM_SELECTED";
         } else if (eventType == EventType.TEXT) {
             return "EventType.TEXT";
+        } else if (eventType == EventType.MENU) {
+            return "EventType.MENU";
         } else {
             trace('WARNING: hxWidgets event "${eventType}" not recognised');
         }
