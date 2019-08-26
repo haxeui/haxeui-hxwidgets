@@ -19,7 +19,8 @@ class ListViewDataSource extends HxWidgetsBehaviour {
 
         var ds:DataSource<Dynamic> = value;
         var view:ListView = cast(_component.window, ListView);
-
+        view.deleteAllItems();
+        
         for (n in 0...ds.size) {
             var item = ds.get(n);
             if (item.value != null) {
