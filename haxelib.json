@@ -1,14 +1,26 @@
 {
-    "name": "haxeui-hxwidgets",
-    "url": "https://github.com/haxeui/haxeui-hxwidgets",
-    "license": "MIT",
-    "tags": ["ui", "gui", "hxwidgets", "wxwidgets", "wx", "native"],
-    "description": "The wxWidgets backend of the HaxeUI framework",
-    "version": "0.0.2",
-    "releasenote": "Enhanced text input support",
-    "contributors": ["haxeui", "ianharrigan", "_ibilon", "aW4KeNiNG"],
+    "contributors": [
+        "haxeui",
+        "ianharrigan",
+        "_ibilon",
+        "aW4KeNiNG"
+    ],
+    "version": "1.0.0",
     "dependencies": {
         "haxeui-core": "",
         "hxWidgets": ""
-    }
+    },
+    "releasenote": "Official release",
+    "tags": [
+        "ui",
+        "gui",
+        "hxwidgets",
+        "wxwidgets",
+        "wx",
+        "native"
+    ],
+    "license": "MIT",
+    "name": "haxeui-hxwidgets",
+    "description": "The wxWidgets backend of the HaxeUI framework",
+    "url": "https://github.com/haxeui/haxeui-hxwidgets"
 }
