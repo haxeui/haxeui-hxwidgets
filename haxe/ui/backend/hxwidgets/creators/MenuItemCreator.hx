@@ -15,14 +15,16 @@ class MenuItemCreator extends Creator {
         
         var id = _menuId;
         _menuId++;
-        MenuItemHelper.set(id, cast(_component, MenuItem));
         
-        if (Std.is(_component, MenuItem)) {
-            menuItem = menu.append(id, _component.text);
-        } else if (Std.is(_component, MenuCheckBox)) {
+        if (Std.is(_component, MenuCheckBox)) {
+            MenuItemHelper.set(id, cast(_component, MenuItem));
             menuItem = menu.appendCheckItem(id, _component.text);
         } else if (Std.is(_component, MenuOptionBox)) {
+            MenuItemHelper.set(id, cast(_component, MenuItem));
             menuItem = menu.appendRadioItem(id, _component.text);
+        } else if (Std.is(_component, MenuItem)) {
+            MenuItemHelper.set(id, cast(_component, MenuItem));
+            menuItem = menu.append(id, _component.text);
         } else if (Std.is(_component, MenuSeparator)) {
             menuItem = menu.appendSeparator();
         }
