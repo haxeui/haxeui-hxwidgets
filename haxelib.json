@@ -1,16 +1,12 @@
 {
+    "version": "1.0.1",
     "contributors": [
         "haxeui",
         "ianharrigan",
         "_ibilon",
         "aW4KeNiNG"
     ],
-    "version": "1.0.0",
-    "dependencies": {
-        "haxeui-core": "",
-        "hxWidgets": ""
-    },
-    "releasenote": "Official release",
+    "license": "MIT",
     "tags": [
         "ui",
         "gui",
@@ -19,7 +15,11 @@
         "wx",
         "native"
     ],
-    "license": "MIT",
+    "releasenote": "fixes for MenuCreator",
+    "dependencies": {
+        "haxeui-core": "",
+        "hxWidgets": ""
+    },
     "name": "haxeui-hxwidgets",
     "description": "The wxWidgets backend of the HaxeUI framework",
     "url": "https://github.com/haxeui/haxeui-hxwidgets"
