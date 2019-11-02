@@ -38,6 +38,13 @@ class ComponentImpl extends ComponentBase {
     public function new() {
         super();
         _eventMap = new Map<String, UIEvent->Void>();
+        if (Platform.isWindows) {
+            cast(this, Component).addClass("platform-windows");
+        } else if (Platform.isMac) {
+            cast(this, Component).addClass("platform-mac");
+        } else if (Platform.isLinux) {
+            cast(this, Component).addClass("platform-linux");
+        }
     }
 
     //***********************************************************************************************************
