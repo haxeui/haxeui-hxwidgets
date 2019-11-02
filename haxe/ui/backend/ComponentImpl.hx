@@ -207,6 +207,9 @@ class ComponentImpl extends ComponentBase {
         var h:Int = Std.int(height);
 
         window.resize(w, h);
+        if (__handler != null) {
+            __handler.resize(w, h);
+        }
         handleClipRect(null);
     }
 

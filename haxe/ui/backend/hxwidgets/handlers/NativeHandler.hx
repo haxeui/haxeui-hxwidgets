@@ -24,4 +24,8 @@ class NativeHandler {
     private function get_window():Window {
         return _component.window;
     }
+    
+    public function resize(width:Int, height:Int) {
+        
+    }
 }
