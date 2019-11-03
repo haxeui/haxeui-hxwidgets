@@ -137,6 +137,11 @@ class ComponentImpl extends ComponentBase {
         if (object == null) {
             throw "Could not create window: " + nativeComponentClass;
         }
+        
+        if (_hideOnCreate == true) {
+            _hideOnCreate = false;
+            window.show(false);
+        }
 
         if (Std.is(window, Notebook)) {
             var n:Notebook = cast window;
@@ -246,9 +251,13 @@ class ComponentImpl extends ComponentBase {
         return handleRemoveComponent(child, dispose);
     }
     
+    private var _hideOnCreate:Bool = false;
     private override function handleVisibility(show:Bool) {
         if (window != null) {
             window.show(show);
+            window.refresh();
+        } else {
+            _hideOnCreate = !show;
         }
     }
 
