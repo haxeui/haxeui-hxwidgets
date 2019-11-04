@@ -376,18 +376,20 @@ class ComponentImpl extends ComponentBase {
             window.refresh();
         }
 
-        if (style.fontSize != null || style.fontBold != null || style.fontItalic != null || style.fontUnderline != null) {
-            var fontSize:Int = 9;
-            var fontFamily:FontFamily = FontFamily.DEFAULT;
-            var fontStyle:FontStyle = FontStyle.NORMAL;
-            var fontWeight:FontWeight = FontWeight.NORMAL;
-            var fontUnderline:Bool = false;
-            if (style.fontSize != null) {
-                fontSize = Std.int(style.fontSize) - 4;
-            }
+        if (Platform.isMac == false) { // dont bother trying to set the font on osx, it wont work and will look weird
+            if (style.fontSize != null || style.fontBold != null || style.fontItalic != null || style.fontUnderline != null) {
+                var fontSize:Int = 9;
+                var fontFamily:FontFamily = FontFamily.DEFAULT;
+                var fontStyle:FontStyle = FontStyle.NORMAL;
+                var fontWeight:FontWeight = FontWeight.NORMAL;
+                var fontUnderline:Bool = false;
+                if (style.fontSize != null) {
+                    fontSize = Std.int(style.fontSize) - 4;
+                }
 
-            var font:Font = new Font(fontSize, fontFamily, fontStyle, fontWeight, fontUnderline);
-            window.font = font;
+                var font:Font = new Font(fontSize, fontFamily, fontStyle, fontWeight, fontUnderline);
+                window.font = font;
+            }
         }
     }
 
