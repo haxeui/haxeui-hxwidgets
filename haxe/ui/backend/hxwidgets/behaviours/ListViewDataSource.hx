@@ -1,7 +1,9 @@
 package haxe.ui.backend.hxwidgets.behaviours;
 
 import haxe.ui.behaviours.DataBehaviour;
+import haxe.ui.data.ArrayDataSource;
 import haxe.ui.data.DataSource;
+import haxe.ui.util.Variant;
 import hx.widgets.ListItem;
 import hx.widgets.ListView;
 
@@ -26,5 +28,23 @@ class ListViewDataSource extends DataBehaviour {
                 view.addItem(new ListItem(item.value, ListViewIcons.get(cast _component, item.icon)));
             }
         }
+    }
+    
+    public override function set(value:Variant) {
+        super.set(value);
+        if (value != null && value.isNull == false) {
+            var ds:DataSource<Dynamic> = value;
+            ds.onChange = function() {
+                validateData();
+            }
+        }
+    }
+    
+    public override function get():Variant {
+        if (_value == null || _value.isNull) {
+            _value = new ArrayDataSource<Dynamic>();
+            set(_value);
+        }
+        return _value;
     }
 }

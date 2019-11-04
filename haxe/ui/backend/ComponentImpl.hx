@@ -100,13 +100,18 @@ class ComponentImpl extends ComponentBase {
         }
 
         var nativeComponentClass:String = Toolkit.nativeConfig.query('component[id=${className}].@class', 'haxe.ui.backend.hxwidgets.custom.TransparentPanel', this);
+        
+        if (cast(this, Component).native == false || cast(this, Component).native == null) {
+            nativeComponentClass = "haxe.ui.backend.hxwidgets.custom.TransparentPanel";
+        }
+        
         if (nativeComponentClass == null) {
             nativeComponentClass = "haxe.ui.backend.hxwidgets.custom.TransparentPanel";
         }
         if (nativeComponentClass == "haxe.ui.backend.hxwidgets.custom.TransparentPanel" && className == "haxe.ui.containers.ListView") {
             nativeComponentClass = "hx.widgets.ScrolledWindow";
         }
-
+        
         var creatorClass:String = Toolkit.nativeConfig.query('component[id=${className}].@creator', null, this);
         if (creatorClass == null) {
             creatorClass = Toolkit.nativeConfig.query('component[class=${nativeComponentClass}].@creator', null, this);
@@ -267,11 +272,10 @@ class ComponentImpl extends ComponentBase {
         }
         var hscrollPos:Int = __parent.window.getScrollPos(Orientation.HORIZONTAL);
         var vscrollPos:Int = __parent.window.getScrollPos(Orientation.VERTICAL);
-        var step:Int = 1;
-        cast(__parent.window, ScrolledWindow).setScrollbars(step, step, Std.int(cast(this, Component).componentWidth / step), Std.int(cast(this, Component).componentHeight / step), hscrollPos, vscrollPos);
-        if (window != null) {
-            //window.setSize(0, -vscrollPos * step, cast width, cast height);
-        }
+        var step:Int = 10;
+        var cx = this.width - 2;
+        var cy = this.height - 0;
+        cast(__parent.window, ScrolledWindow).setScrollbars(step, step, Std.int(cx / step), Std.int(cy / step), hscrollPos, vscrollPos);
     }
 
     private override function handlePosition(left:Null<Float>, top:Null<Float>, style:Style):Void {

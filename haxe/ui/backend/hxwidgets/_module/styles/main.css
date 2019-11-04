@@ -1,5 +1,8 @@
 * {
     native: true;
+}
+
+.component:native {
     background-color: none;
     color: none;
     border: none;
