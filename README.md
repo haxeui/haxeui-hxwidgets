@@ -1,9 +1,5 @@
-<p align="center">
-  <img src="http://haxeui.org/db/haxeui2-warning.png"/>
-</p>
-
 [![Build Status](https://travis-ci.org/haxeui/haxeui-hxwidgets.svg?branch=master)](https://travis-ci.org/haxeui/haxeui-hxwidgets)
-[![Support this project on Patreon](http://haxeui.org/db/patreon_button.png)](https://www.patreon.com/haxeui)
+[![Support this project on Patreon](https://raw.githubusercontent.com/haxeui/haxeui-core/master/pat_badge.png)](https://www.patreon.com/haxeui)
 
 # haxeui-hxwidgets
 `haxeui-hxwidgets` is the `wxWidgets` backend for HaxeUI.
@@ -18,15 +14,16 @@
  * `haxeui-hxwidgets` also has a dependency to <a href="https://github.com/haxeui/hxWidgets">hxWidgets</a> (the `wxWidgets` Haxe externs), please refer to the installation instructions on their <a href="https://github.com/haxeui/hxWidgets">site</a>.
  * You will also need a copy of the `wxWidgets` libraries which can be obtained <a href="https://www.wxwidgets.org/downloads">here</a>. The easiest way to install and setup the libraries is to follow the instructions <a href="https://github.com/haxeui/hxWidgets#hxwidgets">here</a>.
 
-Eventually all these libs will become haxelibs, however, currently in their alpha form they do not even contain a `haxelib.json` file (for dependencies, etc) and therefore can only be used by downloading the source and using the `haxelib dev` command or by directly using the git versions using the `haxelib git` command (recommended). Eg:
-
+Installation of the haxeui can be performed by using haxelib, you will need a the haxeui-core haxelib as well as the haxeui-hxwidgets backend: 
 ```
-haxelib git haxeui-core https://github.com/haxeui/haxeui-core
-haxelib dev haxeui-hxwidgets path/to/expanded/source/archive
+haxelib install haxeui-core
+haxelib install haxeui-hxwidgets
 ```
 
 ## Usage
-The simplest method to create a new `hxWidgets` application that is HaxeUI ready is to use one of the <a href="https://github.com/haxeui/haxeui-templates">haxeui-templates</a>. These templates will allow you to start a new project rapidly with HaxeUI support baked in. 
+The simplest method to create a new `hxWidgets` application that is HaxeUI ready is to use the CLI to create a skeleton project:
+
+`haxelib run haxeui-core create hxwidgets`
 
 If however you already have an existing application, then incorporating HaxeUI into that application is straightforward:
 
