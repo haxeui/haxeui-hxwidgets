@@ -6,6 +6,8 @@
     <themes>
         <global>
             <style resource="styles/main.css" />
+            <style resource="styles/listviews.css" />
+            <style resource="styles/dialogs.css" />
         </global>
     </themes>
 </module>

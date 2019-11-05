@@ -1,0 +1,48 @@
+.listview {
+    background-color: none;
+    padding: 0px;
+}
+
+.listview .listview-contents {
+    padding: 0px;
+}
+
+.listview .even {
+    background-color: platform-color(listbox);
+}
+
+.listview .odd {
+    background-color: platform-color(frame-bk);
+}
+
+.listview .even:hover, .listview .odd:hover {
+    background-color: platform-color(gradient-inactive-caption);
+}
+
+.platform-mac .listview .even:hover {
+    background-color: none;
+}
+
+.platform-mac .listview .odd:hover {
+    background-color: none;
+}
+
+.listview .even:selected, .listview .odd:selected {
+    background-color: platform-color(highlight);
+}
+
+.platform-windows .listview .even:selected, .platform-windows .listview .odd:selected {
+    background-color: platform-color(gradient-active-caption);
+}
+
+.listview .label {
+    color: platform-color(listbox-text);
+}
+
+.listview .label:selected {
+    color: platform-color(listbox-text);
+}
+
+.platform-mac .listview .label:selected {
+    color: platform-color(highlight-text);
+}
