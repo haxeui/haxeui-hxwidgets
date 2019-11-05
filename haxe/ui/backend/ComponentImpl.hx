@@ -40,6 +40,9 @@ class ComponentImpl extends ComponentBase {
         _eventMap = new Map<String, UIEvent->Void>();
         if (Platform.isWindows) {
             cast(this, Component).addClass("platform-windows");
+            if (Std.is(this, Dialog)) {
+                cast(this, Component).addClass("custom-dialog-footer");
+            }
         } else if (Platform.isMac) {
             cast(this, Component).addClass("platform-mac");
         } else if (Platform.isLinux) {
