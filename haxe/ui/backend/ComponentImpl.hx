@@ -82,6 +82,10 @@ class ComponentImpl extends ComponentBase {
         }
     }
 
+    private override function get_isNativeScroller():Bool {
+        return Std.is(window, ScrolledWindow);
+    }
+    
     @:access(haxe.ui.core.Component)
     private var __handler:NativeHandler = null;
     private function createWindow(parent:Object = null) {
