@@ -56,6 +56,14 @@
         <size class="haxe.ui.backend.hxwidgets.size.BestSize" includePadding="false" />
         <handler class="haxe.ui.backend.hxwidgets.handlers.ButtonHandler" />
     </component>
+    <component id="haxe.ui.components.Toggle" class="hx.widgets.ToggleButton" allowChildren="false">
+        <behaviour id="text" class="haxe.ui.backend.hxwidgets.behaviours.ControlLabel" />
+        <behaviour id="value" class="haxe.ui.backend.hxwidgets.behaviours.ControlLabel" />
+        <behaviour id="selected" class="haxe.ui.backend.hxwidgets.behaviours.ControlValue" />
+        <behaviour id="icon" class="haxe.ui.backend.hxwidgets.behaviours.ControlBitmap" />
+        <behaviour id="disabled" class="haxe.ui.backend.hxwidgets.behaviours.ControlDisable" />
+        <size class="haxe.ui.backend.hxwidgets.size.BestSize" includePadding="false" />
+    </component>
     <component id="haxe.ui.components.Switch" class="hx.widgets.ToggleButton" allowChildren="false">
         <behaviour id="text" class="haxe.ui.backend.hxwidgets.behaviours.ControlLabel" />
         <behaviour id="disabled" class="haxe.ui.backend.hxwidgets.behaviours.ControlDisable" />
