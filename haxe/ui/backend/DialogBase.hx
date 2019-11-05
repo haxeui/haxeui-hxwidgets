@@ -65,12 +65,14 @@ class DialogBase extends Component {
             for (c in _footerComponents) {
                 c.createWindow(dialog);
                 c.ready();
+		c.window.id = buttonToStandardId(c.userData);
                 _buttonSizer.addButton(cast c.window);
-                _buttonSizer.add(c.window);
                 if (c.window.size.height > hm) {
                     hm = c.window.size.height;
                 }
             }
+
+	    _buttonSizer.realize();
             
             dialog.sizer.add(dialogContentContainer.window, 1, Stretch.EXPAND | Direction.ALL, 0);
             dialog.sizer.addSizer(_buttonSizer, 0, Stretch.GROW | Direction.ALL, 5);
@@ -78,11 +80,13 @@ class DialogBase extends Component {
                 hm += 5;
             }
         }
-        
+
         var m = 0;
         if (Platform.isWindows) {
             m = 6;
-        }
+        } else if (Platform.isMac) {
+	    hm = 65; // temp
+	}
         
         if (autoWidth == true) {
             width = dialogContentContainer.width - m;
