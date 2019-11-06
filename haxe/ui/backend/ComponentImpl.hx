@@ -435,6 +435,19 @@ class ComponentImpl extends ComponentBase {
             return;
         }
 
+        var className:String = Type.getClassName(Type.getClass(this));
+        var native:String = Toolkit.nativeConfig.query('component[id=${className}].event[id=${type}].@native', null, this);
+        if (native != null) {
+            var eventType = EventTypeParser.fromString(native);
+            if (eventType != 0) {
+                if (_eventMap.exists(type) == false) {
+                    _eventMap.set(type, listener);
+                    window.bind(eventType, __onEvent);
+                }
+                return;
+            }
+        }
+        
         switch (type) {
             case MouseEvent.CLICK:
                 if (_eventMap.exists(type) == false) {
@@ -458,15 +471,6 @@ class ComponentImpl extends ComponentBase {
                 
                 
             default:
-                var className:String = Type.getClassName(Type.getClass(this));
-                var native:String = Toolkit.nativeConfig.query('component[id=${className}].event[id=${type}].@native', null, this);
-                if (native != null) {
-                    var eventType = EventTypeParser.fromString(native);
-                    if (eventType != 0 && _eventMap.exists(type) == false) {
-                        _eventMap.set(type, listener);
-                        window.bind(eventType, __onEvent);
-                    }
-                }
         }
     }
     
@@ -476,6 +480,17 @@ class ComponentImpl extends ComponentBase {
             return;
         }
 
+        var className:String = Type.getClassName(Type.getClass(this));
+        var native:String = Toolkit.nativeConfig.query('component[id=${className}].event[id=${type}].@native', null, this);
+        if (native != null) {
+            var eventType = EventTypeParser.fromString(native);
+            if (eventType != 0) {
+                _eventMap.remove(type);
+                window.unbind(eventType, __onEvent);
+                return;
+            }
+        }
+        
         switch (type) {
             case MouseEvent.CLICK:
                 _eventMap.remove(type);
@@ -489,15 +504,6 @@ class ComponentImpl extends ComponentBase {
             case MouseEvent.MOUSE_OVER | MouseEvent.MOUSE_OUT:
                 
             default:
-                var className:String = Type.getClassName(Type.getClass(this));
-                var native:String = Toolkit.nativeConfig.query('component[id=${className}].event[id=${type}].@native', null, this);
-                if (native != null) {
-                    var eventType = EventTypeParser.fromString(native);
-                    if (eventType != 0) {
-                        _eventMap.remove(type);
-                        window.unbind(eventType, __onEvent);
-                    }
-                }
         }
     }
 
@@ -518,6 +524,7 @@ class ComponentImpl extends ComponentBase {
     private var _mouseOverFlag:Bool = false;
     private function __onMouseMove(event:Event) {
         if (_mouseOverFlag == false) {
+            trace(">>>>>>>>>>>>>>>>>>>>>>>>>>> here");
             _mouseOverFlag = true;
             
             var mouseEvent:hx.widgets.MouseEvent = event.convertTo(hx.widgets.MouseEvent);
