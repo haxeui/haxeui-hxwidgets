@@ -106,16 +106,17 @@ class ComponentImpl extends ComponentBase {
             className = Type.getClassName(Dialog);
         }
 
-        var nativeComponentClass:String = Toolkit.nativeConfig.query('component[id=${className}].@class', 'haxe.ui.backend.hxwidgets.custom.TransparentPanel', this);
+        var defaultNativeClass = "haxe.ui.backend.hxwidgets.custom.TransparentPanel";
+        var nativeComponentClass:String = Toolkit.nativeConfig.query('component[id=${className}].@class', defaultNativeClass, this);
         
         if (cast(this, Component).native == false || cast(this, Component).native == null) {
-            nativeComponentClass = "haxe.ui.backend.hxwidgets.custom.TransparentPanel";
+            nativeComponentClass = defaultNativeClass;
         }
         
         if (nativeComponentClass == null) {
-            nativeComponentClass = "haxe.ui.backend.hxwidgets.custom.TransparentPanel";
+            nativeComponentClass = defaultNativeClass;
         }
-        if (nativeComponentClass == "haxe.ui.backend.hxwidgets.custom.TransparentPanel" && className == "haxe.ui.containers.ListView") {
+        if (nativeComponentClass == defaultNativeClass && className == "haxe.ui.containers.ListView") {
             nativeComponentClass = "hx.widgets.ScrolledWindow";
         }
         
@@ -289,10 +290,12 @@ class ComponentImpl extends ComponentBase {
         if (window == null) {
             return;
         }
-
         
         if (__parent != null && Std.is(__parent.window, Notebook) == false) {
             window.move(Std.int(left), Std.int(top));
+            if (Platform.isWindows) {
+                window.refresh();
+            }
         }
     }
 
@@ -310,6 +313,8 @@ class ComponentImpl extends ComponentBase {
         }
 
         //window.thaw();
+        
+        //window.refresh();
     }
 
     private var _repositionUnlockCount:Int = 0;
