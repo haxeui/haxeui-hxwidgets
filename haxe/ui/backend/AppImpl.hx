@@ -1,6 +1,6 @@
 package haxe.ui.backend;
 
-import haxe.ui.util.Timer;
+import haxe.ui.events.AppEvent;
 import hx.widgets.App;
 import hx.widgets.Event;
 import hx.widgets.EventType;
@@ -59,9 +59,11 @@ class AppImpl extends AppBase {
         _frame.move(frameLeft, frameTop);
 
         _frame.bind(EventType.CLOSE_WINDOW, function(e:Event) {
+            dispatch(new AppEvent(AppEvent.APP_CLOSED));
             _frame.destroy();
         });
 
+        dispatch(new AppEvent(AppEvent.APP_READY));
         onReady();
     }
 
@@ -83,11 +85,17 @@ class AppImpl extends AppBase {
             _frame.center();
         }
         _frame.thaw();
+        dispatch(new AppEvent(AppEvent.APP_STARTED));
         _app.run();
 
         _app.exit();
         if (_onEnd != null) {
+            dispatch(new AppEvent(AppEvent.APP_EXITED));
             _onEnd();
         }
+    }
+    
+    public override function exit() {
+        _frame.close();
     }
 }
