@@ -529,7 +529,6 @@ class ComponentImpl extends ComponentBase {
     private var _mouseOverFlag:Bool = false;
     private function __onMouseMove(event:Event) {
         if (_mouseOverFlag == false) {
-            trace(">>>>>>>>>>>>>>>>>>>>>>>>>>> here");
             _mouseOverFlag = true;
             
             var mouseEvent:hx.widgets.MouseEvent = event.convertTo(hx.widgets.MouseEvent);
