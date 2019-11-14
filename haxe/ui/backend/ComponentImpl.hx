@@ -452,7 +452,7 @@ class ComponentImpl extends ComponentBase {
                 return;
             }
         }
-        
+
         switch (type) {
             case MouseEvent.CLICK:
                 if (_eventMap.exists(type) == false) {

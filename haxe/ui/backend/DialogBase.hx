@@ -65,14 +65,14 @@ class DialogBase extends Component {
             for (c in _footerComponents) {
                 c.createWindow(dialog);
                 c.ready();
-		c.window.id = buttonToStandardId(c.userData);
+                c.window.id = buttonToStandardId(c.userData);
                 _buttonSizer.addButton(cast c.window);
                 if (c.window.size.height > hm) {
                     hm = c.window.size.height;
                 }
             }
 
-	    _buttonSizer.realize();
+            _buttonSizer.realize();
             
             dialog.sizer.add(dialogContentContainer.window, 1, Stretch.EXPAND | Direction.ALL, 0);
             dialog.sizer.addSizer(_buttonSizer, 0, Stretch.GROW | Direction.ALL, 5);
@@ -158,21 +158,29 @@ class DialogBase extends Component {
         }
         return null;
     }
+
+    private function validateDialog(button:DialogButton, fn:Bool->Void) {
+        fn(true);
+    }
     
     public override function hide() {
-        var dialog = cast(this.window, Dialog);
-        if (modal) {
-            var standardId = buttonToStandardId(button);
-            dialog.endModal(standardId);
-        } else {
-            dialog.hide();
-            if (this.button == null) {
-                this.button = DialogButton.CANCEL;
+        validateDialog(this.button, function(result) {
+            if (result == true) {
+                var dialog = cast(this.window, Dialog);
+                if (modal) {
+                    var standardId = buttonToStandardId(button);
+                    dialog.endModal(standardId);
+                } else {
+                    dialog.hide();
+                    if (this.button == null) {
+                        this.button = DialogButton.CANCEL;
+                    }
+                    var event = new DialogEvent(DialogEvent.DIALOG_CLOSED);
+                    event.button = this.button;
+                    dispatch(event);
+                }
             }
-            var event = new DialogEvent(DialogEvent.DIALOG_CLOSED);
-            event.button = this.button;
-            dispatch(event);
-        }
+        });
     }
 
     public function hideDialog(button:DialogButton) {
