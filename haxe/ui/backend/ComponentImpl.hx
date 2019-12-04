@@ -8,6 +8,7 @@ import haxe.ui.backend.hxwidgets.StyleParser;
 import haxe.ui.backend.hxwidgets.TabViewIcons;
 import haxe.ui.backend.hxwidgets.creators.Creator;
 import haxe.ui.backend.hxwidgets.handlers.NativeHandler;
+import haxe.ui.components.Button;
 import haxe.ui.containers.Box;
 import haxe.ui.containers.TabView;
 import haxe.ui.containers.dialogs.Dialog;
@@ -216,6 +217,10 @@ class ComponentImpl extends ComponentBase {
         if (nativeHandlerClass != null) {
             __handler = Type.createInstance(Type.resolveClass(nativeHandlerClass), [this]);
             __handler.link();
+            if (_cachedStyle != null) {
+                __handler.applyStyle(_cachedStyle);
+                _cachedStyle = null;
+            }
         }
     }
 
@@ -349,8 +354,10 @@ class ComponentImpl extends ComponentBase {
     //***********************************************************************************************************
     // Redraw callbacks
     //***********************************************************************************************************
+    private var _cachedStyle:Style = null;
     private override function applyStyle(style:Style) {
-        if (window == null) {
+        if (window == null || _ready == false) {
+            _cachedStyle = style;
             return;
         }
 
