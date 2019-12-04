@@ -473,8 +473,14 @@ class ComponentImpl extends ComponentBase {
                     window.bind(EventMapper.HAXEUI_TO_WX.get(MouseEvent.MOUSE_MOVE), __onMouseMove);
                     window.bind(EventMapper.HAXEUI_TO_WX.get(MouseEvent.MOUSE_OUT), __onMouseOut);
                 }
-                
-                
+
+            case MouseEvent.RIGHT_CLICK:    
+                if (_eventMap.exists(MouseEvent.RIGHT_CLICK) == false) {
+                    trace(EventMapper.HAXEUI_TO_WX.get(MouseEvent.RIGHT_CLICK));
+                    _eventMap.set(MouseEvent.RIGHT_CLICK, listener);
+                    window.bind(EventMapper.HAXEUI_TO_WX.get(MouseEvent.RIGHT_CLICK), __onMouseEvent);
+                }
+            
             default:
         }
     }
