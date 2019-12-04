@@ -5,7 +5,7 @@ import hx.widgets.Notebook;
 
 @:keep
 class NotebookRemoveAllPages extends HxWidgetsBehaviour {
-    public override function run(param:Variant = null):Variant {
+    public override function call(param:Any = null):Variant {
         if (_component.window == null) {
             return null;
         }
