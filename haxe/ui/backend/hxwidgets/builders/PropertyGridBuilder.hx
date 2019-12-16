@@ -23,7 +23,6 @@ class PropertyGridBuilder extends CompositeBuilder {
         for (group in _groups) {
             var groupId = group.text;
             propGrid.appendCategory(groupId);
-            trace(group.childComponents.length);
             for (i in group.childComponents) {
                 var item = cast(i, Property);
                 
