@@ -218,14 +218,15 @@
         <behaviour id="text" class="haxe.ui.behaviours.DefaultBehaviour" />
         <size class="haxe.ui.backend.hxwidgets.size.ZeroSize" includePadding="false" />
     </component>
-    <!--
-    <component id="haxe.ui.containers.ListView2" class="haxe.ui.backend.hxwidgets.custom.SimpleListView" allowChildren="false" condition="this._itemRenderer=='BasicItemRenderer' || this._itemRenderer==null">
+    <component id="haxe.ui.containers.properties.PropertyGrid" class="hx.widgets.PropertyGrid">
         <behaviour id="disabled" class="haxe.ui.backend.hxwidgets.behaviours.ControlDisable" />
-        <behaviour id="dataSource" class="haxe.ui.backend.hxwidgets.behaviours.ListViewDataSource" />
-        <behaviour id="selectedIndex" class="haxe.ui.backend.hxwidgets.behaviours.ListViewSelectedIndex" />
-        <size class="haxe.ui.backend.hxwidgets.size.WindowSize" includePadding="false" />
+        <behaviour id="contentLayoutName" class="haxe.ui.behaviours.DefaultBehaviour" />
+        <size class="haxe.ui.backend.hxwidgets.size.BestSize" includePadding="false" />
+        <builder class="haxe.ui.backend.hxwidgets.builders.PropertyGridBuilder" />
     </component>
-        -->
+    <component id="haxe.ui.containers.properties.PropertyGroup" class="hx.widgets.Panel">
+        <size class="haxe.ui.backend.hxwidgets.size.BestSize" includePadding="false" />
+    </component>
     
     <component class="hx.widgets.StaticBitmap" creator="haxe.ui.backend.hxwidgets.creators.StaticBitmapCreator" />
         
