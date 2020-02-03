@@ -1,16 +1,12 @@
 {
+    "version": "1.0.7",
     "contributors": [
         "haxeui",
         "ianharrigan",
         "_ibilon",
         "aW4KeNiNG"
     ],
-    "version": "1.0.6",
-    "dependencies": {
-        "haxeui-core": "",
-        "hxWidgets": ""
-    },
-    "releasenote": "PropertyGrid native counterpart",
+    "license": "MIT",
     "tags": [
         "ui",
         "gui",
@@ -19,7 +15,11 @@
         "wx",
         "native"
     ],
-    "license": "MIT",
+    "releasenote": "better menus & context menus",
+    "dependencies": {
+        "haxeui-core": "",
+        "hxWidgets": ""
+    },
     "name": "haxeui-hxwidgets",
     "description": "The wxWidgets backend of the HaxeUI framework",
     "url": "https://github.com/haxeui/haxeui-hxwidgets"
