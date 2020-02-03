@@ -10,7 +10,8 @@ class EventMapper {
         haxe.ui.events.MouseEvent.MOUSE_DOWN => EventType.LEFT_DOWN,
         haxe.ui.events.MouseEvent.MOUSE_UP => EventType.LEFT_UP,
         haxe.ui.events.MouseEvent.RIGHT_CLICK => EventType.RIGHT_UP,
-        haxe.ui.events.MouseEvent.CLICK => EventType.BUTTON
+        haxe.ui.events.MouseEvent.CLICK => EventType.BUTTON,
+        haxe.ui.events.MouseEvent.DBL_CLICK => EventType.LEFT_DCLICK
     ];
 
     public static var WX_TO_HAXEUI:Map<Int, String> = [
@@ -20,6 +21,7 @@ class EventMapper {
         EventType.LEFT_DOWN => haxe.ui.events.MouseEvent.MOUSE_DOWN,
         EventType.LEFT_UP => haxe.ui.events.MouseEvent.MOUSE_UP,
         EventType.RIGHT_UP => haxe.ui.events.MouseEvent.RIGHT_CLICK,
-        EventType.BUTTON => haxe.ui.events.MouseEvent.CLICK
+        EventType.BUTTON => haxe.ui.events.MouseEvent.CLICK,
+        EventType.LEFT_DCLICK => haxe.ui.events.MouseEvent.DBL_CLICK
     ];
 }

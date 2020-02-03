@@ -15,16 +15,25 @@ class MenuItemCreator extends Creator {
         
         var id = _menuId;
         _menuId++;
+
+        
+        var text = _component.text;
+        var item:MenuItem = cast _component; // unsafe cast (on purpose)
+        if (item != null && item.shortcutText != null) {
+            text += "\t" + item.shortcutText;
+        }
         
         if (Std.is(_component, MenuCheckBox)) {
-            MenuItemHelper.set(id, cast(_component, MenuItem));
-            menuItem = menu.appendCheckItem(id, _component.text);
+            MenuItemHelper.set(id, item);
+            menuItem = menu.appendCheckItem(id, text);
+            menuItem.check(cast(_component, MenuCheckBox).selected);
         } else if (Std.is(_component, MenuOptionBox)) {
-            MenuItemHelper.set(id, cast(_component, MenuItem));
-            menuItem = menu.appendRadioItem(id, _component.text);
+            MenuItemHelper.set(id, item);
+            menuItem = menu.appendRadioItem(id, text);
+            menuItem.check(cast(_component, MenuOptionBox).selected);
         } else if (Std.is(_component, MenuItem)) {
-            MenuItemHelper.set(id, cast(_component, MenuItem));
-            menuItem = menu.append(id, _component.text);
+            MenuItemHelper.set(id, item);
+            menuItem = menu.append(id, text);
         } else if (Std.is(_component, MenuSeparator)) {
             menuItem = menu.appendSeparator();
         }

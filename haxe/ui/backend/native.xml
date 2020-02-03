@@ -197,6 +197,7 @@
         <behaviour id="disabled" class="haxe.ui.backend.hxwidgets.behaviours.ControlDisable" />
         <behaviour id="text" class="haxe.ui.behaviours.DefaultBehaviour" />
         <size class="haxe.ui.backend.hxwidgets.size.ZeroSize" includePadding="false" />
+        <builder class="haxe.ui.backend.hxwidgets.builders.MenuBuilder" />
     </component>
     <component id="haxe.ui.containers.menus.MenuItem" class="hx.widgets.MenuItem" creator="haxe.ui.backend.hxwidgets.creators.MenuItemCreator" allowChildren="false">
         <behaviour id="disabled" class="haxe.ui.backend.hxwidgets.behaviours.ControlDisable" />

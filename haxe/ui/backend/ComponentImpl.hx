@@ -99,7 +99,7 @@ class ComponentImpl extends ComponentBase {
         if (parent == null) {
             parent = Toolkit.screen.frame;
         }
-
+        
         invalidateComponentStyle();
 
         var className:String = Type.getClassName(Type.getClass(this));
@@ -107,6 +107,7 @@ class ComponentImpl extends ComponentBase {
             className = Type.getClassName(Dialog);
         }
 
+        
         var defaultNativeClass = "haxe.ui.backend.hxwidgets.custom.TransparentPanel";
         var nativeComponentClass:String = Toolkit.nativeConfig.query('component[id=${className}].@class', defaultNativeClass, this);
         
@@ -120,7 +121,7 @@ class ComponentImpl extends ComponentBase {
         if (nativeComponentClass == defaultNativeClass && className == "haxe.ui.containers.ListView") {
             nativeComponentClass = "hx.widgets.ScrolledWindow";
         }
-        
+
         var creatorClass:String = Toolkit.nativeConfig.query('component[id=${className}].@creator', null, this);
         if (creatorClass == null) {
             creatorClass = Toolkit.nativeConfig.query('component[class=${nativeComponentClass}].@creator', null, this);
@@ -467,6 +468,12 @@ class ComponentImpl extends ComponentBase {
                     window.bind(EventType.LEFT_DOWN, __onMouseDown);
                     window.bind(EventType.LEFT_UP, __onMouseUp);
                 }
+
+            case MouseEvent.DBL_CLICK:
+                if (_eventMap.exists(type) == false) {
+                    _eventMap.set(type, listener);
+                    window.bind(EventType.LEFT_DCLICK, __onMouseEvent);
+                }
                 
             case MouseEvent.MOUSE_MOVE | MouseEvent.MOUSE_DOWN | MouseEvent.MOUSE_UP:
                 if (_eventMap.exists(type) == false) {
@@ -483,7 +490,6 @@ class ComponentImpl extends ComponentBase {
 
             case MouseEvent.RIGHT_CLICK:    
                 if (_eventMap.exists(MouseEvent.RIGHT_CLICK) == false) {
-                    trace(EventMapper.HAXEUI_TO_WX.get(MouseEvent.RIGHT_CLICK));
                     _eventMap.set(MouseEvent.RIGHT_CLICK, listener);
                     window.bind(EventMapper.HAXEUI_TO_WX.get(MouseEvent.RIGHT_CLICK), __onMouseEvent);
                 }
@@ -515,6 +521,10 @@ class ComponentImpl extends ComponentBase {
                 window.unbind(EventType.LEFT_DOWN, __onMouseDown);
                 window.unbind(EventType.LEFT_UP, __onMouseUp);
             
+            case MouseEvent.DBL_CLICK:
+                _eventMap.remove(type);
+                window.unbind(EventType.LEFT_DCLICK, __onMouseEvent);
+                
             case MouseEvent.MOUSE_MOVE | MouseEvent.MOUSE_DOWN | MouseEvent.MOUSE_UP:
                 _eventMap.remove(type);
                 window.unbind(EventMapper.HAXEUI_TO_WX.get(type), __onMouseEvent);

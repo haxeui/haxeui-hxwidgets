@@ -3,6 +3,7 @@ package haxe.ui.backend.hxwidgets.creators;
 import hx.widgets.Menu;
 import hx.widgets.MenuBar;
 import hx.widgets.Object;
+import hx.widgets.Window;
 
 class MenuCreator extends Creator {
     public override function createWindow(parent:Object = null, style:Int = 0):Object {
