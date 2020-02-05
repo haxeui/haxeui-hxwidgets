@@ -32,8 +32,8 @@ class SkinablePanel extends OwnerDrawnPanel {
         var cy = size.height;
         var ctx:GraphicsContext = gdc.graphicsContext;
         ctx.interpolationQuality = InterpolationQuality.NONE;
-        if (style.backgroundColor != null) {
-            gdc.background = new Brush(style.backgroundColor);
+        if (style.backgroundColors != null && style.backgroundColors.length > 0) {
+            gdc.background = new Brush(style.backgroundColors[0].color);
         } else {
             gdc.background = StockBrushes.BRUSH_TRANSPARENT;
         }
