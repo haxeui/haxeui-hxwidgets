@@ -23,15 +23,17 @@ class ScreenImpl extends ScreenBase {
     }
     
     private var __topLevelComponents:Array<Component> = new Array<Component>();
-    public override function addComponent(component:Component) {
+    public override function addComponent(component:Component):Component {
         __topLevelComponents.push(component);
         addResizeListener();
         resizeComponent(component);
+		return component;
     }
 
-    public override function removeComponent(component:Component) {
+    public override function removeComponent(component:Component):Component {
         __topLevelComponents.remove(component);
         component.window.destroy();
+		return component;
     }
 
     private override function resizeComponent(c:Component) {
