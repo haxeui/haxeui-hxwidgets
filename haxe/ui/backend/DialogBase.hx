@@ -44,6 +44,11 @@ class DialogBase extends Component {
         addComponent(dialogContentContainer);
     }
 
+    public function showDialog(modal:Bool = true) {
+        this.modal = modal;
+        show();
+    }
+    
     public override function show() {
         if (buttons != null) {
             for (button in buttons.toArray()) {
