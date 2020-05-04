@@ -396,7 +396,7 @@ class ComponentImpl extends ComponentBase {
             window.refresh();
         }
 
-        if (Platform.isMac == false) { // dont bother trying to set the font on osx, it wont work and will look weird
+        //if (Platform.isMac == false) { // dont bother trying to set the font on osx, it wont work and will look weird
             if (style.fontSize != null || style.fontBold != null || style.fontItalic != null || style.fontUnderline != null) {
                 var fontSize:Int = 9;
                 var fontFamily:FontFamily = FontFamily.DEFAULT;
@@ -410,7 +410,7 @@ class ComponentImpl extends ComponentBase {
                 var font:Font = new Font(fontSize, fontFamily, fontStyle, fontWeight, fontUnderline);
                 window.font = font;
             }
-        }
+        //}
     }
 
     private var __props:Map<String, Dynamic>;
