@@ -22,6 +22,12 @@ class AppImpl extends AppBase {
     }
 
     private override function build() {
+        #if PLATFORM_MAC
+        if (Toolkit.backendProperties.getPropBool("haxe.ui.hxwidgets.menu.autoWindowHide", true) == true) {
+            wx.widgets.MenuBar.setAutoWindowMenu(false);
+        }
+        #end
+
         _app = new App();
         _app.init();
 
