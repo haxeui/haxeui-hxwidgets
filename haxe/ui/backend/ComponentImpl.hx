@@ -259,7 +259,7 @@ class ComponentImpl extends ComponentBase {
     private override function handleRemoveComponent(child:Component, dispose:Bool = true):Component {
         __children.remove(child);
         if (child.window != null && dispose == true) {
-            child.window.destroy();
+            child.window.scheduleForDestruction();
             child.window = null;
         }
         return child;
