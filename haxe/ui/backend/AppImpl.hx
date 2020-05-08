@@ -43,6 +43,8 @@ class AppImpl extends AppBase {
 
     private override function init(onReady:Void->Void, onEnd:Void->Void = null) {
         _onEnd = onEnd;
+        
+        var maximized:Bool = Toolkit.backendProperties.getPropBool("haxe.ui.hxwidgets.frame.maximized", false);
         var frameWidth:Int = Toolkit.backendProperties.getPropInt("haxe.ui.hxwidgets.frame.width", 800);
         var frameHeight:Int = Toolkit.backendProperties.getPropInt("haxe.ui.hxwidgets.frame.height", 600);
 
@@ -61,8 +63,12 @@ class AppImpl extends AppBase {
         }
 
         _frame.freeze();
-        _frame.resize(frameWidth, frameHeight);
-        _frame.move(frameLeft, frameTop);
+        if (maximized == true) {
+            _frame.maximize(true);
+        } else {
+            _frame.resize(frameWidth, frameHeight);
+            _frame.move(frameLeft, frameTop);
+        }
 
         _frame.bind(EventType.CLOSE_WINDOW, function(e:Event) {
             dispatch(new AppEvent(AppEvent.APP_CLOSED));
