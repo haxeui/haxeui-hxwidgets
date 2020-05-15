@@ -5,6 +5,7 @@ import hx.widgets.HardBreakWrapper;
 import hx.widgets.StaticText;
 
 @:access(haxe.ui.core.Component)
+@:access(hx.widgets.EvtHandler)
 class BestSize extends DelegateLayoutSize {
     private override function get_width():Float {
         if (component.window == null) {
@@ -18,7 +19,7 @@ class BestSize extends DelegateLayoutSize {
             return 0;
         }
         
-        if (Std.is(component.window, StaticText) && component.autoWidth == false && component.width > 0) {
+        if (Std.is(component.window, StaticText) && component.autoWidth == false && component.width > 0 && component.window._disposed == false) {
             var label = component.get("originalLabel");
             if (label != null) { // https://forums.wxwidgets.org/viewtopic.php?t=26973
                 var l:StaticText = cast component.window;
