@@ -90,6 +90,8 @@ class ComponentImpl extends ComponentBase {
         return Std.is(window, ScrolledWindow);
     }
     
+    private var _firstResize:Bool = false;
+    
     @:access(haxe.ui.core.Component)
     private var __handler:NativeHandler = null;
     private function createWindow(parent:Object = null) {
@@ -156,8 +158,11 @@ class ComponentImpl extends ComponentBase {
         if (_hideOnCreate == true) {
             _hideOnCreate = false;
             window.show(false);
+        } else {
+            window.show(false);
+            _firstResize = true;
         }
-
+        
         if (Std.is(window, Notebook)) {
             var n:Notebook = cast window;
             if (Platform.isMac) {
@@ -242,6 +247,10 @@ class ComponentImpl extends ComponentBase {
             __handler.resize(w, h);
         }
         handleClipRect(null);
+        if (_firstResize == true) {
+            _firstResize = false;
+            window.show(true);
+        }
     }
 
     private override function handleAddComponent(child:Component):Component {
