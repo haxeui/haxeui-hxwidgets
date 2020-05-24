@@ -6,3 +6,5 @@
 --macro include("haxe.ui.backend.hxwidgets.builders")
 --macro include("haxe.ui.backend.hxwidgets.handlers")
 --macro include("haxe.ui.backend.hxwidgets.creators")
+
+--macro wx.widgets.EntryMacro.detectPlatform()
