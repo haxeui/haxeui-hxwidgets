@@ -1,6 +1,7 @@
 .listview {
-    background-color: none;
+    background-color: platform-color(listbox);
     padding: 0px;
+    padding-right: 5px;
 }
 
 .listview .listview-contents {

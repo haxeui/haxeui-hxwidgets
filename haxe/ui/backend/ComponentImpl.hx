@@ -295,9 +295,9 @@ class ComponentImpl extends ComponentBase {
         }
         var hscrollPos:Int = __parent.window.getScrollPos(Orientation.HORIZONTAL);
         var vscrollPos:Int = __parent.window.getScrollPos(Orientation.VERTICAL);
-        var step:Int = 10;
-        var cx = this.width - 2;
-        var cy = this.height - 0;
+        var step:Int = 1;
+        var cx = this.width + 1;
+        var cy = this.height + 1;
         cast(__parent.window, ScrolledWindow).setScrollbars(step, step, Std.int(cx / step), Std.int(cy / step), hscrollPos, vscrollPos);
     }
 
