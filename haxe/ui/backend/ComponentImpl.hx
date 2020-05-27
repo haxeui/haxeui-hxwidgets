@@ -155,41 +155,43 @@ class ComponentImpl extends ComponentBase {
             throw "Could not create window: " + nativeComponentClass;
         }
         
-        if (_hideOnCreate == true) {
-            _hideOnCreate = false;
-            window.show(false);
-        } else {
-            window.show(false);
-            _firstResize = true;
-        }
-        
-        if (Std.is(window, Notebook)) {
-            var n:Notebook = cast window;
-            if (Platform.isMac) {
-                n.allowIcons = false;
-            } else if (Platform.isWindows) {
-                n.padding = new hx.widgets.Size(8, 5);
+        if (window != null) {
+            if (_hideOnCreate == true) {
+                _hideOnCreate = false;
+                window.show(false);
+            } else {
+                window.show(false);
+                _firstResize = true;
             }
-        }
+            
+            if (Std.is(window, Notebook)) {
+                var n:Notebook = cast window;
+                if (Platform.isMac) {
+                    n.allowIcons = false;
+                } else if (Platform.isWindows) {
+                    n.padding = new hx.widgets.Size(8, 5);
+                }
+            }
 
-        if (Std.is(window, ScrollBar)) {
-            var scrollbar:ScrollBar = cast window;
-            scrollbar.setScrollbar(0, 5, 100, 5);
-        }
+            if (Std.is(window, ScrollBar)) {
+                var scrollbar:ScrollBar = cast window;
+                scrollbar.setScrollbar(0, 5, 100, 5);
+            }
 
-        if (Std.is(__parent, haxe.ui.containers.TabView)) {
-            var n:Notebook = cast __parent.window;
-            cast(this, Component).addClass("tab-page");
-            var pageTitle:String = cast(this, Component).text;
-            var pageIcon:String = cast(this, Box).icon;
-            var iconIndex:Int = TabViewIcons.get(cast __parent, pageIcon);
-            n.addPage(window, pageTitle, iconIndex);
-            n.layout();
-            n.refresh();
-        }
+            if (Std.is(__parent, haxe.ui.containers.TabView)) {
+                var n:Notebook = cast __parent.window;
+                cast(this, Component).addClass("tab-page");
+                var pageTitle:String = cast(this, Component).text;
+                var pageIcon:String = cast(this, Box).icon;
+                var iconIndex:Int = TabViewIcons.get(cast __parent, pageIcon);
+                n.addPage(window, pageTitle, iconIndex);
+                n.layout();
+                n.refresh();
+            }
 
-        if (Std.parseInt(cast(this, Component).id) != null) {
-            window.id = Std.parseInt(cast(this, Component).id);
+            if (Std.parseInt(cast(this, Component).id) != null) {
+                window.id = Std.parseInt(cast(this, Component).id);
+            }
         }
 
         if (__eventsToMap != null) {
