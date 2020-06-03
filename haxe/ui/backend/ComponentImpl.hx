@@ -8,7 +8,6 @@ import haxe.ui.backend.hxwidgets.StyleParser;
 import haxe.ui.backend.hxwidgets.TabViewIcons;
 import haxe.ui.backend.hxwidgets.creators.Creator;
 import haxe.ui.backend.hxwidgets.handlers.NativeHandler;
-import haxe.ui.components.Button;
 import haxe.ui.containers.Box;
 import haxe.ui.containers.TabView;
 import haxe.ui.containers.dialogs.Dialog;
@@ -104,12 +103,7 @@ class ComponentImpl extends ComponentBase {
         
         invalidateComponentStyle();
 
-        var className:String = Type.getClassName(Type.getClass(this));
-        if (Std.is(this, Dialog)) { // you can extend from Dialog, which means native entry wont match, lets change that
-            className = Type.getClassName(Dialog);
-        }
-
-        
+        var className:String = nativeClassName;
         var defaultNativeClass = "haxe.ui.backend.hxwidgets.custom.TransparentPanel";
         var nativeComponentClass:String = Toolkit.nativeConfig.query('component[id=${className}].@class', defaultNativeClass, this);
         
