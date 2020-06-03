@@ -159,7 +159,7 @@ class ComponentImpl extends ComponentBase {
             if (_hideOnCreate == true) {
                 _hideOnCreate = false;
                 window.show(false);
-            } else {
+            } else if (__parent != null && __parent.window != null && Std.is(__parent.window, Notebook) == false) {
                 window.show(false);
                 _firstResize = true;
             }
