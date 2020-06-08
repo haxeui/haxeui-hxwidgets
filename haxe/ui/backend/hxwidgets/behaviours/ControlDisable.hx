@@ -17,6 +17,6 @@ class ControlDisable extends HxWidgetsBehaviour {
     }
     
     public override function get():Variant {
-        return null;
+        return _value;
     }
 }
