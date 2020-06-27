@@ -40,6 +40,7 @@
         <behaviour id="text" class="haxe.ui.backend.hxwidgets.behaviours.ControlLabel" />
         <behaviour id="value" class="haxe.ui.backend.hxwidgets.behaviours.ControlLabel" />
         <behaviour id="disabled" class="haxe.ui.backend.hxwidgets.behaviours.ControlDisable" />
+        <behaviour id="allowInteraction" class="haxe.ui.backend.hxwidgets.behaviours.AllowInteraction" />
         <size class="haxe.ui.backend.hxwidgets.size.BestSize" includePadding="false" />
         <handler class="haxe.ui.backend.hxwidgets.handlers.StaticTextHandler" />
     </component>
@@ -47,7 +48,9 @@
         <behaviour id="resource" class="haxe.ui.backend.hxwidgets.behaviours.ControlBitmap" />
         <behaviour id="value" class="haxe.ui.backend.hxwidgets.behaviours.ControlBitmap" />
         <behaviour id="disabled" class="haxe.ui.backend.hxwidgets.behaviours.ControlDisable" />
+        <behaviour id="allowInteraction" class="haxe.ui.backend.hxwidgets.behaviours.AllowInteraction" />
         <size class="haxe.ui.backend.hxwidgets.size.BestSize" includePadding="false" />
+        <builder class="haxe.ui.backend.hxwidgets.builders.ImageBuilder" />
     </component>
     <component id="haxe.ui.components.Button" class="hx.widgets.Button" allowChildren="false">
         <behaviour id="text" class="haxe.ui.backend.hxwidgets.behaviours.ControlLabel" />
