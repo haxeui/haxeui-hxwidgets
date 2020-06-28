@@ -24,7 +24,7 @@ class ChoiceDataSource extends DataBehaviour {
         for (n in 0...ds.size) {
             var item = ds.get(n);
             if (item.value != null) {
-                choice.append(item.value);
+                choice.append(item.text);
             } else {
                 choice.append(Std.string(item));
             }

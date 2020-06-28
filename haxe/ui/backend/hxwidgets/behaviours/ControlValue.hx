@@ -34,7 +34,7 @@ class ControlValue extends DataBehaviour {
             cast(_component.window, SpinCtrl).value = _value;
         }
     }
-    
+
     public override function get():Variant {
         var v:Variant = null;
         if (Std.is(_component.window, Gauge)) {
