@@ -9,7 +9,6 @@ class AllowInteraction extends DataBehaviour {
             return;
         }
         
-        trace("HERE!" + _value);
         if (_value == true) {
             registerEvents();
         } else {
