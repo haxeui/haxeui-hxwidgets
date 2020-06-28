@@ -8,6 +8,7 @@
             <style resource="styles/main.css" />
             <style resource="styles/listviews.css" />
             <style resource="styles/dialogs.css" />
+            <style resource="styles/frames.css" />
         </global>
     </themes>
 </module>

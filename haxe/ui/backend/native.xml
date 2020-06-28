@@ -229,8 +229,16 @@
         <size class="haxe.ui.backend.hxwidgets.size.BestSize" includePadding="false" />
         <builder class="haxe.ui.backend.hxwidgets.builders.PropertyGridBuilder" />
     </component>
+    
     <component id="haxe.ui.containers.properties.PropertyGroup" class="hx.widgets.Panel">
         <size class="haxe.ui.backend.hxwidgets.size.BestSize" includePadding="false" />
+    </component>
+
+    <component id="haxe.ui.containers.Frame" creator="haxe.ui.backend.hxwidgets.creators.FrameCreator">
+        <behaviour id="text" class="haxe.ui.backend.hxwidgets.behaviours.FrameTextBehaviour" />
+        <behaviour id="value" class="haxe.ui.backend.hxwidgets.behaviours.FrameTextBehaviour" />
+        <size class="haxe.ui.backend.hxwidgets.size.BestSize" includePadding="true" />
+        <handler class="haxe.ui.backend.hxwidgets.handlers.FrameHandler" />
     </component>
     
     <component class="hx.widgets.StaticBitmap" creator="haxe.ui.backend.hxwidgets.creators.StaticBitmapCreator" />
