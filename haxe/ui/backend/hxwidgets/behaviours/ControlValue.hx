@@ -9,6 +9,7 @@ import hx.widgets.RadioButton;
 import hx.widgets.ScrollBar;
 import hx.widgets.Slider;
 import hx.widgets.SpinCtrl;
+import hx.widgets.StaticBox;
 import hx.widgets.TextCtrl;
 import hx.widgets.ToggleButton;
 
@@ -32,6 +33,8 @@ class ControlValue extends DataBehaviour {
             cast(_component.window, TextCtrl).value = normalizeText(_value);
         } else if (Std.is(_component.window, SpinCtrl)) {
             cast(_component.window, SpinCtrl).value = _value;
+        } else if (Std.is(_component.window, StaticBox)) {
+            cast(_component.window, StaticBox).label = normalizeText(_value);
         }
     }
 
@@ -51,6 +54,8 @@ class ControlValue extends DataBehaviour {
             v = cast(_component.window, TextCtrl).value;
         } else if (Std.is(_component.window, SpinCtrl)) {
             v = cast(_component.window, SpinCtrl).value;
+        } else if (Std.is(_component.window, StaticBox)) {
+            v = cast(_component.window, StaticBox).label;
         }
         return v;
     }
