@@ -16,13 +16,4 @@ class SimpleListView extends ListView {
     private function onResized(event:Event) {
         setColumnWidth(0, this.clientSize.width + 1);
     }
-    
-    public var selectedIndex(get, null):Int;
-    private function get_selectedIndex():Int {
-        var indexes = selectedIndexes;
-        if (indexes.length == 0) {
-            return -1;
-        }
-        return indexes[0];
-    }
 }

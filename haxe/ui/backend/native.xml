@@ -237,6 +237,7 @@
     <component id="haxe.ui.containers.Frame" creator="haxe.ui.backend.hxwidgets.creators.FrameCreator">
         <behaviour id="text" class="haxe.ui.backend.hxwidgets.behaviours.FrameTextBehaviour" />
         <behaviour id="value" class="haxe.ui.backend.hxwidgets.behaviours.FrameTextBehaviour" />
+        <behaviour id="icon" class="haxe.ui.behaviours.DefaultBehaviour" />
         <handler class="haxe.ui.backend.hxwidgets.handlers.FrameHandler" />
     </component>
     

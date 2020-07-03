@@ -24,8 +24,10 @@ class ListViewDataSource extends DataBehaviour {
         var ds:DataSource<Dynamic> = _value;
         for (n in 0...ds.size) {
             var item = ds.get(n);
-            if (item.value != null) {
-                view.addItem(new ListItem(item.value, ListViewIcons.get(cast _component, item.icon)));
+            if (Type.typeof(item) == TObject && item.text != null) {
+                view.addItem(new ListItem(item.text, ListViewIcons.get(cast _component, item.icon)));
+            } else {
+                view.addItem(new ListItem(Std.string(item)));
             }
         }
     }

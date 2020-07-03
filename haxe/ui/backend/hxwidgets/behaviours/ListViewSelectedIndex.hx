@@ -1,19 +1,26 @@
 package haxe.ui.backend.hxwidgets.behaviours;
 
+import haxe.ui.behaviours.DataBehaviour;
 import haxe.ui.util.Variant;
 import hx.widgets.ListView;
 
-class ListViewSelectedIndex extends HxWidgetsBehaviour {
+class ListViewSelectedIndex extends DataBehaviour {
+    private override function validateData() {
+        if (_component.window == null) {
+            return;
+        }
+        
+        var view:ListView = cast(_component.window, ListView);
+        view.selectedIndex = _value;
+    }
+    
     public override function get():Variant {
         if (_component.window == null) {
             return -1;
         }
         
         var view:ListView = cast(_component.window, ListView);
-        if (view.selectedItemCount <= 0) {
-            return -1;
-        }
+        return view.selectedIndex;
         
-        return view.selectedIndexes[0];
     }
 }
