@@ -1,16 +1,12 @@
 {
+    "version": "1.1.0",
     "contributors": [
         "haxeui",
         "ianharrigan",
         "_ibilon",
         "aW4KeNiNG"
     ],
-    "version": "1.0.8",
-    "dependencies": {
-        "haxeui-core": "",
-        "hxWidgets": ""
-    },
-    "releasenote": "Various bug fixes",
+    "license": "MIT",
     "tags": [
         "ui",
         "gui",
@@ -19,7 +15,11 @@
         "wx",
         "native"
     ],
-    "license": "MIT",
+    "releasenote": "1.1 release",
+    "dependencies": {
+        "haxeui-core": "",
+        "hxWidgets": ""
+    },
     "name": "haxeui-hxwidgets",
     "description": "The wxWidgets backend of the HaxeUI framework",
     "url": "https://github.com/haxeui/haxeui-hxwidgets"
