@@ -23,7 +23,7 @@ class ChoiceDataSource extends DataBehaviour {
         var ds:DataSource<Dynamic> = _value;
         for (n in 0...ds.size) {
             var item = ds.get(n);
-            if (item.value != null) {
+            if (item.text != null) {
                 choice.append(item.text);
             } else {
                 choice.append(Std.string(item));
