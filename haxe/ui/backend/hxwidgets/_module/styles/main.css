@@ -19,11 +19,15 @@
 .horizontal-range, .horizontal-progress {
     width: auto;
     height: auto;
+    initial-width: none;
+    initial-height: none;
 }
 
 .vertical-range, .vertical-progress {
     width: auto;
     height: auto;
+    initial-width: none;
+    initial-height: none;
 }
 
 .numberstepper {
@@ -33,6 +37,7 @@
     color: none;
     border: none;
     initial-width: none;
+    initial-height: none;
 }
 
 .textfield {
@@ -41,17 +46,23 @@
     border: none;
     background-color: none;
     color: none;
+    initial-width: none;
+    initial-height: none;
 }
 
 .switch {
     width: auto;
     height: auto;
+    initial-width: none;
+    initial-height: none;
 }
 
 .textarea {
     width: auto;
     height: auto;
     color: black;
+    initial-width: none;
+    initial-height: none;
 }
 
 .tabview {

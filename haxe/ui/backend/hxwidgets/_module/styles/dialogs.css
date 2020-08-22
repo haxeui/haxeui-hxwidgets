@@ -1,3 +1,8 @@
+.dialog {
+    initial-width: none;
+    initial-height: none;
+}
+
 .dialog-footer-container {
     padding: 5px;
 }
