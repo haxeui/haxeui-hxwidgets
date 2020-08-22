@@ -17,11 +17,13 @@
 }
 
 .horizontal-range, .horizontal-progress {
-    width: 100px;
+    width: auto;
+    height: auto;
 }
 
 .vertical-range, .vertical-progress {
-    height: 100px;
+    width: auto;
+    height: auto;
 }
 
 .numberstepper {
@@ -30,6 +32,7 @@
     background-color: none;
     color: none;
     border: none;
+    initial-width: none;
 }
 
 .textfield {
