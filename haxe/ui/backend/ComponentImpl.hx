@@ -547,8 +547,18 @@ class ComponentImpl extends ComponentBase {
         if (type != null) {
             var fn = _eventMap.get(type);
             if (fn != null) {
-                var uiEvent:UIEvent = new UIEvent(type);
-                fn(uiEvent);
+                var cls = Toolkit.nativeConfig.query('component[id=${className}].event[native=${nativeString}].@class', "haxe.ui.events.UIEvent", this);
+                switch (cls) {
+                    case "haxe.ui.events.UIEvent":
+                        var uiEvent:UIEvent = new UIEvent(type);
+                        fn(uiEvent);
+                    case "haxe.ui.events.MouseEvent":
+                        var uiEvent:MouseEvent = new MouseEvent(type);
+                        fn(uiEvent);
+                    case _:    
+                        var uiEvent:UIEvent = new UIEvent(type);
+                        fn(uiEvent);
+                }
             }
         }
     }
