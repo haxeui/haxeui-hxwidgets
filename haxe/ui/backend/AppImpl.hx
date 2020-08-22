@@ -88,7 +88,16 @@ class AppImpl extends AppBase {
     public override function start() {
         if (Toolkit.backendProperties.getPropBool("haxe.ui.hxwidgets.frame.fit", false) == true) {
             Toolkit.callLater(function() {
-                _frame.fit();
+                var children = _frame.children;
+                // from wx docs:
+                // if the window has exactly one subwindow it is better (faster and the
+                // result is more precise as Fit() adds some margin to account for fuzziness
+                // of its calculations) to call: window->SetClientSize(child->GetSize());
+                if (children.length == 1) {
+                    _frame.clientSize = children[0].size;
+                } else {
+                    _frame.fit();
+                }
                 _frame.center();
                 _frame.show(true);
             });
