@@ -8,6 +8,10 @@
     border: none;
 }
 
+.scrollview {
+    border-size: 1px;
+}
+
 .scroll, .range, .progress, .slider {
     width: auto;
     height: auto;
