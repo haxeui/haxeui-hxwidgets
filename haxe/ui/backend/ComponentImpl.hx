@@ -392,7 +392,7 @@ class ComponentImpl extends ComponentBase {
             refreshWindow = __handler.applyStyle(style);
         }
         
-        if (style.borderLeftSize != null && style.borderLeftSize > 0) {
+        if (style.borderLeftSize != null && style.borderLeftSize > 0 && !Platform.isLinux) {
             //window.windowStyle |= WindowStyle.BORDER_SIMPLE;
             window.windowStyle |= WindowStyle.BORDER_THEME;
         }
