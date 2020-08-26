@@ -175,12 +175,17 @@ class ComponentImpl extends ComponentBase {
             if (Std.is(__parent, haxe.ui.containers.TabView)) {
                 var n:Notebook = cast __parent.window;
                 cast(this, Component).addClass("tab-page");
-                var pageTitle:String = cast(this, Component).text;
+                var pageTitle:String = this.text;
                 var pageIcon:String = cast(this, Box).icon;
                 var iconIndex:Int = TabViewIcons.get(cast __parent, pageIcon);
                 n.addPage(window, pageTitle, iconIndex);
                 n.layout();
                 n.refresh();
+                
+                this.registerEvent(UIEvent.PROPERTY_CHANGE, function(e) {
+                    var pageIndex = parentComponent.childComponents.indexOf(cast(this, Component));
+                    n.setPageText(pageIndex, this.text);
+                });
             }
 
             if (Std.parseInt(cast(this, Component).id) != null) {

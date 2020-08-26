@@ -173,6 +173,7 @@
         <behaviour id="disabled" class="haxe.ui.backend.hxwidgets.behaviours.ControlDisable" />
         <behaviour id="removeAllPages" class="haxe.ui.backend.hxwidgets.behaviours.NotebookRemoveAllPages" />
         <behaviour id="removePage" class="haxe.ui.backend.hxwidgets.behaviours.NotebookRemovePage" />
+        <behaviour id="getPage" class="haxe.ui.backend.hxwidgets.behaviours.NotebookGetPage" />
         <behaviour id="pageCount" class="haxe.ui.backend.hxwidgets.behaviours.NotebookPageCount" />
         <behaviour id="pageIndex" class="haxe.ui.backend.hxwidgets.behaviours.NotebookPageIndex" />
         <size class="haxe.ui.backend.hxwidgets.size.NotebookSize" includePadding="false" />

@@ -1,4 +1,5 @@
 package haxe.ui.backend.hxwidgets.behaviours;
+
 import haxe.ui.behaviours.DataBehaviour;
 import hx.widgets.Notebook;
 
