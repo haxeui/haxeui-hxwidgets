@@ -190,6 +190,7 @@
         <behaviour id="step" class="haxe.ui.behaviours.DefaultBehaviour" />
         <behaviour id="pos" class="haxe.ui.backend.hxwidgets.behaviours.ControlValue" />
         <size class="haxe.ui.backend.hxwidgets.size.BestSize" includePadding="false" />
+        <event id="change" native="EventType.SPINCTRL" />
     </component>
     
     

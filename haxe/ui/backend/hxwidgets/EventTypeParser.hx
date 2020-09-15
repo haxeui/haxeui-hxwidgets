@@ -18,6 +18,7 @@ class EventTypeParser {
             case "EventType.LIST_ITEM_SELECTED":    return EventType.LIST_ITEM_SELECTED;
             case "EventType.TEXT":                  return EventType.TEXT;
             case "EventType.MENU":                  return EventType.MENU;
+            case "EventType.SPINCTRL":              return EventType.SPINCTRL;
             default:
                 trace('WARNING: hxWidgets event "${event}" not recognised');
         }
@@ -46,6 +47,8 @@ class EventTypeParser {
             return "EventType.TEXT";
         } else if (eventType == EventType.MENU) {
             return "EventType.MENU";
+        } else if (eventType == EventType.SPINCTRL) {
+            return "EventType.SPINCTRL";
         } else {
             trace('WARNING: hxWidgets event "${eventType}" not recognised');
         }
