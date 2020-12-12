@@ -22,7 +22,6 @@ import hx.widgets.SystemSettings;
 class DialogBase extends Component {
     public var modal:Bool = true;
     public var buttons:DialogButton = null;
-    public var draggable:Bool = false;
     public var centerDialog:Bool = true;
     public var button:DialogButton = null;
 
