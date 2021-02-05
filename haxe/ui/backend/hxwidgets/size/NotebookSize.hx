@@ -14,11 +14,17 @@ class NotebookSize extends DelegateLayoutSize {
     }
 
     private override function get_usableWidthModifier():Float {
+        if (component == null || component.window == null) {
+            return 0;
+        }
         var m:Int = cast(component.window, Notebook).calcSizeFromPage().width;
         return m;
     }
 
     private override function get_usableHeightModifier():Float {
+        if (component == null || component.window == null) {
+            return 0;
+        }
         var m:Int = cast(component.window, Notebook).calcSizeFromPage().height;
         return m;
     }
