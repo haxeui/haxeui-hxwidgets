@@ -114,7 +114,7 @@ class ComponentImpl extends ComponentBase {
         if (nativeComponentClass == null) {
             nativeComponentClass = defaultNativeClass;
         }
-        if (nativeComponentClass == defaultNativeClass && className == "haxe.ui.containers.ListView") {
+        if (nativeComponentClass == defaultNativeClass && (className == "haxe.ui.containers.ListView" || className == "haxe.ui.containers.TableView")) {
             nativeComponentClass = "hx.widgets.ScrolledWindow";
         }
 
@@ -292,6 +292,12 @@ class ComponentImpl extends ComponentBase {
 
     private override function handleClipRect(value:Rectangle):Void {
         if (__parent == null || __parent.window == null || Std.is(__parent.window, ScrolledWindow) == false) {
+            return;
+        }
+        if (value == null) {
+            return;
+        }
+        if (this.width < value.width || this.height <= value.height) {
             return;
         }
         var hscrollPos:Int = __parent.window.getScrollPos(Orientation.HORIZONTAL);
