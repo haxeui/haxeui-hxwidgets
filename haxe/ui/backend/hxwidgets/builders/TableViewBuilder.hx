@@ -2,14 +2,21 @@ package haxe.ui.backend.hxwidgets.builders;
 
 import haxe.ui.components.Button;
 import haxe.ui.components.CheckBox;
+import haxe.ui.components.Image;
 import haxe.ui.components.Progress;
 import haxe.ui.containers.Header;
 import haxe.ui.containers.TableView;
 import haxe.ui.core.Component;
 import haxe.ui.core.CompositeBuilder;
 import haxe.ui.core.ItemRenderer;
+import hx.widgets.DataViewBitmapRenderer;
+import hx.widgets.DataViewColumn;
 import hx.widgets.DataViewListCtrl;
 import haxe.ui.core.Platform;
+import hx.widgets.DataViewProgressRenderer;
+import hx.widgets.DataViewRenderer;
+import hx.widgets.DataViewTextRenderer;
+import hx.widgets.DataViewToggleRenderer;
 
 typedef ColumnInfo = {
     id:String,
@@ -50,15 +57,13 @@ class TableViewBuilder extends CompositeBuilder {
             createColumns();
             return child;
         } else if (Std.is(child, ItemRenderer)) {
-            trace("its an item renderer - ");
             if (child.findComponent(CheckBox) != null) {
-                trace("its a checkbox renderer");
                 renderers.push({ type: "checkbox" });
             } else if (child.findComponent(Progress) != null) {
-                trace("its a progress renderer");
                 renderers.push({ type: "progress" });
+            } else if (child.findComponent(Image) != null) {
+                renderers.push({ type: "image" });
             } else {
-                trace("its a normal renderer");
                 renderers.push({ type: "label" });
             }
         }
@@ -71,16 +76,22 @@ class TableViewBuilder extends CompositeBuilder {
             var i = 0;
             for (col in _header.childComponents) {
                 var renderer = getRendererInfo(i);
-                trace(renderer.type);
                 var button:Button = cast(col, Button);
+                var r:DataViewRenderer = null;
                 switch (renderer.type) {
                     case "checkbox":
-                        dataList.appendToggleColumn(col.text);
+                        r = new DataViewToggleRenderer();
                     case "progress":
-                        dataList.appendProgressColumn(col.text);
+                        r = new DataViewProgressRenderer();
+                    case "image":
+                        r = new DataViewBitmapRenderer();
                     case _:    
-                        dataList.appendTextColumn(col.text);
+                        r = new DataViewTextRenderer();
                 }
+                
+                var c = new DataViewColumn(col.text, r, i);
+                dataList.appendColumn(c);
+                
                 columns.push({
                     id: col.id,
                     text: col.text,

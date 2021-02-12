@@ -5,6 +5,7 @@ import haxe.ui.behaviours.DataBehaviour;
 import haxe.ui.data.ArrayDataSource;
 import haxe.ui.data.DataSource;
 import haxe.ui.util.Variant;
+import hx.widgets.Bitmap;
 import hx.widgets.DataViewListCtrl;
 
 @:access(haxe.ui.core.Component)
@@ -33,6 +34,8 @@ class TableViewDataSource extends DataBehaviour {
                         v = v == "true";
                     case "progress":
                         v = Std.parseInt(v);
+                    case "image":
+                        v = Bitmap.fromHaxeResource(v);
                 }
                 values.push(v);
                 i++;
