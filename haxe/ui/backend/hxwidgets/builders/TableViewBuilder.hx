@@ -1,10 +1,13 @@
 package haxe.ui.backend.hxwidgets.builders;
 
 import haxe.ui.components.Button;
+import haxe.ui.components.CheckBox;
+import haxe.ui.components.Progress;
 import haxe.ui.containers.Header;
 import haxe.ui.containers.TableView;
 import haxe.ui.core.Component;
 import haxe.ui.core.CompositeBuilder;
+import haxe.ui.core.ItemRenderer;
 import hx.widgets.DataViewListCtrl;
 import haxe.ui.core.Platform;
 
@@ -15,12 +18,17 @@ typedef ColumnInfo = {
     ?percentWidth:Null<Float>
 }
 
+typedef RendererInfo = {
+    type:String
+}
+
 @:access(haxe.ui.backend.ComponentImpl)
 class TableViewBuilder extends CompositeBuilder {
     private var _table:TableView;
     private var _header:Header;
     public var headersCreated:Bool = false;
     public var columns:Array<ColumnInfo> = [];
+    public var renderers:Array<RendererInfo> = [];
     
     public function new(table:TableView) {
         super(table);
@@ -41,6 +49,18 @@ class TableViewBuilder extends CompositeBuilder {
             _header.ready();
             createColumns();
             return child;
+        } else if (Std.is(child, ItemRenderer)) {
+            trace("its an item renderer - ");
+            if (child.findComponent(CheckBox) != null) {
+                trace("its a checkbox renderer");
+                renderers.push({ type: "checkbox" });
+            } else if (child.findComponent(Progress) != null) {
+                trace("its a progress renderer");
+                renderers.push({ type: "progress" });
+            } else {
+                trace("its a normal renderer");
+                renderers.push({ type: "label" });
+            }
         }
         return child;
     }
@@ -48,16 +68,26 @@ class TableViewBuilder extends CompositeBuilder {
     private function createColumns() {
         if (_header != null && _component.window != null && headersCreated == false) {
             var dataList:DataViewListCtrl = cast(_component.window, DataViewListCtrl);
+            var i = 0;
             for (col in _header.childComponents) {
+                var renderer = getRendererInfo(i);
+                trace(renderer.type);
                 var button:Button = cast(col, Button);
-                dataList.appendTextColumn(col.text);
+                switch (renderer.type) {
+                    case "checkbox":
+                        dataList.appendToggleColumn(col.text);
+                    case "progress":
+                        dataList.appendProgressColumn(col.text);
+                    case _:    
+                        dataList.appendTextColumn(col.text);
+                }
                 columns.push({
                     id: col.id,
                     text: col.text,
                     width: button.width,
                     percentWidth: button.percentWidth
                 });
-                
+                i++;
             }
             
             // may be ill concieved... might mean you cant add columns later, for now its fine
@@ -72,6 +102,16 @@ class TableViewBuilder extends CompositeBuilder {
             
             
         }
+    }
+    
+    public function getRendererInfo(index:Int) {
+        if (index > renderers.length - 1) {
+            return {
+                type: "label"
+            };
+        }
+        
+        return renderers[index];
     }
     
     private function resizeColumns() {

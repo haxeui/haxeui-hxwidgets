@@ -114,7 +114,7 @@ class ComponentImpl extends ComponentBase {
         if (nativeComponentClass == null) {
             nativeComponentClass = defaultNativeClass;
         }
-        if (nativeComponentClass == defaultNativeClass && (className == "haxe.ui.containers.ListView" || className == "haxe.ui.containers.TableView")) {
+        if (nativeComponentClass == defaultNativeClass && (className == "haxe.ui.containers.ListView")) {
             nativeComponentClass = "hx.widgets.ScrolledWindow";
         }
 

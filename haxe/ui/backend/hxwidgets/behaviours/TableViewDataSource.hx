@@ -24,9 +24,18 @@ class TableViewDataSource extends DataBehaviour {
         for (n in 0...ds.size) {
             var item = ds.get(n);
             var values:Array<Any> = [];
+            var i = 0;
             for (col in builder.columns) {
-                var v = Reflect.field(item, col.id);
+                var r = builder.getRendererInfo(i);
+                var v:Dynamic = Reflect.field(item, col.id);
+                switch (r.type) {
+                    case "checkbox":
+                        v = v == "true";
+                    case "progress":
+                        v = Std.parseInt(v);
+                }
                 values.push(v);
+                i++;
             }
             dataList.appendItem(values);
         }
