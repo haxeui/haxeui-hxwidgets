@@ -17,7 +17,6 @@ class ScrollViewBuilder extends CompositeBuilder {
             return _contents.addComponent(child);
         }
         return null;
-        
     }
     
     public override function addComponentAt(child:Component, index:Int):Component {
