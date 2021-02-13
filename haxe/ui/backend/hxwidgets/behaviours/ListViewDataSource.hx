@@ -15,21 +15,52 @@ class ListViewDataSource extends DataBehaviour {
         }
 
         var view:ListView = cast(_component.window, ListView);
-        view.deleteAllItems();
         
         if (_value.isNull) {
+            view.deleteAllItems();
             return;
         }
 
         var ds:DataSource<Dynamic> = _value;
+        var info:ListItem = new ListItem();
+        var listSize:Int = view.itemCount;
         for (n in 0...ds.size) {
-            var item = ds.get(n);
-            if (Type.typeof(item) == TObject && item.text != null) {
-                view.addItem(new ListItem(item.text, ListViewIcons.get(cast _component, item.icon)));
+            var item:Dynamic = ds.get(n);
+
+            if (n > listSize - 1) {
+                view.addItem(createListItem(item));
             } else {
-                view.addItem(new ListItem(Std.string(item)));
+                info.id = n;
+                var b = view.getItem(info);
+                if (b == true) {
+                    var image = 0;
+                    var text = "";
+                    if (Type.typeof(item) == TObject && item.text != null) {
+                        text = item.text;
+                        image = ListViewIcons.get(cast _component, item.icon);
+                        if (image == -1) {
+                            image = 0;
+                        }
+                    } else {
+                        text = Std.string(item);
+                    }
+                    
+                    if (info.text != text || info.image != image) {
+                        info.text = text;
+                        info.image = image;
+                        view.setItem(info, false);
+                    }
+                }
             }
         }
+        info.destroy();
+    }
+    
+    private function createListItem(item:Dynamic) {
+        if (Type.typeof(item) == TObject && item.text != null) {
+            return new ListItem(item.text, ListViewIcons.get(cast _component, item.icon));
+        }
+        return new ListItem(Std.string(item));
     }
     
     public override function set(value:Variant) {
