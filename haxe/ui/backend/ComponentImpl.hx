@@ -294,11 +294,10 @@ class ComponentImpl extends ComponentBase {
         if (__parent == null || __parent.window == null || Std.is(__parent.window, ScrolledWindow) == false) {
             return;
         }
-        if (value == null) {
-            return;
-        }
-        if (this.width < value.width || this.height <= value.height) {
-            return;
+        if (value != null) {
+            if (this.width < value.width || this.height <= value.height) {
+                return;
+            }
         }
         var hscrollPos:Int = __parent.window.getScrollPos(Orientation.HORIZONTAL);
         var vscrollPos:Int = __parent.window.getScrollPos(Orientation.VERTICAL);
