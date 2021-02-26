@@ -412,17 +412,39 @@ class ComponentImpl extends ComponentBase {
         }
 
         //if (Platform.isMac == false) { // dont bother trying to set the font on osx, it wont work and will look weird
-            if (style.fontSize != null || style.fontBold != null || style.fontItalic != null || style.fontUnderline != null) {
+            if (style.fontSize != null || style.fontBold != null || style.fontItalic != null || style.fontUnderline != null || style.fontName != null) {
                 var fontSize:Int = 9;
                 var fontFamily:FontFamily = FontFamily.DEFAULT;
                 var fontStyle:FontStyle = FontStyle.NORMAL;
                 var fontWeight:FontWeight = FontWeight.NORMAL;
                 var fontUnderline:Bool = false;
+                var fontFaceName = null;
                 if (style.fontSize != null) {
                     fontSize = Std.int(style.fontSize) - 4;
                 }
-
-                var font:Font = new Font(fontSize, fontFamily, fontStyle, fontWeight, fontUnderline);
+                if (style.fontName != null) {
+                    var lcase = style.fontName.toLowerCase();
+                    switch (lcase) {
+                        case "default":
+                            fontFamily = FontFamily.DEFAULT;
+                        case "decorative":
+                            fontFamily = FontFamily.DECORATIVE;
+                        case "roman":
+                            fontFamily = FontFamily.ROMAN;
+                        case "script":
+                            fontFamily = FontFamily.SCRIPT;
+                        case "swiss":
+                            fontFamily = FontFamily.SWISS;
+                        case "modern":
+                            fontFamily = FontFamily.MODERN;
+                        case "teletype":
+                            fontFamily = FontFamily.TELETYPE;
+                        case _:
+                            fontFamily = FontFamily.DEFAULT;
+                            fontFaceName = style.fontName;
+                    }
+                }
+                var font:Font = new Font(fontSize, fontFamily, fontStyle, fontWeight, fontUnderline, fontFaceName);
                 window.font = font;
             }
         //}
