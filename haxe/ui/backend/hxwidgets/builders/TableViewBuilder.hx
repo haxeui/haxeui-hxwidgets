@@ -3,6 +3,7 @@ package haxe.ui.backend.hxwidgets.builders;
 import haxe.ui.components.Button;
 import haxe.ui.components.CheckBox;
 import haxe.ui.components.Image;
+import haxe.ui.components.NumberStepper;
 import haxe.ui.components.Progress;
 import haxe.ui.containers.Header;
 import haxe.ui.containers.TableView;
@@ -15,6 +16,7 @@ import hx.widgets.DataViewListCtrl;
 import haxe.ui.core.Platform;
 import hx.widgets.DataViewProgressRenderer;
 import hx.widgets.DataViewRenderer;
+import hx.widgets.DataViewSpinRenderer;
 import hx.widgets.DataViewTextRenderer;
 import hx.widgets.DataViewToggleRenderer;
 
@@ -63,6 +65,8 @@ class TableViewBuilder extends CompositeBuilder {
                 renderers.push({ type: "progress" });
             } else if (child.findComponent(Image) != null) {
                 renderers.push({ type: "image" });
+            } else if (child.findComponent(NumberStepper) != null) {
+                renderers.push({ type: "number" });
             } else {
                 renderers.push({ type: "label" });
             }
@@ -85,6 +89,8 @@ class TableViewBuilder extends CompositeBuilder {
                         r = new DataViewProgressRenderer();
                     case "image":
                         r = new DataViewBitmapRenderer();
+                    case "number":
+                        r = new DataViewSpinRenderer();
                     case _:    
                         r = new DataViewTextRenderer();
                 }
