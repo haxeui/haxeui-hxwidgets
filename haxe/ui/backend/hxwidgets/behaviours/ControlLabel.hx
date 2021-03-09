@@ -16,7 +16,7 @@ class ControlLabel extends DataBehaviour {
         }
         var ctrl:Control = cast(_component.window, Control);
         var label = ctrl.label;
-        if (Std.is(_component.window, TextCtrl)) {
+        if ((_component.window is TextCtrl)) {
             label = cast(_component.window, TextCtrl).value;
         }
         

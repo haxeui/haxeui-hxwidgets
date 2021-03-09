@@ -11,7 +11,7 @@ class ControlPulse extends HxWidgetsBehaviour {
             return;
         }
 
-        if (Std.is(_component.window, Gauge) && value == true) {
+        if ((_component.window is Gauge) && value == true) {
             cast(_component.window, Gauge).pulse();
         }
     }

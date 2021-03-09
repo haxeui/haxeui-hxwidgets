@@ -10,10 +10,10 @@ class ControlBitmap extends DataBehaviour {
         var imageLoader:ImageLoader = new ImageLoader(_value);
         imageLoader.load(function(imageInfo) {
             if (imageInfo != null) {
-                if (Std.is(_component.window, Button)) {
+                if ((_component.window is Button)) {
                     var button:Button = cast _component.window;
                     button.bitmap = imageInfo.data;
-                } else if (Std.is(_component.window, StaticBitmap)) {
+                } else if ((_component.window is StaticBitmap)) {
                     var bmp:StaticBitmap = cast _component.window;
                     bmp.bitmap = imageInfo.data;
                     if (bmp.parent != null) {

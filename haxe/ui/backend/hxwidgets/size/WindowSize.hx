@@ -16,7 +16,7 @@ class WindowSize extends DelegateLayoutSize {
     }
 
     private override function get_usableWidthModifier():Float {
-        if (Std.is(component.window, ScrolledWindow) && component.childComponents.length > 0) {
+        if ((component.window is ScrolledWindow) && component.childComponents.length > 0) {
             if (component.childComponents[0].componentHeight > component.componentHeight) {
                 return Platform.vscrollWidth;
             }
@@ -25,7 +25,7 @@ class WindowSize extends DelegateLayoutSize {
     }
 
     private override function get_usableHeightModifier():Float {
-        if (Std.is(component.window, ScrolledWindow) && component.childComponents.length > 0) {
+        if ((component.window is ScrolledWindow) && component.childComponents.length > 0) {
             if (component.childComponents[0].componentWidth > component.componentWidth) {
                 return Platform.hscrollHeight;
             }

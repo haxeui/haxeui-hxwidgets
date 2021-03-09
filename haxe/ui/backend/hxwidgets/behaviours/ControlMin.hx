@@ -11,7 +11,7 @@ class ControlMin extends DataBehaviour {
             return;
         }
 
-        if (Std.is(_component.window, Slider)) {
+        if ((_component.window is Slider)) {
             cast(_component.window, Slider).min = _value;
         }
     }

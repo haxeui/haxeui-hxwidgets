@@ -19,7 +19,7 @@ class BestSize extends DelegateLayoutSize {
             return 0;
         }
         
-        if (Std.is(component.window, StaticText) && component.autoWidth == false && component.width > 0 && component.window._disposed == false) {
+        if ((component.window is StaticText) && component.autoWidth == false && component.width > 0 && component.window._disposed == false) {
             var label = component.get("originalLabel");
             if (label != null) { // https://forums.wxwidgets.org/viewtopic.php?t=26973
                 var l:StaticText = cast component.window;

@@ -15,41 +15,41 @@ import hx.widgets.ToggleButton;
 @:keep
 class ControlValue extends DataBehaviour {
     public override function validateData() {
-        if (Std.is(_component.window, Gauge)) {
+        if ((_component.window is Gauge)) {
             cast(_component.window, Gauge).value = _value;
-        } else if (Std.is(_component.window, Slider)) {
+        } else if ((_component.window is Slider)) {
             cast(_component.window, Slider).value = _value;
-        } else if (Std.is(_component.window, ScrollBar)) {
+        } else if ((_component.window is ScrollBar)) {
             var scroll:ScrollBar = cast(_component.window, ScrollBar);
             scroll.setScrollbar(_value, scroll.thumbSize, scroll.range, scroll.pageSize);
-        } else if (Std.is(_component.window, CheckBox)) {
+        } else if ((_component.window is CheckBox)) {
             cast(_component.window, CheckBox).value = _value;
-        } else if (Std.is(_component.window, RadioButton)) {
+        } else if ((_component.window is RadioButton)) {
             cast(_component.window, RadioButton).value = _value;
-        } else if (Std.is(_component.window, ToggleButton)) {
+        } else if ((_component.window is ToggleButton)) {
             cast(_component.window, ToggleButton).value = _value;
-        } else if (Std.is(_component.window, TextCtrl)) {
+        } else if ((_component.window is TextCtrl)) {
             cast(_component.window, TextCtrl).value = normalizeText(_value);
-        } else if (Std.is(_component.window, SpinCtrl)) {
+        } else if ((_component.window is SpinCtrl)) {
             cast(_component.window, SpinCtrl).value = _value;
         }
     }
 
     public override function get():Variant {
         var v:Variant = null;
-        if (Std.is(_component.window, Gauge)) {
+        if ((_component.window is Gauge)) {
             v = cast(_component.window, Gauge).value;
-        } else if (Std.is(_component.window, Slider)) {
+        } else if ((_component.window is Slider)) {
             v = cast(_component.window, Slider).value;
-        } else if (Std.is(_component.window, CheckBox)) {
+        } else if ((_component.window is CheckBox)) {
             v = cast(_component.window, CheckBox).value;
-        } else if (Std.is(_component.window, RadioButton)) {
+        } else if ((_component.window is RadioButton)) {
             v = cast(_component.window, RadioButton).value;
-        } else if (Std.is(_component.window, ToggleButton)) {
+        } else if ((_component.window is ToggleButton)) {
             v = cast(_component.window, ToggleButton).value;
-        } else if (Std.is(_component.window, TextCtrl)) {
+        } else if ((_component.window is TextCtrl)) {
             v = cast(_component.window, TextCtrl).value;
-        } else if (Std.is(_component.window, SpinCtrl)) {
+        } else if ((_component.window is SpinCtrl)) {
             v = cast(_component.window, SpinCtrl).value;
         }
         return v;

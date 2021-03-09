@@ -12,9 +12,9 @@ class ControlMax extends DataBehaviour {
             return;
         }
 
-        if (Std.is(_component.window, Slider)) {
+        if ((_component.window is Slider)) {
             cast(_component.window, Slider).max = _value;
-        } else if (Std.is(_component.window, Gauge)) {
+        } else if ((_component.window is Gauge)) {
             cast(_component.window, Gauge).range = _value;
         }
     }
@@ -25,9 +25,9 @@ class ControlMax extends DataBehaviour {
         }
         
         var v:Variant = null;
-        if (Std.is(_component.window, Gauge)) {
+        if ((_component.window is Gauge)) {
             v = cast(_component.window, Gauge).range;
-        } else if (Std.is(_component.window, Slider)) {
+        } else if ((_component.window is Slider)) {
             v = cast(_component.window, Slider).max;
         }        
         return v;

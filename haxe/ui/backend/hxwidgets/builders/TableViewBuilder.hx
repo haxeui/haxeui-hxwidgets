@@ -53,12 +53,12 @@ class TableViewBuilder extends CompositeBuilder {
     }
     
     public override function addComponent(child:Component):Component {
-        if (Std.is(child, Header)) {
+        if ((child is Header)) {
             _header = cast(child, Header);
             _header.ready();
             createColumns();
             return child;
-        } else if (Std.is(child, ItemRenderer)) {
+        } else if ((child is ItemRenderer)) {
             if (child.findComponent(CheckBox) != null) {
                 renderers.push({ type: "checkbox" });
             } else if (child.findComponent(Progress) != null) {

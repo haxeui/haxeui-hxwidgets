@@ -9,9 +9,9 @@ class MenuCreator extends Creator {
     public override function createWindow(parent:Object = null, style:Int = 0):Object {
         var menu = new Menu(null, style);
         
-        if (Std.is(parent, MenuBar)) {
+        if ((parent is MenuBar)) {
             cast(parent, MenuBar).append(menu, _component.text);
-        } else if (Std.is(parent, Menu)) {
+        } else if ((parent is Menu)) {
             cast(parent, Menu).appendSubMenu(menu, _component.text);
         }
         

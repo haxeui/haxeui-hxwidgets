@@ -40,7 +40,7 @@ class ComponentImpl extends ComponentBase {
         _eventMap = new Map<String, UIEvent->Void>();
         if (Platform.isWindows) {
             cast(this, Component).addClass("platform-windows");
-            if (Std.is(this, Dialog)) {
+            if ((this is Dialog)) {
                 cast(this, Component).addClass("custom-dialog-footer");
             }
         } else if (Platform.isMac) {
@@ -59,7 +59,7 @@ class ComponentImpl extends ComponentBase {
     public var object:Object = null;
     public var window(get, set):Window;
     private function get_window():Window {
-        if (!Std.is(object, Window)) {
+        if (!(object is Window)) {
             return null;
         }
         return cast(object, Window);
@@ -86,7 +86,7 @@ class ComponentImpl extends ComponentBase {
     }
 
     private override function get_isNativeScroller():Bool {
-        return Std.is(window, ScrolledWindow);
+        return (window is ScrolledWindow);
     }
     
     private var _firstResize:Bool = false;
@@ -153,12 +153,12 @@ class ComponentImpl extends ComponentBase {
             if (_hideOnCreate == true) {
                 _hideOnCreate = false;
                 window.show(false);
-            } else if (__parent != null && __parent.window != null && Std.is(__parent.window, Notebook) == false) {
+            } else if (__parent != null && __parent.window != null && (__parent.window is Notebook) == false) {
                 window.show(false);
                 _firstResize = true;
             }
             
-            if (Std.is(window, Notebook)) {
+            if ((window is Notebook)) {
                 var n:Notebook = cast window;
                 if (Platform.isMac) {
                     n.allowIcons = false;
@@ -167,12 +167,12 @@ class ComponentImpl extends ComponentBase {
                 }
             }
 
-            if (Std.is(window, ScrollBar)) {
+            if ((window is ScrollBar)) {
                 var scrollbar:ScrollBar = cast window;
                 scrollbar.setScrollbar(0, 5, 100, 5);
             }
 
-            if (Std.is(__parent, haxe.ui.containers.TabView)) {
+            if ((__parent is haxe.ui.containers.TabView)) {
                 var n:Notebook = cast __parent.window;
                 cast(this, Component).addClass("tab-page");
                 var pageTitle:String = this.text;
@@ -200,14 +200,6 @@ class ComponentImpl extends ComponentBase {
             __eventsToMap = null;
         }
 
-        /*
-        if (Std.is(window, Button) || Std.is(window, StaticText)) {
-            window.bind(EventType.ERASE_BACKGROUND, function(e) {
-
-            });
-        }
-        */
-        
         if (__parent != null) {
             if (__parent._eventMap.exists(MouseEvent.MOUSE_OVER) || __parent._eventMap.exists(MouseEvent.MOUSE_OUT)) {
                 if (__parent._eventMap.exists(MouseEvent.MOUSE_OVER)) {
@@ -291,7 +283,7 @@ class ComponentImpl extends ComponentBase {
     }
 
     private override function handleClipRect(value:Rectangle):Void {
-        if (__parent == null || __parent.window == null || Std.is(__parent.window, ScrolledWindow) == false) {
+        if (__parent == null || __parent.window == null || (__parent.window is ScrolledWindow) == false) {
             return;
         }
         if (value != null) {
@@ -312,7 +304,7 @@ class ComponentImpl extends ComponentBase {
             return;
         }
         
-        if (__parent != null && Std.is(__parent.window, Notebook) == false) {
+        if (__parent != null && (__parent.window is Notebook) == false) {
             window.move(Std.int(left), Std.int(top));
             if (Platform.isWindows) {
                 window.refresh();

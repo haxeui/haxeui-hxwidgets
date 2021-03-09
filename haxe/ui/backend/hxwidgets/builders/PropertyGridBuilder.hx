@@ -16,7 +16,7 @@ class PropertyGridBuilder extends CompositeBuilder {
     private var _propertyMap:Map<Property, PGProperty> = new Map<Property, PGProperty>(); // we need to hold a map of created properties as they arent "real" windows in wx
     
     public override function addComponent(child:Component):Component {
-        if (Std.is(child, PropertyGroup)) {
+        if ((child is PropertyGroup)) {
             _groups.push(cast(child, PropertyGroup));
             return child;
         }

@@ -23,18 +23,18 @@ class MenuItemCreator extends Creator {
             text += "\t" + item.shortcutText;
         }
         
-        if (Std.is(_component, MenuCheckBox)) {
+        if ((_component is MenuCheckBox)) {
             MenuItemHelper.set(id, item);
             menuItem = menu.appendCheckItem(id, text);
             menuItem.check(cast(_component, MenuCheckBox).selected);
-        } else if (Std.is(_component, MenuOptionBox)) {
+        } else if ((_component is MenuOptionBox)) {
             MenuItemHelper.set(id, item);
             menuItem = menu.appendRadioItem(id, text);
             menuItem.check(cast(_component, MenuOptionBox).selected);
-        } else if (Std.is(_component, MenuItem)) {
+        } else if ((_component is MenuItem)) {
             MenuItemHelper.set(id, item);
             menuItem = menu.append(id, text);
-        } else if (Std.is(_component, MenuSeparator)) {
+        } else if ((_component is MenuSeparator)) {
             menuItem = menu.appendSeparator();
         }
         
