@@ -12,6 +12,20 @@ import hx.widgets.SystemSettings;
 import hx.widgets.styles.WindowStyle;
 import wx.widgets.styles.FrameStyle;
 
+/*
+
+* haxe.ui.hxwidgets.frame.fit=boolean will reszie the top level frame to the contents of the UI
+* haxe.ui.hxwidgets.frame.title=string just the title of the frame, you dont have to set it here, but its an easy way.
+* haxe.ui.hxwidgets.frame.width=number the default width of the main frame (800 if not set), note, this property is ignored if haxe.ui.hxwidgets.frame.fit=true
+* haxe.ui.hxwidgets.frame.height=number the default height of the main frame (600 if not set), note, this property is ignored if haxe.ui.hxwidgets.frame.fit=true
+* haxe.ui.hxwidgets.frame.left=number the position of frame (x axis) defaults to center screen
+* haxe.ui.hxwidgets.frame.top=number the position of frame (y axis) defaults to center screen
+* haxe.ui.hxwidgets.frame.maximized=boolean whether to start the frame is a maximized state
+* haxe.ui.hxwidgets.frame.maximizable=boolean
+* haxe.ui.hxwidgets.frame.minimizable=boolean
+* haxe.ui.hxwidgets.frame.closeable=boolean
+* haxe.ui.hxwidgets.frame.resizable=boolean
+*/
 class AppImpl extends AppBase {
     private var _app:App;
     private var _frame:Frame;
@@ -32,9 +46,19 @@ class AppImpl extends AppBase {
         _app.init();
 
         var platform:PlatformInfo = new PlatformInfo();
-        var style:Int = FrameStyle.DEFAULT_FRAME_STYLE;
         var style:Int = WindowStyle.NO_FULL_REPAINT_ON_RESIZE | WindowStyle.CLIP_CHILDREN | FrameStyle.DEFAULT_FRAME_STYLE;
-        //var style:Int = WindowStyle.CLIP_CHILDREN | FrameStyle.MINIMIZE_BOX |  FrameStyle.CAPTION | FrameStyle.CLOSE_BOX;
+        if (Toolkit.backendProperties.getPropBool("haxe.ui.hxwidgets.frame.maximizable", true) == false) {
+            style ^= FrameStyle.MAXIMIZE_BOX;
+        }
+        if (Toolkit.backendProperties.getPropBool("haxe.ui.hxwidgets.frame.minimizable", true) == false) {
+            style ^= FrameStyle.MINIMIZE_BOX;
+        }
+        if (Toolkit.backendProperties.getPropBool("haxe.ui.hxwidgets.frame.closeable", true) == false) {
+            style ^= FrameStyle.CLOSE_BOX;
+        }
+        if (Toolkit.backendProperties.getPropBool("haxe.ui.hxwidgets.frame.resizable", true) == false) {
+            style ^= FrameStyle.RESIZE_BORDER;
+        }
         _frame = new Frame(null, Toolkit.backendProperties.getProp("haxe.ui.hxwidgets.frame.title", ""), style);
         if (platform.isWindows) {
             //frame.backgroundColour = 0xFFFFFF;
