@@ -1,9 +1,11 @@
 package haxe.ui.backend;
 
+import haxe.ui.backend.hxwidgets.EventMapper;
 import haxe.ui.backend.hxwidgets.MenuItemHelper;
 import haxe.ui.containers.menus.Menu.MenuEvent;
 import haxe.ui.containers.menus.MenuBar;
 import haxe.ui.core.Component;
+import haxe.ui.events.MouseEvent;
 import haxe.ui.events.UIEvent;
 import hx.widgets.Event;
 import hx.widgets.EventType;
@@ -11,7 +13,10 @@ import hx.widgets.Frame;
 
 @:keep
 class ScreenImpl extends ScreenBase {
+    private var __eventMap:Map<String, UIEvent->Void>;
+    
     public function new() {
+        __eventMap = new Map<String, UIEvent->Void>();
     }
 
     public override function get_width():Float {
@@ -109,12 +114,42 @@ class ScreenImpl extends ScreenBase {
     // Events
     //***********************************************************************************************************
     private override function supportsEvent(type:String):Bool {
+        if (type == MouseEvent.RIGHT_CLICK) {
+            return true;
+        }
         return false;
     }
 
     private override function mapEvent(type:String, listener:UIEvent->Void) {
+        switch (type) {
+            case MouseEvent.RIGHT_CLICK:
+                if (__eventMap.exists(MouseEvent.RIGHT_CLICK) == false) {
+                    __eventMap.set(MouseEvent.RIGHT_CLICK, listener);
+                    frame.children[0].bind(EventMapper.HAXEUI_TO_WX.get(MouseEvent.RIGHT_CLICK), __onMouseEvent);
+                }
+        }
     }
 
     private override function unmapEvent(type:String, listener:UIEvent->Void) {
+        switch (type) {
+            case MouseEvent.RIGHT_CLICK:
+                __eventMap.remove(type);
+                frame.children[0].unbind(EventMapper.HAXEUI_TO_WX.get(MouseEvent.RIGHT_CLICK), __onMouseEvent);
+                
+        }
+    }
+    
+    private function __onMouseEvent(event:Event) {
+        var type:String = EventMapper.WX_TO_HAXEUI.get(event.eventType);
+        if (type != null) {
+            var fn = __eventMap.get(type);
+            if (fn != null) {
+                var mouseEvent:hx.widgets.MouseEvent = event.convertTo(hx.widgets.MouseEvent);
+                var newMouseEvent = new MouseEvent(type);
+                newMouseEvent.screenX = mouseEvent.x;
+                newMouseEvent.screenY = mouseEvent.y;
+                fn(newMouseEvent);
+            }
+        }
     }
 }
