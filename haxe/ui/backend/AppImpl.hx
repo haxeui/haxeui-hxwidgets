@@ -13,11 +13,14 @@ import hx.widgets.styles.WindowStyle;
 import wx.widgets.styles.FrameStyle;
 
 /*
-
 * haxe.ui.hxwidgets.frame.fit=boolean will reszie the top level frame to the contents of the UI
 * haxe.ui.hxwidgets.frame.title=string just the title of the frame, you dont have to set it here, but its an easy way.
 * haxe.ui.hxwidgets.frame.width=number the default width of the main frame (800 if not set), note, this property is ignored if haxe.ui.hxwidgets.frame.fit=true
 * haxe.ui.hxwidgets.frame.height=number the default height of the main frame (600 if not set), note, this property is ignored if haxe.ui.hxwidgets.frame.fit=true
+* haxe.ui.hxwidgets.frame.minWidth=number the minimum width of the main frame (-1 if not set)
+* haxe.ui.hxwidgets.frame.minHeight=number the minimum height of the main frame (-1 if not set)
+* haxe.ui.hxwidgets.frame.maxWidth=number the maximum width of the main frame (-1 if not set)
+* haxe.ui.hxwidgets.frame.maxHeight=number the maximum height of the main frame (-1 if not set)
 * haxe.ui.hxwidgets.frame.left=number the position of frame (x axis) defaults to center screen
 * haxe.ui.hxwidgets.frame.top=number the position of frame (y axis) defaults to center screen
 * haxe.ui.hxwidgets.frame.maximized=boolean whether to start the frame is a maximized state
@@ -71,6 +74,10 @@ class AppImpl extends AppBase {
         var maximized:Bool = Toolkit.backendProperties.getPropBool("haxe.ui.hxwidgets.frame.maximized", false);
         var frameWidth:Int = Toolkit.backendProperties.getPropInt("haxe.ui.hxwidgets.frame.width", 800);
         var frameHeight:Int = Toolkit.backendProperties.getPropInt("haxe.ui.hxwidgets.frame.height", 600);
+        var frameMinWidth:Int = Toolkit.backendProperties.getPropInt("haxe.ui.hxwidgets.frame.minWidth", -1);
+        var frameMinHeight:Int = Toolkit.backendProperties.getPropInt("haxe.ui.hxwidgets.frame.minHeight", -1);
+        var frameMaxWidth:Int = Toolkit.backendProperties.getPropInt("haxe.ui.hxwidgets.frame.maxWidth", -1);
+        var frameMaxHeight:Int = Toolkit.backendProperties.getPropInt("haxe.ui.hxwidgets.frame.maxHeight", -1);
 
         var frameLeft:Int = 0;
         if (Toolkit.backendProperties.getProp("haxe.ui.hxwidgets.frame.left", null) == "center") {
@@ -93,6 +100,9 @@ class AppImpl extends AppBase {
             _frame.resize(frameWidth, frameHeight);
             _frame.move(frameLeft, frameTop);
         }
+        
+        _frame.minSize = new hx.widgets.Size(frameMinWidth, frameMinHeight);
+        _frame.maxSize = new hx.widgets.Size(frameMaxWidth, frameMaxHeight);
 
         _frame.bind(EventType.CLOSE_WINDOW, function(e:Event) {
             dispatch(new AppEvent(AppEvent.APP_CLOSED));
