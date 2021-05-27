@@ -240,7 +240,7 @@ class ComponentImpl extends ComponentBase {
             __handler.resize(w, h);
         }
         handleClipRect(null);
-        if (_firstResize == true) {
+        if (_firstResize == true && cast(this, Component).hidden == false) {
             _firstResize = false;
             window.show(true);
         }
