@@ -27,32 +27,15 @@ class ScreenImpl extends ScreenBase {
         return return frame.clientSize.height;
     }
     
-    private var __topLevelComponents:Array<Component> = new Array<Component>();
     public override function addComponent(component:Component):Component {
-        __topLevelComponents.push(component);
         addResizeListener();
         resizeComponent(component);
 		return component;
     }
 
     public override function removeComponent(component:Component):Component {
-        __topLevelComponents.remove(component);
         component.window.destroy();
 		return component;
-    }
-
-    private override function resizeComponent(c:Component) {
-        //c.lock();
-        var cx:Null<Float> = null;
-        var cy:Null<Float> = null;
-
-        if (c.percentWidth > 0) {
-            cx = (this.width * c.percentWidth) / 100;
-        }
-        if (c.percentHeight > 0) {
-            cy = (this.height * c.percentHeight) / 100;
-        }
-        c.resizeComponent(cx, cy);
     }
 
     public var frame(get, null):Frame;
@@ -77,7 +60,7 @@ class ScreenImpl extends ScreenBase {
         }
 
         frame.bind(EventType.SIZE, function(e) {
-           for (c in __topLevelComponents) {
+           for (c in rootComponents) {
                resizeComponent(c);
            }
         });
