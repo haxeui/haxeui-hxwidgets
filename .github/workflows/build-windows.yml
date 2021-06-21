@@ -7,7 +7,7 @@ jobs:
 
     runs-on: ${{ matrix.os }}
     env:
-      WXWIN: D:\a\hxWidgets\hxWidgets\wxWidgets-3.1.3
+      WXWIN: D:\a\haxeui-hxwidgets\haxeui-hxwidgets\wxWidgets-3.1.3
 
     strategy:
       matrix:
@@ -28,6 +28,7 @@ jobs:
         wget https://github.com/wxWidgets/wxWidgets/releases/download/v3.1.3/wxWidgets-3.1.3.tar.bz2
         7z x wxWidgets-3.1.3.tar.bz2
         7z x wxWidgets-3.1.3.tar
+        dir
         cd wxWidgets-3.1.3\build\msw
         nmake.exe -f makefile.vc BUILD=release TARGET_CPU=X64
         nmake.exe -f makefile.vc BUILD=release SHARED=1 TARGET_CPU=X64
