@@ -1,4 +1,4 @@
-name: Linux
+name: Build (linux, all haxe versions)
 
 on: [push, repository_dispatch]
 
@@ -10,24 +10,19 @@ jobs:
     strategy:
       matrix:
         os: [ubuntu-latest]
-        haxe-version: [3.4.7, 4.0.5, 4.1.5, 4.2.2]
+        haxe-version: [3.4.4, 4.0.3]
 
     steps:
     - uses: actions/checkout@v1
-    - name: Setup Haxe (haxe ${{ matrix.haxe-version }}, ${{ matrix.os }})
-      uses: krdlab/setup-haxe@v1
+    - uses: haxeui/haxeui-core/.github/actions/haxe@master
       with:
         haxe-version: ${{ matrix.haxe-version }}
 
     - name: Setup app (haxe ${{ matrix.haxe-version }}, ${{ matrix.os }})
-      env:
-        ACTIONS_ALLOW_UNSECURE_COMMANDS: true
       run: |
         sudo rm -f /etc/apt/sources.list.d/dotnetdev.list /etc/apt/sources.list.d/microsoft-prod.list
-        sudo apt-get update
-        sudo apt-get install build-essential
-        sudo apt-get install libgtk-3-dev
-        sudo apt-get install libwxbase3.0-dev
+        sudo apt-get install libwebkitgtk-dev
+        sudo apt-get install libgtk2.0-dev
         sudo apt-get install zlib1g
         sudo apt-get install libpcre3
         sudo apt-get install libglw1-mesa
