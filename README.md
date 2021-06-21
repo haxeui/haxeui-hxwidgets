@@ -1,15 +1,16 @@
-[![Build Status](https://travis-ci.org/haxeui/haxeui-hxwidgets.svg?branch=master)](https://travis-ci.org/haxeui/haxeui-hxwidgets)
-[![Support this project on Patreon](https://raw.githubusercontent.com/haxeui/haxeui-core/master/pat_badge.png)](https://www.patreon.com/haxeui)
+![build status](https://github.com/haxeui/haxeui-hxwidgets/actions/workflows/build-linux.yml/badge.svg)
+![build status](https://github.com/haxeui/haxeui-hxwidgets/actions/workflows/build-osx.yml/badge.svg)
+![build status](https://github.com/haxeui/haxeui-hxwidgets/actions/workflows/build-windows.yml/badge.svg)
 
 # haxeui-hxwidgets
 `haxeui-hxwidgets` is the `wxWidgets` backend for HaxeUI.
 
 <p align="center">
-	<img src="https://github.com/haxeui/haxeui-hxwidgets/raw/master/screen.png" />
+	<img src="https://github.com/haxeui/haxeui-hxwidgets/raw/master/.github/images/screen.png" />
 </p>
 
 ## Installation
- * `haxeui-hxwidgets` requires **at least Haxe 3.4.0**, we recommend [Haxe 3.4.2](https://haxe.org/download/version/3.4.2/).
+ * `haxeui-hxwidgets` requires **at least Haxe 3.4.0**.
  * `haxeui-hxwidgets` has a dependency to <a href="https://github.com/haxeui/haxeui-core">`haxeui-core`</a>, and so that too must be installed.
  * `haxeui-hxwidgets` also has a dependency to <a href="https://github.com/haxeui/hxWidgets">hxWidgets</a> (the `wxWidgets` Haxe externs), please refer to the installation instructions on their <a href="https://github.com/haxeui/hxWidgets">site</a>.
  * You will also need a copy of the `wxWidgets` libraries which can be obtained <a href="https://www.wxwidgets.org/downloads">here</a>. The easiest way to install and setup the libraries is to follow the instructions <a href="https://github.com/haxeui/hxWidgets#hxwidgets">here</a>.
@@ -72,10 +73,8 @@ Toolkit.init({
 
 
 ## Addtional resources
-* <a href="http://haxeui.github.io/haxeui-api/">haxeui-api</a> - The HaxeUI api docs.
+* <a href="http://haxeui.org/explorer/">component-explorer</a> - Browse HaxeUI components
+* <a href="http://haxeui.org/builder/">playground</a> - Write and test HaxeUI layouts in your browser
+* <a href="https://github.com/haxeui/component-examples">component-examples</a> - Various componet examples
+* <a href="http://haxeui.org/api/haxe/ui/">haxeui-api</a> - The HaxeUI api docs.
 * <a href="https://github.com/haxeui/haxeui-guides">haxeui-guides</a> - Set of guides to working with HaxeUI and backends.
-* <a href="https://github.com/haxeui/haxeui-demo">haxeui-demo</a> - Demo application written using HaxeUI.
-* <a href="https://github.com/haxeui/haxeui-templates">haxeui-templates</a> - Set of templates for IDE's to allow quick project creation.
-* <a href="https://github.com/haxeui/haxeui-bdd">haxeui-bdd</a> - A behaviour driven development engine written specifically for HaxeUI (uses <a href="https://github.com/haxeui/haxe-bdd">haxe-bdd</a> which is a gherkin/cucumber inspired project).
-* <a href="https://www.youtube.com/watch?v=L8J8qrR2VSg&feature=youtu.be">WWX2016 presentation</a> - A presentation given at WWX2016 regarding HaxeUI.
-
