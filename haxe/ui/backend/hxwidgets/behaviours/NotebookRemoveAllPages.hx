@@ -10,6 +10,7 @@ class NotebookRemoveAllPages extends HxWidgetsBehaviour {
             return null;
         }
         
+        _component.removeAllComponents();
         var notebook:Notebook = cast(_component.window, Notebook);
         notebook.deleteAllPages();
         
