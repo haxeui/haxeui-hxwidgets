@@ -10,8 +10,11 @@ class NotebookRemovePage extends HxWidgetsBehaviour {
             return null;
         }
         
+        var index:Int = param;
+        var child = _component.childComponents[index];
+        _component.removeComponent(child);
         var notebook:Notebook = cast(_component.window, Notebook);
-        notebook.deletePage(param);
+        notebook.deletePage(index);
         
         return null;
     } 
