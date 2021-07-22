@@ -60,6 +60,7 @@
         <behaviour id="disabled" class="haxe.ui.backend.hxwidgets.behaviours.ControlDisable" />
         <behaviour id="allowInteraction" class="haxe.ui.backend.hxwidgets.behaviours.AllowInteraction" />
         <behaviour id="tooltip" class="haxe.ui.backend.hxwidgets.behaviours.ToolTipBehaviour" />
+        <behaviour id="scaleMode" class="haxe.ui.backend.hxwidgets.behaviours.ImageScaleMode" />
         <size class="haxe.ui.backend.hxwidgets.size.BestSize" includePadding="false" />
         <builder class="haxe.ui.backend.hxwidgets.builders.ImageBuilder" />
     </component>
