@@ -12,6 +12,7 @@ import haxe.ui.containers.Box;
 import haxe.ui.containers.TabView;
 import haxe.ui.containers.dialogs.Dialog;
 import haxe.ui.core.Component;
+import haxe.ui.events.FocusEvent;
 import haxe.ui.events.MouseEvent;
 import haxe.ui.events.UIEvent;
 import haxe.ui.geom.Rectangle;
@@ -523,6 +524,12 @@ class ComponentImpl extends ComponentBase {
                     window.bind(EventMapper.HAXEUI_TO_WX.get(MouseEvent.RIGHT_CLICK), __onMouseEvent);
                 }
             
+            case FocusEvent.FOCUS_IN | FocusEvent.FOCUS_OUT:
+                if (_eventMap.exists(type) == false) {
+                    _eventMap.set(type, listener);
+                    window.bind(EventMapper.HAXEUI_TO_WX.get(type), __onFocusEvent);
+                }
+                
             default:
         }
     }
@@ -559,11 +566,25 @@ class ComponentImpl extends ComponentBase {
                 window.unbind(EventMapper.HAXEUI_TO_WX.get(type), __onMouseEvent);
 
             case MouseEvent.MOUSE_OVER | MouseEvent.MOUSE_OUT:
+            
+            case FocusEvent.FOCUS_IN | FocusEvent.FOCUS_OUT:
+                _eventMap.remove(type);
+                window.unbind(EventMapper.HAXEUI_TO_WX.get(type), __onFocusEvent);
                 
             default:
         }
     }
 
+    private function __onFocusEvent(event:Event) {
+        trace("focus event");
+        var type:String = EventMapper.WX_TO_HAXEUI.get(event.eventType);
+        var fn = _eventMap.get(type);
+        if (fn != null) {
+            var focusEvent = new FocusEvent(type);
+            fn(focusEvent);
+        }
+    }
+    
     private function __onEvent(event:Event) {
         var className:String = Type.getClassName(Type.getClass(this));
         var nativeString = EventTypeParser.toString(event.eventType);
