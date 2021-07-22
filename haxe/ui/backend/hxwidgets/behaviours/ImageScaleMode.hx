@@ -12,7 +12,5 @@ class ImageScaleMode extends DataBehaviour {
       
         var bitmap = cast(_component.window, TransparentStaticBitmap);
         bitmap.scaleMode = _value;
-        
-        trace("validate: " + _value);
     }
 }
