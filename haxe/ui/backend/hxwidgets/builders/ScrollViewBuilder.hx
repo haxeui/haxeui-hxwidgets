@@ -21,6 +21,10 @@ class ScrollViewBuilder extends CompositeBuilder {
     
     public override function addComponentAt(child:Component, index:Int):Component {
         if (child.hasClass("scrollview-contents") == false) {
+            if (Lambda.has(_contents.childComponents, child)) {
+                return setComponentIndex(child, index);
+            }
+
             return _contents.addComponentAt(child, index);
         }
         return null;
