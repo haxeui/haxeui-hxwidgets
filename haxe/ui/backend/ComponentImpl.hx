@@ -363,6 +363,8 @@ class ComponentImpl extends ComponentBase {
     //***********************************************************************************************************
     // Redraw callbacks
     //***********************************************************************************************************
+    private var _backColourSet:Bool = false;
+    private var _foreColourSet:Bool = false;
     private var _cachedStyle:Style = null;
     private override function applyStyle(style:Style) {
         if (window == null || _ready == false) {
@@ -374,21 +376,22 @@ class ComponentImpl extends ComponentBase {
 
         if (style.backgroundColor != null) {
             window.backgroundColour = style.backgroundColor;
-            /*
-            if (Platform.isLinux && __children != null) { // wxPanels are opaque and you cant make them transparent on linux! :(
-                for (c in __children) {
-                    if (c.window != null) {
-                        c.window.backgroundColour = style.backgroundColor;
-                    }
-                }
-            }
-            */
             refreshWindow = true;
+            _backColourSet = true;
+        } else if (_backColourSet == true) {
+            window.backgroundColour = null;
+            refreshWindow = true;
+            _backColourSet = false;
         }
 
         if (style.color != null) {
             window.foregroundColour = style.color;
             refreshWindow = true;
+            _foreColourSet = true;
+        } else if (_foreColourSet == true) {
+            window.foregroundColour = null;
+            refreshWindow = true;
+            _foreColourSet = false;
         }
 
         if (__handler != null) {
@@ -576,7 +579,6 @@ class ComponentImpl extends ComponentBase {
     }
 
     private function __onFocusEvent(event:Event) {
-        trace("focus event");
         var type:String = EventMapper.WX_TO_HAXEUI.get(event.eventType);
         var fn = _eventMap.get(type);
         if (fn != null) {
