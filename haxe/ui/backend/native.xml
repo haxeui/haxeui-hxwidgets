@@ -64,12 +64,13 @@
         <size class="haxe.ui.backend.hxwidgets.size.BestSize" includePadding="false" />
         <builder class="haxe.ui.backend.hxwidgets.builders.ImageBuilder" />
     </component>
-    <component id="haxe.ui.components.Button" class="hx.widgets.Button" allowChildren="false">
+    <component id="haxe.ui.components.Button" allowChildren="false" creator="haxe.ui.backend.hxwidgets.creators.ButtonCreator">
         <behaviour id="text" class="haxe.ui.backend.hxwidgets.behaviours.ControlLabel" />
         <behaviour id="value" class="haxe.ui.backend.hxwidgets.behaviours.ControlLabel" />
         <behaviour id="icon" class="haxe.ui.backend.hxwidgets.behaviours.ControlBitmap" />
         <behaviour id="disabled" class="haxe.ui.backend.hxwidgets.behaviours.ControlDisable" />
         <behaviour id="tooltip" class="haxe.ui.backend.hxwidgets.behaviours.ToolTipBehaviour" />
+        <behaviour id="selected" class="haxe.ui.backend.hxwidgets.behaviours.ControlValue" autoDispatch="haxe.ui.events.UIEvent.CHANGE" />
         <size class="haxe.ui.backend.hxwidgets.size.BestSize" includePadding="false" />
         <handler class="haxe.ui.backend.hxwidgets.handlers.ButtonHandler" />
         <event id="click" native="EventType.BUTTON" class="haxe.ui.events.MouseEvent" />

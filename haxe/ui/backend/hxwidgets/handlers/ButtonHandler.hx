@@ -1,13 +1,13 @@
 package haxe.ui.backend.hxwidgets.handlers;
 
 import haxe.ui.styles.Style;
-import hx.widgets.Button;
+import hx.widgets.AnyButton;
 import hx.widgets.Direction;
 import hx.widgets.styles.ButtonStyle;
 
 class ButtonHandler extends NativeHandler {
     public override function applyStyle(style:Style):Bool {
-        var button:Button = cast(_component.window, Button);
+        var button:AnyButton = cast(_component.window, AnyButton);
         switch (style.iconPosition) {
             case "right":
                 button.bitmapPosition = Direction.RIGHT;
@@ -18,7 +18,7 @@ class ButtonHandler extends NativeHandler {
             default:
                 button.bitmapPosition = Direction.LEFT;
         }
-
+        
         if (style.textAlign != null) {
             var alignStyle:Int = switch(style.textAlign) {
                 case "left": ButtonStyle.LEFT;

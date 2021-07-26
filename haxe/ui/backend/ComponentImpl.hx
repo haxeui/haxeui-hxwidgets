@@ -128,7 +128,6 @@ class ComponentImpl extends ComponentBase {
             creator = Type.createInstance(Type.resolveClass(creatorClass), [this]);
         }
         
-        
         var styleString:String = Toolkit.nativeConfig.query('component[id=${className}].@style', null, this);
         var style:Int = StyleParser.parseStyleString(styleString);
         if (creator != null) {
