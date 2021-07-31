@@ -551,8 +551,8 @@ class ComponentImpl extends ComponentBase {
                     _eventMap.set(type, listener);
                     window.bind(EventType.LEFT_DCLICK, __onMouseEvent);
                 }
-                
-            case MouseEvent.MOUSE_MOVE | MouseEvent.MOUSE_DOWN | MouseEvent.MOUSE_UP:
+
+            case MouseEvent.MOUSE_MOVE | MouseEvent.MOUSE_DOWN | MouseEvent.MOUSE_UP | MouseEvent.MOUSE_WHEEL:
                 if (_eventMap.exists(type) == false) {
                     _eventMap.set(type, listener);
                     window.bind(EventMapper.HAXEUI_TO_WX.get(type), __onMouseEvent);
