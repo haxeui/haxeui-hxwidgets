@@ -129,6 +129,7 @@ class ScreenImpl extends ScreenBase {
             if (fn != null) {
                 var mouseEvent:hx.widgets.MouseEvent = event.convertTo(hx.widgets.MouseEvent);
                 var newMouseEvent = new MouseEvent(type);
+                newMouseEvent._originalEvent = event;
                 newMouseEvent.screenX = mouseEvent.x;
                 newMouseEvent.screenY = mouseEvent.y;
                 fn(newMouseEvent);
