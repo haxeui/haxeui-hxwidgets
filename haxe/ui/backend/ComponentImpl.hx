@@ -291,12 +291,11 @@ class ComponentImpl extends ComponentBase {
                 return;
             }
         }
-        var hscrollPos:Int = __parent.window.getScrollPos(Orientation.HORIZONTAL);
-        var vscrollPos:Int = __parent.window.getScrollPos(Orientation.VERTICAL);
         var step:Int = 10;
-        var cx = this.width + 1;
-        var cy = this.height + 1;
-        cast(__parent.window, ScrolledWindow).setScrollbars(step, step, Std.int(cx / step), Std.int(cy / step), hscrollPos, vscrollPos);
+        var cx = this.width;
+        var cy = this.height;
+        this.__parent.window.resizeVirtual(Std.int(cx), Std.int(cy));
+        cast(__parent.window, ScrolledWindow).setScrollRate(step, step);
     }
 
     private override function handlePosition(left:Null<Float>, top:Null<Float>, style:Style):Void {
