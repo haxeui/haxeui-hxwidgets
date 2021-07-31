@@ -29,6 +29,7 @@ import hx.widgets.Object;
 import hx.widgets.Orientation;
 import hx.widgets.Point;
 import hx.widgets.ScrollBar;
+import hx.widgets.ScrollbarVisibility;
 import hx.widgets.ScrolledWindow;
 import hx.widgets.Window;
 import hx.widgets.styles.WindowStyle;
@@ -296,9 +297,22 @@ class ComponentImpl extends ComponentBase {
         var step:Int = 10;
         var cx = this.width;
         var cy = this.height;
+        var pcx = this.__parent.width;
+        var pcy = this.__parent.height;
+        
+        var horz = ScrollbarVisibility.DEFAULT;
+        if (cx <= pcx) {
+            horz = ScrollbarVisibility.NEVER;
+        }
+        var vert = ScrollbarVisibility.DEFAULT;
+        if (cy <= pcy) {
+            vert = ScrollbarVisibility.NEVER;
+        }
+        
+        var scrolledWindow = cast(__parent.window, ScrolledWindow);
+        scrolledWindow.showScrollbars(horz, vert);
+        
         if (Platform.isLinux) { // this is all to work around a GTK issue
-            var pcx = this.__parent.width;
-            var pcy = this.__parent.height;
             if (cx < pcx || cy < pcy) {
                 var pos = this.window.position;
                 var x:Int = pos.x;
@@ -306,7 +320,6 @@ class ComponentImpl extends ComponentBase {
 
                 var px = 0;
                 var py = 0;
-
                 if (parentComponent.style != null) {
                     px = Std.int(parentComponent.style.paddingLeft);
                     py = Std.int(parentComponent.style.paddingTop);
@@ -323,7 +336,7 @@ class ComponentImpl extends ComponentBase {
         }
 
         this.__parent.window.resizeVirtual(Std.int(cx), Std.int(cy));
-        cast(__parent.window, ScrolledWindow).setScrollRate(step, step);
+        scrolledWindow.setScrollRate(step, step);
     }
 
     private override function handlePosition(left:Null<Float>, top:Null<Float>, style:Style):Void {
