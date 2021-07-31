@@ -645,6 +645,7 @@ class ComponentImpl extends ComponentBase {
                         fn(uiEvent);
                     case "haxe.ui.events.MouseEvent":
                         var uiEvent:MouseEvent = new MouseEvent(type);
+                        uiEvent._originalEvent = event;
                         fn(uiEvent);
                     case _:    
                         var uiEvent:UIEvent = new UIEvent(type);
@@ -659,17 +660,18 @@ class ComponentImpl extends ComponentBase {
     private function __onMouseMove(event:Event) {
         if (_mouseOverFlag == false) {
             _mouseOverFlag = true;
-            
+
             var mouseEvent:hx.widgets.MouseEvent = event.convertTo(hx.widgets.MouseEvent);
             for (c in _inComponents) {
                 handleMouseOut(c, mouseEvent);
             }
-            
+
             _inComponents.push(this);
-            
+
             var fn = _eventMap.get(MouseEvent.MOUSE_OVER);
             if (fn != null) {
                 var newMouseEvent = new MouseEvent(MouseEvent.MOUSE_OVER);
+                newMouseEvent._originalEvent = event;
                 var pt:Point = new Point(mouseEvent.x, mouseEvent.y);
                 pt = window.clientToScreen(pt);
                 newMouseEvent.screenX = pt.x;
@@ -690,6 +692,7 @@ class ComponentImpl extends ComponentBase {
             if (fn != null) {
                 var mouseEvent:hx.widgets.MouseEvent = event.convertTo(hx.widgets.MouseEvent);
                 var newMouseEvent = new MouseEvent(MouseEvent.CLICK);
+                newMouseEvent._originalEvent = event;
                 var pt:Point = new Point(mouseEvent.x, mouseEvent.y);
                 pt = window.clientToScreen(pt);
                 newMouseEvent.screenX = pt.x;
@@ -715,6 +718,7 @@ class ComponentImpl extends ComponentBase {
         var fn = c._eventMap.get(MouseEvent.MOUSE_OUT);
         if (fn != null) {
             var newMouseEvent = new MouseEvent(MouseEvent.MOUSE_OUT);
+            newMouseEvent._originalEvent = mouseEvent;
             var pt:Point = new Point(mouseEvent.x, mouseEvent.y);
             pt = c.window.clientToScreen(pt);
             newMouseEvent.screenX = pt.x;
@@ -730,6 +734,7 @@ class ComponentImpl extends ComponentBase {
             if (fn != null) {
                 var mouseEvent:hx.widgets.MouseEvent = event.convertTo(hx.widgets.MouseEvent);
                 var newMouseEvent = new MouseEvent(type);
+                newMouseEvent._originalEvent = event;
                 newMouseEvent.screenX = Std.int(cast(this, Component).screenLeft) + mouseEvent.x;
                 newMouseEvent.screenY = Std.int(cast(this, Component).screenTop) + mouseEvent.y;
                 fn(newMouseEvent);
