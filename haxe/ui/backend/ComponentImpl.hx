@@ -301,16 +301,21 @@ class ComponentImpl extends ComponentBase {
         var pcy = this.__parent.height;
         
         var horz = ScrollbarVisibility.DEFAULT;
+        var enabledX = true;
         if (cx <= pcx) {
             horz = ScrollbarVisibility.NEVER;
+            enabledX = false;
         }
         var vert = ScrollbarVisibility.DEFAULT;
+        var enabledY = true;
         if (cy <= pcy) {
             vert = ScrollbarVisibility.NEVER;
+            enabledY = false;
         }
         
         var scrolledWindow = cast(__parent.window, ScrolledWindow);
         scrolledWindow.showScrollbars(horz, vert);
+        scrolledWindow.enableScrolling(enabledX, enabledY);
         
         if (Platform.isLinux) { // this is all to work around a GTK issue
             if (cx < pcx || cy < pcy) {
