@@ -294,6 +294,23 @@ class ComponentImpl extends ComponentBase {
         var step:Int = 10;
         var cx = this.width;
         var cy = this.height;
+        var pcx = this.__parent.width;
+        var pcy = this.__parent.height;
+
+        // this is all to work around a GTK issue
+        if (cx < pcx || cy < pcy) {
+            var pos = this.window.position;
+            var x = pos.x;
+            var y = pos.y;
+            if (cx < pcx) {
+                x = 1;
+            }
+            if (cy < pcy) {
+                y = 1;
+            }
+            this.window.move(x, y);
+        }
+
         this.__parent.window.resizeVirtual(Std.int(cx), Std.int(cy));
         cast(__parent.window, ScrolledWindow).setScrollRate(step, step);
     }
