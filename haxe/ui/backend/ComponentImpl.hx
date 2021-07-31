@@ -301,13 +301,22 @@ class ComponentImpl extends ComponentBase {
             var pcy = this.__parent.height;
             if (cx < pcx || cy < pcy) {
                 var pos = this.window.position;
-                var x = pos.x;
-                var y = pos.y;
+                var x:Int = pos.x;
+                var y:Int = pos.y;
+
+                var px = 0;
+                var py = 0;
+
+                if (parentComponent.style != null) {
+                    px = Std.int(parentComponent.style.paddingLeft);
+                    py = Std.int(parentComponent.style.paddingTop);
+                }
+
                 if (cx < pcx) {
-                    x = 1;
+                    x = px;
                 }
                 if (cy < pcy) {
-                    y = 1;
+                    y = py;
                 }
                 this.window.move(x, y);
             }
