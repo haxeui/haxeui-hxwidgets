@@ -12,6 +12,7 @@ class ListViewSelectedIndex extends DataBehaviour {
         
         var view:ListView = cast(_component.window, ListView);
         view.selectedIndex = _value;
+        view.ensureVisible(_value);
     }
     
     public override function get():Variant {
