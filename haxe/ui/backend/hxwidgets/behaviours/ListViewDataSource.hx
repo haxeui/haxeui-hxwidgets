@@ -24,6 +24,12 @@ class ListViewDataSource extends DataBehaviour {
         var ds:DataSource<Dynamic> = _value;
         var info:ListItem = new ListItem();
         var listSize:Int = view.itemCount;
+        var diff = listSize - ds.size;
+        while (diff > 0) { // could probably be smarter here
+            view.deleteItem(view.itemCount - 1);
+            diff--;
+        }
+
         for (n in 0...ds.size) {
             var item:Dynamic = ds.get(n);
 
