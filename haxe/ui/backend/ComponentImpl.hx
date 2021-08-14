@@ -264,7 +264,7 @@ class ComponentImpl extends ComponentBase {
         __children.remove(child);
         if (child.window != null && dispose == true) {
             child.window.scheduleForDestruction();
-            child.window = null;
+            //child.window = null;
         }
         return child;
     }
@@ -608,12 +608,19 @@ class ComponentImpl extends ComponentBase {
                 _eventMap.remove(type);
                 window.unbind(EventType.LEFT_DCLICK, __onMouseEvent);
                 
-            case MouseEvent.MOUSE_MOVE | MouseEvent.MOUSE_DOWN | MouseEvent.MOUSE_UP:
+            case MouseEvent.MOUSE_MOVE | MouseEvent.MOUSE_DOWN | MouseEvent.MOUSE_UP | MouseEvent.MOUSE_WHEEL:
                 _eventMap.remove(type);
                 window.unbind(EventMapper.HAXEUI_TO_WX.get(type), __onMouseEvent);
 
             case MouseEvent.MOUSE_OVER | MouseEvent.MOUSE_OUT:
+                _eventMap.remove(type);
+                window.unbind(EventMapper.HAXEUI_TO_WX.get(MouseEvent.MOUSE_MOVE), __onMouseMove);
+                window.unbind(EventMapper.HAXEUI_TO_WX.get(MouseEvent.MOUSE_OUT), __onMouseOut);
             
+            case MouseEvent.RIGHT_CLICK:    
+                _eventMap.remove(MouseEvent.RIGHT_CLICK);
+                window.unbind(EventMapper.HAXEUI_TO_WX.get(MouseEvent.RIGHT_CLICK), __onMouseEvent);
+                
             case FocusEvent.FOCUS_IN | FocusEvent.FOCUS_OUT:
                 _eventMap.remove(type);
                 window.unbind(EventMapper.HAXEUI_TO_WX.get(type), __onFocusEvent);
