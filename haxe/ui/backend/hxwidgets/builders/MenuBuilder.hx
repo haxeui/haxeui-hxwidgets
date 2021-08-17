@@ -7,6 +7,7 @@ import hx.widgets.Menu;
 class MenuBuilder extends CompositeBuilder {
     public override function show():Bool {
         var frame = Screen.instance.frame;
+        _component.ready();
         var menu = cast(_component.object, Menu);
         frame.popupMenu(menu);
         return true;
