@@ -33,8 +33,10 @@ class ScreenImpl extends ScreenBase {
 		return component;
     }
 
-    public override function removeComponent(component:Component):Component {
-        component.window.destroy();
+    public override function removeComponent(component:Component, dispose:Bool = true):Component {
+        if (dispose == true) {
+            component.window.destroy();
+        }
 		return component;
     }
 
