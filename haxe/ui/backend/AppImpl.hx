@@ -1,5 +1,6 @@
 package haxe.ui.backend;
 
+import haxe.ui.core.Screen;
 import haxe.ui.events.AppEvent;
 import hx.widgets.App;
 import hx.widgets.Event;
@@ -120,7 +121,26 @@ class AppImpl extends AppBase {
     }
 
     public override function start() {
-        if (Toolkit.backendProperties.getPropBool("haxe.ui.hxwidgets.frame.fit", false) == true) {
+        var hasPercentWidth = false;
+        var hasPercentHeight = false;
+        if (Screen.instance.rootComponents.length > 0) {
+            for (c in Screen.instance.rootComponents) {
+                if (c.percentWidth != null) {
+                    hasPercentWidth = true;
+                }
+                if (c.percentHeight != null) {
+                    hasPercentHeight = true;
+                }
+            }
+        }
+
+        var defaultFit = true;
+        if (hasPercentWidth == true && hasPercentHeight == true) {
+            defaultFit = false;
+        }
+        var fit = Toolkit.backendProperties.getPropBool("haxe.ui.hxwidgets.frame.fit", defaultFit);
+        
+        if (fit == true) {
             Toolkit.callLater(function() {
                 var children = _frame.children;
                 // from wx docs:
