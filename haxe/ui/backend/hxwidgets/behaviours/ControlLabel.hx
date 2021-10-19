@@ -29,6 +29,7 @@ class ControlLabel extends DataBehaviour {
             _component.set("originalLabel", _value.toString()); // for wrapping, see: haxe.ui.backend.hxwidgets.size.BestSize
             ctrl.label = normalizeText(_value);
             _component.invalidateComponentLayout();
+            _component.invalidateComponentStyle();
         } else {
             _component.set("originalLabel", null);
         }
