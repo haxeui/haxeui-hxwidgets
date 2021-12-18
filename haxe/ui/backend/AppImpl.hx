@@ -161,11 +161,12 @@ class AppImpl extends AppBase {
         }
         _frame.thaw();
         dispatch(new AppEvent(AppEvent.APP_STARTED));
+        @:privateAccess TimerImpl.processDeferredTimers();
         _app.run();
 
         _app.exit();
+        dispatch(new AppEvent(AppEvent.APP_EXITED));
         if (_onEnd != null) {
-            dispatch(new AppEvent(AppEvent.APP_EXITED));
             _onEnd();
         }
     }
