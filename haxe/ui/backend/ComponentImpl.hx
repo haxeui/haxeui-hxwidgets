@@ -549,7 +549,11 @@ class ComponentImpl extends ComponentBase {
             case MouseEvent.DBL_CLICK:
                 if (_eventMap.exists(type) == false) {
                     _eventMap.set(type, listener);
+                    #if haxeui_emulate_dbl_click
+                    window.bind(EventType.LEFT_UP, __onMouseUpDblClickEmulation);
+                    #else
                     window.bind(EventType.LEFT_DCLICK, __onMouseEvent);
+                    #end
                 }
 
             case MouseEvent.MOUSE_MOVE | MouseEvent.MOUSE_DOWN | MouseEvent.MOUSE_UP | MouseEvent.MOUSE_WHEEL:
@@ -606,7 +610,11 @@ class ComponentImpl extends ComponentBase {
             
             case MouseEvent.DBL_CLICK:
                 _eventMap.remove(type);
+                #if haxeui_emulate_dbl_click
+                window.unbind(EventType.LEFT_UP, __onMouseUpDblClickEmulation);
+                #else
                 window.unbind(EventType.LEFT_DCLICK, __onMouseEvent);
+                #end
                 
             case MouseEvent.MOUSE_MOVE | MouseEvent.MOUSE_DOWN | MouseEvent.MOUSE_UP | MouseEvent.MOUSE_WHEEL:
                 _eventMap.remove(type);
@@ -687,6 +695,44 @@ class ComponentImpl extends ComponentBase {
             }
         }
     }
+    
+    #if haxeui_emulate_dbl_click
+    private var _lastClickTime:Null<Float> = null;
+    private var _doubleClickTimer:haxe.ui.util.Timer = null;
+    private function __onMouseUpDblClickEmulation(event:Event) {
+        if (_lastClickTime == null) {
+            if (_doubleClickTimer != null) {
+                _doubleClickTimer.stop();
+                _doubleClickTimer = null;
+            }
+            _doubleClickTimer = new haxe.ui.util.Timer(200, function() { // 200ms
+                _lastClickTime = null;
+                _doubleClickTimer.stop();
+                _doubleClickTimer = null;
+            });
+        }
+        
+        if (_lastClickTime == null) {
+            _lastClickTime = Sys.time();
+        } else {
+            var delta = Sys.time() - _lastClickTime;
+            if (delta < .2) { // 200ms
+                var fn = _eventMap.get(MouseEvent.DBL_CLICK);
+                if (fn != null) {
+                    var mouseEvent:hx.widgets.MouseEvent = event.convertTo(hx.widgets.MouseEvent);
+                    var newMouseEvent = new MouseEvent(MouseEvent.DBL_CLICK);
+                    newMouseEvent._originalEvent = event;
+                    var pt:Point = new Point(mouseEvent.x, mouseEvent.y);
+                    pt = window.clientToScreen(pt);
+                    newMouseEvent.screenX = pt.x;
+                    newMouseEvent.screenY = pt.y;
+                    fn(newMouseEvent);
+                }
+            }
+            _lastClickTime = null;
+        }
+    }
+    #end
     
     private var _mouseDownFlag:Bool = false;
     private function __onMouseDown(event:Event) {
