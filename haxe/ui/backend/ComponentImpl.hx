@@ -11,6 +11,8 @@ import haxe.ui.backend.hxwidgets.handlers.NativeHandler;
 import haxe.ui.containers.Box;
 import haxe.ui.containers.TabView;
 import haxe.ui.containers.dialogs.Dialog;
+import haxe.ui.containers.menus.Menu;
+import haxe.ui.containers.menus.MenuItem;
 import haxe.ui.core.Component;
 import haxe.ui.events.FocusEvent;
 import haxe.ui.events.MouseEvent;
@@ -101,6 +103,10 @@ class ComponentImpl extends ComponentBase {
         }
         if (parent == null) {
             parent = Toolkit.screen.frame;
+        }
+        
+        if (parentComponent != null && (parentComponent is Menu) && (!(this is MenuItem))) {
+            throw "native menus can only have menu items as children";
         }
         
         invalidateComponentStyle();
