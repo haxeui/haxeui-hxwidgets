@@ -105,10 +105,6 @@ class ComponentImpl extends ComponentBase {
             parent = Toolkit.screen.frame;
         }
         
-        if (parentComponent != null && (parentComponent is Menu) && (!(this is MenuItem))) {
-            throw "native menus can only have menu items as children";
-        }
-        
         invalidateComponentStyle();
 
         var className:String = nativeClassName;
