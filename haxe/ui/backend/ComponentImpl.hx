@@ -464,6 +464,15 @@ class ComponentImpl extends ComponentBase {
                 if (style.fontSize != null) {
                     fontSize = Std.int(style.fontSize) - 4;
                 }
+                if (style.fontBold != null && style.fontBold == true) {
+                    fontWeight = FontWeight.BOLD;
+                }
+                if (style.fontItalic != null && style.fontItalic == true) {
+                    fontStyle = FontStyle.ITALIC;
+                }
+                if (style.fontUnderline != null && style.fontUnderline == true) {
+                    fontUnderline = true;
+                }
                 if (style.fontName != null) {
                     var lcase = style.fontName.toLowerCase();
                     switch (lcase) {
