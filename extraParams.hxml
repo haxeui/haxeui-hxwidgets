@@ -1,3 +1,6 @@
+--macro wx.widgets.EntryMacro.defineWxVersion(false)
+--macro wx.widgets.EntryMacro.detectPlatform()
+
 --macro include("hx.widgets")
 
 --macro include("haxe.ui.backend.hxwidgets")
@@ -7,4 +10,4 @@
 --macro include("haxe.ui.backend.hxwidgets.handlers")
 --macro include("haxe.ui.backend.hxwidgets.creators")
 
---macro wx.widgets.EntryMacro.detectPlatform()
+
