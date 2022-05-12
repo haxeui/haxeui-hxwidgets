@@ -284,5 +284,10 @@
     <component class="hx.widgets.StaticBitmap" creator="haxe.ui.backend.hxwidgets.creators.StaticBitmapCreator">
         <behaviour id="tooltip" class="haxe.ui.backend.hxwidgets.behaviours.ToolTipBehaviour" />
     </component>    
-        
+    
+    <component id="haxe.ui.containers.CalendarView" class="hx.widgets.CalendarCtrl">
+        <behaviour id="selectedDate" class="haxe.ui.backend.hxwidgets.behaviours.CalendarCtrlDateBehaviour" autoDispatch="haxe.ui.events.UIEvent.CHANGE" />
+        <size class="haxe.ui.backend.hxwidgets.size.BestSize" includePadding="false" />
+        <event id="change" native="EventType.CALENDAR_SEL_CHANGED" />
+    </component>
 </native>
