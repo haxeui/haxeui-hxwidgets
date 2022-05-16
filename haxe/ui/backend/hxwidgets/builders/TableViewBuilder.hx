@@ -10,6 +10,7 @@ import haxe.ui.containers.TableView;
 import haxe.ui.core.Component;
 import haxe.ui.core.CompositeBuilder;
 import haxe.ui.core.ItemRenderer;
+import haxe.ui.events.UIEvent;
 import hx.widgets.DataViewBitmapRenderer;
 import hx.widgets.DataViewColumn;
 import hx.widgets.DataViewListCtrl;
@@ -116,9 +117,13 @@ class TableViewBuilder extends CompositeBuilder {
             resizeColumns();
             //_table.invalidateComponentData();
             _table.dataSource = _table.dataSource;
-            
+            _table.registerEvent(UIEvent.RESIZE, onTableResized);
             
         }
+    }
+    
+    private function onTableResized(_) {
+        resizeColumns();
     }
     
     public function getRendererInfo(index:Int) {
@@ -157,6 +162,7 @@ class TableViewBuilder extends CompositeBuilder {
             }
             i++; 
         }
+        dataList.refresh();
     }
     
     
