@@ -15,7 +15,7 @@ class TableViewDataSource extends DataBehaviour {
         if (_component.window == null) {
             return;
         }
-        
+
         var builder = cast(_component._compositeBuilder, TableViewBuilder);
         if (builder.headersCreated == false) {
             return;
@@ -23,8 +23,15 @@ class TableViewDataSource extends DataBehaviour {
         var dataList:DataViewListCtrl = cast(_component.window, DataViewListCtrl);
         var ds:DataSource<Dynamic> = _value;
         var tableSize:Int = dataList.itemCount;
+        var diff = tableSize - ds.size;
+        while (diff > 0) { // could probably be smarter here
+            dataList.deleteItem(dataList.itemCount - 1);
+            diff--;
+        }
+        
         for (n in 0...ds.size) {
             var item = ds.get(n);
+            
             if (n > tableSize - 1) {
                 var values:Array<Any> = [];
                 var i = 0;
@@ -57,8 +64,9 @@ class TableViewDataSource extends DataBehaviour {
                         case "image":
                             changed = TableViewIcons.findAndCompare(datasourceValue, cast(currentValue, Bitmap));
                         case _:
-                            changed = (currentValue != datasourceValue);
+                            changed = (Std.string(currentValue) != Std.string(datasourceValue));
                     }
+
                     if (changed == true) {
                         switch (r.type) {
                             case "checkbox":
