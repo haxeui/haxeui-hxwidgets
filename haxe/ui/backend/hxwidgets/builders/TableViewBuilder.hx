@@ -96,7 +96,11 @@ class TableViewBuilder extends CompositeBuilder {
                         r = new DataViewTextRenderer();
                 }
                 
-                var c = new DataViewColumn(col.text, r, i);
+                var columnText = col.text;
+                if (columnText == null) {
+                    columnText = "";
+                }
+                var c = new DataViewColumn(columnText, r, i);
                 dataList.appendColumn(c);
                 
                 columns.push({
