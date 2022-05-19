@@ -47,6 +47,8 @@ class TableViewDataSource extends DataBehaviour {
                             v = TableViewIcons.get(v);
                         case "number":
                             v = Std.parseInt(v);
+                        case _:
+                            v = Std.string(v);
                     }
                     values.push(v);
                     i++;
@@ -78,7 +80,7 @@ class TableViewDataSource extends DataBehaviour {
                             case "number":
                                 dataList.setValue(n, colIndex, Std.parseInt(datasourceValue));
                             case _:    
-                                dataList.setValue(n, colIndex, datasourceValue);
+                                dataList.setValue(n, colIndex, Std.string(datasourceValue));
                         }
                     }
                 }
