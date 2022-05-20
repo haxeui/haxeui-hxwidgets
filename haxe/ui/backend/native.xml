@@ -291,4 +291,10 @@
         <size class="haxe.ui.backend.hxwidgets.size.BestSize" includePadding="false" />
         <event id="change" native="EventType.CALENDAR_SEL_CHANGED" />
     </component>
+    
+    <component id="haxe.ui.components.HorizontalRule" class="hx.widgets.StaticLine">
+    </component>    
+    
+    <component id="haxe.ui.components.VerticalRule" class="hx.widgets.StaticLine" style="StaticLineStyle.VERTICAL">
+    </component>    
 </native>
