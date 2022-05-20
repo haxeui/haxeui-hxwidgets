@@ -5,6 +5,7 @@ import haxe.ui.components.CheckBox;
 import haxe.ui.components.Image;
 import haxe.ui.components.NumberStepper;
 import haxe.ui.components.Progress;
+import haxe.ui.components.Switch;
 import haxe.ui.containers.Header;
 import haxe.ui.containers.TableView;
 import haxe.ui.core.Component;
@@ -60,7 +61,7 @@ class TableViewBuilder extends CompositeBuilder {
             createColumns();
             return child;
         } else if ((child is ItemRenderer)) {
-            if (child.findComponent(CheckBox) != null) {
+            if (child.findComponent(CheckBox) != null || child.findComponent(Switch) != null) {
                 renderers.push({ type: "checkbox" });
             } else if (child.findComponent(Progress) != null) {
                 renderers.push({ type: "progress" });
