@@ -50,6 +50,9 @@ class TableViewDataSource extends DataBehaviour {
                         case _:
                             v = Std.string(v);
                     }
+                    if (v == null) {
+                        v = "";
+                    }
                     values.push(v);
                     i++;
                 }

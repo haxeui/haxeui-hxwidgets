@@ -10,6 +10,9 @@ class TableViewIcons {
         }
         
         var bitmap = Bitmap.fromHaxeResource(id);
+        if (bitmap == null) {
+            return null;
+        }
         _map.set(id, bitmap);
         return bitmap;
     }
