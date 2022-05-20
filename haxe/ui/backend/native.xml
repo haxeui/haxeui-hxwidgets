@@ -10,12 +10,13 @@
         <size class="haxe.ui.backend.hxwidgets.size.WindowSize" includePadding="false" />
         <event id="change" native="EventType.LIST_ITEM_SELECTED" />
     </component>
-    <component id="haxe.ui.containers.TableView" class="hx.widgets.DataViewListCtrl">
-        <behaviour id="selectedIndex" class="haxe.ui.behaviours.DefaultBehaviour" />
+    <component id="haxe.ui.containers.TableView" class="hx.widgets.DataViewListCtrl" constructor="$style" style="DataViewCtrlStyle.DV_ROW_LINES">
+        <behaviour id="selectedIndex" class="haxe.ui.backend.hxwidgets.behaviours.DataViewListCtrlSelectedRow" autoDispatch="haxe.ui.events.UIEvent.CHANGE" />
         <behaviour id="dataSource" class="haxe.ui.backend.hxwidgets.behaviours.TableViewDataSource" />
         <behaviour id="contentLayoutName" class="haxe.ui.behaviours.DefaultBehaviour" />
         <size class="haxe.ui.backend.hxwidgets.size.WindowSize" includePadding="false" />
         <builder class="haxe.ui.backend.hxwidgets.builders.TableViewBuilder" />
+        <event id="change" native="EventType.DATAVIEW_SELECTION_CHANGED" />
     </component>    
     <component id="haxe.ui.components.HScroll" class="hx.widgets.ScrollBar" constructor="$style" allowChildren="false" style="ScrollBarStyle.HORIZONTAL">
         <behaviour id="pos" class="haxe.ui.backend.hxwidgets.behaviours.ControlValue" />

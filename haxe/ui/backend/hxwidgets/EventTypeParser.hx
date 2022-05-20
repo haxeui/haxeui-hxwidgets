@@ -8,18 +8,19 @@ class EventTypeParser {
         }
         
         switch (event) {
-            case "EventType.SLIDER":                return EventType.SLIDER;
-            case "EventType.BUTTON":                return EventType.BUTTON;
-            case "EventType.TOGGLEBUTTON":          return EventType.TOGGLEBUTTON;
-            case "EventType.NOTEBOOK_PAGE_CHANGED": return EventType.NOTEBOOK_PAGE_CHANGED;
-            case "EventType.RADIOBUTTON":           return EventType.RADIOBUTTON;
-            case "EventType.CHECKBOX":              return EventType.CHECKBOX;
-            case "EventType.CHOICE":                return EventType.CHOICE;
-            case "EventType.LIST_ITEM_SELECTED":    return EventType.LIST_ITEM_SELECTED;
-            case "EventType.TEXT":                  return EventType.TEXT;
-            case "EventType.MENU":                  return EventType.MENU;
-            case "EventType.SPINCTRL":              return EventType.SPINCTRL;
-            case "EventType.CALENDAR_SEL_CHANGED":  return EventType.CALENDAR_SEL_CHANGED;
+            case "EventType.SLIDER":                        return EventType.SLIDER;
+            case "EventType.BUTTON":                        return EventType.BUTTON;
+            case "EventType.TOGGLEBUTTON":                  return EventType.TOGGLEBUTTON;
+            case "EventType.NOTEBOOK_PAGE_CHANGED":         return EventType.NOTEBOOK_PAGE_CHANGED;
+            case "EventType.RADIOBUTTON":                   return EventType.RADIOBUTTON;
+            case "EventType.CHECKBOX":                      return EventType.CHECKBOX;
+            case "EventType.CHOICE":                        return EventType.CHOICE;
+            case "EventType.LIST_ITEM_SELECTED":            return EventType.LIST_ITEM_SELECTED;
+            case "EventType.TEXT":                          return EventType.TEXT;
+            case "EventType.MENU":                          return EventType.MENU;
+            case "EventType.SPINCTRL":                      return EventType.SPINCTRL;
+            case "EventType.CALENDAR_SEL_CHANGED":          return EventType.CALENDAR_SEL_CHANGED;
+            case "EventType.DATAVIEW_SELECTION_CHANGED":    return EventType.DATAVIEW_SELECTION_CHANGED;
             default:
                 trace('WARNING: hxWidgets event "${event}" not recognised');
         }
@@ -52,6 +53,8 @@ class EventTypeParser {
             return "EventType.SPINCTRL";
         } else if (eventType == EventType.CALENDAR_SEL_CHANGED) {
             return "EventType.CALENDAR_SEL_CHANGED";
+        } else if (eventType == EventType.DATAVIEW_SELECTION_CHANGED) {
+            return "EventType.DATAVIEW_SELECTION_CHANGED";
         } else {
             trace('WARNING: hxWidgets event "${eventType}" not recognised');
         }

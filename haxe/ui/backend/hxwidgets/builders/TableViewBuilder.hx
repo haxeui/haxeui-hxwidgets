@@ -11,9 +11,11 @@ import haxe.ui.containers.TableView;
 import haxe.ui.core.Component;
 import haxe.ui.core.CompositeBuilder;
 import haxe.ui.core.ItemRenderer;
+import haxe.ui.events.ItemEvent;
 import haxe.ui.events.UIEvent;
 import hx.widgets.DataViewBitmapRenderer;
 import hx.widgets.DataViewColumn;
+import hx.widgets.DataViewEvent;
 import hx.widgets.DataViewListCtrl;
 import haxe.ui.core.Platform;
 import hx.widgets.DataViewProgressRenderer;
@@ -21,6 +23,8 @@ import hx.widgets.DataViewRenderer;
 import hx.widgets.DataViewSpinRenderer;
 import hx.widgets.DataViewTextRenderer;
 import hx.widgets.DataViewToggleRenderer;
+import hx.widgets.Event;
+import hx.widgets.EventType;
 
 typedef ColumnInfo = {
     id:String,
@@ -30,7 +34,8 @@ typedef ColumnInfo = {
 }
 
 typedef RendererInfo = {
-    type:String
+    type:String,
+    component:Component
 }
 
 @:access(haxe.ui.backend.ComponentImpl)
@@ -61,16 +66,18 @@ class TableViewBuilder extends CompositeBuilder {
             createColumns();
             return child;
         } else if ((child is ItemRenderer)) {
-            if (child.findComponent(CheckBox) != null || child.findComponent(Switch) != null) {
-                renderers.push({ type: "checkbox" });
+            if (child.findComponent(CheckBox) != null) {
+                renderers.push({ type: "checkbox", component: child.findComponent(CheckBox) });
+            } else if (child.findComponent(Switch) != null) {
+                renderers.push({ type: "checkbox", component: child.findComponent(Switch) });
             } else if (child.findComponent(Progress) != null) {
-                renderers.push({ type: "progress" });
+                renderers.push({ type: "progress", component: child.findComponent(Progress) });
             } else if (child.findComponent(Image) != null) {
-                renderers.push({ type: "image" });
+                renderers.push({ type: "image", component: child.findComponent(Image) });
             } else if (child.findComponent(NumberStepper) != null) {
-                renderers.push({ type: "number" });
+                renderers.push({ type: "number", component: child.findComponent(NumberStepper) });
             } else {
-                renderers.push({ type: "label" });
+                renderers.push({ type: "label", component: child });
             }
         }
         return child;
@@ -124,6 +131,51 @@ class TableViewBuilder extends CompositeBuilder {
             _table.dataSource = _table.dataSource;
             _table.registerEvent(UIEvent.RESIZE, onTableResized);
             
+            _table.window.bind(EventType.DATAVIEW_ITEM_VALUE_CHANGED, onItemChanged);
+        }
+    }
+    
+    private function onItemChanged(e:Event) {
+        var dve:DataViewEvent = e.convertTo(DataViewEvent);
+        var dataList:DataViewListCtrl = cast(_component.window, DataViewListCtrl);
+        var column = dve.column;
+        var row =  dataList.itemToRow(dve.item);
+        var columnInfo = columns[column];
+        var renderer = getRendererInfo(column);
+        var newValue = dataList.getValue(row, column);
+        
+        var realValue:Dynamic = null;
+        var sendEvent = false;
+        switch (renderer.type) {
+            case "checkbox":
+                realValue = Std.string(newValue) == "true";
+                sendEvent = true;
+            case "progress":
+                realValue = Std.parseInt(newValue);
+            case "image":
+                realValue = Std.string(newValue);
+            case "number":
+                realValue = Std.parseInt(newValue);
+                sendEvent = true;
+            case _:    
+                realValue = Std.string(newValue);
+        }
+        
+        if (realValue != null) {
+            var item = _table.dataSource.get(row);
+            Reflect.setField(item, columnInfo.id, realValue);
+            
+            if (sendEvent == true) {
+                var e = new ItemEvent(ItemEvent.COMPONENT_EVENT);
+                e.bubble = true;
+                if (renderer.component != null) {
+                    e.source = renderer.component;
+                }
+                e.sourceEvent = new UIEvent(UIEvent.CHANGE);
+                e.itemIndex = row;
+                e.data = item;
+                _table.dispatch(e);
+            }
         }
     }
     
@@ -131,10 +183,11 @@ class TableViewBuilder extends CompositeBuilder {
         resizeColumns();
     }
     
-    public function getRendererInfo(index:Int) {
+    public function getRendererInfo(index:Int):RendererInfo {
         if (index > renderers.length - 1) {
             return {
-                type: "label"
+                type: "label",
+                component: null
             };
         }
         
