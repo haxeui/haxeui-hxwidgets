@@ -204,6 +204,7 @@
         <behaviour id="pageCount" class="haxe.ui.backend.hxwidgets.behaviours.NotebookPageCount" />
         <behaviour id="pageIndex" class="haxe.ui.backend.hxwidgets.behaviours.NotebookPageIndex" />
         <behaviour id="tooltip" class="haxe.ui.backend.hxwidgets.behaviours.ToolTipBehaviour" />
+        <behaviour id="tabPosition" class="haxe.ui.behaviours.DefaultBehaviour" />
         <size class="haxe.ui.backend.hxwidgets.size.NotebookSize" includePadding="false" />
         <event id="change" native="EventType.NOTEBOOK_PAGE_CHANGED" />
     </component>
