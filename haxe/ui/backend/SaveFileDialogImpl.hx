@@ -1,9 +1,6 @@
 package haxe.ui.backend;
 
 import haxe.io.Path;
-import haxe.ui.backend.OpenFileDialogBase;
-import haxe.ui.containers.dialogs.Dialog.DialogButton;
-import haxe.ui.containers.dialogs.Dialogs.SelectedFileInfo;
 import haxe.ui.core.Screen;
 import hx.widgets.FileDialog;
 import hx.widgets.StandardId;
@@ -12,40 +9,28 @@ import sys.io.File;
 
 using StringTools;
 
-class OpenFileDialogImpl extends OpenFileDialogBase {
+class SaveFileDialogImpl extends SaveFileDialogBase {
     public override function show() {
+        if (fileInfo == null || (fileInfo.text == null && fileInfo.bytes == null)) {
+            throw "Nothing to write";
+        }
+        
         var message = options.title;
         if (message == null) {
-            message = "Open File";
+            message = "Save File";
         }
         var pattern = buildPattern();
-        var style = FileDialogStyle.OPEN | FileDialogStyle.FILE_MUST_EXIST;
-        if (options.multiple) {
-            style |= FileDialogStyle.MULTIPLE;
-        }
-        var nativeDialog = new FileDialog(Screen.instance.frame, message, null, null, pattern, style);
+        var style = FileDialogStyle.SAVE | FileDialogStyle.OVERWRITE_PROMPT;
+        var nativeDialog = new FileDialog(Screen.instance.frame, message, null, fileInfo.name, pattern, style);
         var r = nativeDialog.showModal();
         if (r == StandardId.OK) {
-            var infos:Array<SelectedFileInfo> = [];
-            infos.push({
-                name: nativeDialog.filename,
-                fullPath: Path.normalize(nativeDialog.directory + "/" + nativeDialog.filename),
-                isBinary: false
-            });
-            
-            if (options.readContents == true) {
-                for (info in infos) {
-                    if (options.readAsBinary) {
-                        info.isBinary = true;
-                        info.bytes = File.getBytes(info.fullPath);
-                    } else {
-                        info.isBinary = false;
-                        info.text = File.getContent(info.fullPath);
-                    }
-                }
+            var fullPath = Path.normalize(nativeDialog.directory + "/" + nativeDialog.filename);
+            if (fileInfo.text != null) {
+                File.saveContent(fullPath, fileInfo.text);
+            } else if (fileInfo.bytes != null) {
+                File.saveBytes(fullPath, fileInfo.bytes);
             }
-            
-            dialogConfirmed(infos);
+            dialogConfirmed();
         } else {
             dialogCancelled();
         }
