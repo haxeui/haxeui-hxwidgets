@@ -27,11 +27,13 @@ class OpenFileDialogImpl extends OpenFileDialogBase {
         var r = nativeDialog.showModal();
         if (r == StandardId.OK) {
             var infos:Array<SelectedFileInfo> = [];
-            infos.push({
-                name: nativeDialog.filename,
-                fullPath: Path.normalize(nativeDialog.directory + "/" + nativeDialog.filename),
-                isBinary: false
-            });
+            for (filename in nativeDialog.filenames) {
+                infos.push({
+                    name: filename,
+                    fullPath: Path.normalize(nativeDialog.directory + "/" + filename),
+                    isBinary: false
+                });
+            }
             
             if (options.readContents == true) {
                 for (info in infos) {
