@@ -81,7 +81,7 @@ class DialogBase extends Component {
             dialog.sizer.add(dialogContentContainer.window, 1, Stretch.EXPAND | Direction.ALL, 0);
             dialog.sizer.addSizer(_buttonSizer, 0, Stretch.GROW | Direction.ALL, 5);
             if (nativeHeightModifier > 0) {
-                nativeHeightModifier += 5;
+                nativeHeightModifier += 5; // TODO: 5 should be padding
             }
         }
 
@@ -99,14 +99,13 @@ class DialogBase extends Component {
             heightModifier = 6;
         }
         
+        // width
         var proposedWidth = dialogContent.width + widthModifier;
         if (customDialogFooter != null && customDialogFooter.width > proposedWidth) {
-            proposedWidth = customDialogFooter.width + (widthModifier * 2) + 5;
+            proposedWidth = customDialogFooter.width + (widthModifier * 2) + 5; // TODO: 5 should be padding
             customDialogFooterContainer.percentWidth = null;
             customDialogFooterContainer.width = proposedWidth - widthModifier;
         }
-        
-        var proposedHeight = dialogContentContainer.height + SystemSettings.getMetric(SystemMetric.CAPTION_Y, Toolkit.screen.frame) + heightModifier + nativeHeightModifier;
         
         if (autoWidth == true) {
             width = proposedWidth;
@@ -119,6 +118,9 @@ class DialogBase extends Component {
             dialogContent.percentWidth = 100;
         }
 
+        // height
+        var proposedHeight = dialogContentContainer.height + SystemSettings.getMetric(SystemMetric.CAPTION_Y, Toolkit.screen.frame) + heightModifier + nativeHeightModifier;
+        
         if (autoHeight == true) {
             height = proposedHeight;
         } else {
@@ -225,7 +227,6 @@ class DialogBase extends Component {
         if (child == dialogContentContainer) {
             return super.addComponent(child);
         }
-        child.addClass("dialog-content");
         dialogContent.addComponent(child);
         return child;
     }
