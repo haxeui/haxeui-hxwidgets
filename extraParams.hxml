@@ -10,4 +10,5 @@
 --macro include("haxe.ui.backend.hxwidgets.handlers")
 --macro include("haxe.ui.backend.hxwidgets.creators")
 
-
+--macro addGlobalMetadata("hx.widgets", "@:noCompletion")
+--macro addGlobalMetadata("wx.widgets", "@:noCompletion")
