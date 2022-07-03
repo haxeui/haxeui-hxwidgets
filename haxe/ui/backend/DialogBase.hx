@@ -63,7 +63,7 @@ class DialogBase extends Component {
         
         var dialog = cast(this.window, Dialog);
         
-        var hm = 0;
+        var nativeHeightModifier = 0;
         if (hasClass("custom-dialog-footer") == false && _buttonSizer == null) {
             createFooter();
             for (c in _footerComponents) {
@@ -71,8 +71,8 @@ class DialogBase extends Component {
                 c.ready();
                 c.window.id = buttonToStandardId(c.userData);
                 _buttonSizer.addButton(cast c.window);
-                if (c.window.size.height > hm) {
-                    hm = c.window.size.height;
+                if (c.window.size.height > nativeHeightModifier) {
+                    nativeHeightModifier = c.window.size.height;
                 }
             }
 
@@ -80,30 +80,49 @@ class DialogBase extends Component {
             
             dialog.sizer.add(dialogContentContainer.window, 1, Stretch.EXPAND | Direction.ALL, 0);
             dialog.sizer.addSizer(_buttonSizer, 0, Stretch.GROW | Direction.ALL, 5);
-            if (hm > 0) {
-                hm += 5;
+            if (nativeHeightModifier > 0) {
+                nativeHeightModifier += 5;
             }
         }
 
-        var m = 0;
+        if (Platform.isMac) {
+            nativeHeightModifier = 65; // temp
+        }
+        
+        var widthModifier = 0;
         if (Platform.isWindows) {
-            m = 6;
-        } else if (Platform.isMac) {
-	    hm = 65; // temp
-	}
+            widthModifier = 6;
+        }
+        
+        var heightModifier = 0;
+        if (Platform.isWindows) {
+            heightModifier = 6;
+        }
+        
+        var proposedWidth = dialogContent.width + widthModifier;
+        if (customDialogFooter != null && customDialogFooter.width > proposedWidth) {
+            proposedWidth = customDialogFooter.width + (widthModifier * 2) + 5;
+            customDialogFooterContainer.percentWidth = null;
+            customDialogFooterContainer.width = proposedWidth - widthModifier;
+        }
+        
+        var proposedHeight = dialogContentContainer.height + SystemSettings.getMetric(SystemMetric.CAPTION_Y, Toolkit.screen.frame) + heightModifier + nativeHeightModifier;
         
         if (autoWidth == true) {
-            width = dialogContentContainer.width - m;
+            width = proposedWidth;
         } else {
-            dialogContentContainer.width = this.width - m;
+            customDialogFooterContainer.percentWidth = null;
+            customDialogFooterContainer.width = this.width - widthModifier;
+            
+            dialogContentContainer.width = this.width - widthModifier;
             dialogContent.width = null;
             dialogContent.percentWidth = 100;
         }
 
         if (autoHeight == true) {
-            height = dialogContentContainer.height + SystemSettings.getMetric(SystemMetric.CAPTION_Y, Toolkit.screen.frame) + m + hm;
+            height = proposedHeight;
         } else {
-            dialogContentContainer.height = this.height - SystemSettings.getMetric(SystemMetric.CAPTION_Y, Toolkit.screen.frame) - (m + hm);
+            dialogContentContainer.height = this.height - SystemSettings.getMetric(SystemMetric.CAPTION_Y, Toolkit.screen.frame) - heightModifier;
             dialogContent.height = null;
             dialogContent.percentHeight = 100;
         }
