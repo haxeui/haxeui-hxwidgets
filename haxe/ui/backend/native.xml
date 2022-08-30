@@ -18,6 +18,23 @@
         <builder class="haxe.ui.backend.hxwidgets.builders.TableViewBuilder" />
         <event id="change" native="EventType.DATAVIEW_SELECTION_CHANGED" />
     </component>    
+    <component id="haxe.ui.containers.TreeView" class="hx.widgets.DataViewTreeCtrl" constructor="$style">
+        <behaviour id="contentLayoutName" class="haxe.ui.behaviours.DefaultBehaviour" />
+        <behaviour id="addNode" class="haxe.ui.backend.hxwidgets.behaviours.TreeViewAddNode" />
+        <behaviour id="removeNode" class="haxe.ui.backend.hxwidgets.behaviours.TreeViewRemoveNode" />
+        <behaviour id="clearNodes" class="haxe.ui.backend.hxwidgets.behaviours.TreeViewClearNodes" />
+        <behaviour id="selectedNode" class="haxe.ui.backend.hxwidgets.behaviours.TreeViewSelectedNode" />
+        <behaviour id="getNodesInternal" class="haxe.ui.backend.hxwidgets.behaviours.TreeViewGetNodesInternal" />
+        <size class="haxe.ui.backend.hxwidgets.size.WindowSize" includePadding="false" />
+        <builder class="haxe.ui.backend.hxwidgets.builders.TreeViewBuilder" />
+        <event id="change" native="EventType.DATAVIEW_SELECTION_CHANGED" />
+    </component>    
+    <component id="haxe.ui.containers.TreeViewNode" class="hx.widgets.Object">
+        <behaviour id="addNode" class="haxe.ui.backend.hxwidgets.behaviours.TreeViewAddNode" />
+        <behaviour id="removeNode" class="haxe.ui.backend.hxwidgets.behaviours.TreeViewRemoveNode" />
+        <behaviour id="clearNodes" class="haxe.ui.backend.hxwidgets.behaviours.TreeViewClearNodes" />
+        <builder class="haxe.ui.backend.hxwidgets.builders.TreeViewNodeBuilder" />
+    </component>
     <component id="haxe.ui.components.HScroll" class="hx.widgets.ScrollBar" constructor="$style" allowChildren="false" style="ScrollBarStyle.HORIZONTAL">
         <behaviour id="pos" class="haxe.ui.backend.hxwidgets.behaviours.ControlValue" />
         <behaviour id="disabled" class="haxe.ui.backend.hxwidgets.behaviours.ControlDisable" />
