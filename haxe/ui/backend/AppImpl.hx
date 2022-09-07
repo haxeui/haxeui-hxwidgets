@@ -178,20 +178,25 @@ class AppImpl extends AppBase {
         _frame.close();
     }
     
+    private var _cachedIcon:Map<Bitmap, Icon> = new Map<Bitmap, Icon>();
     private override function set_icon(value:String):String {
         if (_icon == value) {
             return value;
         }
         _icon = value;
         var frame = Screen.instance.frame;
-        var bytes = ToolkitAssets.instance.getBytes(_icon);
-        if (bytes == null) {
-            return value;
-        }
-        var bitmap = Bitmap.fromHaxeBytes(bytes);
-        var icon = new Icon();
-        icon.copyFromBitmap(bitmap);
-        frame.setIcon(icon);
+        ToolkitAssets.instance.getImage(value, function(imageInfo) {
+            if (imageInfo != null) {
+                var bitmap:Bitmap = imageInfo.data;
+                var icon = _cachedIcon.get(bitmap);
+                if (icon == null) {
+                    icon = new Icon();
+                    icon.copyFromBitmap(imageInfo.data);
+                    _cachedIcon.set(bitmap, icon);
+                }
+                frame.setIcon(icon);
+            }
+        });
         return value;
     }
 }
