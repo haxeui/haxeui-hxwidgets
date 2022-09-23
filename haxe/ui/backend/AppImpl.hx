@@ -1,11 +1,14 @@
 package haxe.ui.backend;
 
+import haxe.ui.ToolkitAssets;
 import haxe.ui.core.Screen;
 import haxe.ui.events.AppEvent;
 import hx.widgets.App;
+import hx.widgets.Bitmap;
 import hx.widgets.Event;
 import hx.widgets.EventType;
 import hx.widgets.Frame;
+import hx.widgets.Icon;
 import hx.widgets.PlatformInfo;
 import hx.widgets.SystemMetric;
 import hx.widgets.SystemOptions;
@@ -173,5 +176,27 @@ class AppImpl extends AppBase {
     
     public override function exit() {
         _frame.close();
+    }
+    
+    private var _cachedIcon:Map<Bitmap, Icon> = new Map<Bitmap, Icon>();
+    private override function set_icon(value:String):String {
+        if (_icon == value) {
+            return value;
+        }
+        _icon = value;
+        var frame = Screen.instance.frame;
+        ToolkitAssets.instance.getImage(value, function(imageInfo) {
+            if (imageInfo != null) {
+                var bitmap:Bitmap = imageInfo.data;
+                var icon = _cachedIcon.get(bitmap);
+                if (icon == null) {
+                    icon = new Icon();
+                    icon.copyFromBitmap(imageInfo.data);
+                    _cachedIcon.set(bitmap, icon);
+                }
+                frame.setIcon(icon);
+            }
+        });
+        return value;
     }
 }
