@@ -1,5 +1,6 @@
 package haxe.ui.backend;
 
+import hx.widgets.styles.WindowStyle;
 import haxe.ui.backend.hxwidgets.ConstructorParams;
 import haxe.ui.backend.hxwidgets.EventMapper;
 import haxe.ui.backend.hxwidgets.EventTypeParser;
@@ -447,6 +448,8 @@ class ComponentImpl extends ComponentBase {
         if (style.borderLeftSize != null && style.borderLeftSize > 0 && !Platform.isLinux) {
             //window.windowStyle |= WindowStyle.BORDER_SIMPLE;
             window.windowStyle |= WindowStyle.BORDER_THEME;
+        } else {
+            window.windowStyle |= WindowStyle.BORDER_NONE;
         }
         
         if (refreshWindow == true) {
