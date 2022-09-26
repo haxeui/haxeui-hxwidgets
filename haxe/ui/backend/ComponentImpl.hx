@@ -449,7 +449,7 @@ class ComponentImpl extends ComponentBase {
             //window.windowStyle |= WindowStyle.BORDER_SIMPLE;
             window.windowStyle |= WindowStyle.BORDER_THEME;
         } else {
-            window.windowStyle |= WindowStyle.BORDER_NONE;
+            //window.windowStyle |= WindowStyle.BORDER_NONE;
         }
         
         if (refreshWindow == true) {
