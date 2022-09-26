@@ -18,6 +18,8 @@ class TreeViewBuilder extends CompositeBuilder {
     
     public override function onInitialize() {
         super.onInitialize();
+        var treeCtrl:DataViewTreeCtrl = cast(_component.window, DataViewTreeCtrl);
+        treeCtrl.indent = 16;
         for (node in nodesToCreate) {
             createNode(node);
         }
