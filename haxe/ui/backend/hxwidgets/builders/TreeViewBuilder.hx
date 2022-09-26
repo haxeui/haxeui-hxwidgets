@@ -83,6 +83,7 @@ class TreeViewBuilder extends CompositeBuilder {
             }
             node.dataViewItem = treeCtrl.appendItem(parentNode.dataViewItem, text, TreeViewIcons.get(_treeview, icon));
             _dataViewItemToNodeMap.set(node.dataViewItem.id, node);
+            parentNode.applyExpanded();
         }
     }
 
