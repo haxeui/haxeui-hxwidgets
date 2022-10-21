@@ -30,14 +30,14 @@ class ScreenImpl extends ScreenBase {
     public override function addComponent(component:Component):Component {
         addResizeListener();
         resizeComponent(component);
-		return component;
+        return component;
     }
 
     public override function removeComponent(component:Component, dispose:Bool = true):Component {
         if (dispose == true) {
             component.window.destroy();
         }
-		return component;
+        return component;
     }
 
     public var frame(get, null):Frame;
