@@ -1,5 +1,6 @@
 package haxe.ui.backend;
 
+import haxe.ui.util.RTTI;
 import hx.widgets.styles.WindowStyle;
 import haxe.ui.backend.hxwidgets.ConstructorParams;
 import haxe.ui.backend.hxwidgets.EventMapper;
@@ -110,7 +111,7 @@ class ComponentImpl extends ComponentBase {
 
         var className:String = nativeClassName;
         var defaultNativeClass = "haxe.ui.backend.hxwidgets.custom.TransparentPanel";
-        var nativeComponentClass:String = Toolkit.nativeConfig.query('component[id=${className}].@class', defaultNativeClass, this);
+        var nativeComponentClass:String = nativeConfigQuery('component[id={className}].@class', null, defaultNativeClass);
         
         if (cast(this, Component).native == false || cast(this, Component).native == null) {
             nativeComponentClass = defaultNativeClass;
@@ -123,22 +124,22 @@ class ComponentImpl extends ComponentBase {
             nativeComponentClass = "hx.widgets.ScrolledWindow";
         }
 
-        var creatorClass:String = Toolkit.nativeConfig.query('component[id=${className}].@creator', null, this);
+        var creatorClass:String = nativeConfigQuery('component[id={className}].@creator');
         if (creatorClass == null) {
-            creatorClass = Toolkit.nativeConfig.query('component[class=${nativeComponentClass}].@creator', null, this);
+            creatorClass = nativeConfigQuery('component[class={nativeComponentClass}].@creator', nativeComponentClass);
         }
         var creator:Creator = null;
         if (creatorClass != null) {
             creator = Type.createInstance(Type.resolveClass(creatorClass), [this]);
         }
         
-        var styleString:String = Toolkit.nativeConfig.query('component[id=${className}].@style', null, this);
+        var styleString:String = nativeConfigQuery('component[id={className}].@style');
         var style:Int = StyleParser.parseStyleString(styleString);
         if (creator != null) {
             style = creator.createStyle(style);
         }
 
-        var params:Array<Dynamic> = ConstructorParams.build(Toolkit.nativeConfig.query('component[id=${className}].@constructor', null, this), style);
+        var params:Array<Dynamic> = ConstructorParams.build(nativeConfigQuery('component[id={className}].@constructor'), style);
         params.insert(0, parent);
 
         if (creator != null) {
@@ -216,7 +217,7 @@ class ComponentImpl extends ComponentBase {
             }
         }
         
-        var nativeHandlerClass:String = Toolkit.nativeConfig.query('component[id=${className}].handler.@class', null, this);
+        var nativeHandlerClass:String = nativeConfigQuery('component[id={className}].handler.@class');
         if (nativeHandlerClass != null) {
             __handler = Type.createInstance(Type.resolveClass(nativeHandlerClass), [this]);
             __handler.link();
@@ -529,6 +530,43 @@ class ComponentImpl extends ComponentBase {
     //***********************************************************************************************************
     // Events
     //***********************************************************************************************************
+    private function nativeConfigQuery(query:String, param1:String = null, defaultValue:String = null):String {
+        var className:String = Type.getClassName(Type.getClass(this));
+        var entry = RTTI.getClassInfo(className);
+        if (entry == null) {
+            return defaultValue;
+        }
+        var r = defaultValue;
+        var originalQuery = query;
+        query = StringTools.replace(originalQuery, "{className}", className);
+        if (param1 != null) {
+            query = StringTools.replace(query, "{param1}", param1);
+        }
+        var temp = Toolkit.nativeConfig.query(query, null, this);
+        if (temp != null) {
+            r = temp;
+        }
+        while (temp == null) {
+            className = entry.superClass;
+            entry = RTTI.getClassInfo(entry.superClass);
+            if (entry == null) {
+                break;
+            }
+
+            query = StringTools.replace(originalQuery, "{className}", className);
+            if (param1 != null) {
+                query = StringTools.replace(query, "{param1}", param1);
+            }
+
+            temp = Toolkit.nativeConfig.query(query, null, this);
+            if (temp != null) {
+                r = temp;
+                break;
+            }
+        }
+        return r;
+    }
+
     private var __eventsToMap:Map<String, UIEvent->Void>;
     private override function mapEvent(type:String, listener:UIEvent->Void) {
         if (window == null) {
@@ -539,8 +577,7 @@ class ComponentImpl extends ComponentBase {
             return;
         }
 
-        var className:String = Type.getClassName(Type.getClass(this));
-        var native:String = Toolkit.nativeConfig.query('component[id=${className}].event[id=${type}].@native', null, this);
+        var native:String = nativeConfigQuery('component[id={className}].event[id={param1}].@native', type);
         if (native != null) {
             var eventType = EventTypeParser.fromString(native);
             if (eventType != 0) {
@@ -605,8 +642,7 @@ class ComponentImpl extends ComponentBase {
             return;
         }
 
-        var className:String = Type.getClassName(Type.getClass(this));
-        var native:String = Toolkit.nativeConfig.query('component[id=${className}].event[id=${type}].@native', null, this);
+        var native:String = nativeConfigQuery('component[id={className}].event[id={param1}].@native', type);
         if (native != null) {
             var eventType = EventTypeParser.fromString(native);
             if (eventType != 0) {
@@ -661,13 +697,12 @@ class ComponentImpl extends ComponentBase {
     }
     
     private function __onEvent(event:Event) {
-        var className:String = Type.getClassName(Type.getClass(this));
         var nativeString = EventTypeParser.toString(event.eventType);
-        var type = Toolkit.nativeConfig.query('component[id=${className}].event[native=${nativeString}].@id', null, this);
+        var type = nativeConfigQuery('component[id={className}].event[native={param1}].@id', nativeString);
         if (type != null) {
             var fn = _eventMap.get(type);
             if (fn != null) {
-                var cls = Toolkit.nativeConfig.query('component[id=${className}].event[native=${nativeString}].@class', "haxe.ui.events.UIEvent", this);
+                var cls = nativeConfigQuery('component[id={className}].event[native={nativeString}].@class', nativeString, "haxe.ui.events.UIEvent");
                 switch (cls) {
                     case "haxe.ui.events.UIEvent":
                         var uiEvent:UIEvent = new UIEvent(type);
