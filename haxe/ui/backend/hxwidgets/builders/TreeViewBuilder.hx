@@ -61,7 +61,11 @@ class TreeViewBuilder extends CompositeBuilder {
         var text = node.data.text;
         var icon = node.data.icon;
         if (node.parentNode == null) {
-            node.dataViewItem = treeCtrl.appendItem(null, text, TreeViewIcons.get(_treeview, icon));
+            if (node.data.expandable == true) {
+                node.dataViewItem = treeCtrl.appendContainer(null, text, TreeViewIcons.get(_treeview, icon));
+            } else {
+                node.dataViewItem = treeCtrl.appendItem(null, text, TreeViewIcons.get(_treeview, icon));
+            }
             _dataViewItemToNodeMap.set(node.dataViewItem.id, node);
         } else {
             var parentNode = cast(node.parentNode, TreeViewNode); // its a different _type_ of TreeViewNode
@@ -94,7 +98,11 @@ class TreeViewBuilder extends CompositeBuilder {
                     treeCtrl.unpauseEvent(EventType.DATAVIEW_SELECTION_CHANGED);
                 }
             }
-            node.dataViewItem = treeCtrl.appendItem(parentNode.dataViewItem, text, TreeViewIcons.get(_treeview, icon));
+            if (node.data.expandable == true) {
+                node.dataViewItem = treeCtrl.appendContainer(parentNode.dataViewItem, text, TreeViewIcons.get(_treeview, icon));
+            } else {
+                node.dataViewItem = treeCtrl.appendItem(parentNode.dataViewItem, text, TreeViewIcons.get(_treeview, icon));
+            }
             _dataViewItemToNodeMap.set(node.dataViewItem.id, node);
             parentNode.applyExpanded();
         }
