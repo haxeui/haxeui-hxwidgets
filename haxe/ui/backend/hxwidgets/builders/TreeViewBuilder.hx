@@ -67,12 +67,25 @@ class TreeViewBuilder extends CompositeBuilder {
             var parentNode = cast(node.parentNode, TreeViewNode); // its a different _type_ of TreeViewNode
             if (parentNode.dataViewItem != null && !treeCtrl.isContainer(parentNode.dataViewItem)) { // we want to change the type from an item to a container since it has childrel (wx widgets is fun!)
                 var selectedNode = cast(_treeview.selectedNode, TreeViewNode); // its a different _type_ of TreeViewNode
-                deleteDataViewItem(parentNode.dataViewItem, false);
                 if (parentNode.parentNode == null) {
-                    parentNode.dataViewItem = treeCtrl.appendContainer(null, parentNode.data.text, TreeViewIcons.get(_treeview, parentNode.data.icon));
+                    var prevNode = treeCtrl.getPrevItem(null, parentNode.dataViewItem);
+                    if (prevNode != null) {
+                        deleteDataViewItem(parentNode.dataViewItem, false);
+                        parentNode.dataViewItem = treeCtrl.insertContainer(null, prevNode, parentNode.data.text, TreeViewIcons.get(_treeview, parentNode.data.icon));
+                    } else {
+                        deleteDataViewItem(parentNode.dataViewItem, false);
+                        parentNode.dataViewItem = treeCtrl.prependContainer(null, parentNode.data.text, TreeViewIcons.get(_treeview, parentNode.data.icon));
+                    }
                     _dataViewItemToNodeMap.set(parentNode.dataViewItem.id, parentNode);
                 } else {
-                    parentNode.dataViewItem = treeCtrl.appendContainer(cast(parentNode.parentNode, TreeViewNode).dataViewItem, parentNode.data.text, TreeViewIcons.get(_treeview, parentNode.data.icon));
+                    var prevNode = treeCtrl.getPrevItem(cast(parentNode.parentNode, TreeViewNode).dataViewItem, parentNode.dataViewItem);
+                    if (prevNode != null) {
+                        deleteDataViewItem(parentNode.dataViewItem, false);
+                        parentNode.dataViewItem = treeCtrl.insertContainer(cast(parentNode.parentNode, TreeViewNode).dataViewItem, prevNode, parentNode.data.text, TreeViewIcons.get(_treeview, parentNode.data.icon));
+                    } else {
+                        deleteDataViewItem(parentNode.dataViewItem, false);
+                        parentNode.dataViewItem = treeCtrl.prependContainer(cast(parentNode.parentNode, TreeViewNode).dataViewItem, parentNode.data.text, TreeViewIcons.get(_treeview, parentNode.data.icon));
+                    }
                     _dataViewItemToNodeMap.set(parentNode.dataViewItem.id, parentNode);
                 }
                 if (selectedNode != null) {
