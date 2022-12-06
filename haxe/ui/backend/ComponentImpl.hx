@@ -124,12 +124,12 @@ class ComponentImpl extends ComponentBase {
             nativeComponentClass = "hx.widgets.ScrolledWindow";
         }
 
-        var creatorClass:String = nativeConfigQuery('component[id={className}].@creator');
+        var creatorClass:String = nativeConfigQuery('component[id={className}].@creator', className);
         if (creatorClass == null) {
-            creatorClass = nativeConfigQuery('component[class={nativeComponentClass}].@creator', nativeComponentClass);
+            creatorClass = nativeConfigQuery('component[class={className}].@creator', nativeComponentClass);
         }
         var creator:Creator = null;
-        if (creatorClass != null) {
+        if (creatorClass != null && creatorClass != "none") {
             creator = Type.createInstance(Type.resolveClass(creatorClass), [this]);
         }
         
@@ -548,6 +548,9 @@ class ComponentImpl extends ComponentBase {
         }
         while (temp == null) {
             className = entry.superClass;
+            if (className == "haxe.ui.core.component") {
+                break;
+            }
             entry = RTTI.getClassInfo(entry.superClass);
             if (entry == null) {
                 break;
