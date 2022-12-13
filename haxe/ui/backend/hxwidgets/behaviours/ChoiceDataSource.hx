@@ -41,5 +41,8 @@ class ChoiceDataSource extends DataBehaviour {
 
         var dropDown:DropDown = cast(_component, DropDown);
         choice.selection = dropDown.selectedIndex;
+        if (dropDown.text != null) {
+            choice.selectedString = dropDown.text;
+        }
     }
 }
