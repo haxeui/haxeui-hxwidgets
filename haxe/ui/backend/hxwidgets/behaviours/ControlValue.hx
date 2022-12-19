@@ -1,5 +1,6 @@
 package haxe.ui.backend.hxwidgets.behaviours;
 
+import haxe.ui.components.Button.ButtonGroups;
 import haxe.ui.behaviours.DataBehaviour;
 import haxe.ui.util.Variant;
 import hx.widgets.CheckBox;
@@ -27,6 +28,7 @@ class ControlValue extends DataBehaviour {
         } else if ((_component.window is RadioButton)) {
             cast(_component.window, RadioButton).value = _value;
         } else if ((_component.window is ToggleButton)) {
+            ButtonGroups.instance.setSelection(cast _component, _value);
             cast(_component.window, ToggleButton).value = _value;
         } else if ((_component.window is TextCtrl)) {
             cast(_component.window, TextCtrl).value = normalizeText(_value);
