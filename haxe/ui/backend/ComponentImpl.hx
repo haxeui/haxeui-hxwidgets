@@ -168,7 +168,7 @@ class ComponentImpl extends ComponentBase {
                 if (Platform.isMac) {
                     n.allowIcons = false;
                 } else if (Platform.isWindows) {
-                    n.padding = new hx.widgets.Size(8, 5);
+                    //n.padding = new hx.widgets.Size(8, 5);
                 }
             }
 
@@ -183,6 +183,9 @@ class ComponentImpl extends ComponentBase {
                 var pageTitle:String = this.text;
                 var pageIcon:String = cast(this, Box).icon;
                 var iconIndex:Int = TabViewIcons.get(cast __parent, pageIcon);
+                if (iconIndex != -1 && Platform.isWindows) {
+                    n.padding = new hx.widgets.Size(8, 5);
+                }
                 n.addPage(window, pageTitle, iconIndex);
                 n.layout();
                 n.refresh();
