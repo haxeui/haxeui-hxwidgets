@@ -3,6 +3,7 @@ package haxe.ui.backend.hxwidgets.behaviours;
 import haxe.ui.behaviours.DataBehaviour;
 import haxe.ui.util.Variant;
 import hx.widgets.Slider;
+import hx.widgets.SpinCtrl;
 
 @:keep
 class ControlMin extends DataBehaviour {
@@ -13,6 +14,8 @@ class ControlMin extends DataBehaviour {
 
         if ((_component.window is Slider)) {
             cast(_component.window, Slider).min = _value;
+        } else if ((_component.window is SpinCtrl)) {
+            cast(_component.window, SpinCtrl).min = _value;
         }
     }
     
@@ -21,5 +24,13 @@ class ControlMin extends DataBehaviour {
             return 0;
         }
         return cast(_component.window, Slider).min;
+        
+        var v:Variant = null;
+        if ((_component.window is Slider)) {
+            v = cast(_component.window, Slider).min;
+        } else if ((_component.window is SpinCtrl)) {
+            v = cast(_component.window, SpinCtrl).min;
+        }    
+        return v;
     }
 }
