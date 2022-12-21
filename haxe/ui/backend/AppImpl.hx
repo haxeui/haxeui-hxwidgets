@@ -163,6 +163,7 @@ class AppImpl extends AppBase {
             _frame.center();
         }
         _frame.thaw();
+        if (_frame.menuBar != null )_frame.menuBar.show();
         dispatch(new AppEvent(AppEvent.APP_STARTED));
         @:privateAccess TimerImpl.processDeferredTimers();
         _app.run();
