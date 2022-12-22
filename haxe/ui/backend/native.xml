@@ -90,21 +90,11 @@
         <behaviour id="disabled" class="haxe.ui.backend.hxwidgets.behaviours.ControlDisable" />
         <behaviour id="tooltip" class="haxe.ui.backend.hxwidgets.behaviours.ToolTipBehaviour" />
         <behaviour id="selected" class="haxe.ui.backend.hxwidgets.behaviours.ControlValue" autoDispatch="haxe.ui.events.UIEvent.CHANGE" />
+        <behaviour id="toggle" class="haxe.ui.behaviours.DefaultBehaviour" />
         <size class="haxe.ui.backend.hxwidgets.size.BestSize" includePadding="false" />
         <handler class="haxe.ui.backend.hxwidgets.handlers.ButtonHandler" />
         <event id="click" native="EventType.BUTTON" class="haxe.ui.events.MouseEvent" />
-    </component>
-    <component id="haxe.ui.components.Toggle" class="hx.widgets.ToggleButton" allowChildren="false">
-        <behaviour id="text" class="haxe.ui.backend.hxwidgets.behaviours.ControlLabel" />
-        <behaviour id="value" class="haxe.ui.backend.hxwidgets.behaviours.ControlLabel" />
-        <behaviour id="selected" class="haxe.ui.backend.hxwidgets.behaviours.ControlValue" autoDispatch="haxe.ui.events.UIEvent.CHANGE" />
-        <behaviour id="icon" class="haxe.ui.backend.hxwidgets.behaviours.ControlBitmap" />
-        <behaviour id="disabled" class="haxe.ui.backend.hxwidgets.behaviours.ControlDisable" />
-        <behaviour id="toggle" class="haxe.ui.behaviours.DefaultBehaviour" />
-        <behaviour id="tooltip" class="haxe.ui.backend.hxwidgets.behaviours.ToolTipBehaviour" />
-        <size class="haxe.ui.backend.hxwidgets.size.BestSize" includePadding="false" />
-        <handler class="haxe.ui.backend.hxwidgets.handlers.ReflectionHandler" event="EventType.TOGGLEBUTTON" sourceProp="value" targetProp="selected" />
-        <event id="click" native="EventType.TOGGLEBUTTON" class="haxe.ui.events.MouseEvent" />
+        <event id="change" native="EventType.TOGGLEBUTTON" class="haxe.ui.events.UIEvent" />
     </component>
     <component id="haxe.ui.components.Switch" class="hx.widgets.ToggleButton" allowChildren="false">
         <behaviour id="text" class="haxe.ui.backend.hxwidgets.behaviours.ControlLabel" />

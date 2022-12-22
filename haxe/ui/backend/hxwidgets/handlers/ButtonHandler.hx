@@ -1,5 +1,6 @@
 package haxe.ui.backend.hxwidgets.handlers;
 
+import haxe.ui.events.MouseEvent;
 import hx.widgets.ToggleButton;
 import haxe.ui.styles.Style;
 import hx.widgets.AnyButton;
@@ -20,6 +21,10 @@ class ButtonHandler extends NativeHandler {
     
     private function __onToggleEvent(event:Event) {
         ButtonGroups.instance.setSelection(cast _component, cast(_component.window, ToggleButton).value);
+        // wxWidgets wont dispatch click events (EventType.BUTTON) for toggle buttons, however, haxeui users may
+        // expect it to since composite backends, lets align that and also dispatch a click event when toggle changes
+        var clickEvent = new MouseEvent(MouseEvent.CLICK);
+        _component.dispatch(clickEvent);
     }
 
     public override function applyStyle(style:Style):Bool {
