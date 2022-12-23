@@ -62,7 +62,6 @@ class DialogBase extends Component {
         this.ready();
         
         var dialog = cast(this.window, Dialog);
-        
         var nativeHeightModifier = 0;
         if (hasClass("custom-dialog-footer") == false && _buttonSizer == null) {
             createFooter();
@@ -91,12 +90,12 @@ class DialogBase extends Component {
         
         var widthModifier = 0;
         if (Platform.isWindows) {
-            widthModifier = 6;
+            widthModifier = 6 + 10;  // TODO: 10 should be padding
         }
         
         var heightModifier = 0;
         if (Platform.isWindows) {
-            heightModifier = 6;
+            heightModifier = 6 + 10;  // TODO: 10 should be padding
         }
         
         // width
@@ -110,8 +109,10 @@ class DialogBase extends Component {
         if (autoWidth == true) {
             width = proposedWidth;
         } else {
-            customDialogFooterContainer.percentWidth = null;
-            customDialogFooterContainer.width = this.width - widthModifier;
+            if (customDialogFooterContainer != null) {
+                customDialogFooterContainer.percentWidth = null;
+                customDialogFooterContainer.width = this.width - widthModifier;
+            }
             
             dialogContentContainer.width = this.width - widthModifier;
             dialogContent.width = null;
