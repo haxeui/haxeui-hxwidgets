@@ -708,7 +708,7 @@ class ComponentImpl extends ComponentBase {
         if (type != null) {
             var fn = _eventMap.get(type);
             if (fn != null) {
-                var cls = nativeConfigQuery('component[id={className}].event[native={nativeString}].@class', nativeString, "haxe.ui.events.UIEvent");
+                var cls = nativeConfigQuery('component[id={className}].event[native={param1}].@class', nativeString, "haxe.ui.events.UIEvent");
                 switch (cls) {
                     case "haxe.ui.events.UIEvent":
                         var uiEvent:UIEvent = new UIEvent(type);
