@@ -1,5 +1,6 @@
 package haxe.ui.backend.hxwidgets.handlers;
 
+import haxe.ui.components.Button;
 import haxe.ui.events.MouseEvent;
 import hx.widgets.ToggleButton;
 import haxe.ui.styles.Style;
@@ -11,6 +12,13 @@ import hx.widgets.EventType;
 import haxe.ui.components.Button.ButtonGroups;
 
 class ButtonHandler extends NativeHandler {
+    private var _button:Button;
+
+    public function new(button:Button) {
+        super(button);
+        _button = button;
+    }
+
     public override function link() {
         _component.window.bind(EventType.TOGGLEBUTTON, __onToggleEvent);
     }
@@ -28,6 +36,10 @@ class ButtonHandler extends NativeHandler {
     }
 
     public override function applyStyle(style:Style):Bool {
+        if (style.icon != null) {
+            _button.icon = style.icon;
+        }
+
         var button:AnyButton = cast(_component.window, AnyButton);
         switch (style.iconPosition) {
             case "right":
