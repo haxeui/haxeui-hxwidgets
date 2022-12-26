@@ -15,7 +15,7 @@ class ControlDisable extends HxWidgetsBehaviour {
         }
         
         _component.window.enabled = !value;
-        _component.disableInteractiveEvents(value);
+        _component.disableInteractivity(value, false);
     }
     
     public override function get():Variant {
