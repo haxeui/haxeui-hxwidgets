@@ -5,25 +5,33 @@ import haxe.ui.behaviours.DataBehaviour;
 import haxe.ui.components.DropDown;
 import haxe.ui.containers.ListView;
 import haxe.ui.core.IDataComponent;
+import haxe.ui.util.Variant;
 
 class DataComponentSelectedItem extends DataBehaviour {
+    private var _cachedValue:Dynamic = null; // might need revision here for core behaviours, since Variant cant actually hold a TObject
+
     public override function getDynamic():Dynamic {
         if ((_component is IDataComponent) == false) {
             return false;
         }
-        
+
         var dataComponent:IDataComponent = cast(_component, IDataComponent);
         var ds = dataComponent.dataSource;
         var selectedItem = null;
+
         if ((_component is DropDown)) {
             var dropDown = cast(_component, DropDown);
             if (dropDown.selectedIndex > -1) {
                 selectedItem = ds.get(dropDown.selectedIndex);
+            } else if (_cachedValue != null) {
+                selectedItem = _cachedValue;
             }
         } else if ((_component is ListView)) {
             var listview = cast(_component, ListView);
             if (listview.selectedIndex > -1) {
                 selectedItem = ds.get(listview.selectedIndex);
+            } else if (_cachedValue != null) {
+                selectedItem = _cachedValue;
             }
         }
         
@@ -31,6 +39,7 @@ class DataComponentSelectedItem extends DataBehaviour {
     }
 
     public override function setDynamic(value:Dynamic) {
+        _cachedValue = value;
         var dataComponent:IDataComponent = cast(_component, IDataComponent);
         var ds = dataComponent.dataSource;
         var selectedIndex = findIndexOfItem(value, ds);
