@@ -28,4 +28,19 @@ class DataComponentSelectedItem extends DataBehaviour {
         
         return selectedItem;
     }
+    
+    public override function setDynamic(value:Dynamic) {
+        _value = value;
+        var text = "";
+        if (Type.typeof(value) == TObject) {
+            text = value.text;
+            if (text == null) {
+                text = value.value;
+            }
+        } else {
+            text = Std.string(value);
+        }
+                
+        _component.text = text;
+    }
 }
