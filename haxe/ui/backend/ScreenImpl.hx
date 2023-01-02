@@ -4,6 +4,7 @@ import haxe.ui.backend.hxwidgets.EventMapper;
 import haxe.ui.backend.hxwidgets.MenuItemHelper;
 import haxe.ui.containers.menus.Menu.MenuEvent;
 import haxe.ui.containers.menus.MenuBar;
+import haxe.ui.containers.menus.Menu;
 import haxe.ui.core.Component;
 import haxe.ui.events.MouseEvent;
 import haxe.ui.events.UIEvent;
@@ -28,6 +29,12 @@ class ScreenImpl extends ScreenBase {
     }
     
     public override function addComponent(component:Component):Component {
+        if ((component is Menu)) {
+            component.ready();
+            var menuObject = cast(component.object, hx.widgets.Menu);
+            frame.popupMenu(menuObject);
+            return component;
+        }
         addResizeListener();
         resizeComponent(component);
         return component;
