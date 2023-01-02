@@ -162,6 +162,11 @@ class ComponentImpl extends ComponentBase {
                 window.show(false);
                 _firstResize = true;
             }
+
+            if (_disableOnCreate == true) {
+                _disableOnCreate = false;
+                window.enabled = false;
+            }
             
             if ((window is Notebook)) {
                 var n:Notebook = cast window;
@@ -289,6 +294,15 @@ class ComponentImpl extends ComponentBase {
             window.refresh();
         } else {
             _hideOnCreate = !show;
+        }
+    }
+
+    private var _disableOnCreate:Bool = false;
+    private override function handleDisabled(disable:Bool) {
+        if (window != null) {
+            window.enabled = !disabled;
+        } else {
+            _disableOnCreate = disable;
         }
     }
 
