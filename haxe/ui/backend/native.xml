@@ -60,6 +60,7 @@
     </component>
     <component id="haxe.ui.components.Label" class="haxe.ui.backend.hxwidgets.custom.TransparentStaticText" allowChildren="false">
         <behaviour id="text" class="haxe.ui.backend.hxwidgets.behaviours.ControlLabel" />
+        <behaviour id="htmlText" class="haxe.ui.backend.hxwidgets.behaviours.ControlMarkupLabel" />
         <behaviour id="value" class="haxe.ui.backend.hxwidgets.behaviours.ControlLabel" />
         <behaviour id="allowInteraction" class="haxe.ui.backend.hxwidgets.behaviours.AllowInteraction" />
         <behaviour id="tooltip" class="haxe.ui.backend.hxwidgets.behaviours.ToolTipBehaviour" />
