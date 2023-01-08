@@ -7,6 +7,10 @@ import hx.widgets.Control;
 class ControlMarkupLabel extends DataBehaviour {
     
     public override function validateData() {
+        if (_component.window == null) {
+            return;
+        }
+
         var ctrl:Control = cast(_component.window, Control);
         if (_value != null) {
             _component.set("originalLabel", _value.toString()); // for wrapping, see: haxe.ui.backend.hxwidgets.size.BestSize
