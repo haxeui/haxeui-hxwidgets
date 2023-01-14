@@ -36,7 +36,7 @@ import wx.widgets.styles.FrameStyle;
 class AppImpl extends AppBase {
     private var _app:App;
     private var _frame:Frame;
-    private var _onEnd:Void->Void;
+    private var __onEnd:Void->Void;
 
     public function new() {
         SystemOptions.setOption("msw.window.no-clip-children", 1);
@@ -73,7 +73,7 @@ class AppImpl extends AppBase {
     }
 
     private override function init(onReady:Void->Void, onEnd:Void->Void = null) {
-        _onEnd = onEnd;
+        __onEnd = onEnd;
         
         var maximized:Bool = Toolkit.backendProperties.getPropBool("haxe.ui.hxwidgets.frame.maximized", false);
         var frameWidth:Int = Toolkit.backendProperties.getPropInt("haxe.ui.hxwidgets.frame.width", 800);
@@ -172,8 +172,8 @@ class AppImpl extends AppBase {
 
         _app.exit();
         dispatch(new AppEvent(AppEvent.APP_EXITED));
-        if (_onEnd != null) {
-            _onEnd();
+        if (__onEnd != null) {
+            __onEnd();
         }
     }
     
