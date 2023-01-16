@@ -112,7 +112,7 @@
         <size class="haxe.ui.backend.hxwidgets.size.BestSize" includePadding="false" />
         <event id="change" native="EventType.RADIOBUTTON" />
     </component>
-    <component id="haxe.ui.components.TextField" class="hx.widgets.TextCtrl" allowChildren="false">
+    <component id="haxe.ui.components.TextField" class="hx.widgets.TextCtrl" creator="haxe.ui.backend.hxwidgets.creators.TextCtrlCreator" constructor="null, $style"  allowChildren="false">
         <behaviour id="text" class="haxe.ui.backend.hxwidgets.behaviours.ControlValue" autoDispatch="haxe.ui.events.UIEvent.CHANGE" />
         <behaviour id="value" class="haxe.ui.backend.hxwidgets.behaviours.ControlValue" autoDispatch="haxe.ui.events.UIEvent.CHANGE" />
         <behaviour id="password" class="haxe.ui.backend.hxwidgets.behaviours.TextCtrlPassword" />
