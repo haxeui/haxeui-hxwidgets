@@ -17,14 +17,17 @@ class MessageBoxBase extends Dialog {
             case MessageBoxType.TYPE_INFO:
                 style = MessageDialogStyle.ICON_INFORMATION;
             case MessageBoxType.TYPE_QUESTION:
-                style = MessageDialogStyle.HELP;
+                style = MessageDialogStyle.YES_NO;
             case MessageBoxType.TYPE_WARNING:
                 style = MessageDialogStyle.ICON_WARNING;
             case MessageBoxType.TYPE_ERROR:
                 style = MessageDialogStyle.ICON_ERROR;
         }
         var dialog:MessageDialog = new MessageDialog(Screen.instance.frame, _message, title, style);
-        var retVal = dialog.showModal();
+        var retVal = cast dialog.showModal();
+        var event = new DialogEvent(DialogEvent.DIALOG_CLOSED);
+        event.button = DialogBase.standardIdToButton(retVal);
+        dispatch(event);
     }
     
     private var _message:String;
