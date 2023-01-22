@@ -24,7 +24,7 @@ class MessageBoxBase extends Dialog {
                 style = MessageDialogStyle.ICON_ERROR;
         }
         var dialog:MessageDialog = new MessageDialog(Screen.instance.frame, _message, title, style);
-        var retVal = cast dialog.showModal();
+        var retVal = dialog.showModal();
         var event = new DialogEvent(DialogEvent.DIALOG_CLOSED);
         event.button = DialogBase.standardIdToButton(retVal);
         dispatch(event);
