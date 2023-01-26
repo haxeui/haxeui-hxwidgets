@@ -32,7 +32,10 @@ class ScreenImpl extends ScreenBase {
         if ((component is Menu)) {
             component.ready();
             var menuObject = cast(component.object, hx.widgets.Menu);
+            var func = onMenu.bind(_, component);
+            frame.bind(EventType.MENU, func);
             frame.popupMenu(menuObject);
+            frame.unbind(EventType.MENU, func);
             return component;
         }
         addResizeListener();
@@ -87,18 +90,18 @@ class ScreenImpl extends ScreenBase {
         _menuBar = menuBar;
         _nativeMenuBar = nativeMenuBar;
         frame.menuBar = nativeMenuBar;
-        frame.bind(EventType.MENU, onMenu);
+        frame.bind(EventType.MENU, onMenu.bind(_, menuBar));
     }
     
-    private function onMenu(e:Event) {
-        if (_menuBar == null) {
+    private function onMenu(e:Event, c:Component) {
+        if (c == null) {
             return;
         }
         var menuItem = MenuItemHelper.get(e.id);
         if (menuItem != null) {
             var event = new MenuEvent(MenuEvent.MENU_SELECTED);
             event.menuItem = menuItem;
-            _menuBar.dispatch(event);
+            c.dispatch(event);
         }
     }
     
