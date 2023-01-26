@@ -1,5 +1,8 @@
 package haxe.ui.backend.hxwidgets.builders;
 
+import hx.widgets.NotifyEvent;
+import hx.widgets.EventType;
+import hx.widgets.Event;
 import haxe.ui.backend.hxwidgets.custom.TreeViewNode;
 import haxe.ui.containers.TreeView;
 import haxe.ui.core.CompositeBuilder;
@@ -20,12 +23,18 @@ class TreeViewBuilder extends CompositeBuilder {
         super.onInitialize();
         var treeCtrl:DataViewTreeCtrl = cast(_component.window, DataViewTreeCtrl);
         treeCtrl.indent = 16;
+        treeCtrl.bind(EventType.DATAVIEW_ITEM_START_EDITING, onItemStartEdit);
         for (node in nodesToCreate) {
             createNode(node);
         }
         nodesToCreate = null;
     }
     
+    private function onItemStartEdit(event:Event) {
+        var notifyEvent = event.convertTo(NotifyEvent);
+        notifyEvent.veto();
+    }
+
     public function dataViewItemToNode(dataViewItem:DataViewItem):TreeViewNode {
         if (dataViewItem == null) {
             return null;
