@@ -432,7 +432,7 @@ class ComponentImpl extends ComponentBase {
     private var _foreColourSet:Bool = false;
     private var _cachedStyle:Style = null;
     private override function applyStyle(style:Style) {
-        if (window == null || _ready == false) {
+        if (window == null || _componentReady == false) {
             _cachedStyle = style;
             return;
         }
