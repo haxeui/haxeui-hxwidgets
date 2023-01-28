@@ -6,6 +6,7 @@ import haxe.ui.containers.TreeView;
 import haxe.ui.core.Component;
 import hx.widgets.DataViewItem;
 import hx.widgets.DataViewTreeCtrl;
+import haxe.ui.util.Variant;
 
 class TreeViewNode extends haxe.ui.containers.TreeViewNode {
     public var treeView:TreeView = null;
@@ -33,8 +34,11 @@ class TreeViewNode extends haxe.ui.containers.TreeViewNode {
         }
         
         var treeCtrl:DataViewTreeCtrl = cast(treeView.window, DataViewTreeCtrl);
-        var text = _data.text;
-        var icon = _data.icon;
+        var text:String = _data.text;
+        var icon:String = _data.icon;
+        if ((_data.icon is VariantType)) {
+            icon = Variant.fromDynamic(_data.icon);
+        }
         
         treeCtrl.setItemText(dataViewItem, text);
         if (icon != null) {
