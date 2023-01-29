@@ -11,24 +11,26 @@ using StringTools;
 
 class SaveFileDialogImpl extends SaveFileDialogBase {
     public override function show() {
-        if (fileInfo == null || (fileInfo.text == null && fileInfo.bytes == null)) {
-            throw "Nothing to write";
-        }
-        
         var message = options.title;
         if (message == null) {
             message = "Save File";
         }
         var pattern = buildPattern();
         var style = FileDialogStyle.SAVE | FileDialogStyle.OVERWRITE_PROMPT;
-        var nativeDialog = new FileDialog(Screen.instance.frame, message, null, fileInfo.name, pattern, style);
+        var fileName:String = null;
+        if (fileInfo != null) {
+            fileName = fileInfo.name;
+        }
+        var nativeDialog = new FileDialog(Screen.instance.frame, message, null, fileName, pattern, style);
         var r = nativeDialog.showModal();
         if (r == StandardId.OK) {
             var fullPath = Path.normalize(nativeDialog.directory + "/" + nativeDialog.filename);
-            if (fileInfo.text != null) {
-                File.saveContent(fullPath, fileInfo.text);
-            } else if (fileInfo.bytes != null) {
-                File.saveBytes(fullPath, fileInfo.bytes);
+            if (fileInfo != null) {
+                if (fileInfo.text != null) {
+                    File.saveContent(fullPath, fileInfo.text);
+                } else if (fileInfo.bytes != null) {
+                    File.saveBytes(fullPath, fileInfo.bytes);
+                }
             }
             dialogConfirmed();
         } else {
