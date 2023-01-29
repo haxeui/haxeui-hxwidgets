@@ -159,8 +159,10 @@ class ComponentImpl extends ComponentBase {
                 _hideOnCreate = false;
                 window.show(false);
             } else if (__parent != null && __parent.window != null && (__parent.window is Notebook) == false) {
-                window.show(false);
-                _firstResize = true;
+                if (!cast(this, Component).hidden) {
+                    window.show(false);
+                    _firstResize = true;
+                }
             }
 
             if (_disableOnCreate == true) {
@@ -256,6 +258,7 @@ class ComponentImpl extends ComponentBase {
         if (_firstResize == true && cast(this, Component).hidden == false) {
             _firstResize = false;
             window.show(true);
+            window.refresh();
         }
     }
 
