@@ -1,5 +1,7 @@
 package haxe.ui.backend.hxwidgets.builders;
 
+import haxe.ui.events.MouseEvent;
+import hx.widgets.EventType;
 import hx.widgets.NotifyEvent;
 import hx.widgets.EventType;
 import hx.widgets.Event;
@@ -28,8 +30,17 @@ class TreeViewBuilder extends CompositeBuilder {
             createNode(node);
         }
         nodesToCreate = null;
+
+        _component.window.bind(EventType.DATAVIEW_ITEM_CONTEXT_MENU, onContextMenu);
     }
     
+    private function onContextMenu(_) {
+        // we'll dispatch all right mouse events for good measure
+        _treeview.dispatch(new MouseEvent(MouseEvent.RIGHT_MOUSE_DOWN));
+        _treeview.dispatch(new MouseEvent(MouseEvent.RIGHT_CLICK));
+        _treeview.dispatch(new MouseEvent(MouseEvent.RIGHT_MOUSE_UP));
+    }
+
     private function onItemStartEdit(event:Event) {
         var notifyEvent = event.convertTo(NotifyEvent);
         notifyEvent.veto();
