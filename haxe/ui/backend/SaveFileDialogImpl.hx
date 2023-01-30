@@ -24,7 +24,7 @@ class SaveFileDialogImpl extends SaveFileDialogBase {
         var nativeDialog = new FileDialog(Screen.instance.frame, message, null, fileName, pattern, style);
         var r = nativeDialog.showModal();
         if (r == StandardId.OK) {
-            var fullPath = Path.normalize(nativeDialog.directory + "/" + nativeDialog.filename);
+            fullPath = Path.normalize(nativeDialog.directory + "/" + nativeDialog.filename);
             if (fileInfo != null) {
                 if (fileInfo.text != null) {
                     File.saveContent(fullPath, fileInfo.text);
