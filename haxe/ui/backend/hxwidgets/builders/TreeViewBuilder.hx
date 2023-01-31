@@ -11,6 +11,7 @@ import haxe.ui.core.CompositeBuilder;
 import hx.widgets.DataViewItem;
 import hx.widgets.DataViewTreeCtrl;
 import hx.widgets.EventType;
+import haxe.ui.backend.hxwidgets.Platform;
 
 class TreeViewBuilder extends CompositeBuilder {
     private var _treeview:TreeView = null;
@@ -24,7 +25,9 @@ class TreeViewBuilder extends CompositeBuilder {
     public override function onInitialize() {
         super.onInitialize();
         var treeCtrl:DataViewTreeCtrl = cast(_component.window, DataViewTreeCtrl);
-        treeCtrl.indent = 16;
+        if (Platform.isWindows) {
+            treeCtrl.indent = 16;
+        }
         treeCtrl.bind(EventType.DATAVIEW_ITEM_START_EDITING, onItemStartEdit);
         for (node in nodesToCreate) {
             createNode(node);
