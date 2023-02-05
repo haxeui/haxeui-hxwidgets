@@ -17,6 +17,16 @@ class ChoiceDataSource extends DataBehaviour {
         return _value;
     }
     
+    public override function set(value:Variant) {
+        super.set(value);
+        if (value != null && value.isNull == false) {
+            var ds:DataSource<Dynamic> = value;
+            ds.onChange = function() {
+                validateData();
+            }
+        }
+    }
+
     public override function validateData() {
         if (_component.window == null) {
             return;
