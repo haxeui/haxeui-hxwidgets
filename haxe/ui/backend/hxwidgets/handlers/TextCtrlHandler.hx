@@ -21,7 +21,7 @@ class TextCtrlHandler extends NativeHandler {
     }
     
     private function onEnterEvent(e) {
-    	_component.dispatch(new UIEvent(UIEvent.USER_SUBMIT));
+    	_component.dispatch(new UIEvent(UIEvent.SUBMIT));
     }
     
     public override function applyStyle(style:Style):Bool {
