@@ -1,5 +1,6 @@
 package haxe.ui.backend;
 
+import hx.widgets.styles.NotebookStyle;
 import haxe.ui.util.RTTI;
 import hx.widgets.styles.WindowStyle;
 import haxe.ui.backend.hxwidgets.ConstructorParams;
@@ -172,6 +173,9 @@ class ComponentImpl extends ComponentBase {
             
             if ((window is Notebook)) {
                 var n:Notebook = cast window;
+                if (cast(this, Component).hasClass("full-width-buttons")) {
+                    n.windowStyle ^= NotebookStyle.FIXEDWIDTH;
+                }
                 if (Platform.isMac) {
                     n.allowIcons = false;
                 } else if (Platform.isWindows) {
@@ -186,7 +190,11 @@ class ComponentImpl extends ComponentBase {
 
             if ((__parent is haxe.ui.containers.TabView)) {
                 var n:Notebook = cast __parent.window;
-                cast(this, Component).addClass("tab-page");
+                var c = cast(this, Component);
+                c.addClass("tab-page");
+                if (c.percentWidth != null) { // wx issue? If notebook children are 0 sized, they stay zero sized... forever
+                    c.width = 1;
+                }
                 var pageTitle:String = this.text;
                 var pageIcon:String = cast(this, Box).icon;
                 var iconIndex:Int = TabViewIcons.get(cast __parent, pageIcon);
