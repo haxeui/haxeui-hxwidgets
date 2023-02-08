@@ -193,7 +193,7 @@ class ComponentImpl extends ComponentBase {
                 var c = cast(this, Component);
                 c.addClass("tab-page");
                 if (c.percentWidth != null) { // wx issue? If notebook children are 0 sized, they stay zero sized... forever
-                    c.width = 1;
+                    c.width = 0xff; // weird magic number here - zero isnt enough
                 }
                 var pageTitle:String = this.text;
                 var pageIcon:String = cast(this, Box).icon;
