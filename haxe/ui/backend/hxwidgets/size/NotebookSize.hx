@@ -11,9 +11,10 @@ class NotebookSize extends DelegateLayoutSize {
 
     private override function get_height():Float {
         var h = component.window.bestSize.height;
-        if (Platform.isWindows) { // windows lower padding workaround
+        // seems to be a wx thing
+        //if (Platform.isWindows) { // windows lower padding workaround
             h += 4;
-        }
+        //}
         return h;
     }
 
