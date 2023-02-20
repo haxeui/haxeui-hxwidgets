@@ -67,6 +67,13 @@
         <size class="haxe.ui.backend.hxwidgets.size.BestSize" includePadding="false" />
         <handler class="haxe.ui.backend.hxwidgets.handlers.StaticTextHandler" />
     </component>
+    <component id="haxe.ui.components.Link" class="hx.widgets.HyperlinkCtrl" allowChildren="false">
+        <behaviour id="text" class="haxe.ui.backend.hxwidgets.behaviours.ControlLabel" />
+        <behaviour id="value" class="haxe.ui.backend.hxwidgets.behaviours.ControlLabel" />
+        <behaviour id="tooltip" class="haxe.ui.backend.hxwidgets.behaviours.ToolTipBehaviour" />
+        <size class="haxe.ui.backend.hxwidgets.size.BestSize" includePadding="false" />
+        <handler class="haxe.ui.backend.hxwidgets.handlers.LinkHandler" />
+    </component>
     <component id="haxe.ui.components.Image" class="haxe.ui.backend.hxwidgets.custom.TransparentStaticBitmap" creator="haxe.ui.backend.hxwidgets.creators.StaticBitmapCreator" allowChildren="false">
         <behaviour id="resource" class="haxe.ui.backend.hxwidgets.behaviours.ControlBitmap" />
         <behaviour id="value" class="haxe.ui.backend.hxwidgets.behaviours.ControlBitmap" />
