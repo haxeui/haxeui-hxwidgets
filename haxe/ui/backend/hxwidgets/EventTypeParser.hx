@@ -10,6 +10,7 @@ class EventTypeParser {
         switch (event) {
             case "EventType.SLIDER":                        return EventType.SLIDER;
             case "EventType.BUTTON":                        return EventType.BUTTON;
+            case "EventType.HYPERLINK":                     return EventType.HYPERLINK;
             case "EventType.TOGGLEBUTTON":                  return EventType.TOGGLEBUTTON;
             case "EventType.NOTEBOOK_PAGE_CHANGED":         return EventType.NOTEBOOK_PAGE_CHANGED;
             case "EventType.RADIOBUTTON":                   return EventType.RADIOBUTTON;
@@ -33,6 +34,8 @@ class EventTypeParser {
             return "EventType.SLIDER";
         } else if (eventType == EventType.BUTTON) {
             return "EventType.BUTTON";
+        } else if (eventType == EventType.HYPERLINK) {
+            return "EventType.HYPERLINK";
         } else if (eventType == EventType.TOGGLEBUTTON) {
             return "EventType.TOGGLEBUTTON";
         } else if (eventType == EventType.NOTEBOOK_PAGE_CHANGED) {

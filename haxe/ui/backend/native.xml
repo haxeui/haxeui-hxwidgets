@@ -73,6 +73,7 @@
         <behaviour id="tooltip" class="haxe.ui.backend.hxwidgets.behaviours.ToolTipBehaviour" />
         <size class="haxe.ui.backend.hxwidgets.size.BestSize" includePadding="false" />
         <handler class="haxe.ui.backend.hxwidgets.handlers.LinkHandler" />
+        <event id="click" native="EventType.HYPERLINK" class="haxe.ui.events.MouseEvent" />
     </component>
     <component id="haxe.ui.components.Image" class="haxe.ui.backend.hxwidgets.custom.TransparentStaticBitmap" creator="haxe.ui.backend.hxwidgets.creators.StaticBitmapCreator" allowChildren="false">
         <behaviour id="resource" class="haxe.ui.backend.hxwidgets.behaviours.ControlBitmap" />
