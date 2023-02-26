@@ -236,18 +236,20 @@
     </component>
     <component id="haxe.ui.containers.menus.MenuItem" class="hx.widgets.MenuItem" creator="haxe.ui.backend.hxwidgets.creators.MenuItemCreator" allowChildren="false">
         <behaviour id="disabled" class="haxe.ui.backend.hxwidgets.behaviours.MenuDisable" />
-        <behaviour id="text" class="haxe.ui.backend.hxwidgets.behaviours.MenuLabel" />
+        <behaviour id="text" class="haxe.ui.backend.hxwidgets.behaviours.MenuItemLabel" />
         <behaviour id="tooltip" class="haxe.ui.backend.hxwidgets.behaviours.ToolTipBehaviour" />
         <behaviour id="icon" class="haxe.ui.backend.hxwidgets.behaviours.MenuItemBitmap" />
         <size class="haxe.ui.backend.hxwidgets.size.ZeroSize" includePadding="false" />
     </component>
     <component id="haxe.ui.containers.menus.MenuCheckBox" class="hx.widgets.MenuItem" creator="haxe.ui.backend.hxwidgets.creators.MenuItemCreator" allowChildren="false">
-        <behaviour id="text" class="haxe.ui.backend.hxwidgets.behaviours.MenuLabel" />
+        <behaviour id="text" class="haxe.ui.backend.hxwidgets.behaviours.MenuItemLabel" />
+        <behaviour id="selected" class="haxe.ui.backend.hxwidgets.behaviours.MenuItemSelected" />
         <behaviour id="tooltip" class="haxe.ui.backend.hxwidgets.behaviours.ToolTipBehaviour" />
         <size class="haxe.ui.backend.hxwidgets.size.ZeroSize" includePadding="false" />
     </component>
     <component id="haxe.ui.containers.menus.MenuOptionBox" class="hx.widgets.MenuItem" creator="haxe.ui.backend.hxwidgets.creators.MenuItemCreator" allowChildren="false">
-        <behaviour id="text" class="haxe.ui.backend.hxwidgets.behaviours.MenuLabel" />
+        <behaviour id="text" class="haxe.ui.backend.hxwidgets.behaviours.MenuItemLabel" />
+        <behaviour id="selected" class="haxe.ui.backend.hxwidgets.behaviours.MenuItemSelected" />
         <behaviour id="tooltip" class="haxe.ui.backend.hxwidgets.behaviours.ToolTipBehaviour" />
         <size class="haxe.ui.backend.hxwidgets.size.ZeroSize" includePadding="false" />
     </component>
