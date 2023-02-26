@@ -3,7 +3,7 @@ package haxe.ui.backend.hxwidgets.behaviours;
 import haxe.ui.behaviours.DataBehaviour;
 import hx.widgets.MenuItem;
 
-class MenuLabel extends DataBehaviour {
+class MenuItemLabel extends DataBehaviour {
     public override function validateData() {
         var item = cast(_component, haxe.ui.containers.menus.MenuItem);
         var label:String = _value;
