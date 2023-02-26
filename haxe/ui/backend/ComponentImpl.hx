@@ -178,8 +178,8 @@ class ComponentImpl extends ComponentBase {
                 }
                 if (Platform.isMac) {
                     n.allowIcons = false;
-                } else if (Platform.isWindows) {
-                    //n.padding = new hx.widgets.Size(8, 5);
+                } else if (Platform.isWindows && cast(this, Component).hasClass("padded-tabs")) { // feels like a bit of a hack, but setting the padding later doesnt seem to work in wxWidgets, so we'll use a specialized css class (since icons in tabs really need the padding to look nice on windows)
+                    n.padding = new hx.widgets.Size(8, 5);
                 }
             }
 
