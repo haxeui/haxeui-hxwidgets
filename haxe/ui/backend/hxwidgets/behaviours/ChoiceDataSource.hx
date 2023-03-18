@@ -1,5 +1,6 @@
 package haxe.ui.backend.hxwidgets.behaviours;
 
+import haxe.ui.events.UIEvent;
 import haxe.ui.behaviours.DataBehaviour;
 import haxe.ui.components.DropDown;
 import haxe.ui.data.ArrayDataSource;
@@ -56,6 +57,7 @@ class ChoiceDataSource extends DataBehaviour {
         }
         if (_component.get("hasSelection") == true) {
             choice.selection = 0;
+            dropDown.dispatch(new UIEvent(UIEvent.CHANGE));
         }
     }
 }
