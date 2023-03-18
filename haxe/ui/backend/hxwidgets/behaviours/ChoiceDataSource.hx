@@ -7,7 +7,7 @@ import haxe.ui.data.DataSource;
 import haxe.ui.util.Variant;
 import hx.widgets.Choice;
 
-@:access(haxe.ui.backend.ComponentBase)
+@:access(haxe.ui.core.Component)
 class ChoiceDataSource extends DataBehaviour {
     public override function get():Variant {
         if (_value == null || _value.isNull) {
@@ -53,6 +53,9 @@ class ChoiceDataSource extends DataBehaviour {
         choice.selection = dropDown.selectedIndex;
         if (dropDown.text != null) {
             choice.selectedString = dropDown.text;
+        }
+        if (_component.get("hasSelection") == true) {
+            choice.selection = 0;
         }
     }
 }
