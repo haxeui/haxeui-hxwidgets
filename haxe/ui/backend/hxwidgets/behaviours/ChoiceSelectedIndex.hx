@@ -1,5 +1,6 @@
 package haxe.ui.backend.hxwidgets.behaviours;
 
+import haxe.ui.events.UIEvent;
 import haxe.ui.behaviours.DataBehaviour;
 import haxe.ui.util.Variant;
 import hx.widgets.Choice;
@@ -15,6 +16,7 @@ class ChoiceSelectedIndex extends DataBehaviour {
             choice.selection = -1;
             _component.set("hasSelection", false);
         }
+        _component.dispatch(new UIEvent(UIEvent.CHANGE));
     }
     
     public override function get():Variant {

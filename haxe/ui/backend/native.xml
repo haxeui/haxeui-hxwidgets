@@ -45,8 +45,8 @@
     <component id="haxe.ui.components.DropDown" class="hx.widgets.Choice" allowChildren="false" creator="none">
         <behaviour id="text" class="haxe.ui.backend.hxwidgets.behaviours.ChoiceSelectedLabel" />
         <behaviour id="dataSource" class="haxe.ui.backend.hxwidgets.behaviours.ChoiceDataSource" />
-        <behaviour id="selectedIndex" class="haxe.ui.backend.hxwidgets.behaviours.ChoiceSelectedIndex" autoDispatch="haxe.ui.events.UIEvent.CHANGE" />
-        <behaviour id="selectedItem" class="haxe.ui.backend.hxwidgets.behaviours.DataComponentSelectedItem" autoDispatch="haxe.ui.events.UIEvent.CHANGE" />
+        <behaviour id="selectedIndex" class="haxe.ui.backend.hxwidgets.behaviours.ChoiceSelectedIndex" />
+        <behaviour id="selectedItem" class="haxe.ui.backend.hxwidgets.behaviours.DataComponentSelectedItem" />
         <behaviour id="tooltip" class="haxe.ui.backend.hxwidgets.behaviours.ToolTipBehaviour" />
         <size class="haxe.ui.backend.hxwidgets.size.BestSize" includePadding="false" />
         <handler class="haxe.ui.backend.hxwidgets.handlers.ChoiceHandler" />
