@@ -27,7 +27,7 @@ class Timer  {
     }
 
     public static function stamp():Float {
-        throw "not implemented";
+        return 0;
     }
 
     public static function delay(f:Void->Void, time_ms:Int):Timer {
