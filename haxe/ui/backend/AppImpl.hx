@@ -39,7 +39,7 @@ class AppImpl extends AppBase {
     private var _frame:Frame;
     private var __onEnd:Void->Void;
 
-    #if !haxeui_hxwidgets_no_event_loop
+    #if (!haxeui_hxwidgets_no_event_loop && haxe_ver >= 4.2)
     private static var mainThread:sys.thread.Thread;
     #end
 
@@ -47,7 +47,7 @@ class AppImpl extends AppBase {
         //SystemOptions.setOption("msw.window.no-clip-children", 1);
         // seems interesting - https://docs.wxwidgets.org/trunk/classwx_system_options.html
         //SystemOptions.setOption("msw.dark-mode", 1);
-        #if !haxeui_hxwidgets_no_event_loop
+        #if (!haxeui_hxwidgets_no_event_loop && haxe_ver >= 4.2)
         untyped __cpp__("wxIdleEvent::SetMode(wxIDLE_PROCESS_SPECIFIED)");
         mainThread = sys.thread.Thread.current();
         #end
@@ -61,7 +61,7 @@ class AppImpl extends AppBase {
         #end
 
         _app = new App();
-        #if !haxeui_hxwidgets_no_event_loop
+        #if (!haxeui_hxwidgets_no_event_loop && haxe_ver >= 4.2)
         _app.bind(EventType.IDLE, onIdle);
         #end
         _app.init();
@@ -86,7 +86,7 @@ class AppImpl extends AppBase {
         }
     }
 
-    #if !haxeui_hxwidgets_no_event_loop
+    #if (!haxeui_hxwidgets_no_event_loop && haxe_ver >= 4.2)
     // NOTE: if you choose to specify "haxeui_hxwidgets_no_event_loop" this means that you will need your own
     // haxe.Timer impl (or use haxe.ui.utils.Timer which will always work). This flag may also affect 3rd
     // party libraries that depend on the haxe event loop and its features
@@ -158,7 +158,7 @@ class AppImpl extends AppBase {
             frameTop = Toolkit.backendProperties.getPropInt("haxe.ui.hxwidgets.frame.top", 0);
         }
 
-        #if !haxeui_hxwidgets_no_event_loop
+        #if (!haxeui_hxwidgets_no_event_loop && haxe_ver >= 4.2)
         _frame.bind(EventType.SIZE, onResize);
         _frame.bind(EventType.MOVE, onMove);
         #end
@@ -175,7 +175,7 @@ class AppImpl extends AppBase {
 
         _frame.bind(EventType.CLOSE_WINDOW, function(e:Event) {
             dispatch(new AppEvent(AppEvent.APP_CLOSED));
-            #if !haxeui_hxwidgets_no_event_loop
+            #if (!haxeui_hxwidgets_no_event_loop && haxe_ver >= 4.2)
             endTimer();
             _frame.unbind(EventType.SIZE, onResize);
             _frame.unbind(EventType.MOVE, onMove);
