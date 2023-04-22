@@ -1,3 +1,7 @@
+--macro addGlobalMetadata("hx.widgets", "@:noCompletion")
+--macro addGlobalMetadata("wx.widgets", "@:noCompletion")
+--macro addGlobalMetadata("haxe.ui.backend.hxwidgets.custom", "@:noSchemaGen")
+
 --macro wx.widgets.EntryMacro.defineWxVersion(false)
 --macro wx.widgets.EntryMacro.detectPlatform()
 
@@ -10,5 +14,3 @@
 --macro include("haxe.ui.backend.hxwidgets.handlers")
 --macro include("haxe.ui.backend.hxwidgets.creators")
 
---macro addGlobalMetadata("hx.widgets", "@:noCompletion")
---macro addGlobalMetadata("wx.widgets", "@:noCompletion")

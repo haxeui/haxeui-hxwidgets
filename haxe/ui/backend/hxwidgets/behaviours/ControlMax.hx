@@ -4,6 +4,7 @@ import haxe.ui.behaviours.DataBehaviour;
 import haxe.ui.util.Variant;
 import hx.widgets.Gauge;
 import hx.widgets.Slider;
+import hx.widgets.SpinCtrl;
 
 @:keep
 class ControlMax extends DataBehaviour {
@@ -16,7 +17,10 @@ class ControlMax extends DataBehaviour {
             cast(_component.window, Slider).max = _value;
         } else if ((_component.window is Gauge)) {
             cast(_component.window, Gauge).range = _value;
+        }  else if ((_component.window is SpinCtrl)) {
+            cast(_component.window, SpinCtrl).max = _value;
         }
+        
     }
     
     public override function get():Variant {
@@ -29,7 +33,9 @@ class ControlMax extends DataBehaviour {
             v = cast(_component.window, Gauge).range;
         } else if ((_component.window is Slider)) {
             v = cast(_component.window, Slider).max;
-        }        
+        } else if ((_component.window is SpinCtrl)) {
+            v = cast(_component.window, SpinCtrl).max;
+        }     
         return v;
     }
 }

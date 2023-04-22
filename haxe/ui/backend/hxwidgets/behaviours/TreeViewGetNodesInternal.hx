@@ -22,9 +22,7 @@ class TreeViewGetNodesInternal extends Behaviour {
             return null;
         }
 
-        var treeCtrl:DataViewTreeCtrl = cast(treeview.window, DataViewTreeCtrl);
         @:privateAccess var builder:TreeViewBuilder = cast(treeview._compositeBuilder, TreeViewBuilder);
-        
         var nodes:Array<TreeViewNode> = builder.dataViewItemChildren(dataViewItem);
         return nodes;
     }

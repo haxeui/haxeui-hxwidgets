@@ -10,8 +10,9 @@ class EventMapper {
         haxe.ui.events.MouseEvent.MOUSE_DOWN => EventType.LEFT_DOWN,
         haxe.ui.events.MouseEvent.MOUSE_UP => EventType.LEFT_UP,
         haxe.ui.events.MouseEvent.MOUSE_WHEEL => EventType.MOUSEWHEEL,
-        haxe.ui.events.MouseEvent.RIGHT_CLICK => EventType.RIGHT_UP,
-        haxe.ui.events.MouseEvent.CLICK => EventType.BUTTON,
+        haxe.ui.events.MouseEvent.RIGHT_CLICK => EventType.CONTEXT_MENU,
+        haxe.ui.events.MouseEvent.RIGHT_MOUSE_DOWN => EventType.RIGHT_DOWN,
+        haxe.ui.events.MouseEvent.RIGHT_MOUSE_UP => EventType.RIGHT_UP,
         haxe.ui.events.MouseEvent.DBL_CLICK => EventType.LEFT_DCLICK,
         haxe.ui.events.FocusEvent.FOCUS_IN => EventType.SET_FOCUS,
         haxe.ui.events.FocusEvent.FOCUS_OUT => EventType.KILL_FOCUS
@@ -24,8 +25,9 @@ class EventMapper {
         EventType.LEFT_DOWN => haxe.ui.events.MouseEvent.MOUSE_DOWN,
         EventType.LEFT_UP => haxe.ui.events.MouseEvent.MOUSE_UP,
         EventType.MOUSEWHEEL => haxe.ui.events.MouseEvent.MOUSE_WHEEL,
-        EventType.RIGHT_UP => haxe.ui.events.MouseEvent.RIGHT_CLICK,
-        EventType.BUTTON => haxe.ui.events.MouseEvent.CLICK,
+        EventType.CONTEXT_MENU => haxe.ui.events.MouseEvent.RIGHT_CLICK,
+        EventType.RIGHT_DOWN => haxe.ui.events.MouseEvent.RIGHT_MOUSE_DOWN,
+        EventType.RIGHT_UP => haxe.ui.events.MouseEvent.RIGHT_MOUSE_UP,
         EventType.LEFT_DCLICK => haxe.ui.events.MouseEvent.DBL_CLICK,
         EventType.SET_FOCUS => haxe.ui.events.FocusEvent.FOCUS_IN,
         EventType.KILL_FOCUS => haxe.ui.events.FocusEvent.FOCUS_OUT

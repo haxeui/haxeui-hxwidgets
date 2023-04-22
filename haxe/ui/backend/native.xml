@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <native>
     <component id="haxe.ui.containers.ListView" class="haxe.ui.backend.hxwidgets.custom.SimpleListView" allowChildren="false">
-        <behaviour id="disabled" class="haxe.ui.backend.hxwidgets.behaviours.ControlDisable" />
         <behaviour id="dataSource" class="haxe.ui.backend.hxwidgets.behaviours.ListViewDataSource" />
         <behaviour id="selectedIndex" class="haxe.ui.backend.hxwidgets.behaviours.ListViewSelectedIndex" />
         <behaviour id="contentLayoutName" class="haxe.ui.behaviours.DefaultBehaviour" />
@@ -37,20 +36,17 @@
     </component>
     <component id="haxe.ui.components.HScroll" class="hx.widgets.ScrollBar" constructor="$style" allowChildren="false" style="ScrollBarStyle.HORIZONTAL">
         <behaviour id="pos" class="haxe.ui.backend.hxwidgets.behaviours.ControlValue" />
-        <behaviour id="disabled" class="haxe.ui.backend.hxwidgets.behaviours.ControlDisable" />
         <size class="haxe.ui.backend.hxwidgets.size.BestSize" includePadding="false" />
     </component>
     <component id="haxe.ui.components.VScroll" class="hx.widgets.ScrollBar" constructor="$style" allowChildren="false" style="ScrollBarStyle.VERTICAL">
         <behaviour id="pos" class="haxe.ui.backend.hxwidgets.behaviours.ControlValue" />
-        <behaviour id="disabled" class="haxe.ui.backend.hxwidgets.behaviours.ControlDisable" />
         <size class="haxe.ui.backend.hxwidgets.size.BestSize" includePadding="false" />
     </component>
-    <component id="haxe.ui.components.DropDown" class="hx.widgets.Choice" allowChildren="false">
+    <component id="haxe.ui.components.DropDown" class="hx.widgets.Choice" allowChildren="false" creator="none">
         <behaviour id="text" class="haxe.ui.backend.hxwidgets.behaviours.ChoiceSelectedLabel" />
         <behaviour id="dataSource" class="haxe.ui.backend.hxwidgets.behaviours.ChoiceDataSource" />
         <behaviour id="selectedIndex" class="haxe.ui.backend.hxwidgets.behaviours.ChoiceSelectedIndex" />
         <behaviour id="selectedItem" class="haxe.ui.backend.hxwidgets.behaviours.DataComponentSelectedItem" />
-        <behaviour id="disabled" class="haxe.ui.backend.hxwidgets.behaviours.ControlDisable" />
         <behaviour id="tooltip" class="haxe.ui.backend.hxwidgets.behaviours.ToolTipBehaviour" />
         <size class="haxe.ui.backend.hxwidgets.size.BestSize" includePadding="false" />
         <handler class="haxe.ui.backend.hxwidgets.handlers.ChoiceHandler" />
@@ -60,22 +56,28 @@
     
     
     <component id="haxe.ui.containers.dialogs.Dialog" class="hx.widgets.Dialog" creator="haxe.ui.backend.hxwidgets.creators.DialogCreator">
-        <behaviour id="disabled" class="haxe.ui.backend.hxwidgets.behaviours.ControlDisable" />
         <size class="haxe.ui.backend.hxwidgets.size.DialogSize" />
     </component>
     <component id="haxe.ui.components.Label" class="haxe.ui.backend.hxwidgets.custom.TransparentStaticText" allowChildren="false">
         <behaviour id="text" class="haxe.ui.backend.hxwidgets.behaviours.ControlLabel" />
+        <behaviour id="htmlText" class="haxe.ui.backend.hxwidgets.behaviours.ControlMarkupLabel" />
         <behaviour id="value" class="haxe.ui.backend.hxwidgets.behaviours.ControlLabel" />
-        <behaviour id="disabled" class="haxe.ui.backend.hxwidgets.behaviours.ControlDisable" />
         <behaviour id="allowInteraction" class="haxe.ui.backend.hxwidgets.behaviours.AllowInteraction" />
         <behaviour id="tooltip" class="haxe.ui.backend.hxwidgets.behaviours.ToolTipBehaviour" />
         <size class="haxe.ui.backend.hxwidgets.size.BestSize" includePadding="false" />
         <handler class="haxe.ui.backend.hxwidgets.handlers.StaticTextHandler" />
     </component>
+    <component id="haxe.ui.components.Link" class="hx.widgets.HyperlinkCtrl" allowChildren="false">
+        <behaviour id="text" class="haxe.ui.backend.hxwidgets.behaviours.ControlLabel" />
+        <behaviour id="value" class="haxe.ui.backend.hxwidgets.behaviours.ControlLabel" />
+        <behaviour id="tooltip" class="haxe.ui.backend.hxwidgets.behaviours.ToolTipBehaviour" />
+        <size class="haxe.ui.backend.hxwidgets.size.BestSize" includePadding="false" />
+        <handler class="haxe.ui.backend.hxwidgets.handlers.LinkHandler" />
+        <event id="click" native="EventType.HYPERLINK" class="haxe.ui.events.MouseEvent" />
+    </component>
     <component id="haxe.ui.components.Image" class="haxe.ui.backend.hxwidgets.custom.TransparentStaticBitmap" creator="haxe.ui.backend.hxwidgets.creators.StaticBitmapCreator" allowChildren="false">
         <behaviour id="resource" class="haxe.ui.backend.hxwidgets.behaviours.ControlBitmap" />
         <behaviour id="value" class="haxe.ui.backend.hxwidgets.behaviours.ControlBitmap" />
-        <behaviour id="disabled" class="haxe.ui.backend.hxwidgets.behaviours.ControlDisable" />
         <behaviour id="allowInteraction" class="haxe.ui.backend.hxwidgets.behaviours.AllowInteraction" />
         <behaviour id="tooltip" class="haxe.ui.backend.hxwidgets.behaviours.ToolTipBehaviour" />
         <behaviour id="scaleMode" class="haxe.ui.backend.hxwidgets.behaviours.ImageScaleMode" />
@@ -87,28 +89,16 @@
         <behaviour id="text" class="haxe.ui.backend.hxwidgets.behaviours.ControlLabel" />
         <behaviour id="value" class="haxe.ui.backend.hxwidgets.behaviours.ControlLabel" />
         <behaviour id="icon" class="haxe.ui.backend.hxwidgets.behaviours.ControlBitmap" />
-        <behaviour id="disabled" class="haxe.ui.backend.hxwidgets.behaviours.ControlDisable" />
         <behaviour id="tooltip" class="haxe.ui.backend.hxwidgets.behaviours.ToolTipBehaviour" />
         <behaviour id="selected" class="haxe.ui.backend.hxwidgets.behaviours.ControlValue" autoDispatch="haxe.ui.events.UIEvent.CHANGE" />
+        <behaviour id="toggle" class="haxe.ui.behaviours.DefaultBehaviour" />
         <size class="haxe.ui.backend.hxwidgets.size.BestSize" includePadding="false" />
         <handler class="haxe.ui.backend.hxwidgets.handlers.ButtonHandler" />
         <event id="click" native="EventType.BUTTON" class="haxe.ui.events.MouseEvent" />
-    </component>
-    <component id="haxe.ui.components.Toggle" class="hx.widgets.ToggleButton" allowChildren="false">
-        <behaviour id="text" class="haxe.ui.backend.hxwidgets.behaviours.ControlLabel" />
-        <behaviour id="value" class="haxe.ui.backend.hxwidgets.behaviours.ControlLabel" />
-        <behaviour id="selected" class="haxe.ui.backend.hxwidgets.behaviours.ControlValue" autoDispatch="haxe.ui.events.UIEvent.CHANGE" />
-        <behaviour id="icon" class="haxe.ui.backend.hxwidgets.behaviours.ControlBitmap" />
-        <behaviour id="disabled" class="haxe.ui.backend.hxwidgets.behaviours.ControlDisable" />
-        <behaviour id="toggle" class="haxe.ui.behaviours.DefaultBehaviour" />
-        <behaviour id="tooltip" class="haxe.ui.backend.hxwidgets.behaviours.ToolTipBehaviour" />
-        <size class="haxe.ui.backend.hxwidgets.size.BestSize" includePadding="false" />
-        <handler class="haxe.ui.backend.hxwidgets.handlers.ReflectionHandler" event="EventType.TOGGLEBUTTON" sourceProp="value" targetProp="selected" />
-        <event id="click" native="EventType.TOGGLEBUTTON" class="haxe.ui.events.MouseEvent" />
+        <event id="change" native="EventType.TOGGLEBUTTON" class="haxe.ui.events.UIEvent" />
     </component>
     <component id="haxe.ui.components.Switch" class="hx.widgets.ToggleButton" allowChildren="false">
         <behaviour id="text" class="haxe.ui.backend.hxwidgets.behaviours.ControlLabel" />
-        <behaviour id="disabled" class="haxe.ui.backend.hxwidgets.behaviours.ControlDisable" />
         <behaviour id="selected" class="haxe.ui.backend.hxwidgets.behaviours.ControlValue" autoDispatch="haxe.ui.events.UIEvent.CHANGE" />
         <behaviour id="tooltip" class="haxe.ui.backend.hxwidgets.behaviours.ToolTipBehaviour" />
         <size class="haxe.ui.backend.hxwidgets.size.BestSize" includePadding="false" />
@@ -118,7 +108,6 @@
         <behaviour id="text" class="haxe.ui.backend.hxwidgets.behaviours.ControlLabel" />
         <behaviour id="selected" class="haxe.ui.backend.hxwidgets.behaviours.ControlValue" />
         <behaviour id="value" class="haxe.ui.backend.hxwidgets.behaviours.ControlValue" />
-        <behaviour id="disabled" class="haxe.ui.backend.hxwidgets.behaviours.ControlDisable" />
         <behaviour id="tooltip" class="haxe.ui.backend.hxwidgets.behaviours.ToolTipBehaviour" />
         <size class="haxe.ui.backend.hxwidgets.size.BestSize" includePadding="false" />
         <event id="change" native="EventType.CHECKBOX" />
@@ -127,12 +116,11 @@
         <behaviour id="text" class="haxe.ui.backend.hxwidgets.behaviours.ControlLabel" />
         <behaviour id="selected" class="haxe.ui.backend.hxwidgets.behaviours.ControlValue" />
         <behaviour id="value" class="haxe.ui.backend.hxwidgets.behaviours.ControlValue" />
-        <behaviour id="disabled" class="haxe.ui.backend.hxwidgets.behaviours.ControlDisable" />
         <behaviour id="tooltip" class="haxe.ui.backend.hxwidgets.behaviours.ToolTipBehaviour" />
         <size class="haxe.ui.backend.hxwidgets.size.BestSize" includePadding="false" />
         <event id="change" native="EventType.RADIOBUTTON" />
     </component>
-    <component id="haxe.ui.components.TextField" class="hx.widgets.TextCtrl" allowChildren="false">
+    <component id="haxe.ui.components.TextField" class="hx.widgets.TextCtrl" creator="haxe.ui.backend.hxwidgets.creators.TextCtrlCreator" constructor="null, $style"  allowChildren="false">
         <behaviour id="text" class="haxe.ui.backend.hxwidgets.behaviours.ControlValue" autoDispatch="haxe.ui.events.UIEvent.CHANGE" />
         <behaviour id="value" class="haxe.ui.backend.hxwidgets.behaviours.ControlValue" autoDispatch="haxe.ui.events.UIEvent.CHANGE" />
         <behaviour id="password" class="haxe.ui.backend.hxwidgets.behaviours.TextCtrlPassword" />
@@ -140,7 +128,6 @@
         <behaviour id="icon" class="haxe.ui.behaviours.DefaultBehaviour" />
         <behaviour id="restrictChars" class="haxe.ui.behaviours.DefaultBehaviour" />
         <behaviour id="maxChars" class="haxe.ui.behaviours.DefaultBehaviour" />
-        <behaviour id="disabled" class="haxe.ui.backend.hxwidgets.behaviours.ControlDisable" />
         <behaviour id="tooltip" class="haxe.ui.backend.hxwidgets.behaviours.ToolTipBehaviour" />
         <size class="haxe.ui.backend.hxwidgets.size.BestSize" includePadding="false" />
         <event id="change" native="EventType.TEXT" />
@@ -149,7 +136,6 @@
     <component id="haxe.ui.components.TextArea" class="hx.widgets.TextCtrl" constructor="null, $style" allowChildren="false" style="TextCtrlStyle.MULTILINE, TextCtrlStyle.HSCROLL">
         <behaviour id="text" class="haxe.ui.backend.hxwidgets.behaviours.ControlValue" autoDispatch="haxe.ui.events.UIEvent.CHANGE" />
         <behaviour id="value" class="haxe.ui.backend.hxwidgets.behaviours.ControlValue" autoDispatch="haxe.ui.events.UIEvent.CHANGE" />
-        <behaviour id="disabled" class="haxe.ui.backend.hxwidgets.behaviours.ControlDisable" />
         <behaviour id="wrap" class="haxe.ui.backend.hxwidgets.behaviours.TextCtrlWordWrap" />
         <behaviour id="tooltip" class="haxe.ui.backend.hxwidgets.behaviours.ToolTipBehaviour" />
         <size class="haxe.ui.backend.hxwidgets.size.BestSize" includePadding="false" />
@@ -159,14 +145,12 @@
     <component id="haxe.ui.components.HorizontalRange" class="hx.widgets.Gauge" constructor="100, $style" allowChildren="false">
         <behaviour id="end" class="haxe.ui.backend.hxwidgets.behaviours.ControlValue" autoDispatch="haxe.ui.events.UIEvent.CHANGE" />
         <behaviour id="value" class="haxe.ui.backend.hxwidgets.behaviours.ControlValue" autoDispatch="haxe.ui.events.UIEvent.CHANGE" />
-        <behaviour id="disabled" class="haxe.ui.backend.hxwidgets.behaviours.ControlDisable" />
         <behaviour id="tooltip" class="haxe.ui.backend.hxwidgets.behaviours.ToolTipBehaviour" />
         <size class="haxe.ui.backend.hxwidgets.size.BestSize" includePadding="false" />
     </component>
     <component id="haxe.ui.components.VerticalRange" class="hx.widgets.Gauge" constructor="100, $style" allowChildren="false" style="GaugeStyle.VERTICAL">
         <behaviour id="end" class="haxe.ui.backend.hxwidgets.behaviours.ControlValue" autoDispatch="haxe.ui.events.UIEvent.CHANGE" />
         <behaviour id="value" class="haxe.ui.backend.hxwidgets.behaviours.ControlValue" autoDispatch="haxe.ui.events.UIEvent.CHANGE" />
-        <behaviour id="disabled" class="haxe.ui.backend.hxwidgets.behaviours.ControlDisable" />
         <behaviour id="tooltip" class="haxe.ui.backend.hxwidgets.behaviours.ToolTipBehaviour" />
         <size class="haxe.ui.backend.hxwidgets.size.BestSize" includePadding="false" />
     </component>
@@ -175,7 +159,6 @@
         <behaviour id="value" class="haxe.ui.backend.hxwidgets.behaviours.ControlValue" autoDispatch="haxe.ui.events.UIEvent.CHANGE" />
         <behaviour id="max" class="haxe.ui.backend.hxwidgets.behaviours.ControlMax" />
         <behaviour id="indeterminate" class="haxe.ui.backend.hxwidgets.behaviours.ControlPulse" />
-        <behaviour id="disabled" class="haxe.ui.backend.hxwidgets.behaviours.ControlDisable" />
         <behaviour id="tooltip" class="haxe.ui.backend.hxwidgets.behaviours.ToolTipBehaviour" />
         <size class="haxe.ui.backend.hxwidgets.size.BestSize" includePadding="false" />
     </component>
@@ -184,7 +167,6 @@
         <behaviour id="value" class="haxe.ui.backend.hxwidgets.behaviours.ControlValue" autoDispatch="haxe.ui.events.UIEvent.CHANGE" />
         <behaviour id="max" class="haxe.ui.backend.hxwidgets.behaviours.ControlMax" />
         <behaviour id="indeterminate" class="haxe.ui.backend.hxwidgets.behaviours.ControlPulse" />
-        <behaviour id="disabled" class="haxe.ui.backend.hxwidgets.behaviours.ControlDisable" />
         <behaviour id="tooltip" class="haxe.ui.backend.hxwidgets.behaviours.ToolTipBehaviour" />
         <size class="haxe.ui.backend.hxwidgets.size.BestSize" includePadding="false" />
     </component>
@@ -196,7 +178,6 @@
         <behaviour id="value" class="haxe.ui.backend.hxwidgets.behaviours.ControlValue" autoDispatch="haxe.ui.events.UIEvent.CHANGE" />
         <behaviour id="min" class="haxe.ui.backend.hxwidgets.behaviours.ControlMin" />
         <behaviour id="max" class="haxe.ui.backend.hxwidgets.behaviours.ControlMax" />
-        <behaviour id="disabled" class="haxe.ui.backend.hxwidgets.behaviours.ControlDisable" />
         <behaviour id="tooltip" class="haxe.ui.backend.hxwidgets.behaviours.ToolTipBehaviour" />
         <size class="haxe.ui.backend.hxwidgets.size.BestSize" includePadding="false" />
         <handler class="haxe.ui.backend.hxwidgets.handlers.ReflectionHandler" event="EventType.SLIDER" sourceProp="value" targetProp="pos" />
@@ -209,33 +190,32 @@
         <behaviour id="value" class="haxe.ui.backend.hxwidgets.behaviours.ControlValue" autoDispatch="haxe.ui.events.UIEvent.CHANGE" />
         <behaviour id="min" class="haxe.ui.backend.hxwidgets.behaviours.ControlMin" />
         <behaviour id="max" class="haxe.ui.backend.hxwidgets.behaviours.ControlMax" />
-        <behaviour id="disabled" class="haxe.ui.backend.hxwidgets.behaviours.ControlDisable" />
         <behaviour id="tooltip" class="haxe.ui.backend.hxwidgets.behaviours.ToolTipBehaviour" />
         <size class="haxe.ui.backend.hxwidgets.size.BestSize" includePadding="false" />
         <event id="change" native="EventType.SLIDER" />
     </component>
     <component id="haxe.ui.containers.TabView" class="hx.widgets.Notebook">
-        <behaviour id="disabled" class="haxe.ui.backend.hxwidgets.behaviours.ControlDisable" />
         <behaviour id="removeAllPages" class="haxe.ui.backend.hxwidgets.behaviours.NotebookRemoveAllPages" />
         <behaviour id="removePage" class="haxe.ui.backend.hxwidgets.behaviours.NotebookRemovePage" />
         <behaviour id="getPage" class="haxe.ui.backend.hxwidgets.behaviours.NotebookGetPage" />
         <behaviour id="pageCount" class="haxe.ui.backend.hxwidgets.behaviours.NotebookPageCount" />
         <behaviour id="pageIndex" class="haxe.ui.backend.hxwidgets.behaviours.NotebookPageIndex" />
+        <behaviour id="selectedPage" class="haxe.ui.backend.hxwidgets.behaviours.NotebookSelectedPage" />
         <behaviour id="tooltip" class="haxe.ui.backend.hxwidgets.behaviours.ToolTipBehaviour" />
         <behaviour id="tabPosition" class="haxe.ui.behaviours.DefaultBehaviour" />
         <size class="haxe.ui.backend.hxwidgets.size.NotebookSize" includePadding="false" />
         <event id="change" native="EventType.NOTEBOOK_PAGE_CHANGED" />
     </component>
     <component id="haxe.ui.containers.ScrollView" class="hx.widgets.ScrolledWindow">
-        <behaviour id="disabled" class="haxe.ui.backend.hxwidgets.behaviours.ControlDisable" />
         <behaviour id="contentLayoutName" class="haxe.ui.behaviours.DefaultBehaviour" />
         <behaviour id="tooltip" class="haxe.ui.backend.hxwidgets.behaviours.ToolTipBehaviour" />
         <size class="haxe.ui.backend.hxwidgets.size.WindowSize" includePadding="false" />
         <builder class="haxe.ui.backend.hxwidgets.builders.ScrollViewBuilder" />
     </component>
     <component id="haxe.ui.components.NumberStepper" class="hx.widgets.SpinCtrl" allowChildren="false">
-        <behaviour id="disabled" class="haxe.ui.backend.hxwidgets.behaviours.ControlDisable" />
         <behaviour id="step" class="haxe.ui.behaviours.DefaultBehaviour" />
+        <behaviour id="min" class="haxe.ui.backend.hxwidgets.behaviours.ControlMin" />
+        <behaviour id="max" class="haxe.ui.backend.hxwidgets.behaviours.ControlMax" />
         <behaviour id="pos" class="haxe.ui.backend.hxwidgets.behaviours.ControlValue" />
         <behaviour id="tooltip" class="haxe.ui.backend.hxwidgets.behaviours.ToolTipBehaviour" />
         <size class="haxe.ui.backend.hxwidgets.size.BestSize" includePadding="false" />
@@ -244,13 +224,11 @@
     
     
     <component id="haxe.ui.containers.menus.MenuBar" class="hx.widgets.MenuBar" creator="haxe.ui.backend.hxwidgets.creators.MenuBarCreator">
-        <behaviour id="disabled" class="haxe.ui.backend.hxwidgets.behaviours.ControlDisable" />
         <behaviour id="text" class="haxe.ui.behaviours.DefaultBehaviour" />
         <behaviour id="tooltip" class="haxe.ui.backend.hxwidgets.behaviours.ToolTipBehaviour" />
         <size class="haxe.ui.backend.hxwidgets.size.ZeroSize" includePadding="false" />
     </component>
     <component id="haxe.ui.containers.menus.Menu" class="hx.widgets.Menu" creator="haxe.ui.backend.hxwidgets.creators.MenuCreator">
-        <behaviour id="disabled" class="haxe.ui.backend.hxwidgets.behaviours.ControlDisable" />
         <behaviour id="text" class="haxe.ui.behaviours.DefaultBehaviour" />
         <behaviour id="tooltip" class="haxe.ui.backend.hxwidgets.behaviours.ToolTipBehaviour" />
         <size class="haxe.ui.backend.hxwidgets.size.ZeroSize" includePadding="false" />
@@ -258,31 +236,29 @@
     </component>
     <component id="haxe.ui.containers.menus.MenuItem" class="hx.widgets.MenuItem" creator="haxe.ui.backend.hxwidgets.creators.MenuItemCreator" allowChildren="false">
         <behaviour id="disabled" class="haxe.ui.backend.hxwidgets.behaviours.MenuDisable" />
-        <behaviour id="text" class="haxe.ui.backend.hxwidgets.behaviours.MenuLabel" />
+        <behaviour id="text" class="haxe.ui.backend.hxwidgets.behaviours.MenuItemLabel" />
         <behaviour id="tooltip" class="haxe.ui.backend.hxwidgets.behaviours.ToolTipBehaviour" />
         <behaviour id="icon" class="haxe.ui.backend.hxwidgets.behaviours.MenuItemBitmap" />
         <size class="haxe.ui.backend.hxwidgets.size.ZeroSize" includePadding="false" />
     </component>
     <component id="haxe.ui.containers.menus.MenuCheckBox" class="hx.widgets.MenuItem" creator="haxe.ui.backend.hxwidgets.creators.MenuItemCreator" allowChildren="false">
-        <behaviour id="disabled" class="haxe.ui.backend.hxwidgets.behaviours.ControlDisable" />
-        <behaviour id="text" class="haxe.ui.backend.hxwidgets.behaviours.MenuLabel" />
+        <behaviour id="text" class="haxe.ui.backend.hxwidgets.behaviours.MenuItemLabel" />
+        <behaviour id="selected" class="haxe.ui.backend.hxwidgets.behaviours.MenuItemSelected" />
         <behaviour id="tooltip" class="haxe.ui.backend.hxwidgets.behaviours.ToolTipBehaviour" />
         <size class="haxe.ui.backend.hxwidgets.size.ZeroSize" includePadding="false" />
     </component>
     <component id="haxe.ui.containers.menus.MenuOptionBox" class="hx.widgets.MenuItem" creator="haxe.ui.backend.hxwidgets.creators.MenuItemCreator" allowChildren="false">
-        <behaviour id="disabled" class="haxe.ui.backend.hxwidgets.behaviours.ControlDisable" />
-        <behaviour id="text" class="haxe.ui.backend.hxwidgets.behaviours.MenuLabel" />
+        <behaviour id="text" class="haxe.ui.backend.hxwidgets.behaviours.MenuItemLabel" />
+        <behaviour id="selected" class="haxe.ui.backend.hxwidgets.behaviours.MenuItemSelected" />
         <behaviour id="tooltip" class="haxe.ui.backend.hxwidgets.behaviours.ToolTipBehaviour" />
         <size class="haxe.ui.backend.hxwidgets.size.ZeroSize" includePadding="false" />
     </component>
     <component id="haxe.ui.containers.menus.MenuSeparator" class="hx.widgets.MenuItem" creator="haxe.ui.backend.hxwidgets.creators.MenuItemCreator" allowChildren="false">
-        <behaviour id="disabled" class="haxe.ui.backend.hxwidgets.behaviours.ControlDisable" />
         <behaviour id="text" class="haxe.ui.behaviours.DefaultBehaviour" />
         <behaviour id="tooltip" class="haxe.ui.backend.hxwidgets.behaviours.ToolTipBehaviour" />
         <size class="haxe.ui.backend.hxwidgets.size.ZeroSize" includePadding="false" />
     </component>
     <component id="haxe.ui.containers.properties.PropertyGrid" class="hx.widgets.PropertyGrid">
-        <behaviour id="disabled" class="haxe.ui.backend.hxwidgets.behaviours.ControlDisable" />
         <behaviour id="contentLayoutName" class="haxe.ui.behaviours.DefaultBehaviour" />
         <behaviour id="tooltip" class="haxe.ui.backend.hxwidgets.behaviours.ToolTipBehaviour" />
         <size class="haxe.ui.backend.hxwidgets.size.BestSize" includePadding="false" />

@@ -64,7 +64,7 @@
 .textarea {
     width: auto;
     height: auto;
-    color: black;
+    color: none;
     initial-width: none;
     initial-height: none;
 }

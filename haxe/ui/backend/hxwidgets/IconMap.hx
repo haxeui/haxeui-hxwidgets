@@ -45,6 +45,10 @@ class IconMap<T:ComponentImpl> {
             iconList = new Array<String>();
             _imageListToIcon.set(imageList, iconList);
         }
+        if (Resource.listNames().indexOf(icon) == -1) {
+            trace("WARNING: icon not found");
+            return -1;
+        }
         imageList.add(Bitmap.fromHaxeResource(icon));
         iconList.push(icon);
 

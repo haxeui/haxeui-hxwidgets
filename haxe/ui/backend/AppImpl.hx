@@ -9,6 +9,7 @@ import hx.widgets.Event;
 import hx.widgets.EventType;
 import hx.widgets.Frame;
 import hx.widgets.Icon;
+import hx.widgets.IdleEvent;
 import hx.widgets.PlatformInfo;
 import hx.widgets.SystemMetric;
 import hx.widgets.SystemOptions;
@@ -36,10 +37,20 @@ import wx.widgets.styles.FrameStyle;
 class AppImpl extends AppBase {
     private var _app:App;
     private var _frame:Frame;
-    private var _onEnd:Void->Void;
+    private var __onEnd:Void->Void;
+
+    #if (!haxeui_hxwidgets_no_event_loop && haxe_ver >= 4.2)
+    private static var mainThread:sys.thread.Thread;
+    #end
 
     public function new() {
-        SystemOptions.setOption("msw.window.no-clip-children", 1);
+        //SystemOptions.setOption("msw.window.no-clip-children", 1);
+        // seems interesting - https://docs.wxwidgets.org/trunk/classwx_system_options.html
+        //SystemOptions.setOption("msw.dark-mode", 1);
+        #if (!haxeui_hxwidgets_no_event_loop && haxe_ver >= 4.2)
+        untyped __cpp__("wxIdleEvent::SetMode(wxIDLE_PROCESS_SPECIFIED)");
+        mainThread = sys.thread.Thread.current();
+        #end
     }
 
     private override function build() {
@@ -50,6 +61,9 @@ class AppImpl extends AppBase {
         #end
 
         _app = new App();
+        #if (!haxeui_hxwidgets_no_event_loop && haxe_ver >= 4.2)
+        _app.bind(EventType.IDLE, onIdle);
+        #end
         _app.init();
 
         var platform:PlatformInfo = new PlatformInfo();
@@ -72,8 +86,55 @@ class AppImpl extends AppBase {
         }
     }
 
+    #if (!haxeui_hxwidgets_no_event_loop && haxe_ver >= 4.2)
+    // NOTE: if you choose to specify "haxeui_hxwidgets_no_event_loop" this means that you will need your own
+    // haxe.Timer impl (or use haxe.ui.utils.Timer which will always work). This flag may also affect 3rd
+    // party libraries that depend on the haxe event loop and its features
+    private function onIdle(event:Event) {
+        endTimer();
+        mainThread.events.progress();
+        //trace("idel");
+        var idleEvent = event.convertTo(IdleEvent);
+        idleEvent.requestMore();
+    }
+
+    // were going to work around an edge case: in wx widgets, idle events arent send when the app frame is resizing or
+    // moving, what we are going to do in these cases is use a timer to update the haxe event loop at 60fps, once we 
+    // start receiving idle events again, we can assume as is good and shutdown the timer
+    private function onResize(event:Event) {
+        startTimer();
+    }
+
+    private function onMove(event:Event) {
+        startTimer();
+    }
+
+    var _timer:haxe.ui.util.Timer = null;
+    private inline function startTimer() {
+        if (_timer != null) {
+            return;
+        }
+
+        mainThread.events.progress();
+        _timer = new haxe.ui.util.Timer(Std.int(16), onTimer);
+    }
+
+    private inline function endTimer() {
+        if (_timer == null) {
+            return;
+        }
+
+        _timer.stop();
+        _timer = null;
+    }
+
+    private inline function onTimer() {
+        mainThread.events.progress();
+    }
+    #end
+
     private override function init(onReady:Void->Void, onEnd:Void->Void = null) {
-        _onEnd = onEnd;
+        __onEnd = onEnd;
         
         var maximized:Bool = Toolkit.backendProperties.getPropBool("haxe.ui.hxwidgets.frame.maximized", false);
         var frameWidth:Int = Toolkit.backendProperties.getPropInt("haxe.ui.hxwidgets.frame.width", 800);
@@ -97,6 +158,10 @@ class AppImpl extends AppBase {
             frameTop = Toolkit.backendProperties.getPropInt("haxe.ui.hxwidgets.frame.top", 0);
         }
 
+        #if (!haxeui_hxwidgets_no_event_loop && haxe_ver >= 4.2)
+        _frame.bind(EventType.SIZE, onResize);
+        _frame.bind(EventType.MOVE, onMove);
+        #end
         _frame.freeze();
         if (maximized == true) {
             _frame.maximize(true);
@@ -110,6 +175,12 @@ class AppImpl extends AppBase {
 
         _frame.bind(EventType.CLOSE_WINDOW, function(e:Event) {
             dispatch(new AppEvent(AppEvent.APP_CLOSED));
+            #if (!haxeui_hxwidgets_no_event_loop && haxe_ver >= 4.2)
+            endTimer();
+            _frame.unbind(EventType.SIZE, onResize);
+            _frame.unbind(EventType.MOVE, onMove);
+            _app.unbind(EventType.IDLE, onIdle);
+            #end
             _frame.destroy();
         });
 
@@ -163,14 +234,17 @@ class AppImpl extends AppBase {
             _frame.center();
         }
         _frame.thaw();
+        if (_frame.menuBar != null) {
+            _frame.menuBar.show();
+        }
         dispatch(new AppEvent(AppEvent.APP_STARTED));
         @:privateAccess TimerImpl.processDeferredTimers();
         _app.run();
 
         _app.exit();
         dispatch(new AppEvent(AppEvent.APP_EXITED));
-        if (_onEnd != null) {
-            _onEnd();
+        if (__onEnd != null) {
+            __onEnd();
         }
     }
     

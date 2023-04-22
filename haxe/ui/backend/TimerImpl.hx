@@ -1,5 +1,7 @@
 package haxe.ui.backend;
 
+import hx.widgets.TimerEvent;
+import hx.widgets.Event;
 import haxe.ui.backend.hxwidgets.Platform;
 import haxe.ui.core.Screen;
 import hx.widgets.EventType;
@@ -16,7 +18,8 @@ class TimerImpl {
     private var _callback:Void->Void;
 
     private static var _deferredTimers:Array<DeferredTimerDetails>;
-    
+    private static var _nextTimerId:Int = 1;
+
     public function new(delay:Int, callback:Void->Void) {
         if (Screen.instance.options == null || Screen.instance.options.frame == null) {
             // its possible that you might want to created timers _before_ hxwidgets
@@ -37,7 +40,8 @@ class TimerImpl {
         var frame:Frame = Screen.instance.options.frame;
         _callback = callback;
         frame.bind(EventType.TIMER, onTimer);
-        _timer = new Timer(frame, delay);
+        _timer = new Timer(frame, delay, false, _nextTimerId);
+        _nextTimerId++;
     }
 
     private static function processDeferredTimers() {
@@ -53,9 +57,13 @@ class TimerImpl {
         _deferredTimers = null;
     }
     
-    private function onTimer(e) {
-        if (_callback != null) {
-            _callback();
+    private function onTimer(e:Event) {
+        var timerEvent = e.convertTo(TimerEvent);
+        var timer = timerEvent.timer;
+        if (timer.id == _timer.id) {
+            if (_callback != null) {
+                _callback();
+            }
         }
     }
     

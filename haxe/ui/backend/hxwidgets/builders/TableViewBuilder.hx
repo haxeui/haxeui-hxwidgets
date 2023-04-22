@@ -1,5 +1,6 @@
 package haxe.ui.backend.hxwidgets.builders;
 
+import hx.widgets.Alignment;
 import haxe.ui.components.Button;
 import haxe.ui.components.CheckBox;
 import haxe.ui.components.Image;
@@ -88,6 +89,17 @@ class TableViewBuilder extends CompositeBuilder {
             var dataList:DataViewListCtrl = cast(_component.window, DataViewListCtrl);
             var i = 0;
             for (col in _header.childComponents) {
+                var alignment = Alignment.LEFT;
+                if (col.style != null && col.style.textAlign != null) {
+                    switch (col.style.textAlign) {
+                        case "center":
+                            alignment = Alignment.CENTER;
+                        case "right":
+                            alignment = Alignment.RIGHT;
+                        case _:    
+                            alignment = Alignment.LEFT;
+                    }
+                }
                 var renderer = getRendererInfo(i);
                 var button:Button = cast(col, Button);
                 var r:DataViewRenderer = null;
@@ -103,12 +115,13 @@ class TableViewBuilder extends CompositeBuilder {
                     case _:    
                         r = new DataViewTextRenderer();
                 }
-                
+                r.alignment = alignment | Alignment.CENTER_VERTICAL;
                 var columnText = col.text;
                 if (columnText == null) {
                     columnText = "";
                 }
                 var c = new DataViewColumn(columnText, r, i);
+                c.alignment = alignment;
                 dataList.appendColumn(c);
                 
                 columns.push({
@@ -126,13 +139,14 @@ class TableViewBuilder extends CompositeBuilder {
             _header = null;
             
             headersCreated = true;
-            resizeColumns();
             //_table.invalidateComponentData();
             _table.dataSource = _table.dataSource;
             _table.registerEvent(UIEvent.RESIZE, onTableResized);
             
             _table.window.bind(EventType.DATAVIEW_ITEM_VALUE_CHANGED, onItemChanged);
         }
+
+        resizeColumns();
     }
     
     private function onItemChanged(e:Event) {
@@ -195,6 +209,9 @@ class TableViewBuilder extends CompositeBuilder {
     }
     
     private function resizeColumns() {
+        if (_component.window == null) {
+            return;
+        }
         var dataList:DataViewListCtrl = cast(_component.window, DataViewListCtrl);
         var size = dataList.clientSize;
         var i = 0;

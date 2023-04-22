@@ -1,5 +1,8 @@
 package haxe.ui.backend;
 
+import hx.widgets.styles.NotebookStyle;
+import haxe.ui.util.RTTI;
+import hx.widgets.styles.WindowStyle;
 import haxe.ui.backend.hxwidgets.ConstructorParams;
 import haxe.ui.backend.hxwidgets.EventMapper;
 import haxe.ui.backend.hxwidgets.EventTypeParser;
@@ -109,7 +112,7 @@ class ComponentImpl extends ComponentBase {
 
         var className:String = nativeClassName;
         var defaultNativeClass = "haxe.ui.backend.hxwidgets.custom.TransparentPanel";
-        var nativeComponentClass:String = Toolkit.nativeConfig.query('component[id=${className}].@class', defaultNativeClass, this);
+        var nativeComponentClass:String = nativeConfigQuery('component[id={className}].@class', null, defaultNativeClass);
         
         if (cast(this, Component).native == false || cast(this, Component).native == null) {
             nativeComponentClass = defaultNativeClass;
@@ -122,22 +125,22 @@ class ComponentImpl extends ComponentBase {
             nativeComponentClass = "hx.widgets.ScrolledWindow";
         }
 
-        var creatorClass:String = Toolkit.nativeConfig.query('component[id=${className}].@creator', null, this);
+        var creatorClass:String = nativeConfigQuery('component[id={className}].@creator', className);
         if (creatorClass == null) {
-            creatorClass = Toolkit.nativeConfig.query('component[class=${nativeComponentClass}].@creator', null, this);
+            creatorClass = nativeConfigQuery('component[class={className}].@creator', nativeComponentClass);
         }
         var creator:Creator = null;
-        if (creatorClass != null) {
+        if (creatorClass != null && creatorClass != "none") {
             creator = Type.createInstance(Type.resolveClass(creatorClass), [this]);
         }
         
-        var styleString:String = Toolkit.nativeConfig.query('component[id=${className}].@style', null, this);
+        var styleString:String = nativeConfigQuery('component[id={className}].@style');
         var style:Int = StyleParser.parseStyleString(styleString);
         if (creator != null) {
             style = creator.createStyle(style);
         }
 
-        var params:Array<Dynamic> = ConstructorParams.build(Toolkit.nativeConfig.query('component[id=${className}].@constructor', null, this), style);
+        var params:Array<Dynamic> = ConstructorParams.build(nativeConfigQuery('component[id={className}].@constructor'), style);
         params.insert(0, parent);
 
         if (creator != null) {
@@ -157,15 +160,25 @@ class ComponentImpl extends ComponentBase {
                 _hideOnCreate = false;
                 window.show(false);
             } else if (__parent != null && __parent.window != null && (__parent.window is Notebook) == false) {
-                window.show(false);
-                _firstResize = true;
+                if (!cast(this, Component).hidden) {
+                    window.show(false);
+                    _firstResize = true;
+                }
+            }
+
+            if (_disableOnCreate == true) {
+                _disableOnCreate = false;
+                window.enabled = false;
             }
             
             if ((window is Notebook)) {
                 var n:Notebook = cast window;
+                if (cast(this, Component).hasClass("full-width-buttons")) {
+                    n.windowStyle ^= NotebookStyle.FIXEDWIDTH;
+                }
                 if (Platform.isMac) {
                     n.allowIcons = false;
-                } else if (Platform.isWindows) {
+                } else if (Platform.isWindows && cast(this, Component).hasClass("padded-tabs")) { // feels like a bit of a hack, but setting the padding later doesnt seem to work in wxWidgets, so we'll use a specialized css class (since icons in tabs really need the padding to look nice on windows)
                     n.padding = new hx.widgets.Size(8, 5);
                 }
             }
@@ -177,10 +190,17 @@ class ComponentImpl extends ComponentBase {
 
             if ((__parent is haxe.ui.containers.TabView)) {
                 var n:Notebook = cast __parent.window;
-                cast(this, Component).addClass("tab-page");
+                var c = cast(this, Component);
+                c.addClass("tab-page");
+                if (c.percentWidth != null) { // wx issue? If notebook children are 0 sized, they stay zero sized... forever
+                    c.width = 0xff; // weird magic number here - zero isnt enough
+                }
                 var pageTitle:String = this.text;
                 var pageIcon:String = cast(this, Box).icon;
                 var iconIndex:Int = TabViewIcons.get(cast __parent, pageIcon);
+                if (iconIndex != -1 && Platform.isWindows) {
+                    n.padding = new hx.widgets.Size(8, 5);
+                }
                 n.addPage(window, pageTitle, iconIndex);
                 n.layout();
                 n.refresh();
@@ -215,7 +235,7 @@ class ComponentImpl extends ComponentBase {
             }
         }
         
-        var nativeHandlerClass:String = Toolkit.nativeConfig.query('component[id=${className}].handler.@class', null, this);
+        var nativeHandlerClass:String = nativeConfigQuery('component[id={className}].handler.@class');
         if (nativeHandlerClass != null) {
             __handler = Type.createInstance(Type.resolveClass(nativeHandlerClass), [this]);
             __handler.link();
@@ -246,6 +266,7 @@ class ComponentImpl extends ComponentBase {
         if (_firstResize == true && cast(this, Component).hidden == false) {
             _firstResize = false;
             window.show(true);
+            window.refresh();
         }
     }
 
@@ -284,6 +305,15 @@ class ComponentImpl extends ComponentBase {
             window.refresh();
         } else {
             _hideOnCreate = !show;
+        }
+    }
+
+    private var _disableOnCreate:Bool = false;
+    private override function handleDisabled(disable:Bool) {
+        if (window != null) {
+            window.enabled = !disabled;
+        } else {
+            _disableOnCreate = disable;
         }
     }
 
@@ -413,7 +443,7 @@ class ComponentImpl extends ComponentBase {
     private var _foreColourSet:Bool = false;
     private var _cachedStyle:Style = null;
     private override function applyStyle(style:Style) {
-        if (window == null || _ready == false) {
+        if (window == null || _componentReady == false) {
             _cachedStyle = style;
             return;
         }
@@ -447,6 +477,8 @@ class ComponentImpl extends ComponentBase {
         if (style.borderLeftSize != null && style.borderLeftSize > 0 && !Platform.isLinux) {
             //window.windowStyle |= WindowStyle.BORDER_SIMPLE;
             window.windowStyle |= WindowStyle.BORDER_THEME;
+        } else {
+            //window.windowStyle |= WindowStyle.BORDER_NONE;
         }
         
         if (refreshWindow == true) {
@@ -526,6 +558,46 @@ class ComponentImpl extends ComponentBase {
     //***********************************************************************************************************
     // Events
     //***********************************************************************************************************
+    private function nativeConfigQuery(query:String, param1:String = null, defaultValue:String = null):String {
+        var className:String = Type.getClassName(Type.getClass(this));
+        var entry = RTTI.getClassInfo(className);
+        if (entry == null) {
+            return defaultValue;
+        }
+        var r = defaultValue;
+        var originalQuery = query;
+        query = StringTools.replace(originalQuery, "{className}", className);
+        if (param1 != null) {
+            query = StringTools.replace(query, "{param1}", param1);
+        }
+        var temp = Toolkit.nativeConfig.query(query, null, this);
+        if (temp != null) {
+            r = temp;
+        }
+        while (temp == null) {
+            className = entry.superClass;
+            if (className == "haxe.ui.core.component") {
+                break;
+            }
+            entry = RTTI.getClassInfo(entry.superClass);
+            if (entry == null) {
+                break;
+            }
+
+            query = StringTools.replace(originalQuery, "{className}", className);
+            if (param1 != null) {
+                query = StringTools.replace(query, "{param1}", param1);
+            }
+
+            temp = Toolkit.nativeConfig.query(query, null, this);
+            if (temp != null) {
+                r = temp;
+                break;
+            }
+        }
+        return r;
+    }
+
     private var __eventsToMap:Map<String, UIEvent->Void>;
     private override function mapEvent(type:String, listener:UIEvent->Void) {
         if (window == null) {
@@ -536,8 +608,7 @@ class ComponentImpl extends ComponentBase {
             return;
         }
 
-        var className:String = Type.getClassName(Type.getClass(this));
-        var native:String = Toolkit.nativeConfig.query('component[id=${className}].event[id=${type}].@native', null, this);
+        var native:String = nativeConfigQuery('component[id={className}].event[id={param1}].@native', type);
         if (native != null) {
             var eventType = EventTypeParser.fromString(native);
             if (eventType != 0) {
@@ -602,8 +673,7 @@ class ComponentImpl extends ComponentBase {
             return;
         }
 
-        var className:String = Type.getClassName(Type.getClass(this));
-        var native:String = Toolkit.nativeConfig.query('component[id=${className}].event[id=${type}].@native', null, this);
+        var native:String = nativeConfigQuery('component[id={className}].event[id={param1}].@native', type);
         if (native != null) {
             var eventType = EventTypeParser.fromString(native);
             if (eventType != 0) {
@@ -658,13 +728,12 @@ class ComponentImpl extends ComponentBase {
     }
     
     private function __onEvent(event:Event) {
-        var className:String = Type.getClassName(Type.getClass(this));
         var nativeString = EventTypeParser.toString(event.eventType);
-        var type = Toolkit.nativeConfig.query('component[id=${className}].event[native=${nativeString}].@id', null, this);
+        var type = nativeConfigQuery('component[id={className}].event[native={param1}].@id', nativeString);
         if (type != null) {
             var fn = _eventMap.get(type);
             if (fn != null) {
-                var cls = Toolkit.nativeConfig.query('component[id=${className}].event[native=${nativeString}].@class', "haxe.ui.events.UIEvent", this);
+                var cls = nativeConfigQuery('component[id={className}].event[native={param1}].@class', nativeString, "haxe.ui.events.UIEvent");
                 switch (cls) {
                     case "haxe.ui.events.UIEvent":
                         var uiEvent:UIEvent = new UIEvent(type);

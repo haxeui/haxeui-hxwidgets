@@ -1,7 +1,7 @@
 package haxe.ui.backend.hxwidgets.behaviours;
 
 import haxe.ui.behaviours.DataBehaviour;
-import haxe.ui.util.ImageLoader;
+import haxe.ui.loaders.image.ImageLoader;
 import hx.widgets.AnyButton;
 import hx.widgets.Bitmap;
 import hx.widgets.Image;
@@ -9,8 +9,7 @@ import hx.widgets.StaticBitmap;
 
 class ControlBitmap extends DataBehaviour {
     public override function validateData() {
-        var imageLoader:ImageLoader = new ImageLoader(_value);
-        imageLoader.load(function(imageInfo) {
+        ImageLoader.instance.load(_value, function(imageInfo) {
             if (imageInfo != null) {
                 if ((_component.window is AnyButton)) {
                     var button:AnyButton = cast _component.window;

@@ -32,6 +32,8 @@ class TextCtrlWordWrap extends HxWidgetsBehaviour {
         var newControl:TextCtrl = new TextCtrl(oldControl.parent, oldControl.value, style);
         newControl.move(oldControl.position.x, oldControl.position.y);
         newControl.size = oldControl.size;
+        newControl.show(oldControl.shown);
+        newControl.enabled = oldControl.enabled;
         oldControl.destroy();
         _component.window = newControl;
         _component.invalidateComponentStyle();

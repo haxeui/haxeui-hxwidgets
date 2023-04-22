@@ -1,27 +1,10 @@
 package haxe.ui.backend.hxwidgets.behaviours;
 
 import haxe.ui.behaviours.DataBehaviour;
-import haxe.ui.util.Variant;
-import hx.widgets.Bitmap;
 import hx.widgets.Control;
-import hx.widgets.Button;
-import hx.widgets.StaticText;
-import hx.widgets.TextCtrl;
 
 @:access(haxe.ui.core.Component)
-class ControlLabel extends DataBehaviour {
-    public override function get():Variant {
-        if (_component.window == null) {
-            return null;
-        }
-        var ctrl:Control = cast(_component.window, Control);
-        var label = ctrl.label;
-        if ((_component.window is TextCtrl)) {
-            label = cast(_component.window, TextCtrl).value;
-        }
-        
-        return label;
-    }
+class ControlMarkupLabel extends DataBehaviour {
     
     public override function validateData() {
         if (_component.window == null) {
@@ -31,7 +14,7 @@ class ControlLabel extends DataBehaviour {
         var ctrl:Control = cast(_component.window, Control);
         if (_value != null) {
             _component.set("originalLabel", _value.toString()); // for wrapping, see: haxe.ui.backend.hxwidgets.size.BestSize
-            ctrl.label = normalizeText(_value);
+            ctrl.setLabelMarkup(normalizeText(_value));
             _component.invalidateComponentLayout();
             _component.invalidateComponentStyle();
         } else {

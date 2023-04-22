@@ -4,6 +4,7 @@ import haxe.ui.backend.hxwidgets.EventMapper;
 import haxe.ui.backend.hxwidgets.MenuItemHelper;
 import haxe.ui.containers.menus.Menu.MenuEvent;
 import haxe.ui.containers.menus.MenuBar;
+import haxe.ui.containers.menus.Menu;
 import haxe.ui.core.Component;
 import haxe.ui.events.MouseEvent;
 import haxe.ui.events.UIEvent;
@@ -28,16 +29,25 @@ class ScreenImpl extends ScreenBase {
     }
     
     public override function addComponent(component:Component):Component {
+        if ((component is Menu)) {
+            component.ready();
+            var menuObject = cast(component.object, hx.widgets.Menu);
+            var func = onMenu.bind(_, component);
+            frame.bind(EventType.MENU, func);
+            frame.popupMenu(menuObject);
+            frame.unbind(EventType.MENU, func);
+            return component;
+        }
         addResizeListener();
         resizeComponent(component);
-		return component;
+        return component;
     }
 
     public override function removeComponent(component:Component, dispose:Bool = true):Component {
         if (dispose == true) {
             component.window.destroy();
         }
-		return component;
+        return component;
     }
 
     public var frame(get, null):Frame;
@@ -80,18 +90,18 @@ class ScreenImpl extends ScreenBase {
         _menuBar = menuBar;
         _nativeMenuBar = nativeMenuBar;
         frame.menuBar = nativeMenuBar;
-        frame.bind(EventType.MENU, onMenu);
+        frame.bind(EventType.MENU, onMenu.bind(_, menuBar));
     }
     
-    private function onMenu(e:Event) {
-        if (_menuBar == null) {
+    private function onMenu(e:Event, c:Component) {
+        if (c == null) {
             return;
         }
         var menuItem = MenuItemHelper.get(e.id);
         if (menuItem != null) {
             var event = new MenuEvent(MenuEvent.MENU_SELECTED);
             event.menuItem = menuItem;
-            _menuBar.dispatch(event);
+            c.dispatch(event);
         }
     }
     

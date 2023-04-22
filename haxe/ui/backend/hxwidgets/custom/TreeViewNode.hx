@@ -6,11 +6,19 @@ import haxe.ui.containers.TreeView;
 import haxe.ui.core.Component;
 import hx.widgets.DataViewItem;
 import hx.widgets.DataViewTreeCtrl;
+import haxe.ui.util.Variant;
 
 class TreeViewNode extends haxe.ui.containers.TreeViewNode {
     public var treeView:TreeView = null;
     public var dataViewItem:DataViewItem = null;
     
+    public function applyExpanded() {
+        if (_expand != null) {
+            set_expanded(_expand);
+            _expand = null;
+        }
+    }
+
     private override function set_data(value:Dynamic):Dynamic {
         if (value == _data) {
             return value;
@@ -26,8 +34,11 @@ class TreeViewNode extends haxe.ui.containers.TreeViewNode {
         }
         
         var treeCtrl:DataViewTreeCtrl = cast(treeView.window, DataViewTreeCtrl);
-        var text = _data.text;
-        var icon = _data.icon;
+        var text:String = _data.text;
+        var icon:String = _data.icon;
+        if ((_data.icon is VariantType)) {
+            icon = Variant.fromDynamic(_data.icon);
+        }
         
         treeCtrl.setItemText(dataViewItem, text);
         if (icon != null) {
@@ -35,9 +46,10 @@ class TreeViewNode extends haxe.ui.containers.TreeViewNode {
         }
     }
     
+    private var _expand:Null<Bool> = null;
     private override function get_expanded():Bool {
         if (treeView == null || dataViewItem == null || treeView.window == null) {
-            return false;
+            return _expand;
         }
         
         var treeCtrl:DataViewTreeCtrl = cast(treeView.window, DataViewTreeCtrl);
@@ -45,6 +57,7 @@ class TreeViewNode extends haxe.ui.containers.TreeViewNode {
     }
     private override function set_expanded(value:Bool):Bool {
         if (treeView == null || dataViewItem == null || treeView.window == null) {
+            _expand = value;
             return value;
         }
         

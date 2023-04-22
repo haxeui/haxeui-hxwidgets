@@ -5,6 +5,7 @@ import hx.widgets.Choice;
 import hx.widgets.Event;
 import hx.widgets.EventType;
 
+@:access(haxe.ui.core.Component)
 class ChoiceHandler extends NativeHandler {
     public override function link() {
         _component.window.bind(EventType.CHOICE, __onChangeEvent);
@@ -17,6 +18,7 @@ class ChoiceHandler extends NativeHandler {
     private function __onChangeEvent(event:Event) {
         var choice:Choice = cast(_component.window, Choice);
         var dropdown:DropDown = cast(_component, DropDown);
+        dropdown.set("hasSelection", true);
         dropdown.selectedIndex = choice.selection;
     }
 }
