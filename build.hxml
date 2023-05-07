@@ -4,7 +4,6 @@
 -D WXSTATIC
 -D HXCPP_M64
 
--lib hscript
 -lib haxeui-core
 -lib hxWidgets
 
