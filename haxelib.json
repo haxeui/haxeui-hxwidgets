@@ -1,5 +1,5 @@
 {
-    "version": "1.4.0",
+    "version": "1.6.0",
     "contributors": [
         "haxeui",
         "ianharrigan",
@@ -15,7 +15,7 @@
         "wx",
         "native"
     ],
-    "releasenote": "1.4.0 release",
+    "releasenote": "1.6.0 release",
     "dependencies": {
         "haxeui-core": "",
         "hxWidgets": ""
