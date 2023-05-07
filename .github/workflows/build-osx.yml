@@ -10,7 +10,7 @@ jobs:
     strategy:
       matrix:
         os: [macos-latest]
-        haxe-version: [4.0.5, 4.1.5, 4.2.2]
+        haxe-version: [4.0.5, 4.1.5, 4.2.2, 4.3.0, 4.3.1]
 
     steps:
     - uses: actions/checkout@v1
@@ -34,7 +34,6 @@ jobs:
         echo ::add-path::$(pwd)
         cd ..
         haxelib install hxcpp --always --quiet
-        haxelib install hscript --always --quiet
 
         git clone --branch master https://github.com/haxeui/haxeui-core.git --depth=1
         haxelib dev haxeui-core haxeui-core
