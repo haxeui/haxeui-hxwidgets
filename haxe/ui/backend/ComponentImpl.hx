@@ -243,6 +243,11 @@ class ComponentImpl extends ComponentBase {
                 __handler.applyStyle(_cachedStyle);
                 _cachedStyle = null;
             }
+        } else {
+            if (_cachedStyle != null) {
+                applyStyle(_cachedStyle);
+                _cachedStyle = null;
+            }
         }
     }
 
@@ -380,9 +385,32 @@ class ComponentImpl extends ComponentBase {
         if (window == null) {
             return;
         }
-        
+
+        var x:Int = 0;
+        var y:Int = 0;
+
+        if (left != null) {
+            x = Math.round(left);
+        }
+        if (top != null) {
+            y = Math.round(top);
+        }
+
+        var currentPosition = window.position;
+        var currentX = currentPosition.x;
+        var currentY = currentPosition.y;
+
+        if (currentX == x && currentY == y) {
+            return;
+        }
+
         if (__parent != null && (__parent.window is Notebook) == false) {
-            window.move(Std.int(left), Std.int(top));
+            window.move(x, y);
+            if (Platform.isWindows) {
+                window.refresh();
+            }
+        } else if (__parent == null) {
+            window.move(x, y);
             if (Platform.isWindows) {
                 window.refresh();
             }
