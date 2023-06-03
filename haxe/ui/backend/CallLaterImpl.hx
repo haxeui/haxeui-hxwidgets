@@ -9,15 +9,22 @@ class CallLaterImpl {
     private var _fn:Void->Void;
     
     public function new(fn:Void->Void) {
-        var t = null;
         /*
+        var t = null;
         t = new Timer(0, function() {
             t.stop();
             fn();
         });
         */
+        #if (!haxeui_hxwidgets_no_event_loop && haxe_ver >= 4.2)
+
+        sys.thread.Thread.runWithEventLoop(fn);
+
+        #else
+
         fn(); // actually works nicely like this - no flashing, could be a bottle neck though
-        
+
+        #end
         /* TODO: causes issues when resizing... obviously pauses main loop when resizing top level frame
         _fn = fn;
         Screen.instance.frame.bind(EventType.THREAD, onThreadEvent);
