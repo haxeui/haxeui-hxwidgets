@@ -93,7 +93,6 @@ class AppImpl extends AppBase {
     private function onIdle(event:Event) {
         endTimer();
         mainThread.events.progress();
-        //trace("idel");
         var idleEvent = event.convertTo(IdleEvent);
         idleEvent.requestMore();
     }
