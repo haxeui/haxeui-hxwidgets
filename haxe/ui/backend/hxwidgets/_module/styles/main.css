@@ -77,3 +77,8 @@
 .tabview .tab-page {
     padding: 5px;
 }
+
+.sidebar {
+    background-color: platform-color(frame-bk);
+    border-right: 1px solid platform-color(3d-light);
+}
