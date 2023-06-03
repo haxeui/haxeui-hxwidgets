@@ -1,5 +1,10 @@
 package haxe.ui.backend;
 
+import hx.widgets.Pen;
+import hx.widgets.PaintDC;
+import hx.widgets.ClientDC;
+import hx.widgets.EventType;
+import hx.widgets.StockBrushes;
 import hx.widgets.styles.NotebookStyle;
 import haxe.ui.util.RTTI;
 import hx.widgets.styles.WindowStyle;
@@ -38,6 +43,7 @@ import hx.widgets.ScrollbarVisibility;
 import hx.widgets.ScrolledWindow;
 import hx.widgets.Window;
 import hx.widgets.styles.WindowStyle;
+import haxe.ui.backend.hxwidgets.custom.TransparentPanel;
 
 class ComponentImpl extends ComponentBase {
     private var _eventMap:Map<String, UIEvent->Void>;
@@ -247,6 +253,88 @@ class ComponentImpl extends ComponentBase {
             if (_cachedStyle != null) {
                 applyStyle(_cachedStyle);
                 _cachedStyle = null;
+            }
+        }
+    }
+
+    private function onWindowPaint(_) {
+        var dc = new PaintDC(window);
+
+        dc.background = StockBrushes.BRUSH_BLUE;
+        //dc.clear();
+
+        var cx = Std.int(this.width);
+        var cy = Std.int(this.height);
+        if (this.style.borderType == StyleBorderType.Full) {
+            var borderSize = Std.int(style.borderLeftSize);
+            var pen = new Pen(style.borderLeftColor, 1);
+            dc.pen = pen;
+
+            for (i in 0...borderSize) {
+                var m1 = i;
+                var m2 = i;
+                dc.drawLine(m1, i, cx - m2, i);
+                dc.drawLine(cx - 1 - i, m1, cx - 1 - i, cy - m2);
+                dc.drawLine(m1, cy - 1 - i, cx - m2, cy - 1 - i);
+                dc.drawLine(i, m1, i, cy - m2);
+            }
+
+            pen.destroy();
+        } else if (this.style.borderType == StyleBorderType.Compound) {
+            if (style.borderTopSize != null && style.borderTopSize > 0) {
+                var borderSize = Std.int(style.borderTopSize);
+                var pen = new Pen(style.borderTopColor, 1);
+                dc.pen = pen;
+
+                for (i in 0...borderSize) {
+                    var m1 = 0;
+                    var m2 = 0;
+                    dc.drawLine(m1, i, cx - m2, i);
+                }
+
+                pen.destroy();
+            }
+
+            if (style.borderRightSize != null && style.borderRightSize > 0) {
+                var borderSize = Std.int(style.borderRightSize);
+                var pen = new Pen(style.borderRightColor, 1);
+                dc.pen = pen;
+
+                for (i in 0...borderSize) {
+                    var m1 = 0;
+                    var m2 = 0;
+                    dc.drawLine(cx - 1 - i, m1, cx - 1 - i, cy - m2);
+                }
+
+                pen.destroy();
+            }
+
+            if (style.borderBottomSize != null && style.borderBottomSize > 0) {
+                var borderSize = Std.int(style.borderBottomSize);
+                var pen = new Pen(style.borderBottomColor, 1);
+                dc.pen = pen;
+
+                for (i in 0...borderSize) {
+                    var m1 = 0;
+                    var m2 = 0;
+                    dc.drawLine(m1, cy - 1 - i, cx - m2, cy - 1 - i);
+                }
+
+                pen.destroy();
+            }
+
+            if (style.borderLeftSize != null && style.borderLeftSize > 0) {
+                var borderSize = Std.int(style.borderLeftSize);
+                var pen = new Pen(style.borderLeftColor, 1);
+                dc.pen = pen;
+
+                for (i in 0...borderSize) {
+                    var m1 = 0;
+                    var m2 = 0;
+                    dc.drawLine(i, m1, i, cy - m2);
+                }
+
+                pen.destroy();
             }
         }
     }
@@ -470,10 +558,20 @@ class ComponentImpl extends ComponentBase {
     private var _backColourSet:Bool = false;
     private var _foreColourSet:Bool = false;
     private var _cachedStyle:Style = null;
+    private var _paintEventSet:Bool = false;
     private override function applyStyle(style:Style) {
         if (window == null || _componentReady == false) {
             _cachedStyle = style;
             return;
+        }
+
+        if (!Platform.isMac && (window is TransparentPanel)) {
+            if (style.hasBorder) {
+                if (!_paintEventSet) {
+                    window.bind(EventType.PAINT, onWindowPaint);
+                    _paintEventSet = true;
+                }
+            }
         }
 
         var refreshWindow:Bool = false;
@@ -502,11 +600,13 @@ class ComponentImpl extends ComponentBase {
             refreshWindow = __handler.applyStyle(style);
         }
         
-        if (style.borderLeftSize != null && style.borderLeftSize > 0 && !Platform.isLinux) {
-            //window.windowStyle |= WindowStyle.BORDER_SIMPLE;
-            window.windowStyle |= WindowStyle.BORDER_THEME;
-        } else {
-            //window.windowStyle |= WindowStyle.BORDER_NONE;
+        if (!_paintEventSet) {
+            if (style.borderLeftSize != null && style.borderLeftSize > 0 && !Platform.isLinux) {
+                //window.windowStyle |= WindowStyle.BORDER_SIMPLE;
+                window.windowStyle |= WindowStyle.BORDER_THEME;
+            } else {
+                //window.windowStyle |= WindowStyle.BORDER_NONE;
+            }
         }
         
         if (refreshWindow == true) {
