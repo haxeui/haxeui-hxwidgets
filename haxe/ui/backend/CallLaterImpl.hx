@@ -16,7 +16,7 @@ class CallLaterImpl {
             fn();
         });
         */
-        #if (!haxeui_hxwidgets_no_event_loop && haxe_ver >= 4.2)
+        #if (haxeui_hxwidgets_override_event_loop && haxe_ver >= 4.2)
 
         sys.thread.Thread.runWithEventLoop(fn);
 
