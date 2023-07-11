@@ -257,9 +257,9 @@ class ComponentImpl extends ComponentBase {
         }
     }
 
-    private function onWindowPaint(_) {
+    private function onWindowPaint(e) {
+        e.stopPropagation();
         var dc = new PaintDC(window);
-
         dc.background = StockBrushes.BRUSH_BLUE;
         //dc.clear();
 
