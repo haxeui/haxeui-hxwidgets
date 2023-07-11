@@ -565,7 +565,7 @@ class ComponentImpl extends ComponentBase {
             return;
         }
 
-        if (!Platform.isMac && (window is TransparentPanel)) {
+        if (!Platform.isMac && !Platform.isLinux && (window is TransparentPanel)) {
             if (style.hasBorder) {
                 if (!_paintEventSet) {
                     window.bind(EventType.PAINT, onWindowPaint);
