@@ -5,7 +5,7 @@ import haxe.ui.util.Variant;
 import hx.widgets.Slider;
 
 @:keep
-class ControlTicks extends DataBehaviour {
+class SliderTicks extends DataBehaviour {
     public override function validateData() {
         if (_component.window == null) {
             return;

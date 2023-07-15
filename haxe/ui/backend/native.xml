@@ -178,7 +178,7 @@
         <behaviour id="value" class="haxe.ui.backend.hxwidgets.behaviours.ControlValue" autoDispatch="haxe.ui.events.UIEvent.CHANGE" />
         <behaviour id="min" class="haxe.ui.backend.hxwidgets.behaviours.ControlMin" />
         <behaviour id="max" class="haxe.ui.backend.hxwidgets.behaviours.ControlMax" />
-        <behaviour id="minorTicks" class="haxe.ui.backend.hxwidgets.behaviours.ControlTicks" />
+        <behaviour id="minorTicks" class="haxe.ui.backend.hxwidgets.behaviours.SliderTicks" />
         <behaviour id="tooltip" class="haxe.ui.backend.hxwidgets.behaviours.ToolTipBehaviour" />
         <size class="haxe.ui.backend.hxwidgets.size.BestSize" includePadding="false" />
         <handler class="haxe.ui.backend.hxwidgets.handlers.ReflectionHandler" event="EventType.SLIDER" sourceProp="value" targetProp="pos" />
@@ -191,7 +191,7 @@
         <behaviour id="value" class="haxe.ui.backend.hxwidgets.behaviours.ControlValue" autoDispatch="haxe.ui.events.UIEvent.CHANGE" />
         <behaviour id="min" class="haxe.ui.backend.hxwidgets.behaviours.ControlMin" />
         <behaviour id="max" class="haxe.ui.backend.hxwidgets.behaviours.ControlMax" />
-        <behaviour id="minorTicks" class="haxe.ui.backend.hxwidgets.behaviours.ControlTicks" />
+        <behaviour id="minorTicks" class="haxe.ui.backend.hxwidgets.behaviours.SliderTicks" />
         <behaviour id="tooltip" class="haxe.ui.backend.hxwidgets.behaviours.ToolTipBehaviour" />
         <size class="haxe.ui.backend.hxwidgets.size.BestSize" includePadding="false" />
         <event id="change" native="EventType.SLIDER" />
