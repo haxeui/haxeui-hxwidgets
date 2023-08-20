@@ -11,8 +11,6 @@ import hx.widgets.PaintDC;
 import hx.widgets.Pen;
 
 class ComponentGraphicsImpl extends ComponentGraphicsBase {
-
-
     public function new(c:Component) {
         super(c);
         c.registerEvent(UIEvent.READY, function f(_) {
@@ -21,9 +19,8 @@ class ComponentGraphicsImpl extends ComponentGraphicsBase {
     }
 
     private function onWindowPaint(e) {
-
         e.stopPropagation();
-        
+
         var dc = new PaintDC(_component.window);
 
         var penPosX = 0;
@@ -42,20 +39,20 @@ class ComponentGraphicsImpl extends ComponentGraphicsBase {
                     penColor = Std.int(color);
                     penThickness = Std.int(thickness);
                     dc.pen = new Pen(penColor, penThickness);
-                    
+
                 case MoveTo(x, y):
                     penPosX = Std.int(x);
                     penPosY = Std.int(y);
                 case SetPixel(x, y, color):
                     if (color != penColor) {
                         dc.pen = new Pen(Std.int(color));
-                    }      
-                    dc.drawPoint(Std.int(x),Std.int(y));
+                    }
+                    dc.drawPoint(Std.int(x), Std.int(y));
                     if (color != penColor) {
                         dc.pen = new Pen(penColor, penThickness);
                     }
                 case SetPixels(pixels):
-                    var img =  new Image( Std.int(_component.actualComponentWidth), Std.int(_component.actualComponentHeight), true);
+                    var img = new Image(Std.int(_component.actualComponentWidth), Std.int(_component.actualComponentHeight), true);
                     img.imageData.copyRGBA(pixels);
                     var bmp = new Bitmap(img);
                     dc.drawBitmap(bmp);
@@ -64,12 +61,10 @@ class ComponentGraphicsImpl extends ComponentGraphicsBase {
                 case Rectangle(x, y, width, height):
                     dc.drawRectangle(Std.int(x), Std.int(y), Std.int(width), Std.int(height));
                 case CurveTo(controlX, controlY, anchorX, anchorY):
-                    //gp.addQuadCurveToPoint(controlX, controlY, anchorX, anchorY);
+                // gp.addQuadCurveToPoint(controlX, controlY, anchorX, anchorY);
                 case CubicCurveTo(controlX1, controlY1, controlX2, controlY2, anchorX, anchorY):
-                    //gp.addCurveToPoint(controlX1, controlY1, controlX2, controlY2, anchorX, anchorY);
+                // gp.addCurveToPoint(controlX1, controlY1, controlX2, controlY2, anchorX, anchorY);
                 case _:
-
-
             }
         }
         dc.destroy();
