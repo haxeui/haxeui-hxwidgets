@@ -2,7 +2,7 @@ package haxe.ui.backend;
 
 import haxe.ui.backend.hxwidgets.EventMapper;
 import haxe.ui.backend.hxwidgets.MenuItemHelper;
-import haxe.ui.containers.menus.Menu.MenuEvent;
+import haxe.ui.events.MenuEvent;
 import haxe.ui.containers.menus.MenuBar;
 import haxe.ui.containers.menus.Menu;
 import haxe.ui.core.Component;
