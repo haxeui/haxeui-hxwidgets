@@ -20,6 +20,7 @@ import hx.widgets.SystemMetric;
 import hx.widgets.SystemSettings;
 
 class DialogBase extends Component {
+    public var closable:Bool = true;
     public var modal:Bool = true;
     public var buttons:DialogButton = null;
     public var centerDialog:Bool = true;
