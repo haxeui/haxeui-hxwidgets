@@ -13,7 +13,9 @@ class DialogCreator extends Creator {
     
     public override function createConstructorParams(params:Array<Dynamic>):Array<Dynamic> {
         params.push(_dialog.title);
-        params.push(DialogStyle.DEFAULT_DIALOG_STYLE | Defs.CENTRE);
+        var style = DialogStyle.CAPTION | DialogStyle.SYSTEM_MENU | Defs.CENTRE;
+        if (_dialog.closable) style |= DialogStyle.CLOSE_BOX;
+        params.push(style);
         return params;
     }
 }
