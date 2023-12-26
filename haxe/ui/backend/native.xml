@@ -17,6 +17,8 @@
         <builder class="haxe.ui.backend.hxwidgets.builders.TableViewBuilder" />
         <event id="change" native="EventType.DATAVIEW_SELECTION_CHANGED" />
     </component>    
+    <component id="haxe.ui.containers.Header" creator="haxe.ui.backend.hxwidgets.creators.NullWindowCreator" />
+    <component id="haxe.ui.components.Column" creator="haxe.ui.backend.hxwidgets.creators.NullWindowCreator" allowChildren="false" />
     <component id="haxe.ui.containers.TreeView" class="hx.widgets.DataViewTreeCtrl" constructor="$style">
         <behaviour id="contentLayoutName" class="haxe.ui.behaviours.DefaultBehaviour" />
         <behaviour id="addNode" class="haxe.ui.backend.hxwidgets.behaviours.TreeViewAddNode" />

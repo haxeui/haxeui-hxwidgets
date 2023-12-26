@@ -154,11 +154,16 @@ class ComponentImpl extends ComponentBase {
             object = creator.createWindow(parent, style);
         }
         
-        if (object == null) { // window may have been create with various special cases (menus for example)
-            window = Type.createInstance(Type.resolveClass(nativeComponentClass), params);
-        }
-        if (object == null) {
-            throw "Could not create window: " + nativeComponentClass;
+        // NullWindowCreator specifically (intentionally) creates null windows
+        if (creatorClass != "haxe.ui.backend.hxwidgets.creators.NullWindowCreator") {
+            if (object == null) { // window may have been create with various special cases (menus for example)
+                window = Type.createInstance(Type.resolveClass(nativeComponentClass), params);
+            }
+            if (object == null) {
+                throw "Could not create window: " + nativeComponentClass;
+            }
+        } else {
+            return; // no further processing - nothing to show
         }
         
         if (window != null) {

@@ -133,11 +133,6 @@ class TableViewBuilder extends CompositeBuilder {
                 i++;
             }
             
-            // may be ill concieved... might mean you cant add columns later, for now its fine
-            _header.removeAllComponents();
-            _header.window.scheduleForDestruction();
-            _header = null;
-            
             headersCreated = true;
             //_table.invalidateComponentData();
             _table.dataSource = _table.dataSource;
