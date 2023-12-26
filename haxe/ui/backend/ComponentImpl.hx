@@ -66,6 +66,9 @@ class ComponentImpl extends ComponentBase {
     //***********************************************************************************************************
     // Display tree
     //***********************************************************************************************************
+    
+    public var isWindowless:Bool = false;
+    
     public var __parent:Component;
     private var __children:Array<ComponentImpl> = new Array<ComponentImpl>();
 
@@ -87,11 +90,14 @@ class ComponentImpl extends ComponentBase {
             return;
         }
 
-        if (__parent == null) {
-            createWindow();
-        } else {
-            createWindow(__parent.object);
+        if (!isWindowless) {
+            if (__parent == null) {
+                createWindow();
+            } else {
+                createWindow(__parent.object);
+            }
         }
+        
 
         for (c in __children) {
             c.handleReady();

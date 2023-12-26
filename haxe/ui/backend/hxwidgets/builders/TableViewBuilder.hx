@@ -62,6 +62,9 @@ class TableViewBuilder extends CompositeBuilder {
     
     public override function addComponent(child:Component):Component {
         if ((child is Header)) {
+            for (c in child.childComponents) {
+                c.isWindowless = true;
+            }
             _header = cast(child, Header);
             _header.ready();
             createColumns();
