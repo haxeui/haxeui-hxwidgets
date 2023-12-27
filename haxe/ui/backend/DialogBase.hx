@@ -25,6 +25,7 @@ class DialogBase extends Component {
     public var buttons:DialogButton = null;
     public var centerDialog:Bool = true;
     public var button:DialogButton = null;
+    public var defaultButton:String = null;
 
     public var dialogContentContainer:VBox;
     public var dialogContent:VBox;
@@ -56,6 +57,12 @@ class DialogBase extends Component {
                 buttonComponent.text = button.toString();
                 buttonComponent.userData = button;
                 buttonComponent.registerEvent(MouseEvent.CLICK, onFooterButtonClick);
+                trace(buttonComponent.text, defaultButton, buttonComponent.window);
+                //if (buttonComponent.window.id == defa)
+                //var dialog = cast(this.window, Dialog);
+                //dialog.addMainButtonId(buttonComponent.window.id);
+
+                
                 addFooterComponent(buttonComponent);
             }
         }
@@ -74,6 +81,8 @@ class DialogBase extends Component {
                 if (c.window.size.height > nativeHeightModifier) {
                     nativeHeightModifier = c.window.size.height;
                 }
+                trace(c.window.id);
+                dialog.addMainButtonId(c.window.id);
             }
 
             _buttonSizer.realize();
