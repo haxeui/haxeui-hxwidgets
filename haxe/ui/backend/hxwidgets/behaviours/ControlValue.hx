@@ -11,6 +11,7 @@ import hx.widgets.RadioButton;
 import hx.widgets.ScrollBar;
 import hx.widgets.Slider;
 import hx.widgets.SpinCtrl;
+import hx.widgets.SpinCtrlDouble;
 import hx.widgets.TextCtrl;
 import hx.widgets.ToggleButton;
 
@@ -40,6 +41,8 @@ class ControlValue extends DataBehaviour {
             }
         } else if ((_component.window is SpinCtrl)) {
             cast(_component.window, SpinCtrl).value = _value;
+        } else if ((_component.window is SpinCtrlDouble)) {
+            cast(_component.window, SpinCtrlDouble).value = _value;
         }
     }
 
@@ -59,6 +62,8 @@ class ControlValue extends DataBehaviour {
             v = cast(_component.window, TextCtrl).value;
         } else if ((_component.window is SpinCtrl)) {
             v = cast(_component.window, SpinCtrl).value;
+        } else if ((_component.window is SpinCtrlDouble)) {
+            v = cast(_component.window, SpinCtrlDouble).value;
         }
         return v;
     }

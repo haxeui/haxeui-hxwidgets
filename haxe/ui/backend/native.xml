@@ -216,14 +216,14 @@
         <size class="haxe.ui.backend.hxwidgets.size.WindowSize" includePadding="false" />
         <builder class="haxe.ui.backend.hxwidgets.builders.ScrollViewBuilder" />
     </component>
-    <component id="haxe.ui.components.NumberStepper" class="hx.widgets.SpinCtrl" allowChildren="false">
-        <behaviour id="step" class="haxe.ui.behaviours.DefaultBehaviour" />
+    <component id="haxe.ui.components.NumberStepper" class="hx.widgets.SpinCtrlDouble" allowChildren="false">
         <behaviour id="min" class="haxe.ui.backend.hxwidgets.behaviours.ControlMin" />
         <behaviour id="max" class="haxe.ui.backend.hxwidgets.behaviours.ControlMax" />
         <behaviour id="pos" class="haxe.ui.backend.hxwidgets.behaviours.ControlValue" />
+        <behaviour id="step" class="haxe.ui.backend.hxwidgets.behaviours.ControlStep" />
         <behaviour id="tooltip" class="haxe.ui.backend.hxwidgets.behaviours.ToolTipBehaviour" />
         <size class="haxe.ui.backend.hxwidgets.size.BestSize" includePadding="false" />
-        <event id="change" native="EventType.SPINCTRL" />
+        <event id="change" native="EventType.SPINCTRLDOUBLE" />
     </component>
     
     
