@@ -8,7 +8,7 @@ import hx.widgets.styles.ListCtrlStyle;
 
 class SimpleListView extends ListView {
     public function new(parent:Window, style:Int = 0, id:Int = -1) {
-        super(parent, ListCtrlStyle.REPORT | ListCtrlStyle.NO_HEADER | ListCtrlStyle.SINGLE_SEL | style, id);
+        super(parent, ListCtrlStyle.REPORT | ListCtrlStyle.NO_HEADER | style, id);
         appendColumn("");
         bind(EventType.SIZE, onResized);
     }
