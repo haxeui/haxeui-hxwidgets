@@ -18,7 +18,8 @@ class CallLaterImpl {
         */
         #if (haxeui_hxwidgets_override_event_loop && haxe_ver >= 4.2)
 
-        sys.thread.Thread.runWithEventLoop(fn);
+        //sys.thread.Thread.runWithEventLoop(fn);
+        MainLoop.runInMainThread(fn);
 
         #else
 
