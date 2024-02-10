@@ -8,6 +8,7 @@ import hx.widgets.Bitmap;
 import hx.widgets.EventType;
 import hx.widgets.Image;
 import hx.widgets.PaintDC;
+import hx.widgets.GraphicsContext;
 import hx.widgets.Pen;
 
 class ComponentGraphicsImpl extends ComponentGraphicsBase {
@@ -22,6 +23,8 @@ class ComponentGraphicsImpl extends ComponentGraphicsBase {
         e.stopPropagation();
 
         var dc = new PaintDC(_component.window);
+        var gc = new GraphicsContext(_component.window);
+
 
         var penPosX = 0;
         var penPosY = 0;
@@ -39,6 +42,7 @@ class ComponentGraphicsImpl extends ComponentGraphicsBase {
                     penColor = Std.int(color);
                     penThickness = Std.int(thickness);
                     dc.pen = new Pen(penColor, penThickness);
+                    gc.pen = new Pen(penColor, penThickness);
 
                 case MoveTo(x, y):
                     penPosX = Std.int(x);
@@ -61,6 +65,11 @@ class ComponentGraphicsImpl extends ComponentGraphicsBase {
                 case Rectangle(x, y, width, height):
                     dc.drawRectangle(Std.int(x), Std.int(y), Std.int(width), Std.int(height));
                 case CurveTo(controlX, controlY, anchorX, anchorY):
+                var path = gc.createPath();
+                trace(path);
+                //path.moveToPoint(penPosX, penPosY);
+                trace(path);
+                //path.addQuadCurveToPoint(controlX, controlY, anchorX, anchorY);
                 // gp.addQuadCurveToPoint(controlX, controlY, anchorX, anchorY);
                 case CubicCurveTo(controlX1, controlY1, controlX2, controlY2, anchorX, anchorY):
                 // gp.addCurveToPoint(controlX1, controlY1, controlX2, controlY2, anchorX, anchorY);
