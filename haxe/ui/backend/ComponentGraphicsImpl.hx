@@ -7,6 +7,7 @@ import hx.widgets.Bitmap;
 import haxe.io.Bytes;
 import haxe.ui.core.Component;
 import haxe.ui.events.UIEvent;
+import haxe.ui.graphics.DrawCommand;
 import hx.widgets.Bitmap;
 import hx.widgets.Bitmap;
 import hx.widgets.EventType;
@@ -21,6 +22,17 @@ class ComponentGraphicsImpl extends ComponentGraphicsBase {
         c.registerEvent(UIEvent.READY, function f(_) {
             _component.window.bind(EventType.PAINT, onWindowPaint);
         });
+    }
+
+    private var _requiresRefresh:Bool = false;
+    private override function addDrawCommand(command:DrawCommand) {
+        if (!_requiresRefresh) {
+            if (_component.window != null) {
+                _component.window.refresh();
+            }
+            _requiresRefresh = true;
+        }
+        super.addDrawCommand(command);
     }
 
     private var _currentPixels:Bytes;
@@ -102,5 +114,7 @@ class ComponentGraphicsImpl extends ComponentGraphicsBase {
         gc.destroy();
 
         e.stopPropagation();
+
+        _requiresRefresh = false;
     }
 }
