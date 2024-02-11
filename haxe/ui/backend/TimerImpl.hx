@@ -35,7 +35,7 @@ class TimerImpl {
             return;
         }
         
-        if (Platform.isMac && delay == 0) {
+        if (!Platform.isWindows && delay == 0) {
             delay = 1;
         }
         var frame:Frame = Screen.instance.options.frame;
