@@ -3,6 +3,7 @@ package haxe.ui.backend;
 import haxe.ui.ToolkitAssets;
 import haxe.ui.core.Screen;
 import haxe.ui.events.AppEvent;
+import haxe.ui.backend.hxwidgets.Platform;
 import hx.widgets.App;
 import hx.widgets.Bitmap;
 import hx.widgets.Event;
@@ -86,9 +87,11 @@ class AppImpl extends AppBase {
             style ^= FrameStyle.RESIZE_BORDER;
         }
         _frame = new Frame(null, Toolkit.backendProperties.getProp("haxe.ui.hxwidgets.frame.title", ""), style);
-        if (platform.isWindows) {
-            //frame.backgroundColour = 0xFFFFFF;
+        #if (haxe_ver >= 4.2)
+        if (targetFrameMS <= 0 && !platform.isWindows) {
+            targetFrameMS = Std.int(1000 / targetFramerate);
         }
+        #end
     }
 
     #if (haxeui_hxwidgets_use_idle_event && haxe_ver >= 4.2)
