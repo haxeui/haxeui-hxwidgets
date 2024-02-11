@@ -213,7 +213,9 @@ class AppImpl extends AppBase {
         var fit = Toolkit.backendProperties.getPropBool("haxe.ui.hxwidgets.frame.fit", defaultFit);
         
         if (fit == true) {
+        	mainThread.events.progress();
             Toolkit.callLater(function() {
+            mainThread.events.progress();
                 var children = _frame.children;
                 // from wx docs:
                 // if the window has exactly one subwindow it is better (faster and the
