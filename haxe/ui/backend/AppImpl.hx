@@ -94,10 +94,6 @@ class AppImpl extends AppBase {
     #if (haxeui_hxwidgets_use_idle_event && haxe_ver >= 4.2)
     var lastFrame:Float = Date.now().getTime();
     private function onIdle(event:Event) {
-        if (_closed) {
-            return;
-        }
-
         endTimer();
         var currentFrame = Date.now().getTime();
         var delta = currentFrame - lastFrame;
