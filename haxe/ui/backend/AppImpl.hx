@@ -108,16 +108,10 @@ class AppImpl extends AppBase {
 
     #if (haxe_ver >= 4.2)
 
-    var firstResize = true;
     // were going to work around an edge case: in wx widgets, idle events arent send when the app frame is resizing or
     // moving, what we are going to do in these cases is use a timer to update the haxe event loop at 60fps, once we 
     // start receiving idle events again, we can assume as is good and shutdown the timer
     private function onResize(event:Event) {
-        if (firstResize) { // not sure this needs to happens twice
-            firstResize = false;
-            mainThread.events.progress();
-            mainThread.events.progress();
-        }
         startTimer();
     }
 
@@ -237,9 +231,9 @@ class AppImpl extends AppBase {
         var fit = Toolkit.backendProperties.getPropBool("haxe.ui.hxwidgets.frame.fit", defaultFit);
         
         if (fit == true) {
-        	mainThread.events.progress();
-            Toolkit.callLater(function() {
             mainThread.events.progress();
+            Toolkit.callLater(function() {
+                mainThread.events.progress();
                 var children = _frame.children;
                 // from wx docs:
                 // if the window has exactly one subwindow it is better (faster and the
