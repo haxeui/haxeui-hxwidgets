@@ -187,8 +187,6 @@ class AppImpl extends AppBase {
         _frame.maxSize = new hx.widgets.Size(frameMaxWidth, frameMaxHeight);
 
         _frame.bind(EventType.CLOSE_WINDOW, function(e:Event) {
-            @:privateAccess Timer.stopAll();
-
             dispatch(new AppEvent(AppEvent.APP_CLOSED));
             #if (haxeui_hxwidgets_use_idle_event && haxe_ver >= 4.2)
             _app.unbind(EventType.IDLE, onIdle);
