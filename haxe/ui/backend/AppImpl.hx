@@ -39,17 +39,22 @@ class AppImpl extends AppBase {
     private var _frame:Frame;
     private var __onEnd:Void->Void;
 
-    #if (haxeui_hxwidgets_override_event_loop && haxe_ver >= 4.2)
+    #if (haxe_ver >= 4.2)
     private static var mainThread:sys.thread.Thread;
+    public static var targetFramerate:Int = 60;
+    private static var targetFrameMS:Int = 0;
     #end
 
     public function new() {
         //SystemOptions.setOption("msw.window.no-clip-children", 1);
         // seems interesting - https://docs.wxwidgets.org/trunk/classwx_system_options.html
         //SystemOptions.setOption("msw.dark-mode", 1);
-        #if (haxeui_hxwidgets_override_event_loop && haxe_ver >= 4.2)
+        #if (haxe_ver >= 4.2)
         untyped __cpp__("wxIdleEvent::SetMode(wxIDLE_PROCESS_SPECIFIED)");
         mainThread = sys.thread.Thread.current();
+        #end
+        #if (haxeui_hxwidgets_use_idle_event && haxe_ver >= 4.2)
+        targetFrameMS = Std.int(1000 / targetFramerate);
         #end
     }
 
@@ -61,7 +66,7 @@ class AppImpl extends AppBase {
         #end
 
         _app = new App();
-        #if (haxeui_hxwidgets_override_event_loop && haxe_ver >= 4.2)
+        #if (haxeui_hxwidgets_use_idle_event && haxe_ver >= 4.2)
         _app.bind(EventType.IDLE, onIdle);
         #end
         _app.init();
@@ -86,18 +91,37 @@ class AppImpl extends AppBase {
         }
     }
 
-    #if (haxeui_hxwidgets_override_event_loop && haxe_ver >= 4.2)
+    #if (haxeui_hxwidgets_use_idle_event && haxe_ver >= 4.2)
+    var lastFrame:Float = Date.now().getTime();
     private function onIdle(event:Event) {
+        if (_closed) {
+            return;
+        }
+
         endTimer();
-        mainThread.events.progress();
+        var currentFrame = Date.now().getTime();
+        var delta = currentFrame - lastFrame;
+        if (delta >= targetFrameMS) {
+            lastFrame = currentFrame;
+            mainThread.events.progress();
+        }
         var idleEvent = event.convertTo(IdleEvent);
         idleEvent.requestMore();
     }
+    #end
 
+    #if (haxe_ver >= 4.2)
+
+    var firstResize = true;
     // were going to work around an edge case: in wx widgets, idle events arent send when the app frame is resizing or
     // moving, what we are going to do in these cases is use a timer to update the haxe event loop at 60fps, once we 
     // start receiving idle events again, we can assume as is good and shutdown the timer
     private function onResize(event:Event) {
+        if (firstResize) { // not sure this needs to happens twice
+            firstResize = false;
+            mainThread.events.progress();
+            mainThread.events.progress();
+        }
         startTimer();
     }
 
@@ -112,7 +136,7 @@ class AppImpl extends AppBase {
         }
 
         mainThread.events.progress();
-        _timer = new haxe.ui.util.Timer(Std.int(16), onTimer);
+        _timer = new haxe.ui.util.Timer(targetFrameMS, onTimer);
     }
 
     private inline function endTimer() {
@@ -154,7 +178,7 @@ class AppImpl extends AppBase {
             frameTop = Toolkit.backendProperties.getPropInt("haxe.ui.hxwidgets.frame.top", 0);
         }
 
-        #if (haxeui_hxwidgets_override_event_loop && haxe_ver >= 4.2)
+        #if (haxe_ver >= 4.2)
         _frame.bind(EventType.SIZE, onResize);
         _frame.bind(EventType.MOVE, onMove);
         #end
@@ -173,13 +197,17 @@ class AppImpl extends AppBase {
             @:privateAccess Timer.stopAll();
 
             dispatch(new AppEvent(AppEvent.APP_CLOSED));
-            #if (haxeui_hxwidgets_override_event_loop && haxe_ver >= 4.2)
+            #if (haxeui_hxwidgets_use_idle_event && haxe_ver >= 4.2)
+            _app.unbind(EventType.IDLE, onIdle);
+            #end
+
+            #if (haxe_ver >= 4.2)
             endTimer();
             _frame.unbind(EventType.SIZE, onResize);
             _frame.unbind(EventType.MOVE, onMove);
-            _app.unbind(EventType.IDLE, onIdle);
             #end
             _frame.destroy();
+            Sys.exit(0); // lets explicitly exit since we dont care about any pending event anymore
         });
 
         dispatch(new AppEvent(AppEvent.APP_READY));

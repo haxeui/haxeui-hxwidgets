@@ -20,6 +20,7 @@ class TimerImpl {
     private static var _deferredTimers:Array<DeferredTimerDetails>;
     private static var _nextTimerId:Int = 1;
 
+    private static var count:Int = 0;
     public function new(delay:Int, callback:Void->Void) {
         if (Screen.instance.options == null || Screen.instance.options.frame == null) {
             // its possible that you might want to created timers _before_ hxwidgets
@@ -39,7 +40,10 @@ class TimerImpl {
         }
         var frame:Frame = Screen.instance.options.frame;
         _callback = callback;
-        frame.bind(EventType.TIMER, onTimer);
+        if (count == 0) {
+            frame.bind(EventType.TIMER, onTimer);
+        }
+        count++;
         _timer = new Timer(frame, delay, false, _nextTimerId);
         _nextTimerId++;
     }
@@ -70,7 +74,10 @@ class TimerImpl {
     public function stop() {
         _callback = null;
         var frame:Frame = Screen.instance.options.frame;
-        frame.unbind(EventType.TIMER, onTimer);
+        count--;
+        if (count == 0) {
+            frame.unbind(EventType.TIMER, onTimer);
+        }
         if (_timer != null) {
             _timer.stop();
             _timer.destroy();

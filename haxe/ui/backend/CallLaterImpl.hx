@@ -16,7 +16,7 @@ class CallLaterImpl {
             fn();
         });
         */
-        #if (haxeui_hxwidgets_override_event_loop && haxe_ver >= 4.2)
+        #if (haxe_ver >= 4.2)
 
         //sys.thread.Thread.runWithEventLoop(fn);
         MainLoop.runInMainThread(fn);
@@ -24,6 +24,7 @@ class CallLaterImpl {
         #else
 
         fn(); // actually works nicely like this - no flashing, could be a bottle neck though
+        //MainLoop.runInMainThread(fn);
 
         #end
         /* TODO: causes issues when resizing... obviously pauses main loop when resizing top level frame
