@@ -1,13 +1,5 @@
 package haxe.ui.backend;
 
-import hx.widgets.Pen;
-import hx.widgets.PaintDC;
-import hx.widgets.ClientDC;
-import hx.widgets.EventType;
-import hx.widgets.StockBrushes;
-import hx.widgets.styles.NotebookStyle;
-import haxe.ui.util.RTTI;
-import hx.widgets.styles.WindowStyle;
 import haxe.ui.backend.hxwidgets.ConstructorParams;
 import haxe.ui.backend.hxwidgets.EventMapper;
 import haxe.ui.backend.hxwidgets.EventTypeParser;
@@ -15,6 +7,7 @@ import haxe.ui.backend.hxwidgets.Platform;
 import haxe.ui.backend.hxwidgets.StyleParser;
 import haxe.ui.backend.hxwidgets.TabViewIcons;
 import haxe.ui.backend.hxwidgets.creators.Creator;
+import haxe.ui.backend.hxwidgets.custom.TransparentPanel;
 import haxe.ui.backend.hxwidgets.handlers.NativeHandler;
 import haxe.ui.containers.Box;
 import haxe.ui.containers.TabView;
@@ -27,7 +20,12 @@ import haxe.ui.events.MouseEvent;
 import haxe.ui.events.UIEvent;
 import haxe.ui.geom.Rectangle;
 import haxe.ui.styles.Style;
+import haxe.ui.util.RTTI;
+import hx.widgets.Bitmap;
+import hx.widgets.Bitmap;
+import hx.widgets.ClientDC;
 import hx.widgets.Event;
+import hx.widgets.EventType;
 import hx.widgets.EventType;
 import hx.widgets.Font;
 import hx.widgets.FontFamily;
@@ -37,13 +35,18 @@ import hx.widgets.HitTest;
 import hx.widgets.Notebook;
 import hx.widgets.Object;
 import hx.widgets.Orientation;
+import hx.widgets.PaintDC;
+import hx.widgets.Pen;
 import hx.widgets.Point;
+import hx.widgets.Rect;
 import hx.widgets.ScrollBar;
 import hx.widgets.ScrollbarVisibility;
 import hx.widgets.ScrolledWindow;
+import hx.widgets.StockBrushes;
 import hx.widgets.Window;
+import hx.widgets.styles.NotebookStyle;
 import hx.widgets.styles.WindowStyle;
-import haxe.ui.backend.hxwidgets.custom.TransparentPanel;
+import hx.widgets.styles.WindowStyle;
 
 class ComponentImpl extends ComponentBase {
     private var _eventMap:Map<String, UIEvent->Void>;
@@ -342,6 +345,36 @@ class ComponentImpl extends ComponentBase {
                 pen.destroy();
             }
         }
+
+        if (style.backgroundImage != null) {
+            ToolkitAssets.instance.getImage(style.backgroundImage, function(imageInfo) {
+                var bmp:Bitmap = imageInfo.data;
+                if (bmp == null) {
+                    return;
+                }
+
+                var sub = bmp;
+                if (style.backgroundImageClipLeft != null && style.backgroundImageClipTop != null && style.backgroundImageClipRight != null && style.backgroundImageClipBottom != null) {
+                    sub = bmp.getSubBitmap(new Rect(Std.int(style.backgroundImageClipLeft), Std.int(style.backgroundImageClipTop), Std.int(style.backgroundImageClipRight - style.backgroundImageClipLeft), Std.int(style.backgroundImageClipBottom - style.backgroundImageClipTop)));
+                }
+                var scaleX = this.width / sub.width;
+                var scaleY = this.height / sub.height;
+                if (scaleX != 1 && scaleY != 1 && style.backgroundImageRepeat == "stretch") {
+                    var image = sub.convertToImage();
+                    var scaledImage = image.scale(Std.int(this.width), Std.int(this.height));
+                    if (sub != bmp) {
+                        sub.destroy();
+                    }
+                    sub = new Bitmap(scaledImage);
+                    image.destroy();
+                    scaledImage.destroy();
+                }
+                dc.drawBitmap(sub, 0, 0);
+                if (sub != bmp) {
+                    sub.destroy();
+                }
+            });
+        }
     }
 
     private override function handleSize(width:Null<Float>, height:Null<Float>, style:Style) {
@@ -571,7 +604,7 @@ class ComponentImpl extends ComponentBase {
         }
 
         if (!Platform.isMac && !Platform.isLinux && (window is TransparentPanel)) {
-            if (style.hasBorder) {
+            if (style.hasBorder || style.backgroundImage != null) {
                 if (!_paintEventSet) {
                     window.bind(EventType.PAINT, onWindowPaint);
                     _paintEventSet = true;
@@ -614,6 +647,10 @@ class ComponentImpl extends ComponentBase {
             }
         }
         
+        if (style.backgroundImage != null) {
+            refreshWindow = true;
+        }
+
         if (refreshWindow == true) {
             window.refresh();
         }
