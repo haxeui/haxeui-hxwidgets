@@ -1,5 +1,8 @@
 package haxe.ui.backend;
 
+import hx.widgets.StockBrushes;
+import hx.widgets.Brush;
+import hx.widgets.GraphicsPath;
 import hx.widgets.Pen;
 import hx.widgets.Pen;
 import hx.widgets.Pen;
@@ -39,6 +42,10 @@ class ComponentGraphicsImpl extends ComponentGraphicsBase {
     private var _currentImage:Image;
     private var _currentPen:Pen = null;
     private var _currentPenColor = 0x000000;
+    private var _currentPenAlpha = 1.;
+    private var _currentBrushColor = null;
+    private var _currentBrushAlpha = 1.;
+    private var _generalBrushColor = null;
     private var _currentPenThickness:Int = 1;
 
     private function onWindowPaint(e) {
@@ -54,6 +61,11 @@ class ComponentGraphicsImpl extends ComponentGraphicsBase {
         _currentPen = new Pen(_currentPenColor, _currentPenThickness);
         dc.pen = _currentPen;
         gc.pen = _currentPen;
+        dc.brush = StockBrushes.BRUSH_TRANSPARENT;
+        gc.brush = StockBrushes.BRUSH_TRANSPARENT;
+
+        var currentPath:GraphicsPath = null;
+        
 
         for (c in _drawCommands) {
             switch (c) {
@@ -62,9 +74,10 @@ class ComponentGraphicsImpl extends ComponentGraphicsBase {
                 case Circle(x, y, radius):
                     dc.drawCircle(Std.int(x), Std.int(y), Std.int(radius));
                 case StrokeStyle(color, thickness, alpha):
-                    if (color != _currentPenColor || thickness != _currentPenThickness) {
+                    if (color != _currentPenColor || thickness != _currentPenThickness || alpha != _currentPenAlpha) {
                         _currentPenColor = color;
                         _currentPenThickness = Std.int(thickness);
+                        _currentPenAlpha = alpha;
 
                         if (_currentPen != null) {
                             _currentPen.destroy();
@@ -73,7 +86,19 @@ class ComponentGraphicsImpl extends ComponentGraphicsBase {
                         dc.pen = _currentPen;
                         gc.pen = _currentPen;
                     }
-
+                case FillStyle(color, alpha):
+                    if (color != _currentBrushColor || alpha != _currentBrushAlpha) {
+                        _currentBrushColor = color;
+                        _currentBrushAlpha = alpha;
+                        if (color == null || alpha == 0) {
+                            dc.brush = StockBrushes.BRUSH_TRANSPARENT;
+                            gc.brush = StockBrushes.BRUSH_TRANSPARENT;
+                        } else {
+                            dc.brush = new Brush(_currentBrushColor);
+                            gc.brush = new Brush(_currentBrushColor);
+                        }
+                    }
+                    if (currentPath == null) _generalBrushColor = color;
                 case MoveTo(x, y):
                     penPosX = Std.int(x);
                     penPosY = Std.int(y);
@@ -94,19 +119,48 @@ class ComponentGraphicsImpl extends ComponentGraphicsBase {
                     dc.drawBitmap(bmp);
                     bmp.destroy();
                 case LineTo(x, y):
-                    dc.drawLine(penPosX, penPosY, Std.int(x), Std.int(y));
+                    var path = currentPath;
+                    if (path == null) {
+                        dc.drawLine(penPosX, penPosY, Std.int(x), Std.int(y));
+                        penPosX = Std.int(x);
+                        penPosY = Std.int(y);
+                    } else {
+                        path.addLineToPoint(Std.int(x), Std.int(y));
+                    }
+                    
                 case Rectangle(x, y, width, height):
                     dc.drawRectangle(Std.int(x), Std.int(y), Std.int(width), Std.int(height));
                 case CurveTo(controlX, controlY, anchorX, anchorY):
-                    var path = gc.createPath();
-                    path.moveToPoint(penPosX, penPosY);
+                    var path = currentPath;
+                    if (path == null) {
+                        path = gc.createPath();
+                        path.moveToPoint(penPosX, penPosY);
+                    }
                     path.addQuadCurveToPoint(controlX, controlY, anchorX, anchorY);
-                    gc.strokePath(path);
+                    if (path == null) gc.strokeFillPath(path);
                 case CubicCurveTo(controlX1, controlY1, controlX2, controlY2, anchorX, anchorY):
-                    var path = gc.createPath();
-                    path.moveToPoint(penPosX, penPosY);
+                    var path = currentPath;
+                    if (path == null) {
+                        path = gc.createPath();
+                        path.moveToPoint(penPosX, penPosY);
+                    }
                     path.addCurveToPoint(controlX1, controlY1, controlX2, controlY2, anchorX, anchorY);
-                    gc.strokePath(path);
+                    if (path == null) gc.strokeFillPath(path);
+                case BeginPath:
+                    currentPath = gc.createPath();
+                    currentPath.moveToPoint(penPosX, penPosY);
+                case ClosePath:
+                    currentPath.closeSubpath();
+                    gc.strokeFillPath(currentPath, true, _currentBrushColor!= null);
+                    
+                    dc.brush = new Brush(_generalBrushColor);
+                    gc.brush = new Brush(_generalBrushColor);
+                    if (_generalBrushColor == null || _currentBrushAlpha == 0) {
+                        dc.brush = StockBrushes.BRUSH_TRANSPARENT;
+                        gc.brush = StockBrushes.BRUSH_TRANSPARENT;
+                    }
+                    currentPath = null;
+
                 case _:
             }
         }
