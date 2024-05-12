@@ -100,8 +100,13 @@ class ComponentGraphicsImpl extends ComponentGraphicsBase {
                     }
                     if (currentPath == null) _generalBrushColor = color;
                 case MoveTo(x, y):
-                    penPosX = Std.int(x);
-                    penPosY = Std.int(y);
+                    var path = currentPath;
+                    if (path == null) {
+                        penPosX = Std.int(x);
+                        penPosY = Std.int(y);
+                    } else {
+                        path.moveToPoint(x,y);
+                    }
                 case SetPixel(x, y, color): // TODO: do we care a SetPixel? If we do, we need to create a "pixelPen" and use that, and then after select the old pen back into the device contexts... but... 
                 case SetPixels(pixels):
                     if (pixels != _currentPixels) {
