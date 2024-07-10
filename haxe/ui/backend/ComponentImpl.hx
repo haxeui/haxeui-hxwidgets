@@ -7,6 +7,7 @@ import haxe.ui.backend.hxwidgets.Platform;
 import haxe.ui.backend.hxwidgets.StyleParser;
 import haxe.ui.backend.hxwidgets.TabViewIcons;
 import haxe.ui.backend.hxwidgets.creators.Creator;
+import haxe.ui.backend.hxwidgets.FontHelper;
 import haxe.ui.backend.hxwidgets.custom.TransparentPanel;
 import haxe.ui.backend.hxwidgets.handlers.NativeHandler;
 import haxe.ui.containers.Box;
@@ -695,6 +696,10 @@ class ComponentImpl extends ComponentBase {
                         case _:
                             fontFamily = FontFamily.DEFAULT;
                             fontFaceName = style.fontName;
+                            var customFontName = FontHelper.getFontName(style.fontName);
+                            if (customFontName != null) {
+                                fontFaceName = customFontName;
+                            }
                     }
                 }
                 var font:Font = new Font(fontSize, fontFamily, fontStyle, fontWeight, fontUnderline, fontFaceName);
