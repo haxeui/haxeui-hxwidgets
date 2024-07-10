@@ -41,6 +41,7 @@ class FontHelper {
         }
         if (after.length != 1) {
             trace("WARNING: could not deduce font name for '" + resource + "'");
+            return null;
         }
 
         var fontName = after[0];
