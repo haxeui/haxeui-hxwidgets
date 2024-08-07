@@ -277,6 +277,7 @@
         <behaviour id="text" class="haxe.ui.backend.hxwidgets.behaviours.FrameTextBehaviour" />
         <behaviour id="value" class="haxe.ui.backend.hxwidgets.behaviours.FrameTextBehaviour" />
         <behaviour id="icon" class="haxe.ui.behaviours.DefaultBehaviour" />
+        <behaviour id="collapsible" class="haxe.ui.behaviours.DefaultBehaviour" />
         <behaviour id="tooltip" class="haxe.ui.backend.hxwidgets.behaviours.ToolTipBehaviour" />
         <handler class="haxe.ui.backend.hxwidgets.handlers.FrameHandler" />
     </component>
