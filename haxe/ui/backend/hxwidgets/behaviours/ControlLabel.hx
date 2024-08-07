@@ -30,8 +30,9 @@ class ControlLabel extends DataBehaviour {
 
         var ctrl:Control = cast(_component.window, Control);
         if (_value != null) {
-            _component.set("originalLabel", _value.toString()); // for wrapping, see: haxe.ui.backend.hxwidgets.size.BestSize
-            ctrl.label = normalizeText(_value);
+            var normalizedValue = normalizeText(_value);
+            _component.set("originalLabel", normalizedValue); // for wrapping, see: haxe.ui.backend.hxwidgets.size.BestSize
+            ctrl.label = normalizedValue;
             _component.invalidateComponentLayout();
             _component.invalidateComponentStyle();
         } else {
