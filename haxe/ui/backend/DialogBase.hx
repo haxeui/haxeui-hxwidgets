@@ -34,6 +34,10 @@ class DialogBase extends Component {
     public function new() {
         super();
 
+        if (Platform.isWindows || Platform.isLinux) {
+            addClass("custom-dialog-footer");
+        }
+
         dialogContentContainer = new VBox();
         dialogContentContainer.addClass("dialog-container");
         
@@ -61,6 +65,7 @@ class DialogBase extends Component {
         }
         
         this.ready();
+        this.validateNow();
         
         var dialog = cast(this.window, Dialog);
         var nativeHeightModifier = 0;

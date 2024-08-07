@@ -12,7 +12,6 @@ import haxe.ui.backend.hxwidgets.custom.TransparentPanel;
 import haxe.ui.backend.hxwidgets.handlers.NativeHandler;
 import haxe.ui.containers.Box;
 import haxe.ui.containers.TabView;
-import haxe.ui.containers.dialogs.Dialog;
 import haxe.ui.containers.menus.Menu;
 import haxe.ui.containers.menus.MenuItem;
 import haxe.ui.core.Component;
@@ -57,9 +56,6 @@ class ComponentImpl extends ComponentBase {
         _eventMap = new Map<String, UIEvent->Void>();
         if (Platform.isWindows) {
             cast(this, Component).addClass("platform-windows");
-            if ((this is Dialog)) {
-                cast(this, Component).addClass("custom-dialog-footer");
-            }
         } else if (Platform.isMac) {
             cast(this, Component).addClass("platform-mac");
         } else if (Platform.isLinux) {
