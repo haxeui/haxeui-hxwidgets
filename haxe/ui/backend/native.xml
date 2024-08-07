@@ -273,14 +273,13 @@
         <size class="haxe.ui.backend.hxwidgets.size.BestSize" includePadding="false" />
     </component>
 
-    <component id="haxe.ui.containers.Frame" creator="haxe.ui.backend.hxwidgets.creators.FrameCreator">
-        <behaviour id="text" class="haxe.ui.backend.hxwidgets.behaviours.FrameTextBehaviour" />
-        <behaviour id="value" class="haxe.ui.backend.hxwidgets.behaviours.FrameTextBehaviour" />
+    <component id="haxe.ui.containers.Frame" class="hx.widgets.StaticBox">
+        <behaviour id="text" class="haxe.ui.backend.hxwidgets.behaviours.ControlLabel" />
+        <behaviour id="value" class="haxe.ui.backend.hxwidgets.behaviours.ControlLabel" />
         <behaviour id="icon" class="haxe.ui.behaviours.DefaultBehaviour" />
         <behaviour id="collapsible" class="haxe.ui.behaviours.DefaultBehaviour" />
         <behaviour id="collapsed" class="haxe.ui.behaviours.DefaultBehaviour" />
         <behaviour id="tooltip" class="haxe.ui.backend.hxwidgets.behaviours.ToolTipBehaviour" />
-        <handler class="haxe.ui.backend.hxwidgets.handlers.FrameHandler" />
     </component>
     
     <component class="hx.widgets.StaticBitmap" creator="haxe.ui.backend.hxwidgets.creators.StaticBitmapCreator">
