@@ -26,7 +26,6 @@ class ControlMin extends DataBehaviour {
         if (_component == null || _component.window == null) {
             return 0;
         }
-        return cast(_component.window, Slider).min;
         
         var v:Variant = null;
         if ((_component.window is Slider)) {
