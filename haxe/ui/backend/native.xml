@@ -262,14 +262,29 @@
         <behaviour id="tooltip" class="haxe.ui.backend.hxwidgets.behaviours.ToolTipBehaviour" />
         <size class="haxe.ui.backend.hxwidgets.size.ZeroSize" includePadding="false" />
     </component>
-    <component id="haxe.ui.containers.properties.PropertyGrid" class="hx.widgets.PropertyGrid">
+    <component id="haxe.ui.containers.properties.PropertyGrid" class="hx.widgets.PropertyGrid" constructor="$style" style="PropertyGridStyles.DEFAULT_STYLE, PropertyGridStyles.SPLITTER_AUTO_CENTER, PropertyGridStyles.LIMITED_EDITING">
         <behaviour id="contentLayoutName" class="haxe.ui.behaviours.DefaultBehaviour" />
         <behaviour id="tooltip" class="haxe.ui.backend.hxwidgets.behaviours.ToolTipBehaviour" />
         <size class="haxe.ui.backend.hxwidgets.size.BestSize" includePadding="false" />
         <builder class="haxe.ui.backend.hxwidgets.builders.PropertyGridBuilder" />
     </component>
     
-    <component id="haxe.ui.containers.properties.PropertyGroup" class="hx.widgets.Panel">
+    <component id="haxe.ui.containers.properties.PropertyGroup" creator="haxe.ui.backend.hxwidgets.creators.NullWindowCreator">
+        <behaviour id="collapsed" class="haxe.ui.behaviours.DefaultBehaviour" />
+        <builder class="haxe.ui.backend.hxwidgets.builders.PropertyGroupBuilder" />
+    </component>
+    
+    <component id="haxe.ui.containers.properties.Property" allowChildren="false" creator="haxe.ui.backend.hxwidgets.creators.NullWindowCreator">
+        <behaviour id="value" class="haxe.ui.behaviours.DefaultBehaviour" />
+        <behaviour id="label" class="haxe.ui.behaviours.DefaultBehaviour" />
+        <behaviour id="dataSource" class="haxe.ui.behaviours.DefaultBehaviour" />
+    </component>
+
+    <component id="haxe.ui.containers.Collapsible" class="hx.widgets.CollapsiblePane">
+        <behaviour id="text" class="haxe.ui.backend.hxwidgets.behaviours.ControlLabel" />
+        <behaviour id="value" class="haxe.ui.backend.hxwidgets.behaviours.ControlLabel" />
+        <behaviour id="collapsed" class="haxe.ui.behaviours.DefaultBehaviour" />
+        <builder class="haxe.ui.backend.hxwidgets.builders.CollapsibleBuilder" />
         <size class="haxe.ui.backend.hxwidgets.size.BestSize" includePadding="false" />
     </component>
 

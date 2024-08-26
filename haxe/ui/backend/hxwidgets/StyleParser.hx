@@ -23,16 +23,18 @@ class StyleParser {
         }
 
         switch (style) {
-            case "GaugeStyle.HORIZONTAL":               return GaugeStyle.HORIZONTAL;
-            case "GaugeStyle.VERTICAL":                 return GaugeStyle.VERTICAL;
-            case "SliderStyle.VERTICAL":                return SliderStyle.VERTICAL;
-            case "SliderStyle.HORIZONTAL":              return SliderStyle.HORIZONTAL;
-            case "ScrollBarStyle.HORIZONTAL":           return ScrollBarStyle.HORIZONTAL;
-            case "ScrollBarStyle.VERTICAL":             return ScrollBarStyle.VERTICAL;
-            case "TextCtrlStyle.MULTILINE":             return TextCtrlStyle.MULTILINE;
-            case "TextCtrlStyle.HSCROLL":               return TextCtrlStyle.HSCROLL;
-            case "DataViewCtrlStyle.DV_ROW_LINES":      return DataViewCtrlStyle.DV_ROW_LINES;
-            case "StaticLineStyle.VERTICAL":            return StaticLineStyle.VERTICAL;
+            case "GaugeStyle.HORIZONTAL":                   return GaugeStyle.HORIZONTAL;
+            case "GaugeStyle.VERTICAL":                     return GaugeStyle.VERTICAL;
+            case "SliderStyle.VERTICAL":                    return SliderStyle.VERTICAL;
+            case "SliderStyle.HORIZONTAL":                  return SliderStyle.HORIZONTAL;
+            case "ScrollBarStyle.HORIZONTAL":               return ScrollBarStyle.HORIZONTAL;
+            case "ScrollBarStyle.VERTICAL":                 return ScrollBarStyle.VERTICAL;
+            case "TextCtrlStyle.MULTILINE":                 return TextCtrlStyle.MULTILINE;
+            case "TextCtrlStyle.HSCROLL":                   return TextCtrlStyle.HSCROLL;
+            case "DataViewCtrlStyle.DV_ROW_LINES":          return DataViewCtrlStyle.DV_ROW_LINES;
+            case "PropertyGridStyles.DEFAULT_STYLE":        return PropertyGridStyles.DEFAULT_STYLE;
+            case "PropertyGridStyles.SPLITTER_AUTO_CENTER": return PropertyGridStyles.SPLITTER_AUTO_CENTER;
+            case "PropertyGridStyles.LIMITED_EDITING":      return PropertyGridStyles.LIMITED_EDITING;
             default:
                 trace('WARNING: hxWidgets style "${style}" not recognised');
         }
