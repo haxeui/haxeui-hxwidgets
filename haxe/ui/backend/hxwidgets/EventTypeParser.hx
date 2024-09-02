@@ -20,6 +20,7 @@ class EventTypeParser {
             case "EventType.TEXT":                          return EventType.TEXT;
             case "EventType.MENU":                          return EventType.MENU;
             case "EventType.SPINCTRL":                      return EventType.SPINCTRL;
+            case "EventType.SPINCTRLDOUBLE":                return EventType.SPINCTRLDOUBLE;
             case "EventType.CALENDAR_SEL_CHANGED":          return EventType.CALENDAR_SEL_CHANGED;
             case "EventType.DATAVIEW_SELECTION_CHANGED":    return EventType.DATAVIEW_SELECTION_CHANGED;
             default:
