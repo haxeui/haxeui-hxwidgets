@@ -1,5 +1,7 @@
 package haxe.ui.backend;
 
+import haxe.ui.util.ExpressionUtil;
+import haxe.ui.locale.LocaleManager;
 import haxe.ui.containers.dialogs.Dialog;
 import haxe.ui.containers.dialogs.MessageBox.MessageBoxType;
 import haxe.ui.core.Screen;
@@ -23,7 +25,10 @@ class MessageBoxBase extends Dialog {
             case MessageBoxType.TYPE_ERROR:
                 style = MessageDialogStyle.ICON_ERROR;
         }
-        var dialog:MessageDialog = new MessageDialog(Screen.instance.frame, _message, title, style);
+        var translatedMessage =LocaleManager.instance.stringToTranslation(_message);
+        var translatedTitle =LocaleManager.instance.stringToTranslation(_message);
+        
+        var dialog:MessageDialog = new MessageDialog(Screen.instance.frame, translatedMessage, translatedTitle, style);
         var retVal = dialog.showModal();
         var event = new DialogEvent(DialogEvent.DIALOG_CLOSED);
         event.button = DialogBase.standardIdToButton(retVal);
