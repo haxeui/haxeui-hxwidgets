@@ -9,12 +9,16 @@ class TextDisplayImpl extends TextBase {
 
     private override function get_selectionStartIndex():Int {
     	var textCtrl:hx.widgets.TextCtrl = cast(this.parentComponent.window, hx.widgets.TextCtrl);
+        if (textCtrl == null) return 0;
+        
         return textCtrl.selection.start;
     }
     
     private override function set_selectionStartIndex(value:Int):Int {
     	var textCtrl:hx.widgets.TextCtrl = cast(this.parentComponent.window, hx.widgets.TextCtrl);
-    	var endIndex = selectionEndIndex < value ? value : selectionEndIndex; // otherwise hxWigets changes start to end
+    	if (textCtrl == null) return 0;
+        
+        var endIndex = selectionEndIndex < value ? value : selectionEndIndex; // otherwise hxWigets changes start to end
     	textCtrl.selection = {start: value, end: endIndex};
         return value;
     }
@@ -22,12 +26,16 @@ class TextDisplayImpl extends TextBase {
     
     private override function get_selectionEndIndex():Int {
         var textCtrl:hx.widgets.TextCtrl = cast(this.parentComponent.window, hx.widgets.TextCtrl);
+        if (textCtrl == null) return 0;
+        
         return textCtrl.selection.end;
     }
     
     private override function set_selectionEndIndex(value:Int):Int {
         var textCtrl:hx.widgets.TextCtrl = cast(this.parentComponent.window, hx.widgets.TextCtrl);
-    	textCtrl.selection = {start: selectionStartIndex, end: value};
+    	if (textCtrl == null) return 0;
+        
+        textCtrl.selection = {start: selectionStartIndex, end: value};
         return value;
     }
 }
