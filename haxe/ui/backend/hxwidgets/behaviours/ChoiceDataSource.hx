@@ -1,5 +1,7 @@
 package haxe.ui.backend.hxwidgets.behaviours;
 
+import haxe.ui.locale.LocaleEvent;
+import haxe.ui.locale.LocaleManager;
 import haxe.ui.events.UIEvent;
 import haxe.ui.behaviours.DataBehaviour;
 import haxe.ui.components.DropDown;
@@ -10,6 +12,13 @@ import hx.widgets.Choice;
 
 @:access(haxe.ui.core.Component)
 class ChoiceDataSource extends DataBehaviour {
+
+    public function new(component:haxe.ui.core.Component) {
+        super(component);
+        LocaleManager.instance.registerEvent(LocaleEvent.LOCALE_CHANGED, function (e) {
+            changeLang();
+        });
+    }
     public override function get():Variant {
         if (_value == null || _value.isNull) {
             _value = new ArrayDataSource<Dynamic>();
@@ -25,6 +34,36 @@ class ChoiceDataSource extends DataBehaviour {
             ds.onChange = function() {
                 validateData();
             }
+        }
+    }
+
+    public function changeLang() {
+        if (_component.window == null) {
+            return;
+        }
+
+        var choice:Choice = cast(_component.window, Choice);
+        var oldSelection = choice.selection;
+        choice.clear();
+        
+        if (_value.isNull) {
+            return;
+        }
+        
+        var ds:DataSource<Dynamic> = _value;
+        for (n in 0...ds.size) {
+            var item = ds.get(n);
+            if (item.text != null) {
+                choice.append(LocaleManager.instance.stringToTranslation(item.text));
+            } else {
+                choice.append(Std.string(item));
+            }
+        }
+
+        var dropDown:DropDown = cast(_component, DropDown);
+        choice.selection = oldSelection;
+        if (dropDown.text != null) {
+            choice.selectedString = dropDown.text;
         }
     }
 
@@ -44,7 +83,7 @@ class ChoiceDataSource extends DataBehaviour {
         for (n in 0...ds.size) {
             var item = ds.get(n);
             if (item.text != null) {
-                choice.append(item.text);
+                choice.append(LocaleManager.instance.stringToTranslation(item.text));
             } else {
                 choice.append(Std.string(item));
             }
