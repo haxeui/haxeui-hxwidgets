@@ -1,10 +1,12 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <native>
-    <component id="haxe.ui.containers.ListView" class="haxe.ui.backend.hxwidgets.custom.SimpleListView" allowChildren="false">
+    <component id="haxe.ui.containers.ListView" class="haxe.ui.backend.hxwidgets.custom.SimpleListView" creator="haxe.ui.backend.hxwidgets.creators.ListViewCreator" allowChildren="false">
         <behaviour id="dataSource" class="haxe.ui.backend.hxwidgets.behaviours.ListViewDataSource" />
         <behaviour id="selectedIndex" class="haxe.ui.backend.hxwidgets.behaviours.ListViewSelectedIndex" />
+        <behaviour id="selectedIndices" class="haxe.ui.backend.hxwidgets.behaviours.ListViewSelectedIndices" />
         <behaviour id="contentLayoutName" class="haxe.ui.behaviours.DefaultBehaviour" />
         <behaviour id="selectedItem" class="haxe.ui.backend.hxwidgets.behaviours.DataComponentSelectedItem" />
+        <behaviour id="selectedItems" class="haxe.ui.backend.hxwidgets.behaviours.DataComponentSelectedItems" />
         <behaviour id="tooltip" class="haxe.ui.backend.hxwidgets.behaviours.ToolTipBehaviour" />
         <size class="haxe.ui.backend.hxwidgets.size.WindowSize" includePadding="false" />
         <event id="change" native="EventType.LIST_ITEM_SELECTED" />
